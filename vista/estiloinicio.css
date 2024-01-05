@@ -1,0 +1,55 @@
+/*
+.page-content {
+    overflow: hidden;
+}
+.table{
+    position: absolute;
+    top:20%;
+    left: 18.5%;
+  /*  background-color: rgba(107, 107, 107, 0.4); */
+ /*
+ 
+  background-color: transparent;
+    
+}
+.table td{
+   color: white;
+   font-size: 16px;
+}
+.id{
+    color: white;
+   font-size: 16px;
+}
+.page-content img{
+    filter: brightness(30%);
+    object-fit: cover;
+    position: fixed;
+}
+
+*/
+.table{
+    background-image: url(login/img/itm-merida-fondo.webp);
+    background-size: cover;
+    background-position: fixed;
+    background-color: rgba(107, 107, 107, 0.9);
+}
+.table td{
+    color: white;
+    font-size: 16px;
+    background-color: rgba(58, 58, 58, 0.8);
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.9);
+ }
+ .id{
+     color: white;
+    font-size: 16px;
+    text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.9);
+    
+    }
+    th[scope="row"] {
+        background-color: rgba(94, 40, 40, 0.8);
+      }
+  
+.carousel-item{
+    filter: brightness(50%);
+}
+
