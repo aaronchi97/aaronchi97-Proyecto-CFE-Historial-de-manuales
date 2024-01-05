@@ -245,6 +245,46 @@ a:hover {
   color: white;
 }
 
+.btn-sinasu {
+  display: block;
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  outline: none;
+  border: none;
+  /* background: rgb(0, 143, 90); */
+  background: #1099f4;
+  background-size: 200%;
+  font-size: 1.2rem;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  text-transform: uppercase;
+  margin: 1rem 0;
+  cursor: pointer;
+  transition: all 1s;
+}
+.btn-sinasu:hover {
+  background-position: right;
+  /* background: #142e3d; */
+  /* background: rgb(185, 196, 78);
+  background: linear-gradient(
+    90deg,
+    rgba(185, 196, 78, 1) 3%,
+    rgba(124, 175, 70, 1) 22%,
+    rgba(90, 129, 57, 1) 45%,
+    rgba(74, 111, 44, 1) 63%,
+    rgba(67, 107, 34, 1) 93%
+  ); */
+  background: rgb(90, 129, 57);
+  background: linear-gradient(
+    90deg,
+    rgba(90, 129, 57, 1) 47%,
+    rgba(124, 175, 70, 1) 89%,
+    rgba(185, 196, 78, 1) 100%
+  );
+  color: white;
+}
+
 @media screen and (max-width: 1050px) {
   .container {
     grid-gap: 5rem;

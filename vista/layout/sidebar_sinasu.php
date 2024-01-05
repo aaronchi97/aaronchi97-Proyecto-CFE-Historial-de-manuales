@@ -15,10 +15,10 @@
 
                 <?php
 
-if ($_SESSION['rol-sinasu'] == 3 || $_SESSION['rol-sinasu'] == 4 ) { 
+if ($_SESSION['rol-sinasu'] == 3 ) { 
     ?>
         <li class="red">
-                    <a hidden href="usuario.php" class="activo">
+                    <a hidden  href="usuario-sinasu.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
                         <img src="  ../../public/images/usuarios-tec.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-house-user"></i> -->
@@ -33,7 +33,7 @@ if ($_SESSION['rol-sinasu'] == 3 || $_SESSION['rol-sinasu'] == 4 ) {
     ?>
         
         <li class="red">
-                    <a  href="usuario.php" class="activo">
+                    <a  href="usuario-sinasu.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
                         <img src="  ../../public/images/usuarios-tec.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-house-user"></i> -->
@@ -83,7 +83,7 @@ if ($_SESSION['rol-sinasu'] == 3 || $_SESSION['rol-sinasu'] == 4 ) {
                 
 
                 <li class="red">
-                    <a href="acerca.php" class="activo">
+                    <a href="acerca-sinasu.php" class="activo">
                         <img src="../../public/img-inicio/info.png" class="img-inicio" alt="">
                         <!-- <i class="fas fa-exclamation"></i> -->
                         <span class="lbl">INICIO</span>

@@ -21,7 +21,7 @@ if (!empty($_POST["btningresar"])) {
         if ($datos = $sql->fetch_object()) {
           //si la sql tiene datos dentro entonces el usuario existe
           header("location:../SINASU/acerca-sinasu.php"); //redireccionamos a inicio 
-echo $password;
+// echo $password;
           //almacenar el nombre de usuario
           $_SESSION["nombre-sinasu"] = $datos->nombre; //el "nombre" es el campo que se llama asi en la bd
     
