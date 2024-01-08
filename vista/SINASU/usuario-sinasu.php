@@ -56,9 +56,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 <?php
 
-if ($_SESSION['rol-sinasu'] == 2 ) { 
+if ($_SESSION['rol-sinasu'] == 2 || $_SESSION['rol-sinasu'] == 3  ) { 
     ?>
-        <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3" style="display: none;" ><i class="fa-solid fa-user-plus" ></i> &nbsp; REGISTRAR</a>
+        <a href="registro_usuario_sinasu.php" class="btn btn-primary btn-rounded mb-3" style="display: none;" ><i class="fa-solid fa-user-plus" ></i> &nbsp; REGISTRAR</a>
     <?php
 
     $mostrarBoton = false;
@@ -66,7 +66,7 @@ if ($_SESSION['rol-sinasu'] == 2 ) {
       } else {
     ?>
         
-  <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-user-plus "></i> &nbsp;
+  <a href="registro_usuario_sinasu.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-user-plus "></i> &nbsp;
     REGISTRAR</a>
     <?php
  
@@ -93,7 +93,7 @@ if ($_SESSION['rol-sinasu'] == 2 ) {
 
     <!-- AQUI EMPIEZAN LAS CONDICIONES DE VISTA POR ROLES-------------------------------------------------------------------------- -->
     <?php
-    if ($_SESSION['rol-sinasu'] == 1) { 
+    if ($_SESSION['rol-sinasu'] == 2 || $_SESSION['rol-sinasu'] == 3) { 
     ?>
 <?php
       while ($datos = $sql->fetch_object()) { ?>
@@ -168,23 +168,31 @@ if ($_SESSION['rol-sinasu'] == 2 ) {
                 <form action="" method="post">
                   <div hidden class="fl-flex-label mb-4 px-2 col-12  campo">
   
-                    <input type="text" placeholder="ID" class="input input__text inputmodal" name="txtid" value=" <?= $datos->id_usuario ?>">
+                    <input type="text" placeholder="ID" class="input input__text inputmodal" name="txtid" value="<?= $datos->id_usuario ?>">
                   </div>
                   <div class="fl-flex-label mb-4 px-2 col-12  campo">
   
-                    <input type="text" placeholder="Nombre" class="input input__text inputmodal" name="txtnombre" value=" <?= $datos->nombre ?>">
+                    <input type="text" placeholder="Nombre" class="input input__text inputmodal" name="txtnombre" value="<?= $datos->nombre ?>">
                   </div>
                   <div class="fl-flex-label mb-4 px-2 col-12  campo">
                    
-                    <input type="text" placeholder="Apellido" class="input input__text inputmodal" name="txtapellido" value=" <?= $datos->apellido ?>" >
+                    <input type="text" placeholder="Apellido" class="input input__text inputmodal" name="txtapellido" value="<?= $datos->apellido ?>" >
                   </div>
                   <div class="fl-flex-label mb-4 px-2 col-12  campo">
                     
-                    <input type="text" placeholder="Usuario" class="input input__text inputmodal" name="txtusuario" value=" <?= $datos->usuario ?>" >
+                    <input type="text" placeholder="Usuario" class="input input__text inputmodal" name="txtusuario" value="<?= $datos->usuario ?>" >
                   </div>
+
+                  <div class="fl-flex-label mb-4 px-2 col-12  campo">
+  
+                    <input type="text" placeholder="Rol" class="input input__text inputmodal" name="txtrol" value="<?= $datos->id_rol ?>">
+                  </div>
+                 
+  
                   <!-- <div class="fl-flex-label mb-4 px-2 col-12  campo">
                     <input type="password" placeholder="Contrasea" class="input input__text inputmodal" name="txtpassword" >
                   </div> -->
+
 
                   <div class="text-right p-3">
                     <a href="usuario-sinasu.php" class="btn btn-secondary btn-rounded">Atras</a>
@@ -223,6 +231,34 @@ if ($_SESSION['rol-sinasu'] == 2 ) {
 </div>
 </div>
 <!-- fin del contenido principal -->
+
+
+<!-- // Dentro del script que limpia espacios en blanco al escribir -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var nombreInput = document.querySelector('[name="txtnombre"]');
+        var apellidoInput = document.querySelector('[name="txtapellido"]');
+        var usuarioInput = document.querySelector('[name="txtusuario"]');
+
+        // Función para eliminar espacios en blanco
+        function removeSpaces(input) {
+            input.value = input.value.replace(/\s/g, ''); // Elimina espacios en blanco
+        }
+
+        // Evento input para los campos de nombre, apellido y usuario
+        nombreInput.addEventListener('input', function() {
+            removeSpaces(this);
+        });
+
+        apellidoInput.addEventListener('input', function() {
+            removeSpaces(this);
+        });
+
+        usuarioInput.addEventListener('input', function() {
+            removeSpaces(this);
+        });
+    });
+</script>
 
 
 <!-- por ultimo se carga el footer -->

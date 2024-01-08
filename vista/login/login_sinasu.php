@@ -80,6 +80,28 @@
             </form>
         </div>
     </div>
+
+
+    <div class="input-div one">
+    <div class="i">
+        <i class="fas fa-user"></i>
+    </div>
+    <div class="div">
+        <h5>Usuario</h5>
+        <input id="usuario" type="text" class="input" name="usuario" title="ingrese su nombre de usuario" autocomplete="usuario" value="">
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var usuarioInput = document.getElementById('usuario');
+
+        usuarioInput.addEventListener('input', function() {
+            this.value = this.value.replace(/\s/g, ''); // Elimina espacios en blanco
+        });
+    });
+</script>
+
     <script src="js/fontawesome.js"></script>
     <script src="js/main.js"></script>
     <script src="js/main2.js"></script>

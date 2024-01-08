@@ -14,7 +14,7 @@ if (!empty($_POST["btningresar"])) {
         $password = $_POST["password"];
 
       
-        //  echo $usuario;
+         echo $usuario;
       //  echo $password;
         $sql = $conexionSINASU->query(" select * from usuario where usuario= '$usuario' and password= '$password' ");
 

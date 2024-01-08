@@ -1,9 +1,13 @@
 <?php
     if (!empty($_POST["btnmodificar"])) {
-       if (!empty($_POST["txtnombre"]) and !empty($_POST["txtapellido"]) and !empty($_POST["txtusuario"])) {
+       if (!empty($_POST["txtnombre"]) and !empty($_POST["txtapellido"]) and !empty($_POST["txtusuario"]) and !empty($_POST["txtrol"])) {
         $nombre = $_POST["txtnombre"];
         $apellido = $_POST["txtapellido"];
-        $usuario = $_POST["txtusuario"];
+        // $usuario = $_POST["txtusuario"];
+        // Valor del usuario limpiado de espacios en blanco al escribir y cambie las mayusculas por minusculas
+        $usuario = isset($_POST["txtusuario"]) ? preg_replace('/[^a-z]/', '', strtolower(trim($_POST["txtusuario"]))) : '';
+
+        $rol = $_POST["txtrol"];
         $id = $_POST["txtid"];
         
         $sql = $conexionSINASU->query(" select count(*) as 'Total' from usuario where usuario='$usuario' and id_usuario!=$id");
@@ -22,7 +26,7 @@
             <!--si el usuario no existe entonces se procede a modificarlo en el else-->
         <?php } else {
             // echo "El usuario no existe";
-            $modificar = $conexionSINASU->query(" update usuario set nombre='$nombre', apellido='$apellido', usuario='$usuario' where id_usuario=$id ");
+            $modificar = $conexionSINASU->query(" update usuario set nombre='$nombre', apellido='$apellido', usuario='$usuario', id_rol='$rol' where id_usuario=$id ");
             
 
             if ($modificar = TRUE) { ?>  <!--si el registro es 1 o true entonces, es decir, es exitoso en la bd-->

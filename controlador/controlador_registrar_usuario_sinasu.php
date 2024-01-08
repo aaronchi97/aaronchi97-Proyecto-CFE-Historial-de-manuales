@@ -1,12 +1,13 @@
 <?php
 if (!empty($_POST["btnregistrar"])) {
     //controlar que los datos no esten ni viajes vacios
-    if (!empty($_POST["txtnombre"]) and !empty($_POST["txtapellido"]) and !empty($_POST["txtusuario"]) and !empty($_POST["txtpassword"])) {
+    if (!empty($_POST["txtnombre"]) and !empty($_POST["txtapellido"]) and !empty($_POST["txtusuario"]) and !empty($_POST["txtpassword"]) and !empty($_POST["txtrol"])) {
         //si los campos de registro estan llenos entonces:
-        //creamos las variables que alamcenaran los valores:
+        //creamos las variables que alamcenaran los valores:txtrol
         $nombre = $_POST["txtnombre"];
         $apellido = $_POST["txtapellido"];
         $usuario = $_POST["txtusuario"];
+        $rol = $_POST["txtrol"];
         // $password = md5($_POST["txtpassword"]);
         $password = $_POST["txtpassword"];
 
@@ -32,7 +33,7 @@ if (!empty($_POST["btnregistrar"])) {
             <!--si el usuario no existe entonces se procede a registrarlo en el else-->
         <?php } else {
             // echo "El usuario no existe";
-            $registro = $conexionSINASU->query(" insert into usuario(nombre, apellido, usuario, password)values('$nombre', '$apellido', '$usuario', '$password') ");
+            $registro = $conexionSINASU->query(" insert into usuario(nombre, apellido, usuario, password, id_rol)values('$nombre', '$apellido', '$usuario', '$password', '$rol') ");
 
             if ($registro = TRUE) { ?>  <!--si el registro es 1 o true entonces-->
 
