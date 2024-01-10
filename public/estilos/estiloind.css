@@ -1,205 +1,302 @@
-@import url('https://fonts.googleapis.com/css2?family=Alata&family=Cormorant+Unicase:wght@400;700&family=Gupter:wght@700&family=Lobster&family=Lora:ital,wght@0,400;0,700;1,500;1,700&family=Old+Standard+TT:wght@700&family=Playfair+Display:wght@800&family=Shippori+Mincho+B1:wght@400;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Alata&family=Cormorant+Unicase:wght@400;700&family=Gupter:wght@700&family=Lobster&family=Lora:ital,wght@0,400;0,700;1,500;1,700&family=Old+Standard+TT:wght@700&family=Playfair+Display:wght@800&family=Shippori+Mincho+B1:wght@400;800&display=swap");
 
 * {
-    margin: auto;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Alata', sans-serif;
-  }
-  
+  margin: auto;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Alata", sans-serif;
+}
 
-  .ancho{
-    max-width: 1200px;
-    margin: auto;
-  }
-  .asistenciaregistro{
-   
-    height: 800px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-    position: relative;
-  }
+.ancho {
+  max-width: 1200px;
+  margin: auto;
+}
+body {
+  overflow: hidden;
+}
 
-  .bienvenida {
-    width: 80%;
-    height: 200px;
-    pointer-events: none;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-top: 50px;
-  } 
+.bienvenida {
+  width: 100%;
+  /* height: 200px; */
+  /* background-image: url("../../vista/login/img/Sucursal-CFE.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0 -150px; */
+  /* filter: brightness(75%); */
+  z-index: -10;
+  transition: all 0.5s;
+  /* border: 1px red solid; */
+  padding: 10px;
+}
 
-  .bienvenida h1{
-    font-weight: bold;
-    font-size: 34px;
-    text-align: center;
-    color: #b62d2d;
-    text-shadow: 1px 1px 1px black;
-   /* text-shadow: .2px 0px 0px white; */
+.wave {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* .bienvenida:hover {
+  transform: scale(1.05);
+  filter: brightness(110%);
+} */
+
+.bienvenida-titulos {
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  /* margin-top: 50px; */
+  gap: 25px;
+}
+
+.bienvenida h1 {
+  /* font-weight: bold; */
+  font-size: 40px;
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  z-index: 20;
+  /* text-shadow: .2px 0px 0px white; */
+}
+.bienvenida h2 {
+  text-align: center;
+  font-size: 16px;
+  /* color: whitesmoke; */
+  color: rgb(75, 122, 4);
+}
+/* .imgfondo {
+  width: 100%;
+  height: 30%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url("../../vista/login/img/Sucursal-CFE.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: brightness(80%);
+  z-index: -10;
+  overflow: hidden;
+  transition: all 0.5s;
+}
+
+.imgfondo .bienvenida:hover {
+  transform: scale(1.2);
+  filter: brightness(30%);
+} */
+
+.imgfondo img {
+  width: 100%;
+}
+
+.imglogo {
+  width: 10%;
+}
+.imglogo img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.botonsistema {
+  text-decoration: none;
+  color: rgb(18, 99, 175);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.continer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 20px;
+  /* border: 1px red solid; */
+}
+.boton-sinasu-manuales {
+  width: 46%;
+  text-decoration: none;
+}
+
+.parte-sinasu-manuales figure {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -5;
+}
+.parte-sinasu-manuales figure img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: all 0.5s;
+}
+.parte-sinasu-manuales figure:hover img {
+  transform: scale(1.1);
+}
+
+.fondo {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(167, 112, 10, 0.5);
+  transition: all 0.5s;
+}
+.parte-sinasu-manuales:hover .fondo {
+  background-color: rgba(229, 158, 25, 0.6);
+}
+
+.fondo-2 {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(3, 65, 89, 0.8);
+  transition: all 0.5s;
+}
+
+.parte-sinasu-manuales:hover .fondo-2 {
+  background-color: rgba(9, 65, 88, 0.9);
+}
+
+.parte-sinasu-manuales {
+  width: 100%;
+  /* height: 200px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 100px;
+  border-radius: 15px;
+  border: 1px #8e8e8e solid;
+  transition: all 0.5s;
+  overflow: hidden;
+  position: relative;
+}
+
+.parte-sinasu-manuales:hover {
+  transform: scale(1.1);
+  box-shadow: 2px 2px 2px 0 #b4b4b4;
+}
+
+.parte-sinasu-manuales h1 {
+  color: white;
+  z-index: 20;
+  font-size: 34px;
+  text-shadow: 1px 1px 1px #333;
+}
+
+.parte-sinasu-manuales:hover h1 {
+  text-shadow: 0 0 0 white;
+}
+.parte-sinasu-manuales i {
+  color: white;
+  z-index: 20;
+  font-size: 70px;
+  text-shadow: 1px 1px 1px #333;
+}
+.parte-sinasu-manuales:hover i {
+  text-shadow: 0 0 0 white;
+}
+
+input {
+  width: 50%;
+  height: 50px;
+  border: none;
+  outline: none;
+  padding: 20px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.botones {
+  margin: auto;
+  text-align: center;
+  width: 50%;
+  height: 20%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.entrada {
+  width: 40%;
+  height: 100%;
+  background-color: #721d1d;
+  color: white;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  text-decoration: none;
+}
+.entrada:hover {
+  background-color: whitesmoke;
+  border: 3px #721d1d solid;
+  color: #721d1d;
+  font-weight: bold;
+}
+
+.salida {
+  width: 40%;
+  height: 100%;
+  background-color: #721d1d;
+  color: white;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 16px;
+  text-decoration: none;
+}
+.salida:hover {
+  background-color: whitesmoke;
+  border: 3px #721d1d solid;
+  color: #721d1d;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 390px) {
+  .imgfondo {
+    width: 150%;
   }
-  .bienvenida h2{
-    text-align: center;
+  .bienvenida h1 {
+    font-size: 24px;
+  }
+  .bienvenida h2 {
     font-size: 16px;
-    color: whitesmoke;
   }
-  .imgfondo{
-    width: 100%;
-    height: 40%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    filter: brightness(30%);
-    z-index: -10;
-    overflow: hidden;
-    transform: scale(1);
-    transition: all 0.5s;
-    
+  input {
+    width: 60%;
   }
-  
-  .imgfondo:hover{
-    transform: scale(1.2);
-    filter: brightness(30%);
-  }
-
-  .imgfondo img{
-    width: 100%;
-  }
-
-  .imglogo {
-    width: 10%;
-
+  .continer {
+    margin-top: -100px;
   }
   .imglogo img {
-    width: 100%;
-    object-fit: cover;
+    width: 200%;
   }
-
-  .continer{
-    margin: auto;
-    margin-top: -50px;
-    width: 80%;
-    height: 250px;
-    
-  }
-  .botonsistema {
-    text-decoration: none;
-    color: rgb(18, 99, 175);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .continer p {
-    font-size: 20px;
-    text-align: center;
-  }
-  input{
-    width: 50%;
-    height: 50px;
-    border: none;
-    outline: none;
-    padding: 20px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .botones{
-    margin: auto;
-    text-align: center;
-    width: 50%;
-    height: 20%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    
-  }
-
-  .entrada{
+  .entrada {
     width: 40%;
-    height: 100%;
-    background-color: #721D1D;
-    color: white;
-    font-size: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 16px;
-    text-decoration: none;
+    height: 70%;
+    border-radius: 32px;
   }
-  .entrada:hover{
-    background-color: whitesmoke;
-    border: 3px #721D1D solid;
-    color: #721D1D;
-    font-weight: bold;
-  }
-
-  .salida{
+  .salida {
     width: 40%;
-    height: 100%;
-    background-color: #721D1D;
-    color: white;
-    font-size: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 16px;
-    text-decoration: none;
+    height: 70%;
+    border-radius: 32px;
   }
-  .salida:hover{
-    background-color: whitesmoke;
-    border: 3px #721D1D solid;
-    color: #721D1D;
-    font-weight: bold;
-  }
-
-
-  @media screen and (max-width:390px) {
-    .imgfondo{
-        width: 150%;
-       
-      
-      }
-      .bienvenida h1{
-        font-size: 24px;
-       
-      }
-      .bienvenida h2{
-        font-size: 16px;  
-      }
-      input{
-        width: 60%;
-    
-      }
-      .continer{
-        margin-top: -100px;
-      }
-      .imglogo img {
-        width: 200%;
-      }
-      .entrada{
-        width: 40%;
-        height: 70%;
-        border-radius: 32px;
-      }
-      .salida{
-        width: 40%;
-        height: 70%;
-        border-radius: 32px;
-      }
-
-  }
-
-
-  
-  
-  
-
-
+}
