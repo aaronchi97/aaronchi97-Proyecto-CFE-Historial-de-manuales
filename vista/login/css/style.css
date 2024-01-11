@@ -66,7 +66,7 @@ body {
 }
 
 .img img {
-  width: 500px;
+  width: 550px;
 }
 
 form {
@@ -74,13 +74,15 @@ form {
 }
 
 .login-content img {
-  height: 50px;
+  /* height: 50px; */
+  width: 70px;
   object-fit: cover;
 }
 
 .login-content h2 {
   margin: 15px 0;
-  color: #333;
+  /* color: #333; */
+  color: #445a65;
   text-transform: uppercase;
   font-size: 2.9rem;
 }
@@ -192,6 +194,91 @@ form {
   margin-bottom: 4px;
 }
 
+/* ----------INPUT DIV SINASU ----------------- */
+
+.s > div {
+  position: relative;
+  height: 45px;
+}
+
+.s > div > h5 {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 18px;
+  transition: 0.3s;
+}
+
+.s:before,
+.s:after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  width: 0%;
+  height: 2px;
+  /* background-color: #721d1d; */
+  background-color: #9889fe;
+  transition: 0.4s;
+}
+
+.s:before {
+  right: 50%;
+}
+
+.input-div-s:after {
+  left: 50%;
+}
+
+.s.focus:before,
+.s.focus:after {
+  width: 50%;
+}
+
+.s.focus > div > h5 {
+  top: -5px;
+  font-size: 15px;
+}
+
+.s.focus > .i > i {
+  /* color: #721d1d; */
+  color: #9889fe;
+}
+
+.s > div > input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0.5rem 0.7rem;
+  font-size: 1.2rem;
+  color: #555;
+  font-family: "poppins", sans-serif;
+}
+.s > div > select {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0.5rem 0.7rem;
+  font-size: 1.2rem;
+  color: #555;
+  font-family: "poppins", sans-serif;
+}
+
+.s.pass {
+  margin-bottom: 4px;
+}
+
 a {
   display: block;
   text-align: right;
@@ -253,7 +340,7 @@ a:hover {
   outline: none;
   border: none;
   /* background: rgb(0, 143, 90); */
-  background: #1099f4;
+  background: #9889fe;
   background-size: 200%;
   font-size: 1.2rem;
   color: #fff;
@@ -275,12 +362,11 @@ a:hover {
     rgba(74, 111, 44, 1) 63%,
     rgba(67, 107, 34, 1) 93%
   ); */
-  background: rgb(90, 129, 57);
+  background: rgb(152, 137, 254);
   background: linear-gradient(
     90deg,
-    rgba(90, 129, 57, 1) 47%,
-    rgba(124, 175, 70, 1) 89%,
-    rgba(185, 196, 78, 1) 100%
+    rgba(152, 137, 254, 1) 43%,
+    rgba(215, 207, 255, 1) 100%
   );
   color: white;
 }

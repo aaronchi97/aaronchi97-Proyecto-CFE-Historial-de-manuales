@@ -109,7 +109,7 @@
 <body class="with-side-menu">
     <div id="app">
 
-        <header class="site-header">
+        <header class="site-header site-header-sinasu">
             <div class="container-fluid" style="padding-left: 40px;">
 
                 <a href="#" class="site-logo">

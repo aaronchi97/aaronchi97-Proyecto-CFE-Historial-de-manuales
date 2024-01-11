@@ -5,7 +5,7 @@
                 <li  class="red">
                     <a href="registro_asistencias.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio" alt=""> -->
-                        <img src="../../public/images/asistencia-icono.svg" class="img-inicio" alt="">
+                        <img src="../../public/images/iconos-sinasu/documentacion.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-house-user"></i> -->
                         <span class="lbl">DOCUMENTACION</span>
                     </a>
@@ -20,7 +20,7 @@ if ($_SESSION['rol-sinasu'] == 3 ) {
         <li class="red">
                     <a hidden  href="usuario-sinasu.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
-                        <img src="  ../../public/images/usuarios-tec.svg" class="img-inicio" alt="">
+                        <img src="  ../../public/images/iconos-sinasu/usuarios.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-house-user"></i> -->
                         <span class="lbl">USUARIOS</span>
                     </a>
@@ -35,7 +35,7 @@ if ($_SESSION['rol-sinasu'] == 3 ) {
         <li class="red">
                     <a  href="usuario-sinasu.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
-                        <img src="  ../../public/images/usuarios-tec.svg" class="img-inicio" alt="">
+                        <img src="  ../../public/images/iconos-sinasu/usuario.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-house-user"></i> -->
                         <span class="lbl">USUARIOS</span>
                     </a>
@@ -46,14 +46,26 @@ if ($_SESSION['rol-sinasu'] == 3 ) {
     ?>
 
 
-                
 
-                <li hidden class="red">
+               <li  class="red">
                     <a href="docente.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
-                        <img src="  ../../public/images/docentes-icono.svg" class="img-inicio" alt="">
+                        <img src="  ../../public/images/iconos-sinasu/subir2.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-house-user"></i> -->
-                        <span class="lbl">OBSERVACIONES</span>
+                        <span class="lbl">SUBIR</span>
+                    </a>
+                    
+                </li>
+
+
+                
+
+                <li  class="red">
+                    <a href="docente.php" class="activo">
+                        <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
+                        <img src="  ../../public/images/iconos-sinasu/revisar2.svg" class="img-inicio" alt="">
+                        <!-- <i class="fas fa-house-user"></i> -->
+                        <span class="lbl">REVISION</span>
                     </a>
                     
                 </li>
@@ -84,7 +96,7 @@ if ($_SESSION['rol-sinasu'] == 3 ) {
 
                 <li class="red">
                     <a href="acerca-sinasu.php" class="activo">
-                        <img src="../../public/img-inicio/info.png" class="img-inicio" alt="">
+                        <img src="../../public/images/iconos-sinasu/inicio.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-exclamation"></i> -->
                         <span class="lbl">INICIO</span>
                     </a>

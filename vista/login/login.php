@@ -25,14 +25,15 @@
  
     <div class="container">
         <div class="img">
-            <img src="img/cfe_logo.png">
+            <img src="img/historial-icono2.png">
         
         </div>
        
 
         <div class="login-content">
             <form method="POST" action="">
-                <!-- <img src="img/CFE-icono.svg"> -->
+                <!-- <img src="img/cfe_logo.png"> -->
+                <img src="img/CFE-icono.svg">
                 <h2 class="title">BIENVENIDO</h2>
                 
                 <?php
@@ -72,6 +73,8 @@
 
 
                 <div class="text-center">
+        
+                <a href="../../index.php">Volver al menú</a>
                     <a class="font-italic isai5" href="">Olvidé mi contraseña</a>
                 </div>
                 <input name="btningresar" class="btn" title="click para ingresar" type="submit"

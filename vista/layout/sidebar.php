@@ -11,7 +11,6 @@
             </a>
         </li>
 
-        <!-- CONDICION PARA VISTA DE ROLES -->
 
         <li class="red">
             <a href="docente.php" class="activo">
@@ -56,6 +55,7 @@
 
         }
         ?>
+
 
         <!-- <li class="grey with-sub">
                     <span>
