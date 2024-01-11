@@ -12,7 +12,6 @@
         </li>
 
 
-
         <li class="red">
             <a href="docente.php" class="activo">
                 <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
@@ -58,9 +57,6 @@
         ?>
 
 
-
-
-
         <!-- <li class="grey with-sub">
                     <span>
                         <img src="../public/img-inicio/programar.png" class="img-inicio" alt=""> 
@@ -82,7 +78,6 @@
                         </li>
                     </ul>
                 </li>       -->
-
 
 
         <li class="red">
