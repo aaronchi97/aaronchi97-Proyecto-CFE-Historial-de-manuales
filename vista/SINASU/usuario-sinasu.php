@@ -12,7 +12,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 <style>
   ul li:nth-child(2) .activo {
-    background: #598b6b !important;
+    background: #9889fe !important;
   }
 </style>
 

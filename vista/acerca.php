@@ -15,10 +15,11 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 <style>
   ul li:nth-child(4) .activo {
-    background: #598b6b !important;
+    background: #195a78 !important;
   }
 </style>
 
+<link rel="stylesheet" href="estiloinicio.css">
 
 <div class="page-content">
 
@@ -30,20 +31,32 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
     <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
    
   </ol>
-  <div class="carousel-inner" style="margin-top: -5%;">
+  <div class="carousel-inner" style="margin-top: -15%;">
     <div class="carousel-item active" style="width: 100%;" >
       <img src="login/img/slide-3.jpg" style="filter: brightness(40%); " 
       class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block" style=" margin-bottom: 30%;" >
+      <div class="carousel-caption d-none d-md-block" style=" margin-bottom: 25%;" >
         <h5>SISTEMA DE MANUALES Y NEGATIVAS</h5>
-        <p>CFE</p>
+        <p>Seleccione la opción acorde a sus necesidades:</p>
+        <br>
+        <div class="botones-inicio-sinasu">
+          <a class="btn-inicio-historial" href="#">Generar manuales</a>
+
+          <a class="btn-inicio-historial" href="#">Generar negativas</a>
+         </div>
       </div>
     </div>
     <div class="carousel-item" style="width: 100%;">
-      <img src="login/img/Sucursal-CFE.jpeg" style="filter: brightness(50%); " class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block" style=" margin-bottom: 30%;">
+      <img src="login/img/slide-1.jpeg" style="filter: brightness(40%); " class="d-block w-100" alt="...">
+      <div class="carousel-caption d-none d-md-block" style=" margin-bottom: 25%;">
         <h5>EMPECEMOS</h5>
         <p>Seleccione la opción acorde a sus necesidades:</p>
+        <br>
+        <div class="botones-inicio-sinasu">
+          <a class="btn-inicio-historial" href="#">Historial de manuales</a>
+
+          <a class="btn-inicio-historial" href="#">Historial de negativas</a>
+         </div>
       </div>
     </div>
     

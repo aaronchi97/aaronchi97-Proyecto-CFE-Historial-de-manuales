@@ -12,7 +12,7 @@
 
 <style>
     ul li:nth-child(2) .activo{
-        background: rgb(11, 150, 214) !important;
+        background: #9889fe !important;
     }
 </style>
 

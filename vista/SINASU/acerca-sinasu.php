@@ -16,11 +16,12 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 <?php require('./../layout/sidebar_sinasu.php'); ?>
 
 <style>
-  ul li:nth-child(4) .activo {
-    background: #598b6b !important;
+  ul li:nth-child(5) .activo {
+    background: #9889fe !important;
   }
 </style>
 
+ <link rel="stylesheet" href="../estiloinicio.css">
 
 <div class="page-content">
 
@@ -34,18 +35,38 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
   </ol>
   <div class="carousel-inner" style="margin-top: -5%;">
     <div class="carousel-item active" style="width: 100%;" >
-      <img src="login/img/slide-3.jpg" style="filter: brightness(40%); " 
+      <img src="../login/img/sinasu/slide-sinasu.jpg" style="filter: brightness(30%); " 
       class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block" style=" margin-bottom: 30%;" >
-        <h5>SISTEMA DE GESTION Y VERIFICACION DE ARCHIVOS SINASU</h5>
-        <p>CFE</p>
+      <!-- <figure>
+
+        <img src="../login/img/CFE-icono.svg" alt="">
+      </figure> -->
+      <h5>SISTEMA DE GESTIÓN Y VERIFICACIÓN DE ARCHIVOS SINASU</h5>
+        <p>Seleccione la opción acorde a sus necesidades:</p>
+        <br>
+        <div class="botones-inicio-sinasu">
+          <a class="btn-inicio-sinasu" href="#">Subir documentación</a>
+
+          <a class="btn-inicio-sinasu" href="#">Ver status de documeto</a>
+         </div>
+
       </div>
     </div>
     <div class="carousel-item" style="width: 100%;">
-      <img src="login/img/Sucursal-CFE.jpeg" style="filter: brightness(50%); " class="d-block w-100" alt="...">
+      <img src="../login/img/sinasu/slide-sinasu2.jpg" style="filter: brightness(50%); " class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block" style=" margin-bottom: 30%;">
-        <h5>EMPECEMOS</h5>
+      
+
+      <h5>SISTEMA DE GESTIÓN Y VERIFICACIÓN DE ARCHIVOS SINASU</h5>
         <p>Seleccione la opción acorde a sus necesidades:</p>
+        <br>
+         <div class="botones-inicio-sinasu">
+          <a class="btn-inicio-sinasu" href="#">Especificaciones y formatos</a>
+
+         
+         </div>
+
       </div>
     </div>
     

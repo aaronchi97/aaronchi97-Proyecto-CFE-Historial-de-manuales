@@ -2,13 +2,25 @@
 <nav class="side-menu">
             
             <ul  class="side-menu-list p-0">
-                <li hidden class="red">
+                <li  class="red">
                     <a href="registro_asistencias.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio" alt=""> -->
-                        <img src="../public/images/asistencia-icono.svg" class="img-inicio" alt="">
+                        <img src="../public/images/iconos-cfe/manuales-cfe.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-house-user"></i> -->
-                        <span class="lbl">ASISTENCIA</span>
+                        <span class="lbl">MANUALES</span>
                     </a>
+                </li>
+
+
+                
+                <li  class="red">
+                    <a href="docente.php" class="activo">
+                        <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
+                        <img src="  ../public/images/iconos-cfe/negativas-cfe.svg" class="img-inicio" alt="">
+                        <!-- <i class="fas fa-house-user"></i> -->
+                        <span class="lbl">NEGATIVAS</span>
+                    </a>
+                    
                 </li>
 
                 <!-- CONDICION PARA VISTA DE ROLES -->
@@ -20,7 +32,7 @@ if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4 ) {
         <li class="red">
                     <a hidden href="usuario.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
-                        <img src="  ../public/images/usuarios-tec.svg" class="img-inicio" alt="">
+                        <img src="  ../public/images/iconos-cfe/usuarios-cfe.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-house-user"></i> -->
                         <span class="lbl">USUARIOS</span>
                     </a>
@@ -35,7 +47,7 @@ if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4 ) {
         <li class="red">
                     <a  href="usuario.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
-                        <img src="  ../public/images/usuarios-tec.svg" class="img-inicio" alt="">
+                        <img src="  ../public/images/iconos-cfe/usuarios-cfe.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-house-user"></i> -->
                         <span class="lbl">USUARIOS</span>
                     </a>
@@ -48,15 +60,6 @@ if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4 ) {
 
                 
 
-                <li hidden class="red">
-                    <a href="docente.php" class="activo">
-                        <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
-                        <img src="  ../public/images/docentes-icono.svg" class="img-inicio" alt="">
-                        <!-- <i class="fas fa-house-user"></i> -->
-                        <span class="lbl">DOCENTES</span>
-                    </a>
-                    
-                </li>
 
                <!-- <li class="grey with-sub">
                     <span>
@@ -84,7 +87,7 @@ if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4 ) {
 
                 <li class="red">
                     <a href="acerca.php" class="activo">
-                        <img src="../public/img-inicio/info.png" class="img-inicio" alt="">
+                        <img src="../public/images/iconos-cfe/acerca-cfe.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-exclamation"></i> -->
                         <span class="lbl">INICIO</span>
                     </a>
