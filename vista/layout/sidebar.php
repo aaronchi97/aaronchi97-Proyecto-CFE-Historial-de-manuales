@@ -5,7 +5,7 @@
         <li class="red">
             <a href="manuales.php" class="activo">
                 <!-- <img src="../public/img-inicio/house.png" class="img-inicio" alt=""> -->
-                <img src="../public/images/asistencia-icono.svg" class="img-inicio" alt="">
+                <img src="../public/images/manuales-cfe.svg" class="img-inicio" alt="">
                 <!-- <i class="fas fa-house-user"></i> -->
                 <span class="lbl">MANUALES</span>
             </a>
@@ -20,7 +20,7 @@
             <li class="red">
                 <a hidden href="usuario.php" class="activo">
                     <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
-                    <img src="  ../public/images/usuarios-tec.svg" class="img-inicio" alt="">
+                    <img src="  ../public/images/usuarios-cfe.svg" class="img-inicio" alt="">
                     <!-- <i class="fas fa-house-user"></i> -->
                     <span class="lbl">USUARIOS</span>
                 </a>
@@ -35,7 +35,7 @@
             <li class="red">
                 <a href="usuario.php" class="activo">
                     <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
-                    <img src="  ../public/images/usuarios-tec.svg" class="img-inicio" alt="">
+                    <img src="  ../public/images/usuarios-cfe.svg" class="img-inicio" alt="">
                     <!-- <i class="fas fa-house-user"></i> -->
                     <span class="lbl">USUARIOS</span>
                 </a>
@@ -45,6 +45,14 @@
         }
         ?>
 
+        <li class="red">
+            <a href="registro_asistencias.php" class="activo">
+                <!-- <img src="../public/img-inicio/house.png" class="img-inicio" alt=""> -->
+                <img src="../public/images/negativas-cfe.svg" class="img-inicio" alt="">
+                <!-- <i class="fas fa-house-user"></i> -->
+                <span class="lbl">NEGATIVAS</span>
+            </a>
+        </li>
 
 
         <li hidden class="red">
@@ -82,7 +90,7 @@
 
         <li class="red">
             <a href="acerca.php" class="activo">
-                <img src="../public/img-inicio/info.png" class="img-inicio" alt="">
+                <img src="../public/images/acerca-cfe.svg" class="img-inicio" alt="">
                 <!-- <i class="fas fa-exclamation"></i> -->
                 <span class="lbl">INICIO</span>
             </a>
