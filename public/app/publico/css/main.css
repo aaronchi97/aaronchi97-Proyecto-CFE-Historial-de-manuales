@@ -10873,7 +10873,7 @@ body {
     90deg,
     rgba(152, 137, 254, 1) 0%,
     rgba(120, 101, 252, 1) 26%,
-    rgba(64, 54, 132, 1) 97%
+    rgba(64, 54, 132, 0.5) 97%
   );
   border-bottom: solid 1px #c5d6de;
   padding: 20px 15px 0 0;

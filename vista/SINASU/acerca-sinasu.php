@@ -33,11 +33,11 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
     <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
    
   </ol>
-  <div class="carousel-inner" style="margin-top: -5%;">
+  <div class="carousel-inner" style="margin-top: -15%;">
     <div class="carousel-item active" style="width: 100%;" >
       <img src="../login/img/sinasu/slide-sinasu.jpg" style="filter: brightness(30%); " 
       class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block" style=" margin-bottom: 30%;" >
+      <div class="carousel-caption d-none d-md-block" style=" margin-bottom: 25%;" >
       <!-- <figure>
 
         <img src="../login/img/CFE-icono.svg" alt="">
@@ -55,7 +55,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
     </div>
     <div class="carousel-item" style="width: 100%;">
       <img src="../login/img/sinasu/slide-sinasu2.jpg" style="filter: brightness(50%); " class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block" style=" margin-bottom: 30%;">
+      <div class="carousel-caption d-none d-md-block" style=" margin-bottom: 25%;">
       
 
       <h5>SISTEMA DE GESTIÓN Y VERIFICACIÓN DE ARCHIVOS SINASU</h5>
@@ -71,11 +71,11 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
     </div>
     
   </div>
-  <button class="carousel-control-prev" style="margin-bottom: 5%;" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
+  <button class="carousel-control-prev" style="margin-bottom: 0;" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="sr-only">Previous</span>
   </button>
-  <button class="carousel-control-next" style="margin-bottom: 5%;" type="button" data-target="#carouselExampleCaptions" data-slide="next">
+  <button class="carousel-control-next" style="margin-bottom: 0;" type="button" data-target="#carouselExampleCaptions" data-slide="next">
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </button>
