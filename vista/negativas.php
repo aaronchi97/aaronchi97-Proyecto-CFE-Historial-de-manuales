@@ -11,7 +11,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 ?>
 
 <style>
-  ul li:nth-child(1) .activo {
+  ul li:nth-child(2) .activo {
     background: #598b6b !important;
   }
 </style>
@@ -35,7 +35,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 <link rel="stylesheet" href="estiloinicio.css">
 <div class="page-content">
 
-  <h4 class="text-center text-secondery"> MANUALES</h4>
+  <h4 class="text-center text-secondery"> NEGATIVAS</h4>
 
   <?php
   //hacemos la conexion
@@ -46,7 +46,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
   //Hacemos la consulta relacionando las tablas que necesitemos
   //para dicha consulta necesitamos la tabla usuario
-  $sql = $conexion->query(" SELECT * from control_de_manuales ");
+  $sql = $conexion->query(" SELECT * from control_de_negativas ");
 
 
 
@@ -58,7 +58,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
   if ($_SESSION['id'] == 13) {
     ?>
     <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3" style="display: none;"><i
-        class="fa-solid fa-file"></i> &nbsp; Generar Manual</a>
+        class="fa-solid fa-file"></i> &nbsp; Generar Negativa</a>
     <?php
 
     $mostrarBoton = false;
@@ -68,7 +68,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
     <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-file"></i>
       &nbsp;
-      Generar Manual</a>
+      Generar Negativa</a>
     <?php
 
   }
@@ -87,15 +87,15 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
         <th scope="col">CUENTA</th>
         <th scope="col">CICLO</th>
         <th scope="col">TARIFA</th>
-        <th scope="col">MOTIVO DE LA MANUAL</th>
-        <th scope="col">SIN USO</th>
-        <th scope="col">LECTURA MANUAL</th>
+        <th scope="col">MEDIDOR</th>
+        <th scope="col">AaMm</th>
+        <th scope="col">TipMedidor</th>
+        <th scope="col">Cve</th>
+        <th scope="col">dice</th>
+        <th scope="col">debe decir</th>
         <th scope="col">KWH A RECUPERAR</th>
-        <th scope="col">RESPALDO</th>
-        <th scope="col">RPE AUXILIAR</th>
+        <th scope="col">JUSTIFICACIÓN</th>
         <th scope="col">OBSERVACIONES</th>
-        <th scope="col">CORRECCION</th>
-        <th scope="col">AGENCIA</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -127,31 +127,31 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
               <?= $datos->TARIFA ?>
             </td>
             <td>
-              <?= $datos->MOTIVO_DE_LA_MANUAL ?>
+              <?= $datos->Medidor ?>
             </td>
             <td>
-              <?= $datos->SIN_USO ?>
+              <?= $datos->AaMm ?>
             </td>
             <td>
-              <?= $datos->LECTURA_MANUAL ?>
+              <?= $datos->TipMedidor ?>
+            </td>
+            <td>
+              <?= $datos->Cve ?>
+            </td>
+            <td>
+              <?= $datos->dice ?>
+            </td>
+            <td>
+              <?= $datos->debe_decir ?>
             </td>
             <td>
               <?= $datos->KWH_A_RECUPERAR ?>
             </td>
             <td>
-              <?= $datos->RESPALDO ?>
-            </td>
-            <td>
-              <?= $datos->RPE_AUXILIAR ?>
+              <?= $datos->Justificacion ?>
             </td>
             <td>
               <?= $datos->OBSERVACIONES ?>
-            </td>
-            <td>
-              <?= $datos->CORRECCION ?>
-            </td>
-            <td>
-              <?= $datos->AGENCIA ?>
             </td>
           </tr>
 
@@ -185,31 +185,31 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
               <?= $datos->TARIFA ?>
             </td>
             <td>
-              <?= $datos->MOTIVO_DE_LA_MANUAL ?>
+              <?= $datos->Medidor ?>
             </td>
             <td>
-              <?= $datos->SIN_USO ?>
+              <?= $datos->AaMm ?>
             </td>
             <td>
-              <?= $datos->LECTURA_MANUAL ?>
+              <?= $datos->TipMedidor ?>
+            </td>
+            <td>
+              <?= $datos->Cve ?>
+            </td>
+            <td>
+              <?= $datos->dice ?>
+            </td>
+            <td>
+              <?= $datos->debe_decir ?>
             </td>
             <td>
               <?= $datos->KWH_A_RECUPERAR ?>
             </td>
             <td>
-              <?= $datos->RESPALDO ?>
-            </td>
-            <td>
-              <?= $datos->RPE_AUXILIAR ?>
+              <?= $datos->Justificacion ?>
             </td>
             <td>
               <?= $datos->OBSERVACIONES ?>
-            </td>
-            <td>
-              <?= $datos->CORRECCION ?>
-            </td>
-            <td>
-              <?= $datos->AGENCIA ?>
             </td>
             <td>
               <!-- <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_usuario ?> "
