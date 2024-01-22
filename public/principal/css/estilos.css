@@ -5,10 +5,10 @@
   background: rgb(205, 218, 226);
   background-color: transparent;
   padding: 15px;
-  border-bottom: 2px solid rgb(179, 178, 178);
-  /* border-right: 2px solid rgb(238, 238, 238); */
+  border-bottom: 2px solid rgb(188, 188, 188);
+  /* border-right: 2px solid rgb(188, 188, 188); */
   transition: all 0.3s;
-  color: #333 !important;
+  color: black !important;
   font-weight: 500;
   font-size: 17px;
   box-shadow: 1px 1px 2px rgb(238, 238, 238);
@@ -60,13 +60,4 @@
 
 .input__select {
   font-size: 17px;
-}
-.btn_generarmanual {
-  margin-top: 2%;
-}
-.contenedor-btn-manual {
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
 }

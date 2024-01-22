@@ -3,11 +3,11 @@
             
             <ul  class="side-menu-list p-0">
                 <li  class="red">
-                    <a href="registro_asistencias.php" class="activo">
+                    <a href="agencias.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio" alt=""> -->
                         <img src="../../public/images/iconos-sinasu/documentacion.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-house-user"></i> -->
-                        <span class="lbl">DOCUMENTACION</span>
+                        <span class="lbl">AGENCIAS</span>
                     </a>
                 </li>
 

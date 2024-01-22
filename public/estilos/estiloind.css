@@ -119,6 +119,7 @@ body {
 }
 .boton-sinasu-manuales {
   width: 46%;
+  /* height: 100%; */
   text-decoration: none;
 }
 
@@ -133,6 +134,7 @@ body {
 }
 .parte-sinasu-manuales figure img {
   width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 15px;
   transition: all 0.5s;
@@ -170,6 +172,7 @@ body {
 
 .parte-sinasu-manuales {
   width: 100%;
+  height: 350px;
   /* height: 200px; */
   display: flex;
   flex-direction: column;
@@ -191,6 +194,9 @@ body {
 
 .parte-sinasu-manuales h1 {
   color: white;
+  /* width: 100%; */
+  text-align: center;
+  /* height: 100px; */
   z-index: 20;
   font-size: 34px;
   text-shadow: 1px 1px 1px #333;
@@ -285,7 +291,7 @@ input {
     width: 60%;
   }
   .continer {
-    margin-top: -100px;
+    /* margin-top: 50px; */
   }
   .imglogo img {
     width: 200%;
@@ -299,5 +305,31 @@ input {
     width: 40%;
     height: 70%;
     border-radius: 32px;
+  }
+  .parte-sinasu-manuales {
+    width: 100%;
+    height: 180px;
+    gap: 10px;
+    padding: 80px;
+  }
+  .boton-sinasu-manuales {
+    width: 90%;
+    text-decoration: none;
+  }
+
+  .parte-sinasu-manuales h1 {
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+  }
+  .parte-sinasu-manuales i {
+    font-size: 40px;
+  }
+}
+
+@media screen and (min-width: 1700px) {
+  /* Tu código para la pantalla de tablet aquí */
+  .parte-sinasu-manuales {
+    height: 500px;
   }
 }
