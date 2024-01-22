@@ -39,7 +39,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
            <input type="text" placeholder="DNI del maestro" name="txtdni">
        </form> -->
 
-    <a class="boton-sinasu-agencias" href="vista/login/login_sinasu.php">
+    <a class="boton-sinasu-agencias" href="agencia1.php">
 
 
       <div class="parte-sinasu-agencias">
@@ -91,7 +91,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
         <i class="fa-solid fa-list-check"></i>
 
-        <h1>Agencia 2</h1>
+        <h1>Agencia 3</h1>
 
       </div>
     </a>
@@ -110,7 +110,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
         <i class="fa-regular fa-folder-open"></i>
 
-        <h1>Agencia 1</h1>
+        <h1>Agencia 4</h1>
 
       </div>
 
@@ -130,7 +130,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
         <i class="fa-solid fa-list-check"></i>
 
-        <h1>Agencia 2</h1>
+        <h1>Agencia 5</h1>
 
       </div>
     </a>
@@ -149,7 +149,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
         <i class="fa-solid fa-list-check"></i>
 
-        <h1>Agencia 2</h1>
+        <h1>Agencia 6</h1>
 
       </div>
     </a>
@@ -168,7 +168,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
         <i class="fa-regular fa-folder-open"></i>
 
-        <h1>Agencia 1</h1>
+        <h1>Agencia 7</h1>
 
       </div>
 
@@ -188,7 +188,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
         <i class="fa-solid fa-list-check"></i>
 
-        <h1>Agencia 2</h1>
+        <h1>Agencia 8</h1>
 
       </div>
     </a>
@@ -207,7 +207,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
         <i class="fa-solid fa-list-check"></i>
 
-        <h1>Agencia 2</h1>
+        <h1>Agencia 9</h1>
 
       </div>
     </a>
