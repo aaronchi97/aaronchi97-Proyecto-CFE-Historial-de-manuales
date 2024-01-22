@@ -46,9 +46,17 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
   //Hacemos la consulta relacionando las tablas que necesitemos
   //para dicha consulta necesitamos la tabla usuario
-  $sql = $conexion->query(" SELECT * from usuario ");
-  
+  // $sql = $conexion->query(" SELECT * from usuario ");
+  $mostrarTablas = false;
+// Verificar si se ha enviado un valor desde el formulario
+if (isset($_POST['txtbuscarrpu'])) {
+  $rpu_buscar = $_POST['txtbuscarrpu'];
+  // Modificar la consulta para incluir la cláusula WHERE
+  $sql = $conexion->query("SELECT * FROM usuario WHERE id_rol = $rpu_buscar");
 
+    // Activar la visualización de las tablas
+    $mostrarTablas = true;
+}
 
     ?>
 
@@ -71,13 +79,29 @@ if ($_SESSION['id'] == 13) {
  
       }
     ?>
+
+
+   <!-- BOTONES PARA BUSQUEDA DE RPU----------------- -->
+<form action="" method="post">
+    <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 campo">
+        <input type="text" placeholder="Inserte RPU" class="input input__text" name="txtbuscarrpu">
+    </div>
+    <button type="submit" class="btn btn-primary btn-rounded mb-3 otro">
+        <i class="fa-solid fa-search"></i> &nbsp; BUSCAR
+    </button>
+</form>
   
 <!-- 
   <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3"><i class="fa-solid fa-user-plus"></i> &nbsp;
     REGISTRAR</a> -->
 
+     <!-- CONDICION PARA OCULTAR O MOSTRAR LA TABLA SEGUN LOS VALORES QUE INGRESE EL USUARIO -->
 
-  <table class="table table-bordered table-hover w-100 " id="example">
+     <?php if ($mostrarTablas) { ?>
+        
+
+
+  <table class="table table-bordered table-hover w-100 " id="example" >
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -85,10 +109,13 @@ if ($_SESSION['id'] == 13) {
         <th scope="col">APELLIDO</th>
         <th scope="col">USUARIO</th>
         <th scope="col"></th>
+       
       </tr>
     </thead>
 
     <tbody>
+
+   
 
     <!-- AQUI EMPIEZAN LAS CONDICIONES DE VISTA POR ROLES-------------------------------------------------------------------------- -->
     <?php
@@ -119,7 +146,8 @@ if ($_SESSION['id'] == 13) {
   
       } else {
     ?>
-        
+
+     
         <?php
       while ($datos = $sql->fetch_object()) { ?>
 
@@ -144,12 +172,13 @@ if ($_SESSION['id'] == 13) {
             <a class="btn btn-danger" href="usuario.php?id=<?= $datos->id_usuario ?>" onclick=" advertencia(event)"><i
                 class="fa-solid fa-trash-can"></i></a>
           </td>
+        
 
           <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
 
         </tr>
 
-
+        <?php } ?>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal<?= $datos->id_usuario ?>" tabindex="-1"

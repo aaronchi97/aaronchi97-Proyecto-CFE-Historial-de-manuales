@@ -54,7 +54,7 @@
           
                 <i class="fa-regular fa-folder-open"></i>
       
-                <h1>SINASU </h1>
+                <h1>Evidencias SINASU Zona Mérida</h1>
 
            </div>
 

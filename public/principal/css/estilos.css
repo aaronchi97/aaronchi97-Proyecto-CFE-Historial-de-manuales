@@ -1,64 +1,63 @@
 .input {
-    width: 100%;
-    border: none;
-    border-radius: 10px;
-    background: rgb(205, 218, 226);
-    background-color: transparent;
-    padding: 15px;
-    border-bottom: 2px solid rgb(238, 238, 238);
-    border-right: 2px solid rgb(238, 238, 238);
-    transition: all 0.3s;
-    color: rgb(255, 255, 255) !important;
-    font-weight: 500;
-    font-size: 17px;
-    box-shadow: 1px 1px 2px rgb(238, 238, 238);
-    margin-bottom: -5px;
-    margin-left: -5px;
-    outline: none !important;
-    /* background-image: url(../../images/itm-merida-fondo.webp);
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  background: rgb(205, 218, 226);
+  background-color: transparent;
+  padding: 15px;
+  border-bottom: 2px solid rgb(188, 188, 188);
+  /* border-right: 2px solid rgb(188, 188, 188); */
+  transition: all 0.3s;
+  color: black !important;
+  font-weight: 500;
+  font-size: 17px;
+  box-shadow: 1px 1px 2px rgb(238, 238, 238);
+  margin-bottom: -5px;
+  margin-left: -5px;
+  outline: none !important;
+  /* background-image: url(../../images/itm-merida-fondo.webp);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     filter: brightness(20%); */
 }
-.inputmodal{
-    color: rgb(5, 5, 5) !important;
-    font-weight: 500;
+.inputmodal {
+  color: rgb(5, 5, 5) !important;
+  font-weight: 500;
 }
-.campo{
-    position: relative;
+.campo {
+  position: relative;
 }
-.campo img{
-    width: 95%;
-    height: 100%;
-    object-fit: cover;
-    filter: brightness(20%);
-    background-color: aliceblue;
-    position: absolute;
-    border-radius: 10px;
-    top: 0;
-    left: 2%;
-    z-index: -10;
+.campo img {
+  width: 95%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(20%);
+  background-color: aliceblue;
+  position: absolute;
+  border-radius: 10px;
+  top: 0;
+  left: 2%;
+  z-index: -10;
 }
 
 .input:focus {
-    border-bottom: 2px solid rgba(139, 41, 41, 0.637);
-    border-right: 2px solid rgba(139, 41, 41, 0.644);
+  border-bottom: 2px solid rgba(139, 41, 41, 0.637);
+  border-right: 2px solid rgba(139, 41, 41, 0.644);
 }
 
 .input::placeholder {
-    font-size: 16px;
-    font-weight: normal;
-    color: white;
+  font-size: 16px;
+  font-weight: normal;
+  color: white;
 }
 
 .error__text {
-    color: red;
-    font-size: 12px;
-    padding-left: 10px;
+  color: red;
+  font-size: 12px;
+  padding-left: 10px;
 }
 
 .input__select {
-    font-size: 17px;
-    
+  font-size: 17px;
 }
