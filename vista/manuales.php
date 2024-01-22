@@ -35,7 +35,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 <link rel="stylesheet" href="estiloinicio.css">
 <div class="page-content">
 
-  <h4 class="text-center text-secondery"> MANUALES</h4>
+  <h4 style="margin-bottom: 5%;" class="text-center text-secondery"> MANUALES</h4>
 
   <?php
   //hacemos la conexion
@@ -46,8 +46,17 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
   //Hacemos la consulta relacionando las tablas que necesitemos
   //para dicha consulta necesitamos la tabla usuario
-  $sql = $conexion->query(" SELECT * from control_de_manuales ");
+  //$sql = $conexion->query(" SELECT * from control_de_manuales ");
+  
+  $mostrarTablas = false;
+  if (isset($_POST['txtbuscarrpu'])) {
+    $rpu_buscar = $_POST['txtbuscarrpu'];
+    // Modificar la consulta para incluir la cláusula WHERE
+    $sql = $conexion->query("SELECT * FROM control_de_manuales WHERE RPU = $rpu_buscar");
 
+    // Activar la visualización de las tablas
+    $mostrarTablas = true;
+  }
 
 
   ?>
@@ -55,172 +64,192 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
   <?php
 
-  if ($_SESSION['id'] == 13) {
+
+  ?>
+  <form action="" method="post">
+    <div style="margin-bottom: 3%;" class="fl-flex-label mb-4 px-2 col-12 col-md-10 campo">
+      <input type="text" placeholder="Inserte RPU" class="input input__text" name="txtbuscarrpu">
+    </div>
+    <button type="submit" class="btn btn-primary btn-rounded mb-10 otro">
+      <i class="fa-solid fa-search"></i> &nbsp; BUSCAR
+    </button>
+  </form>
+
+  <!-- 
+  <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3"><i class="fa-solid fa-user-plus"></i> &nbsp;
+    REGISTRAR</a> -->
+  <?php
+  if ($_SESSION['id'] == 13 && $mostrarTablas == true) {
     ?>
-    <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3" style="display: none;"><i
+    <a href="registro_usuario.php" class="btn btn-warning btn-rounded mb-3" style="display: none;"><i
         class="fa-solid fa-file"></i> &nbsp; Generar Manual</a>
     <?php
 
     $mostrarBoton = false;
 
-  } else {
+  } else if ($mostrarTablas == true) {
     ?>
+      <div class="contenedor-btn-manual">
+        <a href="registro_usuario.php" class="btn btn-warning btn-rounded otro btn_generarmanual"><i
+            class="fa-solid fa-file"></i>
+          &nbsp;
+          Generar Manual</a>
+      </div>
 
-    <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-file"></i>
-      &nbsp;
-      Generar Manual</a>
     <?php
 
   }
   ?>
+  <!-- CONDICION PARA OCULTAR O MOSTRAR LA TABLA SEGUN LOS VALORES QUE INGRESE EL USUARIO -->
 
-  <!-- 
-  <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3"><i class="fa-solid fa-user-plus"></i> &nbsp;
-    REGISTRAR</a> -->
+  <?php if ($mostrarTablas) { ?>
+
+    <table class="table table-bordered table-hover w-100 " id="example">
+      <thead>
+        <tr>
+          <th scope="col">ACCIÓN</th>
+          <th scope="col">RPU</th>
+          <th scope="col">CUENTA</th>
+          <th scope="col">CICLO</th>
+          <th scope="col">TARIFA</th>
+          <th scope="col">MOTIVO DE LA MANUAL</th>
+          <th scope="col">SIN USO</th>
+          <th scope="col">LECTURA MANUAL</th>
+          <th scope="col">KWH A RECUPERAR</th>
+          <th scope="col">RESPALDO</th>
+          <th scope="col">RPE AUXILIAR</th>
+          <th scope="col">OBSERVACIONES</th>
+          <th scope="col">CORRECCION</th>
+          <th scope="col">AGENCIA</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+
+      <tbody>
 
 
-  <table class="table table-bordered table-hover w-100 " id="example">
-    <thead>
-      <tr>
-        <th scope="col">ACCIÓN</th>
-        <th scope="col">RPU</th>
-        <th scope="col">CUENTA</th>
-        <th scope="col">CICLO</th>
-        <th scope="col">TARIFA</th>
-        <th scope="col">MOTIVO DE LA MANUAL</th>
-        <th scope="col">SIN USO</th>
-        <th scope="col">LECTURA MANUAL</th>
-        <th scope="col">KWH A RECUPERAR</th>
-        <th scope="col">RESPALDO</th>
-        <th scope="col">RPE AUXILIAR</th>
-        <th scope="col">OBSERVACIONES</th>
-        <th scope="col">CORRECCION</th>
-        <th scope="col">AGENCIA</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
 
-    <tbody>
 
-      <!-- AQUI EMPIEZAN LAS CONDICIONES DE VISTA POR ROLES-------------------------------------------------------------------------- -->
-      <?php
-      if ($_SESSION['id'] == 13) {
-        ?>
+        <!-- AQUI EMPIEZAN LAS CONDICIONES DE VISTA POR ROLES-------------------------------------------------------------------------- -->
         <?php
-        while ($datos = $sql->fetch_object()) { ?>
+        if ($_SESSION['id'] == 13) {
+          ?>
+          <?php
+          while ($datos = $sql->fetch_object()) { ?>
 
-          <tr>
-            <td>
-              <a class="btn btn-danger" href="manuales.php?id=<?= $datos->RPU ?>" onclick=" advertencia(event)"><i
-                  class="fa-solid fa-trash-can"></i></a>
-            </td>
-            <td class="id" scope="row">
-              <?= $datos->RPU ?>
-            </td>
-            <td>
-              <?= $datos->CUENTA ?>
-            </td>
-            <td>
-              <?= $datos->CICLO ?>
-            </td>
-            <td>
-              <?= $datos->TARIFA ?>
-            </td>
-            <td>
-              <?= $datos->MOTIVO_DE_LA_MANUAL ?>
-            </td>
-            <td>
-              <?= $datos->SIN_USO ?>
-            </td>
-            <td>
-              <?= $datos->LECTURA_MANUAL ?>
-            </td>
-            <td>
-              <?= $datos->KWH_A_RECUPERAR ?>
-            </td>
-            <td>
-              <?= $datos->RESPALDO ?>
-            </td>
-            <td>
-              <?= $datos->RPE_AUXILIAR ?>
-            </td>
-            <td>
-              <?= $datos->OBSERVACIONES ?>
-            </td>
-            <td>
-              <?= $datos->CORRECCION ?>
-            </td>
-            <td>
-              <?= $datos->AGENCIA ?>
-            </td>
-          </tr>
+            <tr>
+              <td>
+                <a class="btn btn-danger" href="manuales.php?id=<?= $datos->RPU ?>" onclick=" advertencia(event)"><i
+                    class="fa-solid fa-trash-can"></i></a>
+              </td>
+              <td class="id" scope="row">
+                <?= $datos->RPU ?>
+              </td>
+              <td>
+                <?= $datos->CUENTA ?>
+              </td>
+              <td>
+                <?= $datos->CICLO ?>
+              </td>
+              <td>
+                <?= $datos->TARIFA ?>
+              </td>
+              <td>
+                <?= $datos->MOTIVO_DE_LA_MANUAL ?>
+              </td>
+              <td>
+                <?= $datos->SIN_USO ?>
+              </td>
+              <td>
+                <?= $datos->LECTURA_MANUAL ?>
+              </td>
+              <td>
+                <?= $datos->KWH_A_RECUPERAR ?>
+              </td>
+              <td>
+                <?= $datos->RESPALDO ?>
+              </td>
+              <td>
+                <?= $datos->RPE_AUXILIAR ?>
+              </td>
+              <td>
+                <?= $datos->OBSERVACIONES ?>
+              </td>
+              <td>
+                <?= $datos->CORRECCION ?>
+              </td>
+              <td>
+                <?= $datos->AGENCIA ?>
+              </td>
+            </tr>
 
-        <?php }
+          <?php }
 
-        ?>
-        <?php
+          ?>
+          <?php
 
-      } else {
-        ?>
+        } else {
+          ?>
 
-        <?php
-        while ($datos = $sql->fetch_object()) { ?>
+          <?php
+          while ($datos = $sql->fetch_object()) { ?>
 
-          <!--dentro imprimiremos los valores que contienen mis tablas 
+            <!--dentro imprimiremos los valores que contienen mis tablas 
     en la base de datos-->
-          <tr>
-            <td>
-              <a class="btn btn-warning" href="manuales.php?id=<?= $datos->RPU ?>"><i class="fa-regular fa-eye"></i></a>
-            </td>
-            <td class="id" scope="row">
-              <?= $datos->RPU ?>
-            </td>
-            <td>
-              <?= $datos->CUENTA ?>
-            </td>
-            <td>
-              <?= $datos->CICLO ?>
-            </td>
-            <td>
-              <?= $datos->TARIFA ?>
-            </td>
-            <td>
-              <?= $datos->MOTIVO_DE_LA_MANUAL ?>
-            </td>
-            <td>
-              <?= $datos->SIN_USO ?>
-            </td>
-            <td>
-              <?= $datos->LECTURA_MANUAL ?>
-            </td>
-            <td>
-              <?= $datos->KWH_A_RECUPERAR ?>
-            </td>
-            <td>
-              <?= $datos->RESPALDO ?>
-            </td>
-            <td>
-              <?= $datos->RPE_AUXILIAR ?>
-            </td>
-            <td>
-              <?= $datos->OBSERVACIONES ?>
-            </td>
-            <td>
-              <?= $datos->CORRECCION ?>
-            </td>
-            <td>
-              <?= $datos->AGENCIA ?>
-            </td>
-            <td>
-              <!-- <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_usuario ?> "
+            <tr>
+              <td>
+                <a class="btn btn-warning" href="manuales.php?id=<?= $datos->RPU ?>"><i class="fa-regular fa-eye"></i></a>
+              </td>
+              <td class="id" scope="row">
+                <?= $datos->RPU ?>
+              </td>
+              <td>
+                <?= $datos->CUENTA ?>
+              </td>
+              <td>
+                <?= $datos->CICLO ?>
+              </td>
+              <td>
+                <?= $datos->TARIFA ?>
+              </td>
+              <td>
+                <?= $datos->MOTIVO_DE_LA_MANUAL ?>
+              </td>
+              <td>
+                <?= $datos->SIN_USO ?>
+              </td>
+              <td>
+                <?= $datos->LECTURA_MANUAL ?>
+              </td>
+              <td>
+                <?= $datos->KWH_A_RECUPERAR ?>
+              </td>
+              <td>
+                <?= $datos->RESPALDO ?>
+              </td>
+              <td>
+                <?= $datos->RPE_AUXILIAR ?>
+              </td>
+              <td>
+                <?= $datos->OBSERVACIONES ?>
+              </td>
+              <td>
+                <?= $datos->CORRECCION ?>
+              </td>
+              <td>
+                <?= $datos->AGENCIA ?>
+              </td>
+              <td>
+                <!-- <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_usuario ?> "
                 class="btn btn-warning "><i class="fa-solid fa-user-pen"></i></a>
               <a class="btn btn-danger" href="usuario.php?id=<?= $datos->id_usuario ?>" onclick=" advertencia(event)"><i
                   class="fa-solid fa-trash-can"></i></a> -->
-            </td>
+              </td>
 
-            <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
+              <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
 
-          </tr>
+            </tr>
+          <?php } ?>
 
 
 
@@ -287,8 +316,8 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
         <?php
 
-      }
-      ?>
+  }
+  ?>
 
 
 
