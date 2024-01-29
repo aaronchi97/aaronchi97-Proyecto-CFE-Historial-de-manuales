@@ -33,7 +33,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
 <!-- inicio del contenido principal -->
-<link rel="stylesheet" href="estiloinicio.css">
+<link rel="stylesheet" href="estilosinasu.css">
 <div class="page-content">
 
   <h4 class="text-center text-secondery"> AGENCIA 1</h4>
@@ -47,7 +47,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
   //Hacemos la consulta relacionando las tablas que necesitemos
   //para dicha consulta necesitamos la tabla usuario
-  $sql = $conexionSINASU->query(" SELECT * from sinasu_guias ");
+  $sql = $conexionSINASU->query("SELECT * FROM sinasu_guias JOIN filtro_documentos ON sinasu_guias.id_elemento = filtro_documentos.id_elemento; ");
 
 
 
@@ -170,7 +170,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
               <?= $datos->fuente_de_la_evidencia ?>
             </td>
             <td>
-              <a href="#"><i class="fa-solid fa-file-arrow-up"></i></a>
+              <a href="subir_archivos.php"><i class="fa-solid fa-file-arrow-up"></i></a>
               <!-- <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_usuario ?> "
                 class="btn btn-warning "><i class="fa-solid fa-user-pen"></i></a>
               <a class="btn btn-danger" href="usuario-sinasu.php?id=<?= $datos->id_usuario ?>"
