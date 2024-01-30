@@ -14,7 +14,7 @@ $nombre_responsable = "nombre"; // Puedes definir aquí el nombre predeterminado
 // Mover el archivo al directorio de subidas
 if (move_uploaded_file($_FILES["file"]["tmp_name"], $ruta_doc)) {
   // Insertar la información del archivo en la tabla documentos
-  $sql = "INSERT INTO documentos (id_guia, ruta_doc, nombre_doc, fecha_subida, observaciones, estado, nombre_responsable) 
+  $sql = "INSERT INTO documentos (id_guia, ruta_doc, nombre_doc, fecha_subida, observaciones, estado, nombre_responsable)
             VALUES ('$id_guia', '$ruta_doc', '$nombre_doc', '$fecha_subida', '$observaciones', '$estado', '$nombre_responsable')";
 
   if ($conexionSINASU->query($sql) === TRUE) {

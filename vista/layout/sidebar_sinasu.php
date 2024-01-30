@@ -87,7 +87,7 @@
         if ($_SESSION['rol-sinasu'] != 3) {
             ?>
             <li class="red">
-                <a hidden href="docente.php" class="activo">
+                <a hidden href="../agencia1.php" class="activo">
                     <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
                     <img src="  ../../public/images/iconos-sinasu/subir2.svg" class="img-inicio" alt="">
                     <!-- <i class="fas fa-house-user"></i> -->
@@ -103,7 +103,7 @@
             ?>
 
             <li class="red">
-                <a href="docente.php" class="activo">
+                <a href="../SINASU/agencia1.php" class="activo">
                     <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
                     <img src="  ../../public/images/iconos-sinasu/subir2.svg" class="img-inicio" alt="">
                     <!-- <i class="fas fa-house-user"></i> -->

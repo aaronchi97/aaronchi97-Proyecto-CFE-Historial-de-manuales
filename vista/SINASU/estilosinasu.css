@@ -123,6 +123,12 @@
   justify-content: center;
   flex-direction: column;
 }
+.subir {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 .drop-area.active {
   background-color: #b8d4fe;
   color: black;
@@ -170,5 +176,9 @@
 }
 
 .failure {
+  color: #ff0000;
+}
+
+.fa-circle-xmark {
   color: #ff0000;
 }

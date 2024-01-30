@@ -6018,6 +6018,12 @@ var.result-container {
   padding: 25px 15px 10px;
   -webkit-transition: all 0.2s ease-in-out;
   transition: all 0.2s ease-in-out;
+  /* display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  flex-direction: column; */
 }
 .dark-theme .page-content {
   padding-top: 77px;

@@ -47,7 +47,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
   //Hacemos la consulta relacionando las tablas que necesitemos
   //para dicha consulta necesitamos la tabla usuario
-  $sql = $conexionSINASU->query("SELECT * FROM sinasu_guias JOIN filtro_documentos ON sinasu_guias.id_elemento = filtro_documentos.id_elemento; ");
+  $sql = $conexionSINASU->query("SELECT * FROM documentos");
 
 
 
@@ -67,30 +67,30 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
   } else {
     ?>
 
-    <a href="registro_usuario_sinasu.php" class="btn btn-primary btn-rounded mb-3 otro"><i
+    <!-- <a href="registro_usuario_sinasu.php" class="btn btn-primary btn-rounded mb-3 otro"><i
         class="fa-solid fa-user-plus "></i> &nbsp;
-      REGISTRAR</a>
+      REGISTRAR</a> -->
     <?php
 
   }
   ?>
 
-  <!-- 
-  <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3"><i class="fa-solid fa-user-plus"></i> &nbsp;
-    REGISTRAR</a> -->
+
+  <a href="agencia1.php" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-regular fa-circle-left"></i> &nbsp;
+    ATRAS</a>
 
 
   <table class="table table-bordered table-hover w-100 " id="example">
     <thead>
       <tr>
-        <th scope="col">ID</th>
-        <th scope="col">PROCESO</th>
-        <th scope="col">ELEMENTO</th>
-        <th scope="col">PREGUNTA</th>
-        <th scope="col">PONDERACION</th>
-        <th scope="col">CRITERIO</th>
-        <th scope="col">EVIDENCIA ESPERADA</th>
-        <th scope="col">FUENTE DE LA EVIDENCIA</th>
+        <th scope="col">ID DOCUMENTO</th>
+        <th scope="col">ID GUIA</th>
+        <th scope="col">RUTA DOCUMENTO</th>
+        <th scope="col">NOMBRE DOCUMENTO</th>
+        <th scope="col">FECHA SUBIDA</th>
+        <th scope="col">OBSERVACIONES</th>
+        <th scope="col">ESTADO</th>
+        <th scope="col">NOMBRE RESPONSABLE</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -106,33 +106,35 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
           <tr>
             <td class="id" scope="row">
+              <?= $datos->id_documento ?>
+            </td>
+            <td>
               <?= $datos->id_guia ?>
             </td>
             <td>
-              <?= $datos->proceso ?>
+              <a href="<?= $datos->ruta_doc ?>">
+                <?= $datos->ruta_doc ?>
+              </a>
+
             </td>
             <td>
-              <?= $datos->elemento ?>
+              <?= $datos->nombre_doc ?>
             </td>
             <td>
-              <?= $datos->pregunta ?>
+              <?= $datos->fecha_subida ?>
             </td>
             <td>
-              <?= $datos->ponderacion ?>
+              <?= $datos->observaciones ?>
             </td>
             <td>
-              <?= $datos->criterio ?>
+              <?= $datos->estado ?>
             </td>
             <td>
-              <?= $datos->evidencia_esperada ?>
+              <?= $datos->nombre_responsable ?>
             </td>
             <td>
-              <?= $datos->fuente_de_la_evidencia ?>
+              <a href="controlador_eliminar_archivos.php"><i class="fa-solid fa-circle-xmark"></i></a>
             </td>
-            <td>
-              <a href="subir_archivos.php"><i class="fa-solid fa-file-arrow-up"></i></a>
-            </td>
-            <td> <a href="ver_archivos.php"><i class="fa-solid fa-eye"></i></a></td>
           </tr>
 
         <?php }
@@ -150,37 +152,38 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
     en la base de datos-->
           <tr>
             <td class="id" scope="row">
+              <?= $datos->id_documento ?>
+            </td>
+            <td>
               <?= $datos->id_guia ?>
             </td>
             <td>
-              <?= $datos->proceso ?>
+              <a href="<?= $datos->ruta_doc ?>">
+                <?= $datos->ruta_doc ?>
+              </a>
             </td>
             <td>
-              <?= $datos->elemento ?>
+              <?= $datos->nombre_doc ?>
             </td>
             <td>
-              <?= $datos->pregunta ?>
+              <?= $datos->fecha_subida ?>
             </td>
             <td>
-              <?= $datos->ponderacion ?>
+              <?= $datos->observaciones ?>
             </td>
             <td>
-              <?= $datos->criterio ?>
+              <?= $datos->estado ?>
             </td>
             <td>
-              <?= $datos->evidencia_esperada ?>
+              <?= $datos->nombre_responsable ?>
             </td>
             <td>
-              <?= $datos->fuente_de_la_evidencia ?>
-            </td>
-            <td>
-              <a href="subir_archivos.php"><i class="fa-solid fa-file-arrow-up"></i></a>
+              <a href="controlador_eliminar_archivos.php"><i class="fa-solid fa-circle-xmark"></i></a>
               <!-- <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_usuario ?> "
                 class="btn btn-warning "><i class="fa-solid fa-user-pen"></i></a>
               <a class="btn btn-danger" href="usuario-sinasu.php?id=<?= $datos->id_usuario ?>"
                 onclick=" advertencia(event)"><i class="fa-solid fa-trash-can"></i></a> -->
             </td>
-            <td> <a href="ver_archivos.php"><i class="fa-solid fa-eye"></i></a></td>
 
             <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
 

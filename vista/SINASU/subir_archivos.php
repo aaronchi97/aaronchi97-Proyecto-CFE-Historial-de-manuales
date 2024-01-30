@@ -27,7 +27,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 <body class="cuerpo_subir">
   <div class="page-content">
-    <div>
+    <a href="agencia1.php" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-regular fa-circle-left"></i> &nbsp;
+      ATRAS</a>
+    <div class="subir">
       <div class="drop-area">
         <h2>Arrastra y suelta el documento PDF</h2>
         <span>O</i>

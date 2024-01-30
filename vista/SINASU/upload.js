@@ -66,10 +66,11 @@ function processFile(file) {
         <div id="${id}" class="file-container">
         <i class="fa-regular fa-file-pdf" style="font-size: 20px;"></i>
           <div class="status">
-            <span>${file.name}</span>
+            <span> <a href="uploads/${file.name}" target="_blank">${file.name}</a></span>
             <span class="status-text">
               Loading...
             </span>
+            <span><a href="#" onclick="eliminarArchivo('${id}', '${file.name}')"><i class="fa-solid fa-circle-xmark"></i> Eliminar</a></span>
           </div>
         </div>
         `;
@@ -129,6 +130,47 @@ async function uploadFile(file, id) {
     document.querySelector(
       `#${id} .status-text`
     ).innerHTML = `<span class="failure">El archivo no pudo subirse...</span>`;
+  }
+}
+
+function eliminarArchivo(id, fileName, id_documento) {
+  if (confirm("¿Estás seguro de que quieres eliminar este archivo?")) {
+    // Imprimir el JSON que se enviará en la solicitud
+    console.log(
+      JSON.stringify({
+        id: id,
+        fileName: fileName,
+        idDocumento: id_documento,
+      })
+    );
+
+    // Realizar la eliminación del archivo
+    fetch("eliminar_archivo.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: id,
+        fileName: fileName,
+        idDocumento: id_documento,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error al eliminar el archivo");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        // Aquí puedes actualizar la interfaz de usuario para reflejar la eliminación del archivo
+        document.getElementById(id).remove(); // Eliminar el contenedor del archivo del DOM
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        // Aquí puedes mostrar un mensaje de error al usuario
+      });
   }
 }
 
