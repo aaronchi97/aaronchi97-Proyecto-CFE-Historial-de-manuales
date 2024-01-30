@@ -4,7 +4,7 @@
 //tambien tenemos que agregar el include de esta pagina en el archivo donde querermos
 //llamarlo, en este caso en usuario-sinasu.php
     $idkiki = $_GET["id"];
-   echo $idkiki;
+//    echo $idkiki;
 
     //ahora eliminaremos el registro de la bd una vez que recibamos el id 
     //que el usuario nos mande presionando el boton de eliminar

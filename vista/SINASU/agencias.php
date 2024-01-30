@@ -11,7 +11,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 ?>
 
 <style>
-  ul li:nth-child(2) .activo {
+  ul li:nth-child(1) .activo {
     background: #9889fe !important;
   }
 </style>
@@ -31,16 +31,47 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
   <h4 class="text-center text-secondery">AGENCIAS</h4>
 
+  <?php
+  //hacemos la conexion
+  include "../../modelo/conexion-SINASU.php";
+  // include "../../controlador/controlador_vista_agencias_id_sinasu.php";
+
+  // include "../../controlador/controlador_modificar_usuario_sinasu.php";
+
+
+  //Hacemos la consulta relacionando las tablas que necesitemos
+  //para dicha consulta necesitamos la tabla usuario
+  // $sql = $conexionSINASU->query(" SELECT * from usuario ");
+  $sql_mostrar_agencias = $conexionSINASU->query(" SELECT * from agencias ");
+  
+
+
+    ?>
+
+    <!-- BOTON PARA REGISTRAR AGENCIA -->
+
+<a href="registro_agencias.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-user-plus "></i> &nbsp;
+    REGISTRAR NUEVA AGENCIA</a>
+
+
+    
 
   <section class="continer-agencias">
        
-        
-       <!-- <form action="">
-           <input type="text" placeholder="DNI del maestro" name="txtdni">
-       </form> -->
 
-       <a class="boton-sinasu-agencias" href="vista/login/login_sinasu.php">
 
+
+<!-- -----------------HACER EL WHILE PARA VINCULAR TODAS LAS 10 AGENCIAS DE LA BASE DE DATOS-------------------------------- -->
+       <?php
+       while( $datos_mostrar_agencias = $sql_mostrar_agencias ->fetch_object()){ ?>
+
+        <a class="boton-sinasu-agencias"  href="agencias_filtros.php?id_agencias_filtro=<?= $datos_mostrar_agencias->id_agencia ?>">
+            <?php
+        // Guarda el valor en la variable de sesión
+            // $_SESSION['id_agencias_filtro'] = $datos_mostrar_agencias->id_agencia;
+            //       ?>
+
+       <!-- "../SINASU_AGENCIAS/agencia1.php" -->
           
            <div  class="parte-sinasu-agencias">
 
@@ -48,172 +79,23 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
                    <img src="img-sinasu/Yucatan.webp" alt="">
                 </figure>
 
-               <div class="fondo-agencias-2"></div>
+               <div class="fondo-agencias-2"></div> 
          
                <i class="fa-regular fa-folder-open"></i>
+
+               <h1><?= $datos_mostrar_agencias->zona ?></h1>
      
-               <h1>Agencia 1</h1>
+               <h1><?= $datos_mostrar_agencias->nombre_agencia ?></h1>
+
+               <!-- <h1><?= $datos_mostrar_agencias->responsable_agencia ?></h1> -->
 
           </div>
 
        </a>
+        
+       <?php }?>
 
-         
-       <a class="boton-sinasu-agencias" href="vista/login/login.php">
-           
-          
-           <div class="parte-sinasu-agencias">
-
-               <figure>
-                   <img src="img-sinasu/Campeche.jpg" alt="">
-               </figure>
-
-                 <div class="fondo-agencias-2"></div>
-          
-               <i class="fa-solid fa-list-check"></i>
-          
-            <h1>Agencia 2</h1>
-     
-         </div>
-       </a>
-
-
-       <a class="boton-sinasu-agencias" href="vista/login/login.php">
-           
-          
-           <div class="parte-sinasu-agencias">
-
-               <figure>
-                   <img src="img-sinasu/Cancun.jpeg" alt="">
-               </figure>
-
-                 <div class="fondo-agencias-2"></div>
-          
-               <i class="fa-solid fa-list-check"></i>
-          
-            <h1>Agencia 2</h1>
-     
-         </div>
-       </a>
-       
-
-       <a class="boton-sinasu-agencias" href="vista/login/login_sinasu.php">
-
-          
-<div  class="parte-sinasu-agencias">
-
-    <figure>
-        <img src="img-sinasu/Yucatan.webp" alt="">
-     </figure>
-
-    <div class="fondo-agencias-2"></div>
-
-    <i class="fa-regular fa-folder-open"></i>
-
-    <h1>Agencia 1</h1>
-
-</div>
-
-</a>
-
-
-<a class="boton-sinasu-agencias" href="vista/login/login.php">
-
-
-<div class="parte-sinasu-agencias">
-
-    <figure>
-        <img src="img-sinasu/Campeche.jpg" alt="">
-    </figure>
-
-      <div class="fondo-agencias-2"></div>
-
-    <i class="fa-solid fa-list-check"></i>
-
- <h1>Agencia 2</h1>
-
-</div>
-</a>
-
-
-<a class="boton-sinasu-agencias" href="vista/login/login.php">
-
-
-<div class="parte-sinasu-agencias">
-
-    <figure>
-        <img src="img-sinasu/Cancun.jpeg" alt="">
-    </figure>
-
-      <div class="fondo-agencias-2"></div>
-
-    <i class="fa-solid fa-list-check"></i>
-
- <h1>Agencia 2</h1>
-
-</div>
-</a>
-
-
-<a class="boton-sinasu-agencias" href="vista/login/login_sinasu.php">
-
-          
-<div  class="parte-sinasu-agencias">
-
-    <figure>
-        <img src="img-sinasu/Yucatan.webp" alt="">
-     </figure>
-
-    <div class="fondo-agencias-2"></div>
-
-    <i class="fa-regular fa-folder-open"></i>
-
-    <h1>Agencia 1</h1>
-
-</div>
-
-</a>
-
-
-<a class="boton-sinasu-agencias" href="vista/login/login.php">
-
-
-<div class="parte-sinasu-agencias">
-
-    <figure>
-        <img src="img-sinasu/Campeche.jpg" alt="">
-    </figure>
-
-      <div class="fondo-agencias-2"></div>
-
-    <i class="fa-solid fa-list-check"></i>
-
- <h1>Agencia 2</h1>
-
-</div>
-</a>
-
-
-<a class="boton-sinasu-agencias" href="vista/login/login.php">
-
-
-<div class="parte-sinasu-agencias">
-
-    <figure>
-        <img src="img-sinasu/Cancun.jpeg" alt="">
-    </figure>
-
-      <div class="fondo-agencias-2"></div>
-
-    <i class="fa-solid fa-list-check"></i>
-
- <h1>Agencia 2</h1>
-
-</div>
-</a>
-
-
-
+      
 
    </section>
 

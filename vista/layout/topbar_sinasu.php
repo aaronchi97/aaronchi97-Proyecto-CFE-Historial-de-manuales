@@ -176,7 +176,7 @@ if ($_SESSION['rol-sinasu'] == 1 ) {
                                 <div class="dropdown-menu dropdown-menu-right pt-0" aria-labelledby="dd-user-menu">
 
                                     <h5 class="p-2 text-center bg-primary"><?= $_SESSION["nombre-sinasu"]. " ". $_SESSION["apellido-sinasu"]  ?></h5>
-                                    <a class="dropdown-item" href="datos_perfil.php"><span class="font-icon glyphicon glyphicon-user"></span>Perfil</a>
+                                    <a class="dropdown-item" href="datos_perfil_sinasu.php"><span class="font-icon glyphicon glyphicon-user"></span>Perfil</a>
                                     <a class="dropdown-item" href="cambiar_clave.php"><span class="font-icon glyphicon glyphicon-lock"></span>Cambiar contraseña</a>
 
                                     <div class="dropdown-divider"></div>

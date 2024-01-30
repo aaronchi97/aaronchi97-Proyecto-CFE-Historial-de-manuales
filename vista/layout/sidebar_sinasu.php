@@ -1,23 +1,57 @@
 /<!--el css se encuentra en main.css en la carpeta public/css -->
+
+
+
 <nav class="side-menu">
+
+
+
+
             
-            <ul  class="side-menu-list p-0">
+    <ul  class="side-menu-list p-0">
+
+              <!-- CONDICION PARA VISTA DE ROLES -->
+
+         <?php
+
+        if ($_SESSION['rol-sinasu'] == 3 ) { 
+            ?>
                 <li  class="red">
-                    <a href="agencias.php" class="activo">
+                    <a hidden href="../SINASU/agencias.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio" alt=""> -->
                         <img src="../../public/images/iconos-sinasu/documentacion.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-house-user"></i> -->
                         <span class="lbl">AGENCIAS</span>
                     </a>
                 </li>
+            <?php
 
-                <!-- CONDICION PARA VISTA DE ROLES -->
+            
+  
+             } else {
+         ?>
+        
+                <li  class="red">
+                    <a href="../SINASU/agencias.php" class="activo">
+                        <!-- <img src="../public/img-inicio/house.png" class="img-inicio" alt=""> -->
+                        <img src="../../public/images/iconos-sinasu/documentacion.svg" class="img-inicio" alt="">
+                        <!-- <i class="fas fa-house-user"></i> -->
+                        <span class="lbl">AGENCIAS</span>
+                    </a>
+                </li>
+        <?php
+ 
+            }
+        ?>
 
-                <?php
+            
+              <!-- ----------------------------------------------------------------- -->
 
-if ($_SESSION['rol-sinasu'] == 3 ) { 
-    ?>
-        <li class="red">
+        <?php
+
+        if ($_SESSION['rol-sinasu'] == 3 ) { 
+            ?>
+                 <li class="red">
                     <a hidden  href="usuario-sinasu.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
                         <img src="  ../../public/images/iconos-sinasu/usuarios.svg" class="img-inicio" alt="">
@@ -25,14 +59,14 @@ if ($_SESSION['rol-sinasu'] == 3 ) {
                         <span class="lbl">USUARIOS</span>
                     </a>
                 </li>
-    <?php
+            <?php
 
-    $mostrarBoton = false;
+                $mostrarBoton = false;
   
-      } else {
-    ?>
+             } else {
+         ?>
         
-        <li class="red">
+            <li class="red">
                     <a  href="usuario-sinasu.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
                         <img src="  ../../public/images/iconos-sinasu/usuario.svg" class="img-inicio" alt="">
@@ -40,15 +74,20 @@ if ($_SESSION['rol-sinasu'] == 3 ) {
                         <span class="lbl">USUARIOS</span>
                     </a>
                 </li>
-    <?php
+        <?php
  
-      }
-    ?>
+            }
+        ?>
 
 
+ <!-- --------------------------------------------------------------------------------------------------- -->
+            
+                <?php
 
-               <li  class="red">
-                    <a href="docente.php" class="activo">
+        if ($_SESSION['rol-sinasu'] != 3 ) { 
+            ?>
+                <li  class="red">
+                    <a hidden href="../SINASU/agencias_filtros.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
                         <img src="  ../../public/images/iconos-sinasu/subir2.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-house-user"></i> -->
@@ -56,19 +95,65 @@ if ($_SESSION['rol-sinasu'] == 3 ) {
                     </a>
                     
                 </li>
+            <?php
+
+            
+  
+             } else {
+         ?>
+        
+                <li  class="red">
+                    <a href="../SINASU/agencias_filtros.php" class="activo">
+                        <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
+                        <img src="  ../../public/images/iconos-sinasu/subir2.svg" class="img-inicio" alt="">
+                        <!-- <i class="fas fa-house-user"></i> -->
+                        <span class="lbl">SUBIR</span>
+                    </a>
+                </li>
+        <?php
+ 
+            }
+        ?>
 
 
-                
 
+
+    <!-- --------------------------------------------------------------------------------------------------- -->
+            
+                <?php
+
+        if ($_SESSION['rol-sinasu'] == 3 ) { 
+            ?>
                 <li  class="red">
                     <a href="docente.php" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
                         <img src="  ../../public/images/iconos-sinasu/revisar2.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-house-user"></i> -->
-                        <span class="lbl">REVISION</span>
+                        <span class="lbl">MI PROGRESO</span>
                     </a>
                     
                 </li>
+            <?php
+
+            
+  
+             } else {
+         ?>
+        
+                 <li  class="red">
+                    <a href="docente.php" class="activo">
+                        <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
+                        <img src="  ../../public/images/iconos-sinasu/revisar.svg" class="img-inicio" alt="">
+                        <!-- <i class="fas fa-house-user"></i> -->
+                        <span class="lbl">REVISIÓN/STATUS</span>
+                    </a>
+                    
+                 </li>
+        <?php
+ 
+            }
+        ?>
+
 
                <!-- <li class="grey with-sub">
                     <span>

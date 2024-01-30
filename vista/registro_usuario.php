@@ -47,19 +47,19 @@
    <section class="row">
     <!--Aqui especificamos el metodo-->
       <form action="" method="post">
-        <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 campo">
+        <div class="fl-flex-label mb-4 px-2 col-12 col-md-6">
           <img src="../public/images/itm-merida-fondo.webp" alt="">
           <input type="text" placeholder="Nombre" class="input input__text" name="txtnombre" >
         </div>
-        <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 campo">
+        <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 ">
            <img src="../public/images/itm-merida-fondo.webp" alt="">
           <input type="text" placeholder="Apellido" class="input input__text" name="txtapellido" >
         </div>
-        <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 campo">
+        <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 ">
            <img src="../public/images/itm-merida-fondo.webp" alt="">
           <input type="text" placeholder="Usuario" class="input input__text" name="txtusuario" >
         </div>
-        <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 campo">
+        <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 ">
            <img src="../public/images/itm-merida-fondo.webp" alt="">
           <input type="password" placeholder="Contrasea" class="input input__text" name="txtpassword" >
         </div>
