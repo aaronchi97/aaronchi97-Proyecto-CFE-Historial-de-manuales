@@ -79,13 +79,16 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
   <a href="agencia1.php" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-regular fa-circle-left"></i> &nbsp;
     ATRAS</a>
 
+  <a href="subir_archivos.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-file-arrow-up"></i>
+    &nbsp;
+    SUBIR ARCHIVOS</a>
+
 
   <table class="table table-bordered table-hover w-100 " id="example">
     <thead>
       <tr>
         <th scope="col">ID DOCUMENTO</th>
         <th scope="col">ID GUIA</th>
-        <th scope="col">RUTA DOCUMENTO</th>
         <th scope="col">NOMBRE DOCUMENTO</th>
         <th scope="col">FECHA SUBIDA</th>
         <th scope="col">OBSERVACIONES</th>
@@ -113,12 +116,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
             </td>
             <td>
               <a href="<?= $datos->ruta_doc ?>">
-                <?= $datos->ruta_doc ?>
+                <?= $datos->nombre_doc ?>
               </a>
 
-            </td>
-            <td>
-              <?= $datos->nombre_doc ?>
             </td>
             <td>
               <?= $datos->fecha_subida ?>
@@ -159,11 +159,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
             </td>
             <td>
               <a href="<?= $datos->ruta_doc ?>">
-                <?= $datos->ruta_doc ?>
+                <?= $datos->nombre_doc ?>
               </a>
-            </td>
-            <td>
-              <?= $datos->nombre_doc ?>
+
             </td>
             <td>
               <?= $datos->fecha_subida ?>
