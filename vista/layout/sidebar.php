@@ -13,7 +13,7 @@
 
 
         <li class="red">
-            <a href="docente.php" class="activo">
+            <a href="negativas.php" class="activo">
                 <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
                 <img src="  ../public/images/iconos-cfe/negativas-cfe.svg" class="img-inicio" alt="">
                 <!-- <i class="fas fa-house-user"></i> -->
