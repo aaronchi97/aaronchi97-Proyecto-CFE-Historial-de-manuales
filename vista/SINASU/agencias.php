@@ -1,8 +1,7 @@
 <?php
 
 session_start();
-//si el nombre y apellido estan vacios entonces redirigelos a la pagina de login.php
-//esto hace que si quieres colocar el link que te arroja el navegador al iniciar sesion
+//Esto hace que si quieres colocar el link que te arroja el navegador al iniciar sesion
 //lo compias y lo pegas desde el inicio entonces no te dejara, hasta que pongas un usuario valido
 if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
   header("location:../login/login_sinasu.php");
@@ -57,7 +56,6 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
     
 
   <section class="continer-agencias">
-<<<<<<< HEAD
        
 
 
@@ -67,28 +65,15 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
        while( $datos_mostrar_agencias = $sql_mostrar_agencias ->fetch_object()){ ?>
 
         <a class="boton-sinasu-agencias"  href="agencias_filtros.php?id_agencias_filtro=<?= $datos_mostrar_agencias->id_agencia ?>">
-            <?php
-        // Guarda el valor en la variable de sesión
-            // $_SESSION['id_agencias_filtro'] = $datos_mostrar_agencias->id_agencia;
-            //       ?>
-
-       <!-- "../SINASU_AGENCIAS/agencia1.php" -->
-          
-           <div  class="parte-sinasu-agencias">
-=======
+        
 
 
-    <!-- <form action="">
-           <input type="text" placeholder="DNI del maestro" name="txtdni">
-       </form> -->
+          <div class="parte-sinasu-agencias">
 
-    <a class="boton-sinasu-agencias" href="vista/login/login_sinasu.php">
+              <figure>
+                  <img src="img-sinasu/Yucatan.webp" alt="">
+                </figure>
 
->>>>>>> 0a84233c78e2da8b83b7e121e60b955cb63f5fcb
-
-      <div class="parte-sinasu-agencias">
-
-<<<<<<< HEAD
                <div class="fondo-agencias-2"></div> 
          
                <i class="fa-regular fa-folder-open"></i>
@@ -98,184 +83,18 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
                <h1><?= $datos_mostrar_agencias->nombre_agencia ?></h1>
 
                <!-- <h1><?= $datos_mostrar_agencias->responsable_agencia ?></h1> -->
-=======
-        <figure>
-          <img src="img-sinasu/Yucatan.webp" alt="">
-        </figure>
->>>>>>> 0a84233c78e2da8b83b7e121e60b955cb63f5fcb
 
-        <div class="fondo-agencias-2"></div>
+          </div>
+       
 
-<<<<<<< HEAD
-       </a>
+         </a>
+
+
+   
         
        <?php }?>
 
-      
-=======
-        <i class="fa-regular fa-folder-open"></i>
-
-        <h1>Agencia 1</h1>
-
-      </div>
-
-    </a>
-
-
-    <a class="boton-sinasu-agencias" href="vista/login/login.php">
-
-
-      <div class="parte-sinasu-agencias">
-
-        <figure>
-          <img src="img-sinasu/Campeche.jpg" alt="">
-        </figure>
-
-        <div class="fondo-agencias-2"></div>
-
-        <i class="fa-solid fa-list-check"></i>
-
-        <h1>Agencia 2</h1>
-
-      </div>
-    </a>
-
-
-    <a class="boton-sinasu-agencias" href="vista/login/login.php">
-
-
-      <div class="parte-sinasu-agencias">
-
-        <figure>
-          <img src="img-sinasu/Cancun.jpeg" alt="">
-        </figure>
-
-        <div class="fondo-agencias-2"></div>
-
-        <i class="fa-solid fa-list-check"></i>
-
-        <h1>Agencia 2</h1>
-
-      </div>
-    </a>
-
-
-    <a class="boton-sinasu-agencias" href="vista/login/login_sinasu.php">
-
-
-      <div class="parte-sinasu-agencias">
-
-        <figure>
-          <img src="img-sinasu/Yucatan.webp" alt="">
-        </figure>
-
-        <div class="fondo-agencias-2"></div>
-
-        <i class="fa-regular fa-folder-open"></i>
-
-        <h1>Agencia 1</h1>
-
-      </div>
-
-    </a>
-
-
-    <a class="boton-sinasu-agencias" href="vista/login/login.php">
-
-
-      <div class="parte-sinasu-agencias">
-
-        <figure>
-          <img src="img-sinasu/Campeche.jpg" alt="">
-        </figure>
-
-        <div class="fondo-agencias-2"></div>
-
-        <i class="fa-solid fa-list-check"></i>
-
-        <h1>Agencia 2</h1>
-
-      </div>
-    </a>
-
-
-    <a class="boton-sinasu-agencias" href="vista/login/login.php">
-
-
-      <div class="parte-sinasu-agencias">
-
-        <figure>
-          <img src="img-sinasu/Cancun.jpeg" alt="">
-        </figure>
-
-        <div class="fondo-agencias-2"></div>
-
-        <i class="fa-solid fa-list-check"></i>
-
-        <h1>Agencia 2</h1>
-
-      </div>
-    </a>
-
-
-    <a class="boton-sinasu-agencias" href="vista/login/login_sinasu.php">
-
-
-      <div class="parte-sinasu-agencias">
-
-        <figure>
-          <img src="img-sinasu/Yucatan.webp" alt="">
-        </figure>
-
-        <div class="fondo-agencias-2"></div>
-
-        <i class="fa-regular fa-folder-open"></i>
-
-        <h1>Agencia 1</h1>
-
-      </div>
-
-    </a>
-
-
-    <a class="boton-sinasu-agencias" href="vista/login/login.php">
-
-
-      <div class="parte-sinasu-agencias">
->>>>>>> 0a84233c78e2da8b83b7e121e60b955cb63f5fcb
-
-        <figure>
-          <img src="img-sinasu/Campeche.jpg" alt="">
-        </figure>
-
-        <div class="fondo-agencias-2"></div>
-
-        <i class="fa-solid fa-list-check"></i>
-
-        <h1>Agencia 2</h1>
-
-      </div>
-    </a>
-
-
-    <a class="boton-sinasu-agencias" href="vista/login/login.php">
-
-
-      <div class="parte-sinasu-agencias">
-
-        <figure>
-          <img src="img-sinasu/Cancun.jpeg" alt="">
-        </figure>
-
-        <div class="fondo-agencias-2"></div>
-
-        <i class="fa-solid fa-list-check"></i>
-
-        <h1>Agencia 2</h1>
-
-      </div>
-    </a>
-
+   
 
 
 
