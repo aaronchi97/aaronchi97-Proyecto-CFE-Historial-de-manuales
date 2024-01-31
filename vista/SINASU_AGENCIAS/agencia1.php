@@ -62,6 +62,10 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
       FROM sinasu_guias
       INNER JOIN agencias ON sinasu_guias.id_agencia = agencias.id_agencia;");
 
+
+  // $id_agencias_filtro = $_GET['id_agencias_filtro'];
+  
+
   
   //ESTA CONSULTA SE ENCUENTRA EN EL CONTROLADOR controlador_vista_agencias_id_sinasu.php
   // $datos_id_agencia =  $sql_id_agencia ->fetch_object();
@@ -69,7 +73,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
  
   ?>
 
-<a href="../SINASU/agencias_filtros.php" class="btn btn-danger btn-rounded mb-3" ><i class="fa-regular fa-circle-left"></i> &nbsp; ATRAS</a>
+<a href="../SINASU/agencias_filtros.php?id_agencias_filtro=<?= $id_agencia_especifica ?>" class="btn btn-danger btn-rounded mb-3" ><i class="fa-regular fa-circle-left"></i> &nbsp; ATRAS</a>
 
   <!-- 
   <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3"><i class="fa-solid fa-user-plus"></i> &nbsp;
@@ -161,6 +165,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
               <th scope="col">PONDERACION</th>
               <th scope="col">CRITERIO</th> -->
               <!-- <th scope="col">AGENCIA</th> -->
+              <th scope="col">AGENCIA</th> 
               <th scope="col">EVIDENCIA ESPERADA</th>
               <th scope="col">FUENTE DE LA EVIDENCIA</th>
               <th scope="col"></th>
@@ -193,9 +198,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
             <td>
               <?= $datos->criterio ?>
             </td> -->
-            <!-- <td>
-              <?= $datos_tabla_agencia->nombre_agencia ?>
-            </td> -->
+            <td>
+              <?= $datos->id_agencia?>
+            </td>
             <td>
               <?= $datos->evidencia_esperada ?>
             </td>

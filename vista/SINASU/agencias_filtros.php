@@ -43,7 +43,8 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
   //para dicha consulta necesitamos la tabla usuario
   $sql = $conexionSINASU->query(" SELECT * FROM sinasu_guias JOIN filtro_documentos ON sinasu_guias.id_elemento = filtro_documentos.id_elemento;");
   
-
+  $id_agencias_filtro = $_GET['id_agencias_filtro'];
+  // echo "id_agencias_filtro: $id_agencias_filtro";
 
     ?>
 
@@ -70,12 +71,12 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
               $sql_nombre_elemento = $conexionSINASU->query("SELECT guias.id_guia, documentos.elemento 
               FROM sinasu_guias guias
               JOIN filtro_documentos documentos ON guias.id_elemento = documentos.id_elemento
-              WHERE guias.id_elemento = $i");
+              WHERE guias.id_elemento = $i AND guias.id_agencia = $id_agencias_filtro ");
 
                $sql_nombre_elemento_siguiente = $conexionSINASU->query("SELECT guias.id_guia, documentos.elemento 
                FROM sinasu_guias guias
                JOIN filtro_documentos documentos ON guias.id_elemento = documentos.id_elemento
-               WHERE guias.id_elemento = $i + 1");
+               WHERE guias.id_elemento = $i + 1 AND guias.id_agencia = $id_agencias_filtro ");
           
                 $datos_nombre_elemento = $sql_nombre_elemento->fetch_object();
                 $datos_nombre_elemento_siguiente = $sql_nombre_elemento_siguiente->fetch_object();
@@ -83,7 +84,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
             ?>
             <?php
              if($i != 4){?>
-              <a class="boton-sinasu-agencias-filtros" href="../SINASU_AGENCIAS/agencia1.php?id_guia<?= $i ?>=<?= $datos_nombre_elemento->id_guia ?>&id_guia_siguiente<?= $i ?>=<?= $datos_nombre_elemento_siguiente->id_guia ?>">
+              <a class="boton-sinasu-agencias-filtros" href="../SINASU_AGENCIAS/agencia1.php?id_guia<?= $i ?>=<?= $datos_nombre_elemento->id_guia ?>&id_guia_siguiente<?= $i ?>=<?= $datos_nombre_elemento_siguiente->id_guia ?>&id_agencia_especifica=<?= $id_agencias_filtro ?>">
               <div class="parte-sinasu-agencias-filtros">
                   <figure>
                       <img src="img-sinasu/Yucatan.webp" alt="">
@@ -96,7 +97,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
               
          <?php }else{ ?>
             
-              <a class="boton-sinasu-agencias-filtros" href="../SINASU_AGENCIAS/agencia1.php?id_guia<?= $i ?>=<?= $datos_nombre_elemento->id_guia ?>">
+              <a class="boton-sinasu-agencias-filtros" href="../SINASU_AGENCIAS/agencia1.php?id_guia<?= $i ?>=<?= $datos_nombre_elemento->id_guia ?>&id_agencia_especifica=<?= $id_agencias_filtro ?>">
               <div class="parte-sinasu-agencias-filtros">
                   <figure>
                       <img src="img-sinasu/Yucatan.webp" alt="">

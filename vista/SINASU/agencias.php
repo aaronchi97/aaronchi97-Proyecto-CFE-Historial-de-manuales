@@ -33,6 +33,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
   <?php
   //hacemos la conexion
   include "../../modelo/conexion-SINASU.php";
+  // include "../../controlador/controlador_vista_documentos_sinasu.php";
   // include "../../controlador/controlador_vista_agencias_id_sinasu.php";
 
   // include "../../controlador/controlador_modificar_usuario_sinasu.php";
@@ -64,8 +65,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
        <?php
        while( $datos_mostrar_agencias = $sql_mostrar_agencias ->fetch_object()){ ?>
 
-        <a class="boton-sinasu-agencias"  href="agencias_filtros.php?id_agencias_filtro=<?= $datos_mostrar_agencias->id_agencia ?>">
-        
+        <!-- <a class="boton-sinasu-agencias"  href="agencias_filtros.php?id_agencias_filtro=<?= $datos_mostrar_agencias->id_agencia ?>"> -->
+        <a class="boton-sinasu-agencias" href="agencias_filtros.php?id_agencias_filtro=<?= $datos_mostrar_agencias->id_agencia ?>">
+
 
 
           <div class="parte-sinasu-agencias">
