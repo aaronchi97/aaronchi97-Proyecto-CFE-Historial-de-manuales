@@ -9,7 +9,8 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
   header("location:../login/login_sinasu.php");
 }
 
-
+$id_agencia_filtro_usuario = $_SESSION["id-agencia-sinasu"];
+echo "id_agencia: $id_agencia_filtro_usuario ";
 ?>
 
 <?php require('./../layout/topbar_sinasu.php'); ?>
@@ -22,6 +23,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 </style>
 
  <link rel="stylesheet" href="../estiloinicio.css">
+ 
 
 <div class="page-content">
 
