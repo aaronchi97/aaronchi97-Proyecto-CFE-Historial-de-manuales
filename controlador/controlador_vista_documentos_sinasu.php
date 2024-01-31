@@ -67,7 +67,7 @@ GROUP BY
 LEFT JOIN sinasu_guias ultimo ON ultimos.id_ultimo_guia = ultimo.id_guia
 WHERE
 sg.id_elemento = ultimos.id_elemento
-AND sg.id_guia >= $id_guia4;
+AND sg.id_guia >= $id_guia4 AND sg.id_agencia =  $id_agencia_especifica;
 
 
 ");
