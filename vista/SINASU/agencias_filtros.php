@@ -5,7 +5,7 @@ session_start();
 //esto hace que si quieres colocar el link que te arroja el navegador al iniciar sesion
 //lo compias y lo pegas desde el inicio entonces no te dejara, hasta que pongas un usuario valido
 if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
-    header("location:../login/login_sinasu.php");
+  header("location:../login/login_sinasu.php");
 }
 
 ?>
@@ -29,7 +29,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 <link rel="stylesheet" href="estilosinasu.css">
 <div class="page-content">
 
-  <h4 class="text-center text-secondery">SLECCIONA EL TIPO DE DOCUMENTO</h4>
+  <h4 class="text-center text-secondery">SELECCIONA EL TIPO DE DOCUMENTO</h4>
 
 
   <?php
@@ -38,91 +38,100 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
   //llamamos al controlador para eliminar registros
 //   include "../../controlador/controlador_modificar_usuario_sinasu.php";
 //   include "../../controlador/controlador_eliminar_usuario_sinasu.php";
-
+  
   //Hacemos la consulta relacionando las tablas que necesitemos
   //para dicha consulta necesitamos la tabla usuario
   $sql = $conexionSINASU->query(" SELECT * FROM sinasu_guias JOIN filtro_documentos ON sinasu_guias.id_elemento = filtro_documentos.id_elemento;");
+
+  $id_agencias_filtro = $_GET['id_agencias_filtro'];
+  // echo "id_agencias_filtro: $id_agencias_filtro";
   
+  ?>
 
-
+  <?php
+  if ($_SESSION['rol-sinasu'] != 3) {
     ?>
+    <a href="../SINASU/agencias.php" class="btn btn-danger btn-rounded mb-3"><i class="fa-regular fa-circle-left"></i>
+      &nbsp; ATRAS</a>
+  <?php } else { ?>
 
-<?php
-      if ( $_SESSION['rol-sinasu'] != 3) {
-        ?>
-         <a href="../SINASU/agencias.php" class="btn btn-danger btn-rounded mb-3" ><i class="fa-regular fa-circle-left"></i> &nbsp; ATRAS</a>
-         <?php }else {?>
+    <a hidden href="../SINASU/agencias.php" class="btn btn-danger btn-rounded mb-3"><i
+        class="fa-regular fa-circle-left"></i> &nbsp; ATRAS</a>
 
-          <a hidden href="../SINASU/agencias.php" class="btn btn-danger btn-rounded mb-3" ><i class="fa-regular fa-circle-left"></i> &nbsp; ATRAS</a>
-
-          <?php }?>
+  <?php } ?>
 
 
   <section class="continer-agencias-filtros">
-       
-        
-       <!-- <form action="">
+
+
+    <!-- <form action="">
            <input type="text" placeholder="DNI del maestro" name="txtdni">
        </form> -->
-        <?php
+    <?php
 
-            for ($i = 1; $i <= 4; $i++) {
-              $sql_nombre_elemento = $conexionSINASU->query("SELECT guias.id_guia, documentos.elemento 
+    for ($i = 1; $i <= 4; $i++) {
+      $sql_nombre_elemento = $conexionSINASU->query("SELECT guias.id_guia, documentos.elemento 
               FROM sinasu_guias guias
               JOIN filtro_documentos documentos ON guias.id_elemento = documentos.id_elemento
-              WHERE guias.id_elemento = $i");
+              WHERE guias.id_elemento = $i AND guias.id_agencia = $id_agencias_filtro ");
 
-               $sql_nombre_elemento_siguiente = $conexionSINASU->query("SELECT guias.id_guia, documentos.elemento 
+      $sql_nombre_elemento_siguiente = $conexionSINASU->query("SELECT guias.id_guia, documentos.elemento 
                FROM sinasu_guias guias
                JOIN filtro_documentos documentos ON guias.id_elemento = documentos.id_elemento
-               WHERE guias.id_elemento = $i + 1");
-          
-                $datos_nombre_elemento = $sql_nombre_elemento->fetch_object();
-                $datos_nombre_elemento_siguiente = $sql_nombre_elemento_siguiente->fetch_object();
+               WHERE guias.id_elemento = $i + 1 AND guias.id_agencia = $id_agencias_filtro ");
 
-            ?>
-            <?php
-             if($i != 4){?>
-              <a class="boton-sinasu-agencias-filtros" href="../SINASU_AGENCIAS/agencia1.php?id_guia<?= $i ?>=<?= $datos_nombre_elemento->id_guia ?>&id_guia_siguiente<?= $i ?>=<?= $datos_nombre_elemento_siguiente->id_guia ?>">
-              <div class="parte-sinasu-agencias-filtros">
-                  <figure>
-                      <img src="img-sinasu/Yucatan.webp" alt="">
-                 </figure>
-                  <div class="fondo-agencias-filtros-2"></div>
-                 <i class="fa-regular fa-folder-open"></i>
-                 <h1><?= $datos_nombre_elemento ->elemento ?></h1>
-              </div>
-              </a>
-              
-         <?php }else{ ?>
-            
-              <a class="boton-sinasu-agencias-filtros" href="../SINASU_AGENCIAS/agencia1.php?id_guia<?= $i ?>=<?= $datos_nombre_elemento->id_guia ?>">
-              <div class="parte-sinasu-agencias-filtros">
-                  <figure>
-                      <img src="img-sinasu/Yucatan.webp" alt="">
-                 </figure>
-                  <div class="fondo-agencias-filtros-2"></div>
-                 <i class="fa-regular fa-folder-open"></i>
-                 <h1><?= $datos_nombre_elemento ->elemento ?></h1>
-              </div>
-              </a>
-               
-            <?php
-            }
-            ?>
+      $datos_nombre_elemento = $sql_nombre_elemento->fetch_object();
+      $datos_nombre_elemento_siguiente = $sql_nombre_elemento_siguiente->fetch_object();
 
-            
-         <?php
-            }
-            ?>
+      ?>
+      <?php
+      if ($i != 4) { ?>
+        <a class="boton-sinasu-agencias-filtros"
+          href="../SINASU_AGENCIAS/agencia1.php?id_guia<?= $i ?>=<?= $datos_nombre_elemento->id_guia ?>&id_guia_siguiente<?= $i ?>=<?= $datos_nombre_elemento_siguiente->id_guia ?>&id_agencia_especifica=<?= $id_agencias_filtro ?>">
+          <div class="parte-sinasu-agencias-filtros">
+            <figure>
+              <img src="img-sinasu/Yucatan.webp" alt="">
+            </figure>
+            <div class="fondo-agencias-filtros-2"></div>
+            <i class="fa-regular fa-folder-open"></i>
+            <h1>
+              <?= $datos_nombre_elemento->elemento ?>
+            </h1>
+          </div>
+        </a>
 
+      <?php } else { ?>
 
+        <a class="boton-sinasu-agencias-filtros"
+          href="../SINASU_AGENCIAS/agencia1.php?id_guia<?= $i ?>=<?= $datos_nombre_elemento->id_guia ?>&id_agencia_especifica=<?= $id_agencias_filtro ?>">
+          <div class="parte-sinasu-agencias-filtros">
+            <figure>
+              <img src="img-sinasu/Yucatan.webp" alt="">
+            </figure>
+            <div class="fondo-agencias-filtros-2"></div>
+            <i class="fa-regular fa-folder-open"></i>
+            <h1>
+              <?= $datos_nombre_elemento->elemento ?>
+            </h1>
+          </div>
+        </a>
 
+        <?php
+      }
+      ?>
 
 
-       
-<!-- 
-       <a class="boton-sinasu-agencias-filtros"  href="../SINASU_AGENCIAS/agencia1.php?id_guia=<?=  $datos->id_elemento + 1 ?>">
+      <?php
+    }
+    ?>
+
+
+
+
+
+
+    <!-- 
+       <a class="boton-sinasu-agencias-filtros"  href="../SINASU_AGENCIAS/agencia1.php?id_guia=<?= $datos->id_elemento + 1 ?>">
 
     
 
@@ -143,13 +152,13 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
        </a> -->
 
-         
 
 
 
-   </section>
+
+  </section>
 
 
 
-<!-- por ultimo se carga el footer -->
-<?php require('./../layout/footer_sinasu.php'); ?>
+  <!-- por ultimo se carga el footer -->
+  <?php require('./../layout/footer_sinasu.php'); ?>

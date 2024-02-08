@@ -28,73 +28,135 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 <link rel="stylesheet" href="estilosinasu.css">
 <div class="page-content">
 
-  <h4 class="text-center text-secondery">AGENCIAS</h4>
+
 
   <?php
   //hacemos la conexion
   include "../../modelo/conexion-SINASU.php";
+  // include "../../controlador/controlador_vista_documentos_sinasu.php";
   // include "../../controlador/controlador_vista_agencias_id_sinasu.php";
-
+  
   // include "../../controlador/controlador_modificar_usuario_sinasu.php";
-
+  
 
   //Hacemos la consulta relacionando las tablas que necesitemos
   //para dicha consulta necesitamos la tabla usuario
   // $sql = $conexionSINASU->query(" SELECT * from usuario ");
   $sql_mostrar_agencias = $conexionSINASU->query(" SELECT * from agencias ");
+
+  $sql_cantidad_agencias = $conexionSINASU->query("SELECT COUNT(*) AS Total FROM agencias");
+  $resultado = $sql_cantidad_agencias->fetch_assoc(); // Obtener el resultado como un array asociativo
+  $total_agencias = $resultado['Total']; // Acceder al valor 'Total'
   
 
 
-    ?>
+  $id_usuario_agencias = $_SESSION["id-sinasu"];
 
-    <!-- BOTON PARA REGISTRAR AGENCIA -->
+  $id_agencia_filtro_usuario = $_SESSION["id-agencia-sinasu"];
 
-<a href="registro_agencias.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-user-plus "></i> &nbsp;
+  // $sql_obtener_id_agencia = $conexionSINASU->query("SELECT id_agencia FROM agencias WHERE id_usuario = '$id_usuario_agencias' ");
+// $sql_obtener_id_agencia = $conexionSINASU->query("SELECT * FROM agencias WHERE id_usuario = '$id_usuario_agencias'");
+// $resultado = $sql_obtener_id_agencia->fetch_object();
+  
+  // $_SESSION['id-agencia'] = $resultado->id_agencia;
+// $id_agencia_resultado = $_SESSION['id-agencia'];
+  
+  // echo "id de agencia: $id_agencia_resultado";
+  
+
+
+
+  ?>
+
+  <h4 class="text-center text-secondery">AGENCIAS</h4>
+
+  <!-- BOTON PARA REGISTRAR AGENCIA -->
+
+  <a href="registro_agencias.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-user-plus "></i>
+    &nbsp;
     REGISTRAR NUEVA AGENCIA</a>
 
 
-    
+
 
   <section class="continer-agencias">
-       
 
 
+    <?php
+    if ($_SESSION['rol-sinasu'] != 3) { ?>
 
-<!-- -----------------HACER EL WHILE PARA VINCULAR TODAS LAS 10 AGENCIAS DE LA BASE DE DATOS-------------------------------- -->
-       <?php
-       while( $datos_mostrar_agencias = $sql_mostrar_agencias ->fetch_object()){ ?>
+      <?php
+      while ($datos_mostrar_agencias = $sql_mostrar_agencias->fetch_object()) { ?>
 
-        <a class="boton-sinasu-agencias"  href="agencias_filtros.php?id_agencias_filtro=<?= $datos_mostrar_agencias->id_agencia ?>">
-        
+        <!-- <a class="boton-sinasu-agencias"  href="agencias_filtros.php?id_agencias_filtro=<?= $datos_mostrar_agencias->id_agencia ?>"> -->
+        <a class="boton-sinasu-agencias"
+          href="agencias_filtros.php?id_agencias_filtro=<?= $datos_mostrar_agencias->id_agencia ?>">
+
 
 
           <div class="parte-sinasu-agencias">
 
-              <figure>
-                  <img src="img-sinasu/Yucatan.webp" alt="">
-                </figure>
+            <figure>
+              <img src="img-sinasu/Yucatan.webp" alt="">
+            </figure>
 
-               <div class="fondo-agencias-2"></div> 
-         
-               <i class="fa-regular fa-folder-open"></i>
+            <div class="fondo-agencias-2"></div>
 
-               <h1><?= $datos_mostrar_agencias->zona ?></h1>
-     
-               <h1><?= $datos_mostrar_agencias->nombre_agencia ?></h1>
+            <i class="fa-regular fa-folder-open"></i>
 
-               <!-- <h1><?= $datos_mostrar_agencias->responsable_agencia ?></h1> -->
+            <h1>
+              <?= $datos_mostrar_agencias->zona ?>
+            </h1>
+
+            <h1>
+              <?= $datos_mostrar_agencias->nombre_agencia ?>
+            </h1>
+
+            <!-- <h1><?= $datos_mostrar_agencias->responsable_agencia ?></h1> -->
 
           </div>
-       
-
-         </a>
 
 
-   
-        
-       <?php }?>
+        </a>
 
-   
+
+
+
+      <?php } ?>
+
+
+      <?php
+
+    } else { ?>
+
+      <?php
+
+      for ($j = 1; $j <= $total_agencias; $i++) {
+
+        $sql_nombre_elemento = $conexionSINASU->query("SELECT * FROM agencias  where id_agencia = $j AND id_usuario = $id_usuario_agencias ");
+
+
+        $datos_nombre_elemento = $sql_nombre_elemento->fetch_object();
+        $datos_nombre_elemento_siguiente = $sql_nombre_elemento_siguiente->fetch_object();
+
+        ?>
+
+
+        <?php
+      }
+      ?>
+
+
+
+
+      <?php
+    }
+    ?>
+
+    <!-- -----------------HACER EL WHILE PARA VINCULAR TODAS LAS 10 AGENCIAS DE LA BASE DE DATOS-------------------------------- -->
+
+
+
 
 
 

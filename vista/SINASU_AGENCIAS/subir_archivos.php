@@ -28,19 +28,15 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 <body class="cuerpo_subir">
   <div class="page-content">
     <?php
+    $id_agencia_regresar_vista_documentos = $_SESSION["id-agencia-sinasu"];
+    $mostrar_id_guia = $_GET['id_guia_subir_doc'];
+    echo "la guia es: " . $mostrar_id_guia;
     // Verificar si se ha proporcionado un id_guia_subir_doc en la URL
-    if (isset($_GET['id_guia_subir_doc'])) {
-      // Obtener el valor de id_guia_subir_doc de la URL
-      $id_guia_subir_doc = $_GET['id_guia_subir_doc'];
-
-      // Usar $id_guia_subir_doc como necesites en tu código
-      echo "El valor de id_guia_subir_doc es: " . $id_guia_subir_doc;
-    } else {
-      echo "No se proporcionó un id_guia_subir_doc en la URL";
-    }
+    $_SESSION["mostrar-id-guia"] = $mostrar_id_guia;
     ?>
 
-    <a href="agencia1.php" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-regular fa-circle-left"></i>
+    <a href="../SINASU/agencias_filtros.php?id_agencias_filtro=<?= $id_agencia_regresar_vista_documentos ?>"
+      class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-regular fa-circle-left"></i>
       &nbsp;
       ATRAS</a>
     <div class="subir">

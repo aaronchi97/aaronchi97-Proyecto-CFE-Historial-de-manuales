@@ -43,6 +43,8 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
   include "../../modelo/conexion-SINASU.php";
   //llamamos al controlador para eliminar registros
   include "../../controlador/controlador_vista_documentos_sinasu.php";
+  // include "upload.php";
+  
   // include "../../controlador/controlador_vista_agencias_id_sinasu.php";
   // include "../../controlador/controlador_eliminar_usuario_sinasu.php";
   
@@ -63,14 +65,18 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
       INNER JOIN agencias ON sinasu_guias.id_agencia = agencias.id_agencia;");
 
 
+  // $id_agencias_filtro = $_GET['id_agencias_filtro'];
+  
+
+
   //ESTA CONSULTA SE ENCUENTRA EN EL CONTROLADOR controlador_vista_agencias_id_sinasu.php
   // $datos_id_agencia =  $sql_id_agencia ->fetch_object();
   $datos_tabla_agencia = $sql_nombre_id_agencia->fetch_object();
 
   ?>
 
-  <a href="../SINASU/agencias_filtros.php" class="btn btn-danger btn-rounded mb-3"><i
-      class="fa-regular fa-circle-left"></i> &nbsp; ATRAS</a>
+  <a href="../SINASU/agencias_filtros.php?id_agencias_filtro=<?= $id_agencia_especifica ?>"
+    class="btn btn-danger btn-rounded mb-3"><i class="fa-regular fa-circle-left"></i> &nbsp; ATRAS</a>
 
   <!-- 
   <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3"><i class="fa-solid fa-user-plus"></i> &nbsp;
@@ -91,9 +97,11 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
               <th scope="col">PROCESO</th>
               <th scope="col">ELEMENTO</th>
               <th scope="col">PREGUNTA</th>
-              <th scope="col">PONDERACION</th>
-              <th scope="col">CRITERIO</th>
-              <th scope="col">ID_AGENCIA</th> -->
+              <th scope="col">PONDERACION</th>-->
+          <th scope="col">CRITERIO</th>
+          <!-- <th scope="col">ID_AGENCIA</th>  -->
+          <!-- <th scope="col">ID GUIA</th>
+          <th scope="col">AGENCIA</th> -->
           <th scope="col">EVIDENCIA ESPERADA</th>
           <th scope="col">FUENTE DE LA EVIDENCIA</th>
           <th scope="col"></th>
@@ -123,9 +131,15 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
             </td>
             <td>
               <?= $datos->ponderacion ?>
-            </td>
+            </td> -->
             <td>
               <?= $datos->criterio ?>
+            </td>
+            <!-- <td class="id" scope="row">
+              <?= $datos->id_guia ?>
+            </td>
+            <td class="id" scope="row">
+              <?= $datos->id_agencia ?>
             </td> -->
             <td>
               <?= $datos->evidencia_esperada ?>
@@ -141,12 +155,14 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
               <a style="font-size: 25px;" class="btn btn-info"
                 href="subir_archivos.php?id_guia_subir_doc=<?= $datos->id_guia ?>"><i
                   class="fa-solid fa-file-arrow-up"></i></a>
+              <tool-tip role="tooltip"><b>Subir archivos</b></tool-tip>
               <!-- <a style="font-size: 25px;" class="btn btn-info" href="subir_archivos.php?id=<?= $datos->id_guia ?>"
                 onclick=" advertencia(event)"><i class="fa-solid fa-file-arrow-up"></i></a>  -->
             </td>
             <td>
               <a style="font-size: 25px;" class="btn btn-primary"
                 href="ver_archivos.php?id_guia_subir_doc=<?= $datos->id_guia ?>"><i class="fa-solid fa-eye"></i></a>
+              <tool-tip role="tooltip"><b>Ver archivos</b></tool-tip>
             </td>
           </tr>
 
@@ -168,6 +184,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
               <th scope="col">PONDERACION</th>
               <th scope="col">CRITERIO</th> -->
               <!-- <th scope="col">AGENCIA</th> -->
+              <th scope="col">AGENCIA</th>
               <th scope="col">EVIDENCIA ESPERADA</th>
               <th scope="col">FUENTE DE LA EVIDENCIA</th>
               <th scope="col"></th>
@@ -200,9 +217,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
             <td>
               <?= $datos->criterio ?>
             </td> -->
-                <!-- <td>
-              <?= $datos_tabla_agencia->nombre_agencia ?>
-            </td> -->
+                <td>
+                  <?= $datos->id_agencia ?>
+                </td>
                 <td>
                   <?= $datos->evidencia_esperada ?>
                 </td>
@@ -214,7 +231,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
                   <!-- AQUI SE AÑADE LA RUTA DE LA VISTA PARA REVISAR DOCUMENTACION SUBIDA POR AGENCIAS, ESPECIFICAR RUTA EN EL HREF -->
 
                   <a style="font-size: 15px;" class="btn btn-warning"
-                    href="OTRO_ARCHIVO.php?id_guia_revision=<?= $datos->id_guia ?>">REVISAR</a>
+                    href="revisar_archivos.php?id_agencia_revision_administrador=<?= $datos->id_agencia ?>">REVISAR</a>
                   <!-- <a style="font-size: 25px;" class="btn btn-info" href="subir_archivos.php?id=<?= $datos->id_guia ?>"
                 onclick=" advertencia(event)"><i class="fa-solid fa-file-arrow-up"></i></a>  -->
                 </td>

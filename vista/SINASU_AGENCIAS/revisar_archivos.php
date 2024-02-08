@@ -33,7 +33,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
 <!-- inicio del contenido principal -->
-<link rel="stylesheet" href="estilosinasu.css">
+<link rel="stylesheet" href="../SINASU/estilosinasu.css">
 <div class="page-content">
 
   <h4 class="text-center text-secondery"> AGENCIA 1</h4>
@@ -41,41 +41,55 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
   <?php
   //hacemos la conexion
   include "../../modelo/conexion-SINASU.php";
-  //llamamos al controlador para eliminar registros
-  include "../../controlador/controlador_modificar_usuario_sinasu.php";
-  include "../../controlador/controlador_eliminar_usuario_sinasu.php";
+  include "../../controlador/controlador_vista_administrador__documentos_sinasu.php";
 
   //Hacemos la consulta relacionando las tablas que necesitemos
   //para dicha consulta necesitamos la tabla usuario
-  $sql = $conexionSINASU->query("SELECT * FROM documentos");
-  $id_agencia_regresar_vista_documentos = $_SESSION["id-agencia-sinasu"];
+  // $sql = $conexionSINASU->query("SELECT * FROM documentos");
+  
+
 
 
 
   ?>
 
+  <?php
 
+  if ($_SESSION['rol-sinasu'] == 3) {
+    ?>
+    <a href="registro_usuario_sinasu.php" class="btn btn-primary btn-rounded mb-3" style="display: none;"><i
+        class="fa-solid fa-user-plus"></i> &nbsp; REGISTRAR</a>
+    <?php
 
+    $mostrarBoton = false;
 
-  <a href="../SINASU/agencias_filtros.php?id_agencias_filtro=<?= $id_agencia_regresar_vista_documentos ?>"
-    class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-regular fa-circle-left"></i> &nbsp;
+  } else {
+    ?>
+
+    <!-- <a href="registro_usuario_sinasu.php" class="btn btn-primary btn-rounded mb-3 otro"><i
+        class="fa-solid fa-user-plus "></i> &nbsp;
+      REGISTRAR</a> -->
+    <?php
+
+  }
+  ?>
+
+  <a href="../SINASU/agencias.php" class="btn btn-danger btn-rounded mb-3 otro"><i
+      class="fa-regular fa-circle-left"></i> &nbsp;
     ATRAS</a>
 
-  <a href="subir_archivos.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-file-arrow-up"></i>
-    &nbsp;
-    SUBIR ARCHIVOS</a>
 
 
   <table class="table table-bordered table-hover w-100 " id="example">
     <thead>
       <tr>
-        <!-- <th scope="col">ID DOCUMENTO</th> -->
-        <!-- <th scope="col">ID GUIA</th> -->
+        <th scope="col">ID DOCUMENTO</th>
+        <th scope="col">ID GUIA</th>
         <th scope="col">NOMBRE DOCUMENTO</th>
         <th scope="col">FECHA SUBIDA</th>
-        <!-- <th scope="col">OBSERVACIONES</th> -->
+        <th scope="col">OBSERVACIONES</th>
         <th scope="col">ESTADO</th>
-        <!-- <th scope="col">NOMBRE RESPONSABLE</th> -->
+        <th scope="col">NOMBRE RESPONSABLE</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -84,18 +98,18 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
       <!-- AQUI EMPIEZAN LAS CONDICIONES DE VISTA POR ROLES-------------------------------------------------------------------------- -->
       <?php
-      if ($_SESSION['rol-sinasu'] == 3) {
+      if ($_SESSION['rol-sinasu'] == 2 || $_SESSION['rol-sinasu'] == 3) {
         ?>
         <?php
-        while ($datos = $sql->fetch_object()) { ?>
+        while ($datos = $sql_id_agencia_revision_administrador->fetch_object()) { ?>
 
           <tr>
-            <!-- <td class="id" scope="row">
+            <td class="id" scope="row">
               <?= $datos->id_documento ?>
-            </td> -->
-            <!-- <td>
+            </td>
+            <td>
               <?= $datos->id_guia ?>
-            </td> -->
+            </td>
             <td>
               <a href="<?= $datos->ruta_doc ?>">
                 <?= $datos->nombre_doc ?>
@@ -105,15 +119,15 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
             <td>
               <?= $datos->fecha_subida ?>
             </td>
-            <!-- <td>
+            <td>
               <?= $datos->observaciones ?>
-            </td> -->
+            </td>
             <td>
               <?= $datos->estado ?>
             </td>
-            <!-- <td>
+            <td>
               <?= $datos->nombre_responsable ?>
-            </td> -->
+            </td>
             <td>
               <a href="controlador_eliminar_archivos.php" class="btn btn-danger" style="font-size: 15px;"><i
                   class="fa-solid fa-trash-can"></i></a>
@@ -130,7 +144,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
         ?>
 
         <?php
-        while ($datos = $sql->fetch_object()) { ?>
+        while ($datos = $sql_id_agencia_revision_administrador->fetch_object()) { ?>
 
           <!--dentro imprimiremos los valores que contienen mis tablas 
     en la base de datos-->
@@ -181,7 +195,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header d-flex justify-content-between">
-                  <h5 class="modal-title w-100" id="exampleModalLabel">Modificar usuario</h5>
+                  <h5 class="modal-title w-100" id="exampleModalLabel">Moodificar usuario</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>

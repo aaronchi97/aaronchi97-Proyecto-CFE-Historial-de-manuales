@@ -11,9 +11,9 @@
 
 
 
-        <link href="https://tresplazas.com/web/img/big_punto_de_venta.png" rel="shortcut icon">
         <link href="../../public/app/publico/css/lib/font-awesome/font-awesome.min.css" rel="stylesheet">
-        <link href="../../public/bootstrap5/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link href="../../public/bootstrap5/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
         <link rel="stylesheet" href="../../public/app/publico/css/lib/lobipanel/lobipanel.min.css">
         <link rel="stylesheet" href="../../public/app/publico/css/separate/vendor/lobipanel.min.css">
@@ -34,7 +34,8 @@
         <link href="../../public/app/publico/css/mis_estilos/estilos.css" rel="stylesheet">
 
         <!-- form -->
-        <link rel="stylesheet" type="text/css" href="../public/app/publico/css/lib/jquery-flex-label/jquery.flex.label.css"> <!-- Original -->
+        <link rel="stylesheet" type="text/css"
+            href="../public/app/publico/css/lib/jquery-flex-label/jquery.flex.label.css"> <!-- Original -->
 
         <!-- mis estilos -->
         <link href="../../public/principal/css/estilos.css" rel="stylesheet">
@@ -126,61 +127,67 @@
                 <div class="site-header-content">
                     <div class="site-header-content-in">
                         <div class="site-header-shown">
+                            <!--para editar administrador, supervisor http://localhost/Proyecto-CFE-Historial-de-Manuales/aaronchi97-Proyecto-CFE-Historial-de-manuales/public/app/publico/css/main.css .site-header .site-header-shown  -->
 
+                            <!-- VISTA DE QUIEN INICIA SESION (ROLES) -->
 
-                        <!-- VISTA DE QUIEN INICIA SESION (ROLES) -->
+                            <?php
 
-                        <?php
-
-if ($_SESSION['rol-sinasu'] == 1 ) { 
-    ?>
-         <div class="dropdown dropdown-notification">
-                                <h6 class="text-light mt-2">
-                                   Administrador
-                                </h6>
-                            </div>
-    <?php
-
-    // $mostrarBoton = false;
-  
-      } else if ($_SESSION['rol-sinasu'] == 2) {
-    ?>
-         <div class="dropdown dropdown-notification">
-                                <h6 class="text-light mt-2">
-                                  Supervisor
-                                </h6>
-                            </div>
-        
-    <?php
- 
-      }else {
-        ?>
-             <div class="dropdown dropdown-notification">
+                            if ($_SESSION['rol-sinasu'] == 1) {
+                                ?>
+                                <div class="dropdown dropdown-notification">
                                     <h6 class="text-light mt-2">
-                                      Consultor
+                                        Administrador
                                     </h6>
                                 </div>
-            
-        <?php
-     
-          }
-        ?>
-    
+                                <?php
 
-                           
+                                // $mostrarBoton = false;
+                            
+                            } else if ($_SESSION['rol-sinasu'] == 2) {
+                                ?>
+                                    <div class="dropdown dropdown-notification">
+                                        <h6 class="text-light mt-2">
+                                            Supervisor
+                                        </h6>
+                                    </div>
+
+                                <?php
+
+                            } else {
+                                ?>
+                                    <div class="dropdown dropdown-notification">
+                                        <h6 class="text-light mt-2">
+                                            Consultor
+                                        </h6>
+                                    </div>
+
+                                <?php
+
+                            }
+                            ?>
+
+
+
 
                             <div class="dropdown user-menu">
-                                <button class="dropdown-toggle" id="dd-user-menu" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="dropdown-toggle" id="dd-user-menu" type="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
                                     <img src="../../public/app/publico/img/CFE-icono.svg" alt="">
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right pt-0" aria-labelledby="dd-user-menu">
 
-                                    <h5 class="p-2 text-center bg-primary"><?= $_SESSION["nombre-sinasu"]. " ". $_SESSION["apellido-sinasu"]  ?></h5>
-                                    <a class="dropdown-item" href="datos_perfil_sinasu.php"><span class="font-icon glyphicon glyphicon-user"></span>Perfil</a>
-                                    <a class="dropdown-item" href="cambiar_clave.php"><span class="font-icon glyphicon glyphicon-lock"></span>Cambiar contraseña</a>
+                                    <h5 class="p-2 text-center bg-primary">
+                                        <?= $_SESSION["nombre-sinasu"] . " " . $_SESSION["apellido-sinasu"] ?>
+                                    </h5>
+                                    <a class="dropdown-item" href="datos_perfil_sinasu.php"><span
+                                            class="font-icon glyphicon glyphicon-user"></span>Perfil</a>
+                                    <a class="dropdown-item" href="cambiar_clave.php"><span
+                                            class="font-icon glyphicon glyphicon-lock"></span>Cambiar contraseña</a>
 
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="../../controlador/controlador_cerrar_sesion_sinasu.php">
+                                    <a class="dropdown-item"
+                                        href="../../controlador/controlador_cerrar_sesion_sinasu.php">
                                         <span class="font-icon glyphicon glyphicon-log-out"></span>cerrar sesion
                                     </a>
                                 </div>

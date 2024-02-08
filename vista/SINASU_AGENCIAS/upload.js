@@ -66,7 +66,7 @@ function processFile(file) {
         <div id="${id}" class="file-container">
         <i class="fa-regular fa-file-pdf" style="font-size: 20px;"></i>
           <div class="status">
-            <span> <a href="uploads/${file.name}" target="_blank">${file.name}</a></span>
+            <span> <a target="_blank" href="../SINASU/uploads/${file.name}" >${file.name}</a></span>
             <span class="status-text">
               Loading...
             </span>

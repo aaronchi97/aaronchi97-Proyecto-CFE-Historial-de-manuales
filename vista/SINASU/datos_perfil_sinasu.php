@@ -54,24 +54,28 @@ $id = $_SESSION["id-sinasu"];
 
       <?php
       while ($datos = $sql->fetch_object()) { ?>
-       <div hidden class="fl-flex-label mb-4 px-2 col-12  campo">
-  
-                    <input type="text" placeholder="ID" class="input input__text inputmodal" name="txtid" value="<?= $datos->id_usuario ?>">
-                  </div>
-                  <div class="fl-flex-label mb-4 px-2 col-12  campo">
-  
-                    <input type="text" placeholder="Nombre" class="input input__text inputmodal" name="txtnombre" value="<?= $datos->nombre ?>">
-                  </div>
-                  <div class="fl-flex-label mb-4 px-2 col-12  campo">
-                   
-                    <input type="text" placeholder="Apellido" class="input input__text inputmodal" name="txtapellido" value="<?= $datos->apellido ?>" >
-                  </div>
-                  <div class="fl-flex-label mb-4 px-2 col-12  campo">
-                    
-                    <input type="text" placeholder="Usuario" class="input input__text inputmodal" name="txtusuario" value="<?= $datos->usuario ?>" >
-                  </div>
+        <div hidden class="fl-flex-label mb-4 px-2 col-12  campo">
 
-        
+          <input type="text" placeholder="ID" class="input input__text inputmodal" name="txtid"
+            value="<?= $datos->id_usuario ?>">
+        </div>
+        <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+          <input type="text" placeholder="Nombre" class="input input__text inputmodal" name="txtnombre"
+            value="<?= $datos->nombre ?>">
+        </div>
+        <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+          <input type="text" placeholder="Apellido" class="input input__text inputmodal" name="txtapellido"
+            value="<?= $datos->apellido ?>">
+        </div>
+        <div hidden class="fl-flex-label mb-4 px-2 col-12  campo">
+
+          <input type="text" placeholder="Usuario" class="input input__text inputmodal" name="txtusuario"
+            value="<?= $datos->usuario ?>">
+        </div>
+
+
 
         <div class="text-right p-3">
           <!-- <a href="usuario.php" class="btn btn-secondary btn-rounded">Atras</a> -->

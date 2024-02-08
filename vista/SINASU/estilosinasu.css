@@ -291,3 +291,26 @@
 .fa-circle-xmark {
   color: #ff0000;
 }
+/*------------- ESTILOS PARA AGENCIA1------------------- */
+tool-tip {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  user-select: none;
+  background-color: #dedede;
+  box-shadow: 0 0 10px #000;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  top: 100%;
+  left: 12.5%;
+
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+:has(> tool-tip) {
+  position: relative;
+}
+:has(> tool-tip):hover tool-tip {
+  opacity: 1;
+}

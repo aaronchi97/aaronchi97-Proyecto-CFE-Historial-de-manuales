@@ -10950,6 +10950,7 @@ body {
   }
 }
 .site-header .site-header-shown {
+  color: #fff;
   float: right;
   zoom: 1;
 }
