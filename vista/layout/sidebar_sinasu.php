@@ -100,10 +100,12 @@
             
   
              } else {
+
+               $id_agencia_por_sesion = $_SESSION["id-agencia-sinasu"];
          ?>
         
                 <li  class="red">
-                    <a href="../SINASU/agencias_filtros.php" class="activo">
+                    <a href="../SINASU/agencias_filtros.php?id_agencias_filtro=<?= $id_agencia_por_sesion ?>" class="activo">
                         <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
                         <img src="  ../../public/images/iconos-sinasu/subir2.svg" class="img-inicio" alt="">
                         <!-- <i class="fas fa-house-user"></i> -->

@@ -35,98 +35,29 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 <link rel="stylesheet" href="estiloinicio.css">
 <div class="page-content">
 
-  <h4 style="margin-bottom: 5%;" class="text-center text-secondery"> MANUALES</h4>
+  <h4 style="margin-bottom: 5%;" class="text-center text-secondery">HISTORIAL DE MANUALES</h4>
 
   <?php
   //hacemos la conexion
   include "../modelo/conexion.php";
   //llamamos al controlador para eliminar registros
-  include "../controlador/controlador_modificar_manual.php";
+//   include "../controlador/controlador_modificar_manual.php";
   // include "../controlador/controlador_eliminar_usuario.php";
 
-  //Hacemos la consulta relacionando las tablas que necesitemos
-  //para dicha consulta necesitamos la tabla usuario
-  //$sql = $conexion->query(" SELECT * from control_de_manuales ");
-  
-  $mostrarTablas = false;
-  if (isset($_POST['txtbuscarrpu'])) {
-    $rpu_buscar = $_POST['txtbuscarrpu'];
-    // $rpu_vuelta = $_GET['id_manuales_vuelta'];
-    // Modificar la consulta para incluir la cláusula WHERE
-    $sql = $conexion->query("SELECT * FROM control_manuales WHERE rpu = $rpu_buscar  ");
-
-    // Activar la visualización de las tablas
-    $mostrarTablas = true;
-  }
 
 
 
+$id_manual_obtenido = $_GET['id_manual'];
 
+$sql = $conexion->query(" SELECT * from historial_manuales where id_control_manuales = $id_manual_obtenido");
+
+$datos = $sql->fetch_object()
   ?>
-  <!-- <form style="margin-bottom: 4%;" action="" method="post">
-    <div style="margin-bottom: 3%;" class="fl-flex-label mb-4 px-2 col-12 col-md-10 campo">
-      <input type="text" placeholder="Inserte RPU" class="input input__text" name="txtbuscarrpu">
-    </div>
-    <button type="submit" class="btn btn-primary btn-rounded mb-10 otro">
-      <i class="fa-solid fa-search"></i> &nbsp; BUSCAR
-    </button>
-  </form> -->
-
-  <form style="margin-bottom: 4%;" action="" method="post" id="searchForm">
-   
-    <div style="margin-bottom: 3%;" class="fl-flex-label mb-4 px-2 col-12 col-md-10 campo">
-    <input type="text"  class="input input__text" placeholder="Inserte RPU" id="searchInput" name="txtbuscarrpu">
-    </div>
-    <button type="submit" class="btn btn-primary btn-rounded mb-10 otro" type="button" onclick="buscar()"><i class="fa-solid fa-search"></i> &nbsp;Buscar</button>
-  </form>
-
-
-  <div id="errorMessage" class="error-message" style="display:none;">Campo vacío, por favor ingrese RPU.</div>
-
-  <!-- 
-  <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3"><i class="fa-solid fa-user-plus"></i> &nbsp;
-    REGISTRAR</a> -->
 
 
 
-    <!-- CODIGO PARA APARECER Y OCULTAR EL BOTON GENERAR MANUAL -->
-
-  <!-- <?php
-  if ($_SESSION['rol'] != 1  && $mostrarTablas == true) {
-    ?>
-    <a href="registro_usuario.php" class="btn btn-warning btn-rounded mb-3" style="display: none;"><i
-        class="fa-solid fa-file"></i> &nbsp; Generar Manual</a>
-    <?php
-
-    $mostrarBoton = false;
-
-  } else if ($mostrarTablas == true) {
-    ?>
-      <div class="contenedor-btn-manual">
-        <a href="registro_usuario.php" class="btn btn-warning btn-rounded otro btn_generarmanual"><i
-            class="fa-solid fa-file"></i>
-          &nbsp;
-          Generar Manual</a>
-      </div>
-
-    <?php
-
-  }
-  ?> -->
-
-
-
-
- 
-
-
-
-  <!-- CONDICION PARA OCULTAR O MOSTRAR LA TABLA SEGUN LOS VALORES QUE INGRESE EL USUARIO -->
-
-  <?php if ($mostrarTablas) { ?>
-
-    
-
+<a href="manuales.php?id_manuales_vuelta=<?= $datos->rpu ?> " class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-solid fa-caret-left"></i>
+    ATRAS</a>
 
 
 
@@ -135,48 +66,53 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
         if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2 ) {
           ?>
 
-           <table class="table table-bordered table-hover w-100 " id="example">
-                <thead>
-                  <tr>
-                    <th scope="col" >ACCION</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    <th scope="col">RPU</th>
-                    <th scope="col">CUENTA</th>
-                    <th scope="col">CICLO</th>
-                    <th scope="col">TARIFA</th>
-                    <th scope="col">MOTIVO MANUAL</th>
-                    <th scope="col">SIN USO</th>
-                    <th scope="col">LECTURA MANUAL</th>
-                    <th scope="col">KWH A RECUPERAR</th>
-                    <th scope="col">RESPALDO</th>
-                    <th scope="col">RPE_AUXILIAR</th>
-                    <th scope="col">OBSERVACIONES</th>
-                    <th scope="col">CORRECCION</th>
-                    <th scope="col">CUENTA2</th>
-                    <th scope="col">RESPONSABLE_MANUAL</th>
-                    <th scope="col">FECHA</th>
-                  </tr>
-               </thead>
+          
+    <table class="table table-bordered table-hover w-100 " id="example">
+      <thead>
+        <tr>
+          <!-- <th scope="col" >ACCION</th> -->
+          <!-- <th scope="col"></th> -->
+          <th scope="col">ACCION</th>
+          <th scope="col">RPU</th>
+          <th scope="col">CUENTA</th>
+          <th scope="col">CICLO</th>
+          <th scope="col">TARIFA</th>
+          <th scope="col">MOTIVO MANUAL</th>
+          <th scope="col">SIN USO</th>
+          <th scope="col">LECTURA MANUAL</th>
+          <th scope="col">KWH A RECUPERAR</th>
+          <th scope="col">RESPALDO</th>
+          <th scope="col">RPE_AUXILIAR</th>
+          <th scope="col">OBSERVACIONES</th>
+          <th scope="col">CORRECCION</th>
+          <th scope="col">CUENTA2</th>
+          <th scope="col">RESPONSABLE_MANUAL</th>
+          <th scope="col">FECHA HISTORIAL</th>
+          <th scope="col">ACCION</th>
+        </tr>
+      </thead>
 
-                <tbody>
+      <tbody>
+
+
           <?php
           while ($datos = $sql->fetch_object()) { ?>
 
             <tr>
               
-              <td>
+              <!-- <td>
               <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_control_manuales ?> "
                 class="btn btn-success ">Generar manual <i class="fa-regular fa-file"></i></a>
               </td>
               <td>
                 <a class="btn btn-warning" href="historial_manuales.php?id_manual=<?= $datos->id_control_manuales ?>">Historico <i class="fa-solid fa-eye"></i></a>
-              </td>
-              <td>
-                <a class="btn btn-danger" href="manuales.php?id_manual_eliminar=<?= $datos->id_control_manuales ?>" onclick=" advertencia(event)"><i
-                    class="fa-solid fa-trash-can"></i></a>
-              </td>
+              </td> -->
+             
               <!-- <td class="id" scope="row"> -->
+              <td id="accionhistorial" onclick="copiarContenido('accionhistorial')">
+                <?= $datos->accion_historial ?>
+              </td>
+
               <td id="rpu" onclick="copiarContenido('rpu')">
                 <?= $datos->rpu ?>
               </td>
@@ -219,8 +155,15 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
               <td id="celdaResponsableManual" onclick="copiarContenido('celdaResponsableManual')">
                 <?= $datos->responsable_manual ?>
               </td>
-              <td id="celdaFechaCaptura" onclick="copiarContenido('celdaFechaCaptura')">
+              <!-- <td id="celdaFechaCaptura" onclick="copiarContenido('celdaFechaCaptura')">
                 <?= $datos->fecha_captura ?>
+              </td> -->
+              <td id="celdaFechaCaptura" onclick="copiarContenido('celdaFechaCaptura')">
+                <?= $datos->fecha_historial ?>
+              </td>
+              <td>
+                <a class="btn btn-danger" href="manuales.php?id_manual_eliminar=<?= $datos->id_control_manuales ?>" onclick=" advertencia(event)"><i
+                    class="fa-solid fa-trash-can"></i></a>
               </td>
             </tr>
 
@@ -372,10 +315,13 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
         } else {
           ?>
 
-           <table class="table table-bordered table-hover w-100 " id="example">
+
+            <table class="table table-bordered table-hover w-100 " id="example">
                 <thead>
-                  <tr>
-                    <th scope="col" >ACCION</th>
+                    <tr>
+                    <!-- <th scope="col" >ACCION</th> -->
+                    <!-- <th scope="col"></th> -->
+                    <th scope="col">ACCION</th>
                     <th scope="col">RPU</th>
                     <th scope="col">CUENTA</th>
                     <th scope="col">CICLO</th>
@@ -388,11 +334,12 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                     <th scope="col">RPE_AUXILIAR</th>
                     <th scope="col">OBSERVACIONES</th>
                     <th scope="col">CORRECCION</th>
-                    <th scope="col">AGENCIA</th>
+                    <th scope="col">CUENTA2</th>
                     <th scope="col">RESPONSABLE_MANUAL</th>
-                    <th scope="col">FECHA</th>
-                  </tr>
-               </thead>
+                    <th scope="col">FECHA HISTORIAL</th>
+                    <!-- <th scope="col">ACCION</th> -->
+                    </tr>
+                </thead>
 
                 <tbody>
 
@@ -402,53 +349,60 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
             <!--dentro imprimiremos los valores que contienen mis tablas 
     en la base de datos-->
             <tr>
-            <td>
+            <!-- <td>
                 <a class="btn btn-warning" href="historial_manuales.php?id_manual=<?= $datos->id_control_manuales ?>"><i class="fa-solid fa-eye"></i></a>
+              </td> -->
+              <td id="accionhistorial" onclick="copiarContenido('accionhistorial')">
+                <?= $datos->accion_historial ?>
               </td>
-              <td class="id" scope="row">
+
+              <td id="rpu" onclick="copiarContenido('rpu')">
                 <?= $datos->rpu ?>
               </td>
-              <td>
+              <td id="cuenta" onclick="copiarContenido('cuenta')">
                 <?= $datos->cuenta ?>
               </td>
-              <td>
+              <td id="ciclo" onclick="copiarContenido('ciclo')"> 
                 <?= $datos->ciclo ?>
               </td>
-              <td>
+              <td id="celdaTarifa" onclick="copiarContenido('celdaTarifa')">
                 <?= $datos->tarifa ?>
               </td>
-              <td>
+              <td id="celdaMotivoManual" onclick="copiarContenido('celdaMotivoManual')">
                 <?= $datos->id_motivomanual ?>
               </td>
-              <td>
+              <td id="celdaSinUso" onclick="copiarContenido('celdaSinUso')">
                 <?= $datos->sin_uso ?>
               </td>
-              <td>
+              <td id="celdaLecturaManual" onclick="copiarContenido('celdaLecturaManual')">
                 <?= $datos->lectura_manual ?>
               </td>
-              <td>
+              <td  id="celdaKwhRecuperar" onclick="copiarContenido('celdaKwhRecuperar')">
                 <?= $datos->kwh_recuperar?>
               </td>
-              <td>
+              <td id="celdaRespaldoManual" onclick="copiarContenido('celdaRespaldoManual')">
                 <?= $datos->respaldo_man ?>
               </td>
-              <td>
+              <td id="celdaRpeAuxiliar" onclick="copiarContenido('celdaRpeAuxiliar')">
                 <?= $datos->rpe_auxiliar ?>
               </td>
-              <td>
+              <td id="celdaObservaciones" onclick="copiarContenido('celdaObservaciones')">
                 <?= $datos->observaciones ?>
               </td>
-              <td>
+              <td id="celdaCorreccion" onclick="copiarContenido('celdaCorreccion')">
                 <?= $datos->correccion ?>
               </td>
-              <td>
+              <td id="celdaAgencia" onclick="copiarContenido('celdaAgencia')">
                 <?= $datos->agencia ?>
               </td>
-              <td>
+              <td id="celdaResponsableManual" onclick="copiarContenido('celdaResponsableManual')">
                 <?= $datos->responsable_manual ?>
               </td>
-              <td>
+              <!-- <td>
                 <?= $datos->fecha_captura ?>
+              </td> -->
+              <td id="celdaFechaCaptura" onclick="copiarContenido('celdaFechaCaptura')">
+                <?= $datos->fecha_historial ?>
               </td>
              
 
@@ -466,10 +420,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        <?php
-
-  }
-  ?>
+   
 
 
 

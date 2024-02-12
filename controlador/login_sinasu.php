@@ -48,6 +48,7 @@ if (!empty($_POST["btningresar"])) {
            //almacenar el id de agencia
            $_SESSION["id-agencia-sinasu"] =  $dato_obtener_id_agencia->id_agencia;
 
+         
 
     
         } else {

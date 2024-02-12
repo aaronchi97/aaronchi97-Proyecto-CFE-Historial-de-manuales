@@ -9,6 +9,9 @@ if (!empty($_POST["btnregistrar"])) {
         $usuario = $_POST["txtusuario"];
         $password = md5($_POST["txtpassword"]);
 
+        // date_default_timezone_set('America/Mexico_City');
+        // $fecha = date("Y-m-d");
+
         //evitemos que los atributos o nombres de mis tablas se dupliquen
         //para eso hacemos una conslta y le pedimos que me diga cuantos usuarios hay 
         //con el mismo nombre:

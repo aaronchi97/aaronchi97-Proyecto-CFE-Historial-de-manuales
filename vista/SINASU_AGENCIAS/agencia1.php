@@ -66,6 +66,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
   // $id_agencias_filtro = $_GET['id_agencias_filtro'];
   
 
+
   
   //ESTA CONSULTA SE ENCUENTRA EN EL CONTROLADOR controlador_vista_agencias_id_sinasu.php
   // $datos_id_agencia =  $sql_id_agencia ->fetch_object();
@@ -97,6 +98,8 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
               <th scope="col">PONDERACION</th>
               <th scope="col">CRITERIO</th>
               <th scope="col">ID_AGENCIA</th> -->
+              <th scope="col">ID GUIA</th>
+              <th scope="col">AGENCIA</th> 
               <th scope="col">EVIDENCIA ESPERADA</th>
               <th scope="col">FUENTE DE LA EVIDENCIA</th>
               <th scope="col"></th>
@@ -129,6 +132,12 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
             <td>
               <?= $datos->criterio ?>
             </td> -->
+            <td class="id" scope="row">
+              <?= $datos->id_guia ?>
+            </td>
+            <td class="id" scope="row">
+              <?= $datos->id_agencia ?>
+            </td>
             <td>
               <?= $datos->evidencia_esperada ?>
             </td>
@@ -211,9 +220,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
             <!-- AQUI SE AÑADE LA RUTA DE LA VISTA PARA REVISAR DOCUMENTACION SUBIDA POR AGENCIAS, ESPECIFICAR RUTA EN EL HREF -->
              
-              <a style="font-size: 15px;" class="btn btn-warning" href="OTRO_ARCHIVO.php?id_guia_revision=<?= $datos->id_guia ?>"
+              <a style="font-size: 15px;" class="btn btn-warning" href="OTRO_ARCHIVO.php?id_agencia_revision_administrador=<?= $datos->id_agencia ?>"
                 >REVISAR</a> 
-                <!-- <a style="font-size: 25px;" class="btn btn-info" href="subir_archivos.php?id=<?= $datos->id_guia ?>"
+                <!-- <a style="font-size: 25px;" class="btn btn-info" href="subir_archivos.php?id=<?= $datos->id_agencia ?>"
                 onclick=" advertencia(event)"><i class="fa-solid fa-file-arrow-up"></i></a>  -->
             </td>
 
