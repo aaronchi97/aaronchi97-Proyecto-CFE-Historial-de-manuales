@@ -52,7 +52,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
   if (isset($_POST['txtbuscarrpu'])) {
     $rpu_buscar = $_POST['txtbuscarrpu'];
     // Modificar la consulta para incluir la cláusula WHERE
-    $sql = $conexion->query("SELECT * FROM control_de_manuales WHERE RPU = $rpu_buscar");
+    $sql = $conexion->query("SELECT * FROM control_manuales WHERE RPU = $rpu_buscar");
 
     // Activar la visualización de las tablas
     $mostrarTablas = true;

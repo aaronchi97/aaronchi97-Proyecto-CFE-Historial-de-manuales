@@ -46,7 +46,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
   //Hacemos la consulta relacionando las tablas que necesitemos
   //para dicha consulta necesitamos la tabla usuario
-  $sql = $conexion->query(" SELECT * from control_de_negativas ");
+  $sql = $conexion->query(" SELECT * from control_negativas ");
 
 
 
@@ -84,10 +84,10 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
       <tr>
         <th scope="col">ACCIÓN</th>
         <th scope="col">RPU</th>
-        <th scope="col">CUENTA</th>
+        <th scope="col">cuenta</th>
         <th scope="col">CICLO</th>
         <th scope="col">TARIFA</th>
-        <th scope="col">MEDIDOR</th>
+        <th scope="col">cicloOR</th>
         <th scope="col">AaMm</th>
         <th scope="col">TipMedidor</th>
         <th scope="col">Cve</th>
@@ -111,17 +111,17 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
           <tr>
             <td>
-              <a class="btn btn-danger" href="manuales.php?id=<?= $datos->RPU ?>" onclick=" advertencia(event)"><i
+              <a class=" btn btn-danger" href="manuales.php?id=<?= $datos->RPU ?>" onclick=" advertencia(event)"><i
                   class="fa-solid fa-trash-can"></i></a>
             </td>
             <td class="id" scope="row">
               <?= $datos->RPU ?>
             </td>
             <td>
-              <?= $datos->CUENTA ?>
+              <?= $datos->cuenta ?>
             </td>
             <td>
-              <?= $datos->CICLO ?>
+              <?= $datos->ciclo ?>
             </td>
             <td>
               <?= $datos->TARIFA ?>
@@ -151,7 +151,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
               <?= $datos->Justificacion ?>
             </td>
             <td>
-              <?= $datos->OBSERVACIONES ?>
+              <?= $datos->observaciones ?>
             </td>
           </tr>
 
@@ -170,31 +170,31 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
     en la base de datos-->
           <tr>
             <td>
-              <a class="btn btn-warning" href="manuales.php?id=<?= $datos->RPU ?>"><i class="fa-regular fa-eye"></i></a>
+              <a class="btn btn-warning" href="negativas.php?id=<?= $datos->rpu ?>"><i class="fa-regular fa-eye"></i></a>
             </td>
             <td class="id" scope="row">
-              <?= $datos->RPU ?>
+              <?= $datos->rpu ?>
             </td>
             <td>
-              <?= $datos->CUENTA ?>
+              <?= $datos->cuenta ?>
             </td>
             <td>
-              <?= $datos->CICLO ?>
+              <?= $datos->ciclo ?>
             </td>
             <td>
-              <?= $datos->TARIFA ?>
+              <?= $datos->tarifa ?>
             </td>
             <td>
-              <?= $datos->Medidor ?>
+              <?= $datos->medidor ?>
             </td>
             <td>
-              <?= $datos->AaMm ?>
+              <?= $datos->aa_mm ?>
             </td>
             <td>
-              <?= $datos->TipMedidor ?>
+              <?= $datos->tipo_medidor ?>
             </td>
             <td>
-              <?= $datos->Cve ?>
+              <?= $datos->cve ?>
             </td>
             <td>
               <?= $datos->dice ?>
@@ -203,13 +203,25 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
               <?= $datos->debe_decir ?>
             </td>
             <td>
-              <?= $datos->KWH_A_RECUPERAR ?>
+              <?= $datos->kwh_recuperar ?>
             </td>
             <td>
-              <?= $datos->Justificacion ?>
+              <?= $datos->id_justificacionnegativas ?>
             </td>
             <td>
-              <?= $datos->OBSERVACIONES ?>
+              <?= $datos->sin_nombre ?>
+            </td>
+            <td>
+              <?= $datos->observaciones ?>
+            </td>
+            <td>
+              <?= $datos->responsable_negativa ?>
+            </td>
+            <td>
+              <?= $datos->fecha_captura ?>
+            </td>
+            <td>
+              <?= $datos->responsable_negativa ?>
             </td>
             <td>
               <!-- <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_usuario ?> "
