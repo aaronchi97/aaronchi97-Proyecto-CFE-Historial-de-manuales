@@ -46,7 +46,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
   //Hacemos la consulta relacionando las tablas que necesitemos
   //para dicha consulta necesitamos la tabla usuario
-  $sql = $conexion->query(" SELECT * from control_de_negativas ");
+  $sql = $conexion->query(" SELECT * from control_negativas ");
 
 
 
@@ -95,7 +95,11 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
         <th scope="col">debe decir</th>
         <th scope="col">KWH A RECUPERAR</th>
         <th scope="col">JUSTIFICACIÓN</th>
+        <th scope="col">SIN NOMBRE</th>
         <th scope="col">OBSERVACIONES</th>
+        <th scope="col">RESPONSABLE_NEGATIVA</th>
+        <th scope="col">FECHA CAPTURA</th>
+        <th scope="col">ID CONTROL NEGATIVAS</th>
         <th scope="col"></th>
       </tr>
     </thead>
@@ -115,28 +119,28 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                   class="fa-solid fa-trash-can"></i></a>
             </td>
             <td class="id" scope="row">
-              <?= $datos->RPU ?>
+              <?= $datos->rpu ?>
             </td>
             <td>
-              <?= $datos->CUENTA ?>
+              <?= $datos->cuenta ?>
             </td>
             <td>
-              <?= $datos->CICLO ?>
+              <?= $datos->ciclo ?>
             </td>
             <td>
-              <?= $datos->TARIFA ?>
+              <?= $datos->tarifa ?>
             </td>
             <td>
-              <?= $datos->Medidor ?>
+              <?= $datos->medidor ?>
             </td>
             <td>
-              <?= $datos->AaMm ?>
+              <?= $datos->aa_mm ?>
             </td>
             <td>
-              <?= $datos->TipMedidor ?>
+              <?= $datos->tipo_medidor ?>
             </td>
             <td>
-              <?= $datos->Cve ?>
+              <?= $datos->cve ?>
             </td>
             <td>
               <?= $datos->dice ?>
@@ -145,13 +149,25 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
               <?= $datos->debe_decir ?>
             </td>
             <td>
-              <?= $datos->KWH_A_RECUPERAR ?>
+              <?= $datos->kwh_recuperar ?>
             </td>
             <td>
-              <?= $datos->Justificacion ?>
+              <?= $datos->id_justificacionnegativas ?>
             </td>
             <td>
-              <?= $datos->OBSERVACIONES ?>
+              <?= $datos->sin_nombre ?>
+            </td>
+            <td>
+              <?= $datos->observaciones ?>
+            </td>
+            <td>
+              <?= $datos->responsable_negativa ?>
+            </td>
+            <td>
+              <?= $datos->fecha_captura ?>
+            </td>
+            <td>
+              <?= $datos->id_control_negativas ?>
             </td>
           </tr>
 
@@ -173,28 +189,28 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
               <a class="btn btn-warning" href="manuales.php?id=<?= $datos->RPU ?>"><i class="fa-regular fa-eye"></i></a>
             </td>
             <td class="id" scope="row">
-              <?= $datos->RPU ?>
+              <?= $datos->rpu ?>
             </td>
             <td>
-              <?= $datos->CUENTA ?>
+              <?= $datos->cuenta ?>
             </td>
             <td>
-              <?= $datos->CICLO ?>
+              <?= $datos->ciclo ?>
             </td>
             <td>
-              <?= $datos->TARIFA ?>
+              <?= $datos->tarifa ?>
             </td>
             <td>
-              <?= $datos->Medidor ?>
+              <?= $datos->medidor ?>
             </td>
             <td>
-              <?= $datos->AaMm ?>
+              <?= $datos->aa_mm ?>
             </td>
             <td>
-              <?= $datos->TipMedidor ?>
+              <?= $datos->tipo_medidor ?>
             </td>
             <td>
-              <?= $datos->Cve ?>
+              <?= $datos->cve ?>
             </td>
             <td>
               <?= $datos->dice ?>
@@ -203,13 +219,25 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
               <?= $datos->debe_decir ?>
             </td>
             <td>
-              <?= $datos->KWH_A_RECUPERAR ?>
+              <?= $datos->kwh_recuperar ?>
             </td>
             <td>
-              <?= $datos->Justificacion ?>
+              <?= $datos->id_justificacionnegativas ?>
             </td>
             <td>
-              <?= $datos->OBSERVACIONES ?>
+              <?= $datos->sin_nombre ?>
+            </td>
+            <td>
+              <?= $datos->observaciones ?>
+            </td>
+            <td>
+              <?= $datos->responsable_negativa ?>
+            </td>
+            <td>
+              <?= $datos->fecha_captura ?>
+            </td>
+            <td>
+              <?= $datos->id_control_negativas ?>
             </td>
             <td>
               <!-- <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_usuario ?> "
