@@ -1,9 +1,10 @@
 <?php
     if (!empty($_POST["btnmodificar"])) {
-       if (!empty($_POST["txtnombre"]) and !empty($_POST["txtapellido"]) and !empty($_POST["txtusuario"])) {
+       if (!empty($_POST["txtnombre"]) and !empty($_POST["txtapellido"]) and !empty($_POST["txtusuario"]) and !empty($_POST["txtid_rol"])) {
         $nombre = $_POST["txtnombre"];
         $apellido = $_POST["txtapellido"];
         $usuario = $_POST["txtusuario"];
+        $rol = $_POST["txtid_rol"];
         $id = $_POST["txtid"];
         
         $sql = $conexion->query(" select count(*) as 'Total' from usuario where usuario='$usuario' and id_usuario!=$id");
@@ -22,7 +23,7 @@
             <!--si el usuario no existe entonces se procede a modificarlo en el else-->
         <?php } else {
             // echo "El usuario no existe";
-            $modificar = $conexion->query(" update usuario set nombre='$nombre', apellido='$apellido', usuario='$usuario' where id_usuario=$id ");
+            $modificar = $conexion->query(" update usuario set nombre='$nombre', apellido='$apellido', usuario='$usuario', id_rol='$rol' where id_usuario=$id ");
 
             if ($modificar = TRUE) { ?>  <!--si el registro es 1 o true entonces, es decir, es exitoso en la bd-->
 

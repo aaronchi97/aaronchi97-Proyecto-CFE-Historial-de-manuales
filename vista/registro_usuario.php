@@ -59,7 +59,24 @@
            <img src="../public/images/itm-merida-fondo.webp" alt="">
           <input type="text" placeholder="Usuario" class="input input__text" name="txtusuario" >
         </div>
-        <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 ">
+
+
+        <div class="fl-flex-label mb-4 px-2 col-12 col-md-6  campo">
+
+              <select name="txtid_rol" class="input input__select inputmodal">
+                      <option value=""> Selecciona rol</option>
+                      <?php
+                      $sql_mostrar_rol = $conexion->query(" SELECT * FROM roles");
+                      while ($datos3 = $sql_mostrar_rol->fetch_object()) { ?>
+                        <option value="<?= $datos3->id_rol ?>"><?= $datos3->rol ?></option>
+                      <?php }
+                      ?>
+               </select>
+      
+        </div>
+
+
+        <div class="fl-flex-label mb-4 px-2 col-12 col-md-12 ">
            <img src="../public/images/itm-merida-fondo.webp" alt="">
           <input type="password" placeholder="Contrasea" class="input input__text" name="txtpassword" >
         </div>

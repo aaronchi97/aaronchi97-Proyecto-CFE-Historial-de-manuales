@@ -4,7 +4,7 @@
   border-radius: 10px;
   background: rgb(205, 218, 226);
   background-color: transparent;
-  padding: 15px;
+  padding: 20px;
   border-bottom: 2px solid rgb(188, 188, 188);
   /* border-right: 2px solid rgb(188, 188, 188); */
   transition: all 0.3s;
@@ -23,6 +23,12 @@
 }
 .inputmodal {
   color: rgb(5, 5, 5) !important;
+  /* color: rgb(2, 253, 2) !important; */
+  font-weight: 500;
+}
+.inputmodal_ineditable {
+  /* color: rgba(139, 41, 41, 1) !important; */
+  color: rgb(3, 167, 3) !important;
   font-weight: 500;
 }
 .campo {
@@ -50,6 +56,10 @@
   font-size: 16px;
   font-weight: normal;
   color: white;
+}
+
+span .placeholder_otrocolor {
+  color: rgba(139, 41, 41) !important;
 }
 
 .error__text {

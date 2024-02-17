@@ -1,3 +1,11 @@
+
+
+<!-- slect2 -->
+<!-- <link rel="stylesheet" href="../select2/css/select2.css">
+<script src="../select2/js/select2.js"></script> -->
+
+
+
     <script src="../public/bootstrap5/js/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous">
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous">
@@ -21,6 +29,11 @@
     <!-- sweet alert -->
     <script src="../public/sweet/js/sweetalert2.js"></script>
     <script src="../public/sweet/js/sweet.js"></script>
+
+
+    <link rel="stylesheet" href="../select2/css/select2.css">
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> -->
 
 
     <script>
@@ -186,6 +199,15 @@
             });
         })(jQuery);
     </script>
+
+<script>
+// In your Javascript (external .js resource or <script> tag)
+$(document).ready(function() {
+    $('.select-motivo').select2();
+});
+</script>
+
+
 
 
 

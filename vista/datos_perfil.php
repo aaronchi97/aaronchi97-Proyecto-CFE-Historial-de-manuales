@@ -71,6 +71,20 @@ $id = $_SESSION["id"];
 
           <input style="background-color: whitesmoke;" type="text" placeholder="Usuario" class="input input__text inputmodal" name="txtusuario" value="<?= $datos->usuario ?>">
         </div>
+
+        <div class="fl-flex-label mb-4 px-2 col-12 col-md-6  campo">
+
+              <select name="txtid_rol" class="input input__select inputmodal">
+                      <option value=""> Selecciona rol</option>
+                      <?php
+                      $sql_mostrar_rol = $conexion->query(" SELECT * FROM roles");
+                      while ($datos3 = $sql_mostrar_rol->fetch_object()) { ?>
+                        <option value="<?= $datos3->id_rol ?>"><?= $datos3->rol ?></option>
+                      <?php }
+                      ?>
+               </select>
+      
+        </div>
         
 
         <div class="text-right p-3">

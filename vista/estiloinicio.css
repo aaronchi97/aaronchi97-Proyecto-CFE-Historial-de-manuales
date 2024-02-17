@@ -31,13 +31,13 @@
   background-image: url(login/img/itm-merida-fondo.webp);
   background-size: cover;
   background-position: fixed;
-  background-color: rgba(107, 107, 107, 0.9);
+  /* background-color: rgba(107, 107, 107, 0.9); */
 }
 .table td {
   color: white;
   font-size: 16px;
   background-color: rgba(58, 58, 58, 0.8);
-  text-shadow: 2px 3px 3px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 .id {
   color: white;

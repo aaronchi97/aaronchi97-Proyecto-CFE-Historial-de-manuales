@@ -49,14 +49,14 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 $id_manual_obtenido = $_GET['id_manual'];
 
-$sql = $conexion->query(" SELECT * from historial_manuales where id_control_manuales = $id_manual_obtenido");
+$sql = $conexion->query(" SELECT * from historial_manuales where id_control_manuales = $id_manual_obtenido order by fecha_historial desc;");
 
-$datos = $sql->fetch_object()
+
   ?>
 
 
 
-<a href="manuales.php?id_manuales_vuelta=<?= $datos->rpu ?> " class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-solid fa-caret-left"></i>
+<a href="manuales.php" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-solid fa-caret-left"></i>
     ATRAS</a>
 
 
@@ -78,7 +78,7 @@ $datos = $sql->fetch_object()
           <th scope="col">CICLO</th>
           <th scope="col">TARIFA</th>
           <th scope="col">MOTIVO MANUAL</th>
-          <th scope="col">SIN USO</th>
+          <!-- <th scope="col">SIN USO</th> -->
           <th scope="col">LECTURA MANUAL</th>
           <th scope="col">KWH A RECUPERAR</th>
           <th scope="col">RESPALDO</th>
@@ -87,6 +87,7 @@ $datos = $sql->fetch_object()
           <th scope="col">CORRECCION</th>
           <th scope="col">CUENTA2</th>
           <th scope="col">RESPONSABLE_MANUAL</th>
+          <th scope="col">FECHA CAPTURA</th>
           <th scope="col">FECHA HISTORIAL</th>
           <th scope="col">ACCION</th>
         </tr>
@@ -128,9 +129,9 @@ $datos = $sql->fetch_object()
               <td id="celdaMotivoManual" onclick="copiarContenido('celdaMotivoManual')">
                 <?= $datos->id_motivomanual ?>
               </td>
-              <td id="celdaSinUso" onclick="copiarContenido('celdaSinUso')">
+              <!-- <td id="celdaSinUso" onclick="copiarContenido('celdaSinUso')">
                 <?= $datos->sin_uso ?>
-              </td>
+              </td> -->
               <td id="celdaLecturaManual" onclick="copiarContenido('celdaLecturaManual')">
                 <?= $datos->lectura_manual ?>
               </td>
@@ -155,9 +156,9 @@ $datos = $sql->fetch_object()
               <td id="celdaResponsableManual" onclick="copiarContenido('celdaResponsableManual')">
                 <?= $datos->responsable_manual ?>
               </td>
-              <!-- <td id="celdaFechaCaptura" onclick="copiarContenido('celdaFechaCaptura')">
+              <td id="celdaFechaCaptura" onclick="copiarContenido('celdaFechaCaptura')">
                 <?= $datos->fecha_captura ?>
-              </td> -->
+              </td>
               <td id="celdaFechaCaptura" onclick="copiarContenido('celdaFechaCaptura')">
                 <?= $datos->fecha_historial ?>
               </td>
@@ -217,11 +218,11 @@ $datos = $sql->fetch_object()
                         value=" <?= $datos->id_motivomanual ?>">
                     </div>
 
-                     <div class="fl-flex-label mb-4 px-2 col-12  campo">
+                     <!-- <div class="fl-flex-label mb-4 px-2 col-12  campo">
 
                       <input type="text" placeholder="sin_uso" class="input input__text inputmodal" name="txtsin_uso"
                         value=" <?= $datos->sin_uso ?>">
-                    </div>
+                    </div> -->
 
                      <div class="fl-flex-label mb-4 px-2 col-12  campo">
 
@@ -327,7 +328,7 @@ $datos = $sql->fetch_object()
                     <th scope="col">CICLO</th>
                     <th scope="col">TARIFA</th>
                     <th scope="col">MOTIVO MANUAL</th>
-                    <th scope="col">SIN USO</th>
+                    <!-- <th scope="col">SIN USO</th> -->
                     <th scope="col">LECTURA MANUAL</th>
                     <th scope="col">KWH A RECUPERAR</th>
                     <th scope="col">RESPALDO</th>
@@ -336,6 +337,7 @@ $datos = $sql->fetch_object()
                     <th scope="col">CORRECCION</th>
                     <th scope="col">CUENTA2</th>
                     <th scope="col">RESPONSABLE_MANUAL</th>
+                    <th scope="col">FECHA CAPTURA</th>
                     <th scope="col">FECHA HISTORIAL</th>
                     <!-- <th scope="col">ACCION</th> -->
                     </tr>
@@ -371,9 +373,9 @@ $datos = $sql->fetch_object()
               <td id="celdaMotivoManual" onclick="copiarContenido('celdaMotivoManual')">
                 <?= $datos->id_motivomanual ?>
               </td>
-              <td id="celdaSinUso" onclick="copiarContenido('celdaSinUso')">
+              <!-- <td id="celdaSinUso" onclick="copiarContenido('celdaSinUso')">
                 <?= $datos->sin_uso ?>
-              </td>
+              </td> -->
               <td id="celdaLecturaManual" onclick="copiarContenido('celdaLecturaManual')">
                 <?= $datos->lectura_manual ?>
               </td>
@@ -398,9 +400,9 @@ $datos = $sql->fetch_object()
               <td id="celdaResponsableManual" onclick="copiarContenido('celdaResponsableManual')">
                 <?= $datos->responsable_manual ?>
               </td>
-              <!-- <td>
+              <td>
                 <?= $datos->fecha_captura ?>
-              </td> -->
+              </td>
               <td id="celdaFechaCaptura" onclick="copiarContenido('celdaFechaCaptura')">
                 <?= $datos->fecha_historial ?>
               </td>
