@@ -61,7 +61,15 @@ $id = $_SESSION["id"];
         </div>
         <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 ">
 
-          <input style="background-color: whitesmoke;" type="text" placeholder="Nombre" class="input input__text inputmodal" name="txtnombre" value="<?= $datos->nombre ?>">
+
+          <?php
+          if ($_SESSION['rol'] == 1) {
+          ?>
+
+
+
+
+            <input style="background-color: whitesmoke;" type="text" placeholder="Nombre" class="input input__text inputmodal" name="txtnombre" value="<?= $datos->nombre ?>">
         </div>
         <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 ">
 
@@ -69,23 +77,40 @@ $id = $_SESSION["id"];
         </div>
         <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 ">
 
-          <input style="background-color: whitesmoke;" type="text" placeholder="Usuario" class="input input__text inputmodal" name="txtusuario" value="<?= $datos->usuario ?>">
+        <?php } else { ?>
+
+          <input style="background-color: whitesmoke;" type="text" placeholder="Nombre" class="input input__text inputmodal" name="txtnombre" value="<?= $datos->nombre ?>" readonly>
+        </div>
+        <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 ">
+
+          <input style="background-color: whitesmoke;" type="text" placeholder="Apellido" class="input input__text inputmodal" name="txtapellido" value="<?= $datos->apellido ?>" readonly>
+        </div>
+        <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 ">
+
+        <?php
+          } ?>
+
+
+
+
+
+        <input style="background-color: whitesmoke;" type="text" placeholder="Usuario" class="input input__text inputmodal" name="txtusuario" value="<?= $datos->usuario ?>">
         </div>
 
         <div class="fl-flex-label mb-4 px-2 col-12 col-md-6  campo">
 
-              <select name="txtid_rol" class="input input__select inputmodal">
-                      <option value=""> Selecciona rol</option>
-                      <?php
-                      $sql_mostrar_rol = $conexion->query(" SELECT * FROM roles");
-                      while ($datos3 = $sql_mostrar_rol->fetch_object()) { ?>
-                        <option value="<?= $datos3->id_rol ?>"><?= $datos3->rol ?></option>
-                      <?php }
-                      ?>
-               </select>
-      
+          <select name="txtid_rol" class="input input__select inputmodal">
+            <option value=""> Selecciona rol</option>
+            <?php
+            $sql_mostrar_rol = $conexion->query(" SELECT * FROM roles");
+            while ($datos3 = $sql_mostrar_rol->fetch_object()) { ?>
+              <option value="<?= $datos3->id_rol ?>"><?= $datos3->rol ?></option>
+            <?php }
+            ?>
+          </select>
+
         </div>
-        
+
 
         <div class="text-right p-3">
           <!-- <a href="usuario.php" class="btn btn-secondary btn-rounded">Atras</a> -->

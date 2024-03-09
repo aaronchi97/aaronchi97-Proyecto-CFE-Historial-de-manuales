@@ -2,56 +2,102 @@
 <nav class="side-menu">
 
     <ul class="side-menu-list p-0">
-        <li class="red">
+        <!-- <li class="red">
             <a href="manuales.php" class="activo">
                 
                 <img src="../public/images/iconos-cfe/manuales-cfe.svg" class="img-inicio" alt="">
                
                 <span class="lbl">MANUALES</span>
             </a>
+        </li> -->
+
+
+        <li class=" with-sub green ">
+
+            <span class="activo">
+
+                <img src="../public/images/iconos-cfe/manuales-cfe.svg" class="img-inicio" alt="">
+                <span class="lbl"> MANUALES </span>
+            </span>
+
+            <ul>
+                <li>
+                    <a href="registro_manuales.php" class="">
+
+                        <span class="lbl"> <i class="fa-solid fa-plus"></i> Generar </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="manuales.php" class="">
+
+                        <span class="lbl"><i class="fa-solid fa-list-check"></i> Listados </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="historial_general_manuales.php" class="">
+
+                        <span class="lbl"><i class="fa-regular fa-floppy-disk"></i> Historial </span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="estadisticos_manuales.php" class="">
+
+                        <span class="lbl"> <i class="fa-solid fa-chart-simple"></i> Estadístico</span>
+                    </a>
+                </li>
+            </ul>
         </li>
 
+
+        <li class=" with-sub red ">
+
+            <span class="activo">
+
+                <img src="../public/images/iconos-cfe/negativas-cfe.svg" class="img-inicio" alt="">
+                <span class="lbl"> NEGATIVAS </span>
+            </span>
+
+            <ul>
+
+                <li>
+                    <a href="registro_negativas.php" class="">
+
+                        <span class="lbl"> <i class="fa-solid fa-plus"></i> Generar </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="negativas.php" class="">
+
+                        <span class="lbl"> <i class="fa-solid fa-list-check"></i> Listado</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="historial_general_negativas.php" href="" class="">
+
+                        <span class="lbl"><i class="fa-regular fa-floppy-disk"></i> Historial</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="estadisticos_negativas.php" class="">
+
+                        <span class="lbl"> <i class="fa-solid fa-chart-simple"></i> Estadísticos</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+
+
+
+
+
+
         <!-- <li class=" with-sub red">
-                   
-                    <span class="activo">
-                        
-                        <img src="../public/images/iconos-cfe/manuales-cfe.svg" class="img-inicio" alt="">
-                       <span class="lbl"> MANUALES </span>
-                    </span>
-                    
-                    <ul>
-                        <li>
-                            <a href="" class="">
-                                <i class="fas fa-plus-square icono-submenu"></i>
-                                <span class="lbl">Generar nueva Manual</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="manuales.php" class="">
-                                <i class="fas fa-th-list icono-submenu"></i>
-                                <span class="lbl">Lista de Manuales</span>
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="" class="">
-                                <i class="fas fa-th-list icono-submenu"></i>
-                                <span class="lbl">Generar estadísticas</span>
-                            </a>
-                        </li>
-                    </ul>
-        </li>  -->
-
-
-
-
-
-
-
-
-
-
-        <li class="red">
+            
             <a href="negativas.php" class="activo">
                 
                 <img src="../public/images/iconos-cfe/negativas-cfe.svg" class="img-inicio" alt="">
@@ -59,9 +105,9 @@
                 <span class="lbl">NEGATIVAS</span>
             </a>
 
-        </li>
+        </li> -->
 
-  
+
 
 
 
@@ -70,7 +116,7 @@
         <?php
 
         if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
-            ?>
+        ?>
             <li class="red">
                 <a hidden href="usuario.php" class="activo">
                     <!-- <img src="../public/img-inicio/house.png" class="img-inicio-1" alt=""> -->
@@ -79,12 +125,11 @@
                     <span class="lbl">USUARIOS</span>
                 </a>
             </li>
-            <?php
+        <?php
 
             $mostrarBoton = false;
-
         } else {
-            ?>
+        ?>
 
             <li class="red">
                 <a href="usuario.php" class="activo">
@@ -94,7 +139,7 @@
                     <span class="lbl">USUARIOS</span>
                 </a>
             </li>
-            <?php
+        <?php
 
         }
         ?>

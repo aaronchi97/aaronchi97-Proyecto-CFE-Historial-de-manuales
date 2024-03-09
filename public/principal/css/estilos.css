@@ -15,6 +15,7 @@
   margin-bottom: -5px;
   margin-left: -5px;
   outline: none !important;
+
   /* background-image: url(../../images/itm-merida-fondo.webp);
     background-repeat: no-repeat;
     background-size: cover;
@@ -24,6 +25,7 @@
 .inputmodal {
   color: rgb(5, 5, 5) !important;
   /* color: rgb(2, 253, 2) !important; */
+  text-transform: uppercase;
   font-weight: 500;
 }
 .inputmodal_ineditable {

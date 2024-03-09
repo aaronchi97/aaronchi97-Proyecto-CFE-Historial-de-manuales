@@ -8,7 +8,8 @@ if (!empty($_POST["btnregistrar"])) {
         $apellido = $_POST["txtapellido"];
         $usuario = $_POST["txtusuario"];
         $rol = $_POST["txtid_rol"];
-        $password = md5($_POST["txtpassword"]);
+        // $password = md5($_POST["txtpassword"]);
+        $password = $_POST["txtpassword"];
 
         // date_default_timezone_set('America/Mexico_City');
         // $fecha = date("Y-m-d");
@@ -33,11 +34,11 @@ if (!empty($_POST["btnregistrar"])) {
                 })
             </script>
             <!--si el usuario no existe entonces se procede a registrarlo en el else-->
-        <?php } else {
+            <?php } else {
             // echo "El usuario no existe";
             $registro = $conexion->query(" insert into usuario(nombre, apellido, usuario, password, id_rol)values('$nombre', '$apellido', '$usuario', '$password', '$rol') ");
 
-            if ($registro = TRUE) { ?>  <!--si el registro es 1 o true entonces-->
+            if ($registro = TRUE) { ?> <!--si el registro es 1 o true entonces-->
 
                 <script>
                     $(function notificacion() {
@@ -50,8 +51,8 @@ if (!empty($_POST["btnregistrar"])) {
                     })
                 </script>
 
-            <?php } else {?>
-               
+            <?php } else { ?>
+
                 <script>
                     $(function notificacion() {
                         new PNotify({
@@ -63,11 +64,8 @@ if (!empty($_POST["btnregistrar"])) {
                     })
                 </script>
 
-           <?php }
-
+        <?php }
         }
-
-
     } else { ?>
 
         <script>

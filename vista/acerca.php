@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 //si el nombre y apellido estan vacios entonces redirigelos a la pagina de login.php
@@ -23,53 +22,52 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 <div class="page-content">
 
-    <!-- <h2 class="text-correct text-lg">BIENVENIDO AL SISTEMA DE ASISTENCIAS</h2> -->
-    
-    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators" style="margin-bottom: 25%;">
-    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-   
-  </ol>
-  <div class="carousel-inner" style="margin-top: -15%;">
-    <div class="carousel-item active" style="width: 100%;" >
-      <img src="login/img/slide-3.jpg" style="filter: brightness(40%); " 
-      class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block" style=" margin-bottom: 25%;" >
-        <h5>SISTEMA DE MANUALES Y NEGATIVAS</h5>
-        <p>Seleccione la opción acorde a sus necesidades:</p>
-        <br>
-        <div class="botones-inicio-sinasu">
-          <a class="btn-inicio-historial" href="#">Generar manuales</a>
+  <!-- <h2 class="text-correct text-lg">BIENVENIDO AL SISTEMA DE ASISTENCIAS</h2> -->
 
-          <a class="btn-inicio-historial" href="#">Generar negativas</a>
-         </div>
-      </div>
-    </div>
-    <div class="carousel-item" style="width: 100%;">
-      <img src="login/img/slide-1.jpeg" style="filter: brightness(40%); " class="d-block w-100" alt="...">
-      <div class="carousel-caption d-none d-md-block" style=" margin-bottom: 25%;">
-        <h5>EMPECEMOS</h5>
-        <p>Seleccione la opción acorde a sus necesidades:</p>
-        <br>
-        <div class="botones-inicio-sinasu">
-          <a class="btn-inicio-historial" href="#">Historial de manuales</a>
+  <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators" style="margin-bottom: 25%;">
+      <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
 
-          <a class="btn-inicio-historial" href="#">Historial de negativas</a>
-         </div>
+    </ol>
+    <div class="carousel-inner" style="margin-top: -15%;">
+      <div class="carousel-item active" style="width: 100%;">
+        <img src="login/img/slide-3.jpg" style="filter: brightness(40%); " class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block" style=" margin-bottom: 25%;">
+          <h5>SISTEMA DE MANUALES Y NEGATIVAS</h5>
+          <p>¡Bienvenido <span class="nombres-usuarios"><?= $_SESSION["nombre"] ?></span>! Selecciona la opción acorde a sus necesidades:</p>
+          <br>
+          <div class="botones-inicio-sinasu">
+            <a class="btn-inicio-historial" href="#">Generar manuales</a>
+
+            <a class="btn-inicio-historial" href="#">Generar negativas</a>
+          </div>
+        </div>
       </div>
+      <div class="carousel-item" style="width: 100%;">
+        <img src="login/img/slide-1.jpeg" style="filter: brightness(40%); " class="d-block w-100" alt="...">
+        <div class="carousel-caption d-none d-md-block" style=" margin-bottom: 25%;">
+          <h5>EMPECEMOS</h5>
+          <p>Hola <span class="nombres-usuarios"><?= $_SESSION["nombre"] ?></span> selecciona la opción acorde a sus necesidades:</p>
+          <br>
+          <div class="botones-inicio-sinasu">
+            <a class="btn-inicio-historial" href="#">Historial de manuales</a>
+
+            <a class="btn-inicio-historial" href="#">Historial de negativas</a>
+          </div>
+        </div>
+      </div>
+
     </div>
-    
+    <button class="carousel-control-prev" style="margin-bottom: 5%;" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </button>
+    <button class="carousel-control-next" style="margin-bottom: 5%;" type="button" data-target="#carouselExampleCaptions" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </button>
   </div>
-  <button class="carousel-control-prev" style="margin-bottom: 5%;" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </button>
-  <button class="carousel-control-next" style="margin-bottom: 5%;" type="button" data-target="#carouselExampleCaptions" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </button>
-</div>
 
 </div>
 

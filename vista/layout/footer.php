@@ -1,16 +1,13 @@
-
-
 <!-- slect2 -->
 <!-- <link rel="stylesheet" href="../select2/css/select2.css">
 <script src="../select2/js/select2.js"></script> -->
 
 
 
-    <script src="../public/bootstrap5/js/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous">
-    </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"
-    integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous">
-    </script>
+<script src="../public/bootstrap5/js/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous">
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous">
+</script>
 
 
 <script src="../public/app/publico/js/lib/jquery/jquery.min.js">
@@ -33,17 +30,18 @@
 
 
 <script>
-    $(function () {
+    $(function() {
         $('#example').DataTable({
             select: {
                 //style: 'multi'
             },
             responsive: true,
+            // responsive: false,
             "language": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
                 "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla =(",
+                "sEmptyTable": "Lo siento <?= $_SESSION["nombre"] ?> <?= $_SESSION["apellido"] ?>, no hay datos disponibles",
                 "sInfo": "Registros del _START_ al _END_ de _TOTAL_ registros",
                 "sInfoEmpty": "Registros del 0 al 0 de 0 registros",
                 "sInfoFiltered": "-",
@@ -79,12 +77,12 @@
 <script type="text/javascript" src="../public/loader/loader.js"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
 
         $('.panel').lobiPanel({
             sortable: true
         });
-        $('.panel').on('dragged.lobiPanel', function (ev, lobiPanel) {
+        $('.panel').on('dragged.lobiPanel', function(ev, lobiPanel) {
             $('.dahsboard-column').matchHeight();
         });
 
@@ -177,9 +175,9 @@
             var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
             chart.draw(dataTable, options);
         }
-        $(window).resize(function () {
+        $(window).resize(function() {
             drawChart();
-            setTimeout(function () { }, 1000);
+            setTimeout(function() {}, 1000);
         });
     });
 </script>
@@ -189,18 +187,18 @@
 <script src="../public/app/publico/js/lib/jquery-flex-label/jquery.flex.label.js"></script>
 
 <script type="application/javascript">
-    (function ($) {
-        $(document).ready(function () {
+    (function($) {
+        $(document).ready(function() {
             $('.fl-flex-label').flexLabel();
         });
     })(jQuery);
 </script>
 
 <script>
-// In your Javascript (external .js resource or <script> tag)
-$(document).ready(function() {
-    $('.select-motivo').select2();
-});
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.select-motivo').select2();
+    });
 </script>
 
 

@@ -47,16 +47,14 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-    $id_negativa_obtenido = $_GET['id_negativas'];
 
-    // $sql = $conexion->query(" SELECT * from historial_manuales where id_control_manuales = $id_manual_obtenido order by fecha_historial desc;");
 
 
     $sql = $conexion->query(" SELECT historial_negativas.*, motivo_historial.*, estatus.*
 FROM historial_negativas
 JOIN motivo_historial ON historial_negativas.id_motivohistorial = motivo_historial.id_motivohistorial
 JOIN estatus ON historial_negativas.id_estatus = estatus.id_estatus
-WHERE historial_negativas.id_control_negativas = $id_negativa_obtenido
+
 ORDER BY historial_negativas.fecha_historial DESC;");
 
 

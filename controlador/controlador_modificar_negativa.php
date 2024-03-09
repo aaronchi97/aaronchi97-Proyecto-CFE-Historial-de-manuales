@@ -2,32 +2,34 @@
 if (!empty($_POST["btnmodificar"])) {
     if (
         !empty($_POST["txtid"]) and !empty($_POST["txtrpu"]) and !empty($_POST["txtcuenta"])
-        and !empty($_POST["txtciclo"]) and !empty($_POST["txttarifa"]) and !empty($_POST["txtidmotivomanual"])
-        and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"]) and !empty($_POST["txtkwh_recuperar"])
-        and !empty($_POST["txtrespaldo_manual"]) and !empty($_POST["txtrpe_auxiliar"]) and !empty($_POST["txtobservaciones"])
-        and !empty($_POST["txtcorreccion"]) and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"])
+        and !empty($_POST["txtciclo"]) and !empty($_POST["txttarifa"]) and !empty($_POST["txtmedidor"])
+        and !empty($_POST["txtaa_mm"]) and !empty($_POST["txttipo_medidor"]) and !empty($_POST["txtcve"])
+        and !empty($_POST["txtdice"]) and !empty($_POST["txtdebe_decir"]) and !empty($_POST["txtkwh_recuperar"])
+        and !empty($_POST["txtid_justificacionnegativa"]) and !empty($_POST["txtobservaciones"]) and !empty($_POST["txtresponsable_negativa"])
         and !empty($_POST["txtmotivo"])
 
     ) {
-        $id_manual = $_POST["txtid"];
+        $id_negativa = $_POST["txtid"];
         $rpu = $_POST["txtrpu"];
         $cuenta = $_POST["txtcuenta"];
         $ciclo = $_POST["txtciclo"];
         $tarifa = $_POST["txttarifa"];
-        $motivo_manual = $_POST["txtidmotivomanual"];
-        $sin_uso = $_POST["txtsin_uso"];
-        $lectura_manual = $_POST["txtlectura_manual"];
+        $medidor = $_POST["txtmedidor"];
+        $aa_mm = $_POST["txtaa_mm"];
+        $tipo_medidor = $_POST["txttipo_medidor"];
+        $cve = $_POST["txtcve"];
+        $dice = $_POST["txtdice"];
+        $debe_decir = $_POST["txtdebe_decir"];
         $kwh_recuperar = $_POST["txtkwh_recuperar"];
-        $respaldo_manual = $_POST["txtrespaldo_manual"];
-        $rpe_auxiliar = $_POST["txtrpe_auxiliar"];
-        $observaciones = $_POST["txtobservaciones"];
-        $correccion = $_POST["txtcorreccion"];
-        $agencia = $_POST["txtagencia"];
-        $responsable_manual = $_POST["txtresponsable_manual"];
+        $justificacion_negativa = $_POST["txtid_justificacionnegativa"];
+        $obervacion = $_POST["txtobservaciones"];
+        $responsable_negativa = $_POST["txtresponsable_negativa"];
         $motivo_correccion = $_POST["txtmotivo"];
+        //la fecha de modificacion se agrega automaticamente con el trigger en la tabla principal
 
 
-        $sql = $conexion->query(" select count(*) as 'Total' from control_manuales where rpu=$rpu and id_control_manuales!=$id_manual");
+
+        $sql = $conexion->query(" select count(*) as 'Total' from control_negativas where rpu=$rpu and id_control_negativas != $id_negativa");
 
         if ($sql->fetch_object()->Total > 0) { ?>
             <script>
@@ -43,20 +45,20 @@ if (!empty($_POST["btnmodificar"])) {
             <!--si el usuario no existe entonces se procede a modificarlo en el else-->
             <?php } else {
             // echo "El usuario no existe";
-            $modificar = $conexion->query(" update control_manuales set  cuenta = '$cuenta',
+            $modificar = $conexion->query(" update control_negativas set  cuenta = '$cuenta',
             ciclo = $ciclo,
             tarifa = '$tarifa',
-            id_motivomanual = '$motivo_manual',
-            sin_uso = '$sin_uso',
-            lectura_manual = '$lectura_manual',
+            medidor = '$medidor',
+            aa_mm = $aa_mm,
+            tipo_medidor = '$tipo_medidor',
+            cve = $cve,
+            dice = $dice,
+            debe_decir = $debe_decir,
             kwh_recuperar = $kwh_recuperar,
-            respaldo_man = '$respaldo_manual',
-            rpe_auxiliar = '$rpe_auxiliar',
-            observaciones = '$observaciones',
-            correccion = '$correccion',
-            agencia = '$agencia',
-            responsable_manual = '$responsable_manual'
-            WHERE id_control_manuales = $id_manual");
+            id_justificacionnegativas= '$justificacion_negativa',
+            observaciones = '$obervacion',
+            responsable_negativa = '$responsable_negativa'
+            WHERE id_control_negativas = $id_negativa");
 
 
             //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]
@@ -64,15 +66,15 @@ if (!empty($_POST["btnmodificar"])) {
             // Verificar si la consulta principal fue exitosa
             if ($modificar) {
                 // Obtener el ID de la fila más reciente en la tabla historial_manuales relacionada
-                $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_manuales) AS id_historial_manuales FROM historial_manuales WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
+                $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_negativas) AS id_historial_negativas FROM historial_negativas WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
 
                 if ($consultaIDHistorial) {
                     $filaIDHistorial = $consultaIDHistorial->fetch_assoc();
-                    $id_historial = $filaIDHistorial['id_historial_manuales'];
+                    $id_historial = $filaIDHistorial['id_historial_negativas'];
 
                     // Ahora, realizar la actualización en la tabla de historiales
-                    $actualizarHistorial = $conexion->query("UPDATE historial_manuales SET id_motivohistorial = '$motivo_correccion'
-            WHERE id_historial_manuales = $id_historial");
+                    $actualizarHistorial = $conexion->query("UPDATE historial_negativas SET id_motivohistorial = '$motivo_correccion'
+            WHERE id_historial_negativas = $id_historial");
 
                     // Verificar si la actualización del historial fue exitosa
                     if ($actualizarHistorial) {
