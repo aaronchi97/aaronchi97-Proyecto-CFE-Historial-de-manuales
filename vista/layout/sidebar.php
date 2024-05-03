@@ -44,7 +44,14 @@
                 <li>
                     <a href="estadisticos_manuales.php" class="">
 
-                        <span class="lbl"> <i class="fa-solid fa-chart-simple"></i> Estadístico</span>
+                        <span class="lbl"><i class="fa-solid fa-chart-simple"></i> Estadístico</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="estadisticos_manuales.php" class="">
+
+                        <span class="lbl"><i class="fa-solid fa-clipboard-question"></i> Emplazamiento</span>
                     </a>
                 </li>
             </ul>

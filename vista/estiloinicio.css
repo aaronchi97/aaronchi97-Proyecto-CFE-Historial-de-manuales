@@ -31,10 +31,12 @@
   background-image: url(login/img/itm-merida-fondo.webp);
   background-size: cover;
   background-position: fixed;
+  /* color: #358151b2; */
   /* background-color: rgba(107, 107, 107, 0.9); */
 }
 .table td {
-  color: white;
+  /* color: white; */
+  color: #fcfff1;
   font-size: 16px;
   background-color: rgba(58, 58, 58, 0.8);
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
@@ -159,7 +161,7 @@ th[scope="row"] {
   transition: all 0.5s;
 }
 .btn-manual-validas:hover {
-  background-color: rgb(40, 73, 100, 0.3);
+  background-color: #2849644d;
   color: white !important;
   border-radius: 2px;
   transform: scale(1.1);
@@ -207,7 +209,11 @@ th[scope="row"] {
 .td-celda-icono-estatus a {
   text-decoration: none;
   color: inherit;
+
   display: inline-block;
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
 }
 
 .td-celda-rpu {
@@ -222,7 +228,6 @@ th[scope="row"] {
 
 .celda {
   cursor: pointer;
-
   /* background-color: rgba(255, 53, 53, 0.8); */
   /* background-color: rgba(245, 174, 22, 0.9); */
 }
@@ -246,9 +251,28 @@ th[scope="row"] {
   font-size: 20px;
   font-weight: 600;
   color: rgb(162, 238, 114);
+  /* color: #294835b2; */
+}
+
+.nombres-usuarios-negativas {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ff6213;
+  /* color: #294835b2; */
 }
 
 /* ESTILOS PARA SECCION DE ESTADISTICOS CFE CONTROL DE HISTORIALES------------------------- */
+/* .columna-resumen-color {
+  background-color: transparent;
+}
+.columna-resumen:hover .columna-resumen-color {
+  background-color: rgba(71, 71, 71, 0.505);
+  color: green;
+} */
+/* 
+.celda-resumen {
+  color: #b0ea00;
+} */
 
 /* CSS PARA BOTONES ------------------------------- */
 
@@ -284,7 +308,7 @@ th[scope="row"] {
       right: calc(0.7em * 1.2);
       height: 3px;
       /* background: #f26522; */
-      background: rgb(176, 234, 0);
+      background: #b0ea00;
       transition: transform 0.8s cubic-bezier(1, 0, 0.37, 1) 0.2s,
         right 0.2s cubic-bezier(0.04, 0.48, 0, 1) 0.6s,
         left 0.4s cubic-bezier(0.04, 0.48, 0, 1) 0.6s;
@@ -378,4 +402,72 @@ th[scope="row"] {
       }
     }
   }
+}
+
+/* FOMULARIO PARA GENERAR MANUALES------------------------ */
+
+#formulario_manuales {
+  /* border: 2px red solid; */
+  height: 80%;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px; */
+  /* color: rgba(255, 141, 20, 0.8); */
+}
+
+/* CODOGO PARA CONFIRMACION DE MODIFICACION ------------------------- */
+
+.confirmacion {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.confirmacion-contenido {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.botones {
+  margin-top: 20px;
+}
+
+.btn-confirmar,
+.btn-cancelar {
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.btn-confirmar {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn-cancelar {
+  background-color: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+tr {
+  display: table-row; /* Asegura que todas las filas se muestren como filas de tabla */
 }

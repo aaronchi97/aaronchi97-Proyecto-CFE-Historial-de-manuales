@@ -44,7 +44,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 <div class="page-content">
 
-    <h4 style="margin-bottom: 5%;" class="text-center text-secondery"> MANUALES ATENDIDAS</h4>
+    <h4 style="margin-bottom: 5%;" class="text-center text-secondery"> MANUALES CON SOLICITUD A MISMO SERVICIO</h4>
 
     <?php
     //hacemos la conexion
@@ -62,7 +62,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-    <a href="estadisticos_manuales.php" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-solid fa-caret-left"></i>
+    <a href="resumen_general_manuales.php" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-solid fa-caret-left"></i>
         ATRAS</a>
 
     <?php
@@ -80,8 +80,18 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT * FROM control_manuales WHERE DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN' AND id_estatus = '1' ORDER BY fecha_captura DESC");
-        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_manuales WHERE DATE_FORMAT(fecha_captura, '%Y-%m')BETWEEN '$FECHAINICIO' AND '$FECHAFIN' AND id_estatus = '1'");
+        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.*
+        FROM control_manuales AS control
+        INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+        WHERE historial.id_motivohistorial = '2'
+        AND historial.fecha_captura BETWEEN '$FECHAINICIO' AND '$FECHAFIN';");
+
+        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros
+        FROM control_manuales AS control
+        INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+        WHERE historial.id_motivohistorial = '2'
+        AND historial.fecha_captura BETWEEN '$FECHAINICIO' AND '$FECHAFIN';
+        ");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
 
@@ -93,12 +103,12 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
             ?>
         </div>
 
-        <!-- <div style="text-align: center; margin:auto; font-weight:bolder; color: #42ca07; ">
+        <div style="text-align: center; margin:auto; font-weight:bolder; color: #42ca07; ">
             <?php
             echo "TOTAL DE MANUALES: $total_registros";
 
             ?>
-        </div> -->
+        </div>
 
     <?php
 
@@ -113,8 +123,18 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT * FROM control_manuales WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' AND id_estatus = '1' ORDER BY fecha_captura DESC");
-        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_manuales WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' AND id_estatus = '1'");
+        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.*
+        FROM control_manuales AS control
+        INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+        WHERE historial.id_motivohistorial = '2'
+        AND DATE_FORMAT(historial.fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN';");
+
+        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros
+        FROM control_manuales AS control
+        INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+        WHERE historial.id_motivohistorial = '2'
+        AND DATE_FORMAT(historial.fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN';
+        ");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
 
@@ -148,8 +168,18 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT * FROM control_manuales WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' AND id_estatus = '1' ORDER BY fecha_captura DESC");
-        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_manuales WHERE DATE_FORMAT(fecha_captura, '%Y-%m')BETWEEN '$FECHAINICIO' AND '$FECHAFIN' AND id_estatus = '1'");
+        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.*
+        FROM control_manuales AS control
+        INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+        WHERE historial.id_motivohistorial = '2'
+        AND DATE_FORMAT(historial.fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN';");
+
+        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros
+        FROM control_manuales AS control
+        INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+        WHERE historial.id_motivohistorial = '2'
+        AND DATE_FORMAT(historial.fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN';
+        ");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
 
@@ -181,11 +211,18 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
+        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.*
+        FROM control_manuales AS control
+        INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+        WHERE historial.id_motivohistorial = '2'
+        AND DATE_FORMAT(historial.fecha_captura, '%Y-%m') = '$FECHAINICIO' ;");
 
-        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT * FROM control_manuales WHERE DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO' AND id_estatus = '1' ORDER BY fecha_captura DESC");
-
-        //contador de registros para busqueda por mes
-        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_manuales WHERE DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO' AND id_estatus = '1'");
+        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros
+        FROM control_manuales AS control
+        INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+        WHERE historial.id_motivohistorial = '2'
+        AND DATE_FORMAT(historial.fecha_captura, '%Y-%m') = '$FECHAINICIO' ;
+        ");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
 
@@ -220,10 +257,16 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
     } else {
-        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT * FROM control_manuales WHERE id_estatus = '1' ORDER BY fecha_captura DESC");
+        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.*
+        FROM control_manuales AS control
+        INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+        WHERE historial.id_motivohistorial = '2';");
 
-        //contador de registros para busqueda por mes
-        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_manuales WHERE id_estatus = '1'");
+        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros
+        FROM control_manuales AS control
+        INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+        WHERE historial.id_motivohistorial = '2';
+        ");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
 
@@ -399,9 +442,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-
                 <?php
-
 
 
 

@@ -4296,6 +4296,7 @@ h5 {
 }
 h6 {
   font-size: 1rem;
+  color: whitesmoke !important;
 }
 .text-block {
   zoom: 1;
@@ -8803,6 +8804,8 @@ body.modal-open {
 }
 .modal-header {
   border-bottom-color: #d8e2e7;
+  width: 100%;
+  display: flex;
 }
 .modal-title {
   font-size: 1.125rem;

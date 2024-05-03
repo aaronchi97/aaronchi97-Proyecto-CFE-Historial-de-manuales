@@ -629,6 +629,8 @@ pre code {
   flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
+
+  /* border: 3px red solid; */
 }
 
 .no-gutters {
@@ -6335,6 +6337,7 @@ a.close.disabled {
   height: 100%;
   overflow: hidden;
   outline: 0;
+  /* border: 3px red solid; */
 }
 
 .modal-dialog {
@@ -6342,6 +6345,7 @@ a.close.disabled {
   width: auto;
   margin: 0.5rem;
   pointer-events: none;
+  /* border: 1px red solid; */
 }
 
 .modal.fade .modal-dialog {
@@ -6395,6 +6399,7 @@ a.close.disabled {
   -ms-flex-align: center;
   align-items: center;
   min-height: calc(100% - 1rem);
+  /* border: 3px red solid; */
 }
 
 .modal-dialog-centered::before {

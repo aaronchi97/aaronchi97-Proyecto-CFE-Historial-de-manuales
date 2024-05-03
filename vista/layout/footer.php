@@ -36,6 +36,7 @@
                 //style: 'multi'
             },
             responsive: true,
+            pageLength: 15,
             // responsive: false,
             "language": {
                 "sProcessing": "Procesando...",

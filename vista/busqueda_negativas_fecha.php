@@ -2,7 +2,6 @@
 
 session_start();
 
-
 if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
     header("location:login/login.php");
 }
@@ -15,13 +14,6 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
     }
 </style>
 
-<!-- Crear el metodo advertencia para el boton de eliminar registro -->
-<!-- <script>
-    function advertencia() {
-        var not = confirm("¿Estas seguro de eliminar el registro?");
-        return not;
-    }
- </script> -->
 
 
 
@@ -42,9 +34,13 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
+
+
+
+
 <div class="page-content">
 
-    <h4 style="margin-bottom: 5%;" class="text-center text-secondery"> NEGATIVAS ATENDIDAS</h4>
+    <h4 style="margin-bottom: 5%;" class="text-center text-secondery"> NEGATIVAS POR FECHA</h4>
 
     <?php
     //hacemos la conexion
@@ -54,9 +50,6 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
     include "../controlador/controlador_asignar_estatus_negativas.php";
     include "../controlador/controlador_eliminar_negativa.php";
     // include "../controlador/control-estadisticos/controlador_buscar_fecha_manual.php";
-
-
-
 
     ?>
 
@@ -80,8 +73,8 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT * FROM control_negativas WHERE DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN' AND id_estatus = '1' ORDER BY fecha_captura DESC");
-        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m')BETWEEN '$FECHAINICIO' AND '$FECHAFIN' AND id_estatus = '1'");
+        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT * FROM control_negativas WHERE DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
+        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_negativas WHERE DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
 
@@ -93,12 +86,12 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
             ?>
         </div>
 
-        <!-- <div style="text-align: center; margin:auto; font-weight:bolder; color: #42ca07; ">
+        <div style="text-align: center; margin:auto; font-weight:bolder; color: #42ca07; ">
             <?php
             echo "TOTAL DE NEGATIVAS: $total_registros";
 
             ?>
-        </div> -->
+        </div>
 
     <?php
 
@@ -113,8 +106,8 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT * FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' AND id_estatus = '1' ORDER BY fecha_captura DESC");
-        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' AND id_estatus = '1'");
+        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT * FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
+        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
 
@@ -148,8 +141,8 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT * FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' AND id_estatus = '1' ORDER BY fecha_captura DESC");
-        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m')BETWEEN '$FECHAINICIO' AND '$FECHAFIN' AND id_estatus = '1'");
+        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT * FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
+        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m')BETWEEN '$FECHAINICIO' AND '$FECHAFIN'");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
 
@@ -182,10 +175,10 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT * FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO' AND id_estatus = '1' ORDER BY fecha_captura DESC");
+        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT * FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO' ORDER BY fecha_captura DESC");
 
         //contador de registros para busqueda por mes
-        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO' AND id_estatus = '1'");
+        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
 
@@ -219,40 +212,22 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
         #6
 
 
-    } else {
-        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT * FROM control_negativas WHERE id_estatus = '1' ORDER BY fecha_captura DESC");
-
-        //contador de registros para busqueda por mes
-        $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_negativas WHERE id_estatus = '1'");
-        $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
-
-
-
-    ?>
-        <div style="text-align: center; margin:auto; font-weight:bolder; color:gray; ">
-
-            <p style="color:#42ca07; ">
-                <?php
-                echo "TOTAL DE NEGATIVAS: $total_registros";
-
-
-                ?>
-            </p>
-        </div>
-
-    <?php
     }
 
 
     ?>
 
 
+
+
+
+
     <?php
     if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) { ?>
+
         <table class="table table-bordered table-hover w-100 " id="example">
             <thead>
                 <tr>
-
 
                     <th scope="col"></th>
 
@@ -278,15 +253,12 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                     <th scope="col">FECHA</th>
                     <th scope="col">ACCION</th>
 
-
-
-
                 </tr>
             </thead>
 
             <tbody>
                 <?php
-                while ($datos =  $sql_buscar_NEGATIVAS_por_fecha->fetch_object()) { ?>
+                while ($datos = $sql_buscar_NEGATIVAS_por_fecha->fetch_object()) { ?>
 
                     <tr>
 
@@ -406,8 +378,10 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                <?php
 
+
+
+                <?php
 
                     //-- MODAL PARA CORRECCION Y CAMBIO DE ESTATUS-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- -->
 
@@ -462,8 +436,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                     <tbody>
 
                         <?php
-                        while ($datos =  $sql_buscar_NEGATIVAS_por_fecha->fetch_object()) { ?>
-
+                        while ($datos = $sql_buscar_NEGATIVAS_por_fecha->fetch_object()) { ?>
 
 
                             <tr>

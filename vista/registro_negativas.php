@@ -50,12 +50,17 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
             </div>
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
 
-                <input type="text" placeholder="CUENTA" class="input input__text inputmodal" name="txtcuenta" list="cuentaList" autocomplete="off">
+                <input id="txtcuenta" type="text" placeholder="CUENTA" class="input input__text inputmodal" name="txtcuenta" list="cuentaList" autocomplete="off" oninput="autocompletarCampos()">
                 <datalist id="cuentaList"></datalist>
             </div>
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
 
-                <input type="text" placeholder="CICLO" class="input input__text inputmodal" name="txtciclo" autocomplete="off" onkeypress="return validarNumeros(event)">
+                <input id="txtciclo" type="text" placeholder="CICLO" class="input input__text inputmodal" name="txtciclo" autocomplete="off" readonly>
+            </div>
+
+            <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
+
+                <input id="txtagencia" type="text" placeholder="AGENCIA" class="input input__text inputmodal" name="txtagencia" autocomplete="off" readonly>
             </div>
 
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
@@ -72,8 +77,8 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
 
-                <input type="text" placeholder="AA_MM" class="input input__text inputmodal" name="txtaa_mm" list="aammList" autocomplete="off" onkeypress="return validarNumeros(event)">
-                <datalist id="aammList"></datalist>
+                <input type="text" placeholder="AA_MM" class="input input__text inputmodal" name="txtaa_mm" list="aammList" autocomplete="off" maxlength="4" onkeypress="return validarFecha(event)">
+                <!-- <datalist id="aammList"></datalist> -->
             </div>
 
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
@@ -118,6 +123,18 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
 
+                <input type="text" list="MotivoCorreccionList" placeholder="MOTIVO DE CORRECCION" class="input input__text inputmodal" name="txtmotivo_correccion" autocomplete="off">
+                <datalist id="MotivoCorreccionList"></datalist>
+            </div>
+
+            <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
+
+                <input type="text" placeholder="RPE-AUXILIAR" class="input input__text inputmodal" name="txtrpe_auxiliar" list="rpeauxiliarList" autocomplete="off">
+                <datalist id="rpeauxiliarList"></datalist>
+            </div>
+
+            <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
+
                 <input type="text" placeholder="RESPONSABLE DE CAPTURA" class="input input__text inputmodal" name="txtresponsable_negativa" value="<?= $_SESSION["nombre"] . " " .  $_SESSION["apellido"] ?>" autocomplete="off" list="responsablemanualList" readonly>
                 <datalist id="responsablemanualList"></datalist>
             </div>
@@ -143,8 +160,8 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
             <div class="text-right p-3">
-                <a href="negativas.php" class="btn btn-secondary btn-rounded">Atras</a>
-                <button type="submit" value="ok" name="btnregistrar" class="btn btn-primary btn-rounded">Registrar</button>
+                <a style="margin-top: 5%;" href="negativas.php" class="btn btn-secondary btn-rounded">Atras</a>
+                <button style="margin-top: 5%;" type="submit" value="ok" name="btnregistrar" class="btn btn-primary btn-rounded">Registrar</button>
             </div>
 
         </form>
@@ -161,77 +178,163 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 <script>
     $(document).ready(function() {
         $.getJSON("funciones_ajax/busquedas_negativas.php", function(data) {
+            var existingOptions = {};
+
             // Manejar datos de justificacion de negativa
-            $.each(data.justificacion, function(key, val) {
-                console.log(val);
-                $('#justiList').append("<option value='" + val + "' />");
+            $('#justiList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
+            $.each(data.respaldo_negativas, function(key, val) {
+                if (!existingOptions[val]) {
+                    $('#justiList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
             });
 
             // Manejar datos de cuenta
+            $('#cuentaList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
             $.each(data.cuenta, function(key, val) {
-                console.log(val);
-                $('#cuentaList').append("<option value='" + val + "' />");
+                if (!existingOptions[val]) {
+                    $('#cuentaList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
             });
 
             // Manejar datos de medidor
+            $('#medidorList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
             $.each(data.medidor, function(key, val) {
-                console.log(val);
-                $('#medidorList').append("<option value='" + val + "' />");
+                if (!existingOptions[val]) {
+                    $('#medidorList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
             });
 
-            // Manejar datos de aa_mm 
+            // Manejar datos de aa_mm
+            $('#aammList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
             $.each(data.aamm, function(key, val) {
-                console.log(val);
-                $('#aammList').append("<option value='" + val + "' />");
+                if (!existingOptions[val]) {
+                    $('#aammList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
             });
 
-            // Manejar datos de la tarifa
+            // Manejar datos de tarifa
+            $('#tarifaList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
             $.each(data.tarifa, function(key, val) {
-                console.log(val);
-                $('#tarifaList').append("<option value='" + val + "' />");
+                if (!existingOptions[val]) {
+                    $('#tarifaList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
             });
 
-            // Manejar datos de responsable del tipo de medidor
+            // Manejar datos de tipo de medidor
+            $('#tipo_medidorList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
             $.each(data.tipo_medidor, function(key, val) {
-                console.log(val);
-                $('#tipo_medidorList').append("<option value='" + val + "' />");
+                if (!existingOptions[val]) {
+                    $('#tipo_medidorList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
             });
 
-
-
-
-            // Manejar datos de responsable de la negativa basandose de los datos del usuario
-            $.each(data.responsablenegativa, function(key, val) {
-                console.log(val);
-                $('#responsablenegativaList').append("<option value='" + val.nombre + ' ' + val.apellido + "' />");
+            // Manejar datos de motivo de correccion
+            $('#MotivoCorreccionList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
             });
-
-            // Manejar datos de responsable de la negativa basandose de la tabla control_negativas
-            $.each(data.responsablenegativa2, function(key, val) {
-                console.log(val);
-                $('#responsablenegativaList').append("<option value='" + val + "' />");
-            });
-
-            // Manejar datos de responsable de la negativa basandose de los rpe auxiliares
-
-            $.each(data.rpeauxiliar, function(key, val) {
-                console.log(val);
-                $('#responsablenegativaList').append("<option value='" + val + "' />");
+            $.each(data.motivoCorreccion, function(key, val) {
+                if (!existingOptions[val]) {
+                    $('#MotivoCorreccionList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
             });
 
 
 
 
 
+            // // Manejar datos de responsable de la negativa basandose de los datos del usuario
+            // $.each(data.responsablenegativa, function(key, val) {
+            //     console.log(val);
+            //     $('#responsablenegativaList').append("<option value='" + val.nombre + ' ' + val.apellido + "' />");
+            // });
 
+            // // Manejar datos de responsable de la negativa basandose de la tabla control_negativas
+            // $.each(data.responsablenegativa2, function(key, val) {
+            //     console.log(val);
+            //     $('#responsablenegativaList').append("<option value='" + val + "' />");
+            // });
 
+            // // Manejar datos de responsable de la negativa basandose de los rpe auxiliares
 
+            // $.each(data.rpeauxiliar, function(key, val) {
+            //     console.log(val);
+            //     $('#responsablenegativaList').append("<option value='" + val + "' />");
+            // });
 
 
 
         });
     });
+
+
+
+
+    // MANDAR DATOS DATALIST A TRAVES DE UN AJAX A MIS INPUTS EN EL ARCHIVO DE BUSQUEDA MANUALES
+
+    $(document).ready(function() {
+        $.getJSON("funciones_ajax/busquedas_manuales.php", function(data) {
+            var existingOptions = {};
+
+            // Manejar datos de RPE auxiliar
+            $('#rpeauxiliarList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
+            $.each(data.rpeauxiliar, function(key, val) {
+                if (!existingOptions[val]) {
+                    $('#rpeauxiliarList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
+            });
+
+
+
+        });
+
+
+
+    });
 </script>
+
+<!-- MANDAR DATOS DATALIST A TRAVES DE UN AJAX A MIS INPUTS EN EL ARCHIVO DE BUSQUEDA MANUALES***------------------ -->
+<!-- <script>
+    $(document).ready(function() {
+        $.getJSON("funciones_ajax/busquedas_manuales.php", function(data) {
+
+
+            // Manejar datos de rpe auxiliar
+            $.each(data.rpeauxiliar, function(key, val) {
+                console.log(val);
+                $('#rpeauxiliarList').append("<option value='" + val + "' />");
+            });
+
+
+
+        });
+
+
+
+    });
+</script> -->
+
 
 
 <!-- //EVITAR ESPACIOS ANTES DE ESCRIBIR TEXTO EN LOS INPUTS -->
@@ -274,6 +377,104 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
         }
     }
 </script>
+
+
+<!-- //SCRIPT PARA AUTOLLENAR INPUTS CON LA INFORMACION DE LA CUENTA -->
+
+<script>
+    function autocompletarCampos() {
+        var cuentaValue = document.getElementById('txtcuenta').value.trim();
+
+        // Obtener los primeros dígitos numéricos
+        var digitosNumericos = cuentaValue.match(/^\d+/);
+        var cicloValue = digitosNumericos ? digitosNumericos[0] : '';
+        console.log('Ciclo Value:', cicloValue);
+
+        // Establecer el valor en txtciclo
+        var txtciclo = document.getElementById('txtciclo');
+        if (txtciclo) {
+            txtciclo.value = cicloValue || '';
+        }
+
+        // Obtener la última letra antes de los últimos dígitos numéricos
+        var ultimaLetra = cuentaValue.match(/[a-zA-Z](?=\d+$)/);
+        var agenciaValue = ultimaLetra ? ultimaLetra[0] : '';
+        console.log('Agencia Value:', agenciaValue);
+
+        // Establecer el valor en txtagencia
+        var txtagencia = document.getElementById('txtagencia');
+        if (txtagencia) {
+            txtagencia.value = agenciaValue || '';
+        }
+    }
+</script>
+
+
+
+
+
+
+<script>
+    function validarFecha(event) {
+        // Obtener el código ASCII del caracter ingresado
+        var charCode = (event.which) ? event.which : event.keyCode;
+        var inputValue = event.target.value;
+
+        // Verificar que solo se ingresen dígitos
+        if (charCode < 48 || charCode > 57) {
+            return false;
+        }
+
+        // Concatenar el nuevo dígito para formar el valor completo del input
+        var newValue = inputValue + String.fromCharCode(charCode);
+
+        // Verificar que el valor completo tenga la longitud adecuada
+        if (newValue.length > 4) {
+            return false;
+        }
+
+        // Verificar que los primeros dos dígitos correspondan a un año válido y los últimos dos a un mes válido
+        if (newValue.length === 4) {
+            var year = parseInt(newValue.slice(0, 2));
+            var month = parseInt(newValue.slice(2));
+
+            // Validar que el año esté dentro del rango 00-99 y el mes dentro del rango 01-12
+            if ((year < 0 || year > 99) || (month < 1 || month > 12)) {
+                return false;
+            }
+        }
+
+        // Verificar que el tercer dígito sea 0 o 1
+        if (newValue.length === 3) {
+            var thirdDigit = parseInt(newValue.charAt(2));
+            if (thirdDigit !== 0 && thirdDigit !== 1) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+</script>
+
+
+
+<!-- CONVERTIR EN MAYUSCULAS TODOS LOS INPUTS EN DONDE PUEDA ESCRIBIR -->
+
+<script>
+    // Función para convertir el texto a mayúsculas
+    function convertirAMayusculas(event) {
+        var input = event.target;
+        input.value = input.value.toUpperCase();
+    }
+
+    // Obtener todos los elementos con la clase 'input' y asignar el evento a cada uno
+    var inputs = document.querySelectorAll('.input');
+    inputs.forEach(function(input) {
+        input.addEventListener('input', convertirAMayusculas);
+    });
+</script>
+
+
 
 
 

@@ -89,6 +89,7 @@ ORDER BY historial_negativas.fecha_historial DESC;");
                     <th scope="col">ESTATUS</th>
                     <th scope="col">CUENTA</th>
                     <th scope="col">CICLO</th>
+                    <th scope="col">AGENCIA</th>
                     <th scope="col">TARIFA</th>
                     <th scope="col">MEDIDOR</th>
                     <!-- <th scope="col">SIN USO</th> -->
@@ -98,7 +99,9 @@ ORDER BY historial_negativas.fecha_historial DESC;");
                     <th scope="col">DICE</th>
                     <th scope="col">DEBE DECIR</th>
                     <th scope="col">KWH_A_RECUPERAR</th>
-                    <th scope="col">JUSTIFICACION_NEGATIVA</th>
+                    <th scope="col">RESPALDO_NEGATIVA</th>
+                    <th scope="col">MOTIVO_CORRECCION</th>
+                    <th scope="col">RPE AUXILIAR</th>
                     <th scope="col">OBSERVACIONES</th>
                     <th scope="col">RESPONSABLE</th>
                     <th scope="col">FECHA CAPTURA NEGATIVA</th>
@@ -182,6 +185,9 @@ ORDER BY historial_negativas.fecha_historial DESC;");
                             <?= $datos->ciclo ?>
                         </td>
                         <td class="celda" onclick="copiarContenido(this)">
+                            <?= $datos->agencia ?>
+                        </td>
+                        <td class="celda" onclick="copiarContenido(this)">
                             <?= $datos->tarifa ?>
                         </td>
                         <td class="celda" onclick="copiarContenido(this)">
@@ -208,6 +214,14 @@ ORDER BY historial_negativas.fecha_historial DESC;");
                         <td class="celda" onclick="copiarContenido(this)">
                             <?= $datos->id_justificacionnegativas ?>
                         </td>
+                        <td class="celda" onclick="copiarContenido(this)">
+                            <?= $datos->motivo_correccion ?>
+                        </td>
+
+                        <td class="celda" onclick="copiarContenido(this)">
+                            <?= $datos->rpe_auxiliar ?>
+                        </td>
+
 
                         <td class="celda" onclick="copiarContenido(this)">
                             <?= $datos->observaciones ?>
@@ -252,6 +266,7 @@ ORDER BY historial_negativas.fecha_historial DESC;");
                             <th scope="col">ESTATUS</th>
                             <th scope="col">CUENTA</th>
                             <th scope="col">CICLO</th>
+                            <th scope="col">AGENCIA</th>
                             <th scope="col">TARIFA</th>
                             <th scope="col">MEDIDOR</th>
                             <!-- <th scope="col">SIN USO</th> -->
@@ -261,7 +276,9 @@ ORDER BY historial_negativas.fecha_historial DESC;");
                             <th scope="col">DICE</th>
                             <th scope="col">DEBE DECIR</th>
                             <th scope="col">KWH_A_RECUPERAR</th>
-                            <th scope="col">JUSTIFICACION_NEGATIVA</th>
+                            <th scope="col">RESPALDO_NEGATIVA</th>
+                            <th scope="col">MOTIVO_CORRECCION</th>
+                            <th scope="col">RPE AUXILIAR</th>
                             <th scope="col">OBSERVACIONES</th>
                             <th scope="col">RESPONSABLE</th>
                             <th scope="col">FECHA CAPTURA NEGATIVA</th>
@@ -341,6 +358,9 @@ ORDER BY historial_negativas.fecha_historial DESC;");
                                 <?= $datos->ciclo ?>
                             </td>
                             <td class="celda" onclick="copiarContenido(this)">
+                                <?= $datos->agencia ?>
+                            </td>
+                            <td class="celda" onclick="copiarContenido(this)">
                                 <?= $datos->tarifa ?>
                             </td>
                             <td class="celda" onclick="copiarContenido(this)">
@@ -366,6 +386,13 @@ ORDER BY historial_negativas.fecha_historial DESC;");
                             </td>
                             <td class="celda" onclick="copiarContenido(this)">
                                 <?= $datos->id_justificacionnegativas ?>
+                            </td>
+                            <td class="celda" onclick="copiarContenido(this)">
+                                <?= $datos->motivo_correccion ?>
+                            </td>
+
+                            <td class="celda" onclick="copiarContenido(this)">
+                                <?= $datos->rpe_auxiliar ?>
                             </td>
 
                             <td class="celda" onclick="copiarContenido(this)">

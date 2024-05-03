@@ -82,7 +82,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
             <div id="contenedor_lectura_manual" class="fl-flex-label mb-4 px-2 col-md-4  campo">
 
-                <input type="text" placeholder="LECTURA MANUAL" class="input input__text inputmodal" name="txtlectura_manual" autocomplete="off">
+                <input type="text" placeholder="LECTURA MANUAL" class="input input__text inputmodal" name="txtlectura_manual" autocomplete="off" onkeypress="return validarNumeros(event)">
 
             </div>
 
@@ -165,8 +165,8 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
             <div class="text-right p-3">
-                <a href="manuales.php" class="btn btn-secondary btn-rounded">Atras</a>
-                <button type="submit" value="ok" name="btnregistrar" class="btn btn-primary btn-rounded">Registrar</button>
+                <a style="margin-top: 5%;" href="manuales.php" class="btn btn-secondary btn-rounded">Atras</a>
+                <button style="margin-top: 5%;" type="submit" value="ok" name="btnregistrar" class="btn btn-primary btn-rounded">Registrar</button>
             </div>
 
         </form>
@@ -183,65 +183,98 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 <script>
     $(document).ready(function() {
         $.getJSON("funciones_ajax/busquedas_manuales.php", function(data) {
+            var existingOptions = {};
+
             // Manejar datos de id_motivomanual
+            $('#motivosList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
             $.each(data.motivo, function(key, val) {
-                console.log(val);
-                $('#motivosList').append("<option value='" + val + "' />");
+                if (!existingOptions[val]) {
+                    $('#motivosList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
             });
 
             // Manejar datos de cuenta
+            $('#cuentaList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
             $.each(data.cuenta, function(key, val) {
-                console.log(val);
-                $('#cuentaList').append("<option value='" + val + "' />");
+                if (!existingOptions[val]) {
+                    $('#cuentaList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
             });
 
-            // Manejar datos de cuenta
+            // Manejar datos de respaldo
+            $('#respaldomanualList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
             $.each(data.respaldo, function(key, val) {
-                console.log(val);
-                $('#respaldomanualList').append("<option value='" + val + "' />");
+                if (!existingOptions[val]) {
+                    $('#respaldomanualList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
             });
 
-            // Manejar datos de rpe auxiliar
+            // Manejar datos de RPE auxiliar
+            $('#rpeauxiliarList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
             $.each(data.rpeauxiliar, function(key, val) {
-                console.log(val);
-                $('#rpeauxiliarList').append("<option value='" + val + "' />");
+                if (!existingOptions[val]) {
+                    $('#rpeauxiliarList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
             });
 
 
 
 
-            // Manejar datos de responsable de la manual
-            $.each(data.responsablemanual, function(key, val) {
-                console.log(val);
-                $('#responsablemanualList').append("<option value='" + val.nombre + ' ' + val.apellido + "' />");
-            });
+            // // Manejar datos de responsable de la manual
+            // $.each(data.responsablemanual, function(key, val) {
+            //     console.log(val);
+            //     $('#responsablemanualList').append("<option value='" + val.nombre + ' ' + val.apellido + "' />");
+            // });
 
 
-            $.each(data.responsablemanual2, function(key, val) {
-                console.log(val);
-                $('#responsablemanualList').append("<option value='" + val + "' />");
-            });
+            // $.each(data.responsablemanual2, function(key, val) {
+            //     console.log(val);
+            //     $('#responsablemanualList').append("<option value='" + val + "' />");
+            // });
 
-            $.each(data.rpeauxiliar, function(key, val) {
-                console.log(val);
-                $('#responsablemanualList').append("<option value='" + val + "' />");
-            });
+            // $.each(data.rpeauxiliar, function(key, val) {
+            //     console.log(val);
+            //     $('#responsablemanualList').append("<option value='" + val + "' />");
+            // });
 
 
 
 
 
             // Manejar datos de responsable de la agencia
+            $('#agenciaList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
             $.each(data.agencia, function(key, val) {
-                console.log(val);
-                $('#agenciaList').append("<option value='" + val + "' />");
+                if (!existingOptions[val]) {
+                    $('#agenciaList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
             });
 
 
+
             // Manejar datos de responsable de la tarifa
+            $('#tarifaList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
             $.each(data.tarifa, function(key, val) {
-                console.log(val);
-                $('#tarifaList').append("<option value='" + val + "' />");
+                if (!existingOptions[val]) {
+                    $('#tarifaList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
             });
 
 
@@ -277,6 +310,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 <!-- FUNCION PARA SOLO PERMITIR NUMEROS EN MIS INPUTS EN ESPECIFICO -->
+<!-- Función para validar la entrada y permitir solo números -->
 <script>
     function validarNumeros(e) {
         // Obtener el código de la tecla presionada
@@ -287,12 +321,16 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
             return true;
         }
 
-        // Verificar si la tecla presionada es un número
-        if (codigoTecla < 48 || codigoTecla > 57) {
+        // Verificar si la tecla presionada es un número o el símbolo diagonal "/"
+        if ((codigoTecla < 48 || codigoTecla > 57) && codigoTecla != 47) {
             e.preventDefault();
         }
     }
 </script>
+
+
+
+<!-- //SCRIPT PARA AUTOLLENAR INPUTS CON LA INFORMACION DE LA CUENTA -->
 
 <script>
     function autocompletarCampos() {
@@ -400,6 +438,29 @@ SCRIPT PARA ACTIVAR INPUTS SEGUN SEA EL CASO POR MOTIVO DE MANUALES.------------
 
         }
 
+
+        // Función para verificar campos vacíos
+        function verificarCamposVacios(inputs) {
+            var camposVacios = [];
+
+            // Verificar cada input
+            inputs.forEach(function(inputSelector) {
+                var input = $(inputSelector);
+                if (input.val().trim() === '') {
+                    camposVacios.push(input.attr('name'));
+                }
+            });
+
+            // Mostrar advertencia si hay campos vacíos
+            if (camposVacios.length > 0) {
+                alert('Advertencia: Los siguientes campos están vacíos: ' + camposVacios.join(', '));
+            }
+        }
+
+
+
+
+
         // Asigna un evento al input 'txtidmotivomanual'
         $('#txtidmotivomanual').on('input', function() {
             var motivoSeleccionado = $(this).val();
@@ -450,6 +511,24 @@ SCRIPT PARA ACTIVAR INPUTS SEGUN SEA EL CASO POR MOTIVO DE MANUALES.------------
 
         // Ocultar contenedores al cargar la página
         ocultarContenedoresEvidenciaManual();
+    });
+</script>
+
+
+
+<!-- CONVERTIR EN MAYUSCULAS TODOS LOS INPUTS EN DONDE PUEDA ESCRIBIR -->
+
+<script>
+    // Función para convertir el texto a mayúsculas
+    function convertirAMayusculas(event) {
+        var input = event.target;
+        input.value = input.value.toUpperCase();
+    }
+
+    // Obtener todos los elementos con la clase 'input' y asignar el evento a cada uno
+    var inputs = document.querySelectorAll('.input');
+    inputs.forEach(function(input) {
+        input.addEventListener('input', convertirAMayusculas);
     });
 </script>
 

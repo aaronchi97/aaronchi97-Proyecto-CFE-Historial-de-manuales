@@ -6,7 +6,7 @@ if (!empty($_POST["btnmodificar"])) {
         and !empty($_POST["txtaa_mm"]) and !empty($_POST["txttipo_medidor"]) and !empty($_POST["txtcve"])
         and !empty($_POST["txtdice"]) and !empty($_POST["txtdebe_decir"]) and !empty($_POST["txtkwh_recuperar"])
         and !empty($_POST["txtid_justificacionnegativa"]) and !empty($_POST["txtobservaciones"]) and !empty($_POST["txtresponsable_negativa"])
-        and !empty($_POST["txtmotivo"])
+        and !empty($_POST["txtmotivo"]) and !empty($_POST["txtrpe_auxiliar"]) and !empty($_POST["txtagencia"]) and !empty($_POST["txtmotivo_correccion"])
 
     ) {
         $id_negativa = $_POST["txtid"];
@@ -25,6 +25,9 @@ if (!empty($_POST["btnmodificar"])) {
         $obervacion = $_POST["txtobservaciones"];
         $responsable_negativa = $_POST["txtresponsable_negativa"];
         $motivo_correccion = $_POST["txtmotivo"];
+        $rpe_auxiliar = $_POST["txtrpe_auxiliar"];
+        $agencia = $_POST["txtagencia"];
+        $motivo_negativa = $_POST["txtmotivo_correccion"];
         //la fecha de modificacion se agrega automaticamente con el trigger en la tabla principal
 
 
@@ -57,7 +60,10 @@ if (!empty($_POST["btnmodificar"])) {
             kwh_recuperar = $kwh_recuperar,
             id_justificacionnegativas= '$justificacion_negativa',
             observaciones = '$obervacion',
-            responsable_negativa = '$responsable_negativa'
+            responsable_negativa = '$responsable_negativa',
+            rpe_auxiliar = '$rpe_auxiliar',
+            agencia= '$agencia',
+            motivo_correccion= '$motivo_negativa'
             WHERE id_control_negativas = $id_negativa");
 
 

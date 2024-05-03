@@ -6,7 +6,7 @@ if (!empty($_POST["btnregistrar"])) {
         and !empty($_POST["txtaa_mm"]) and !empty($_POST["txttipo_medidor"]) and !empty($_POST["txtcve"])
         and !empty($_POST["txtdice"]) and !empty($_POST["txtdebe_decir"]) and !empty($_POST["txtkwh_recuperar"])
         and !empty($_POST["txtid_justificacionnegativa"]) and !empty($_POST["txtobservaciones"]) and !empty($_POST["txtresponsable_negativa"])
-        and !empty($_POST["txtestatus"])
+        and !empty($_POST["txtestatus"]) and !empty($_POST["txtrpe_auxiliar"]) and !empty($_POST["txtagencia"]) and !empty($_POST["txtmotivo_correccion"])
 
     ) {
 
@@ -25,6 +25,9 @@ if (!empty($_POST["btnregistrar"])) {
         $observacion = $_POST["txtobservaciones"];
         $responsable_negativa = $_POST["txtresponsable_negativa"];
         $estatus = $_POST["txtestatus"];
+        $rpe_auxiliar = $_POST["txtrpe_auxiliar"];
+        $agencia = $_POST["txtagencia"];
+        $motivo_correccion = $_POST["txtmotivo_correccion"];
         date_default_timezone_set('America/Mexico_City');
         $fecha_captura = date("Y-m-d H:i:s");
 
@@ -59,7 +62,7 @@ if (!empty($_POST["btnregistrar"])) {
             kwh_recuperar,
             id_justificacionnegativas,
             observaciones,
-            responsable_negativa, fecha_captura, id_estatus)values($rpu, '$cuenta',
+            responsable_negativa, fecha_captura, id_estatus, rpe_auxiliar, agencia, motivo_correccion)values($rpu, '$cuenta',
             $ciclo,
             '$tarifa',
             '$medidor',
@@ -73,7 +76,10 @@ if (!empty($_POST["btnregistrar"])) {
             '$observacion',
             '$responsable_negativa',
             '$fecha_captura',
-             $estatus )  ");
+             $estatus,
+             '$rpe_auxiliar',
+             '$agencia',
+             '$motivo_correccion' )  ");
 
 
             //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]

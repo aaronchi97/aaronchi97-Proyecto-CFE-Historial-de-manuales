@@ -51,6 +51,8 @@ $responseAgencia = array();
 $responseTarifa = array();
 
 
+
+
 while ($row = $sql_busqueda_motivo->fetch_assoc()) {
     $temporal = $row;
     array_push($responseMotivo, $temporal['id_motivomanual']);

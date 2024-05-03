@@ -4,7 +4,7 @@
 // Conectar a la base de datos y realizar la búsqueda
 include "../../modelo/conexion.php";
 
-// Consulta para obtener datos de id_justificacionnegativa
+// Consulta para obtener datos de resplado de negativas id_justificacionnegativa
 $sql_busqueda_justificacion = $conexion->query("SELECT DISTINCT id_justificacionnegativas FROM control_negativas WHERE id_justificacionnegativas IS NOT NULL AND id_justificacionnegativas != '' ");
 
 // Consulta para obtener datos de cuenta
@@ -20,19 +20,24 @@ $sql_busqueda_aamm = $conexion->query("SELECT DISTINCT aa_mm FROM control_negati
 
 
 
-// Consulta para obtener datos de responsable de elaboracion de manual
+// Consulta para obtener datos de responsable de elaboracion de negativas
 $sql_busqueda_responsablenegativa = $conexion->query("SELECT  nombre, apellido FROM usuario");
 $sql_busqueda_responsablenegativa2 = $conexion->query("SELECT DISTINCT responsable_negativa FROM control_negativas WHERE responsable_negativa IS NOT NULL AND responsable_negativa != '' ");
 
 
 
-// Consulta para obtener datos de agencia de elaboracion de manual
+// Consulta para obtener datos de agencia de elaboracion de negativas
 $sql_busqueda_tipo_medidor = $conexion->query("SELECT DISTINCT tipo_medidor FROM control_negativas WHERE  tipo_medidor IS NOT NULL AND  tipo_medidor != '' ");
 
 
-// Consulta para obtener datos de tarifa de elaboracion de manual
+// Consulta para obtener datos de tarifa de elaboracion de negativas
 $sql_busqueda_tarifa = $conexion->query("SELECT DISTINCT tarifa FROM control_negativas WHERE tarifa IS NOT NULL AND tarifa != '' ");
 
+// Consulta para obtener datos de motivo correccion en negativas
+$sql_busqueda_motivo_correccion = $conexion->query("SELECT DISTINCT motivo_correccion FROM motivo_correccion_neg WHERE motivo_correccion IS NOT NULL AND motivo_correccion != '' ");
+
+// Consulta para obtener datos de resplado de negativas en respaldos_negativa
+$sql_busqueda_respaldos = $conexion->query("SELECT DISTINCT respaldo_negativa FROM respaldo_negativas WHERE respaldo_negativa IS NOT NULL AND respaldo_negativa != '' ");
 
 
 
@@ -49,6 +54,8 @@ $responseResponsableNegativa = array();
 $responseResponsableNegativa2 = array();
 $responseTipo_medidor = array();
 $responseTarifa = array();
+$responseMotivoCorreccion = array();
+$responseRespaldos = array();
 
 
 while ($row = $sql_busqueda_justificacion->fetch_assoc()) {
@@ -98,6 +105,16 @@ while ($row = $sql_busqueda_tarifa->fetch_assoc()) {
     array_push($responseTarifa, $temporal['tarifa']);
 }
 
+while ($row = $sql_busqueda_motivo_correccion->fetch_assoc()) {
+    $temporal = $row;
+    array_push($responseMotivoCorreccion, $temporal['motivo_correccion']);
+}
+
+while ($row = $sql_busqueda_respaldos->fetch_assoc()) {
+    $temporal = $row;
+    array_push($responseRespaldos, $temporal['respaldo_negativa']);
+}
+
 
 
 
@@ -109,7 +126,7 @@ echo json_encode(array(
     "justificacion" => $responseJustificacion, "cuenta" => $responseCuenta, "medidor" => $responseMedidor,
     "aamm" => $responseAAMM, "responsablenegativa" => $responseResponsableNegativa,
     "responsablenegativa2" => $responseResponsableNegativa2, "tipo_medidor" => $responseTipo_medidor,
-    "tarifa" => $responseTarifa
+    "tarifa" => $responseTarifa, "motivoCorreccion" => $responseMotivoCorreccion, "respaldo_negativas" => $responseRespaldos
 ));
 
 // Cierre de las consultas y conexión
@@ -121,4 +138,6 @@ $sql_busqueda_responsablenegativa->close();
 $sql_busqueda_responsablenegativa2->close();
 $sql_busqueda_tipo_medidor->close();
 $sql_busqueda_tarifa->close();
+$sql_busqueda_motivo_correccion->close();
+$sql_busqueda_respaldos->close();
 $conexion->close();
