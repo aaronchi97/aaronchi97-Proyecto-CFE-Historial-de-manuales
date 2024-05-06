@@ -14,6 +14,16 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
     ul li:nth-child(1) .activo {
         background: #598b6b !important;
     }
+
+    #header-row {
+        position: sticky;
+        top: 0;
+        /* Fija la fila en la parte superior de la tabla */
+        z-index: 1;
+        /* Asegura que la fila esté encima del contenido de la tabla */
+        background-color: #ffffff;
+        /* Color de fondo de la fila */
+    }
 </style>
 
 <!-- Crear el metodo advertencia para el boton de eliminar registro -->
@@ -343,30 +353,20 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                 // $total_agencias_rpe = 0;
                 $total_agencia = 0;
 
-                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
-                $rpe_agencia = array();
+                // Verificar si la consulta fue exitosa
+                if ($resultado_rpe) {
+                    // Recorrer los resultados de la consulta
+                    while ($fila_rpe = mysqli_fetch_assoc($resultado_rpe)) {
+                        // Obtener los datos de la fila
+                        $rpe_auxiliar = $fila_rpe['rpe_auxiliar'];
+                        $total_veces_ETL_RPE = $fila_rpe['total_veces'];
 
-                // Recorrer los resultados de la consulta
-                while ($fila = mysqli_fetch_assoc($resultado_rpe)) {
-
-                    // Obtener los datos de la fila
-                    $rpe_auxiliar = $fila['rpe_auxiliar'];
-                    $total_veces_ETL_RPE = $fila['total_veces'];
-
-
-                    // Almacenar el total de veces para esta agencia
-                    $total_agencia += $total_veces_ETL_RPE;
-                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
-                    $rpe_agencia[$rpe_auxiliar] = $total_veces_ETL_RPE;
+                        // Almacenar los datos en el array de participación de los RPE auxiliares por agencia
+                        $rpe_agencia[$rpe_auxiliar] = $total_veces_ETL_RPE;
+                    }
                 }
 
-
-
-                // Almacenar el total de veces para esta agencia
-                $totales_por_agencia[$agencia] = $total_agencia;
-                // $total_agencias_rpe += $total_agencia;
-
-                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                // Almacenar los datos en el array principal
                 $rpe_por_agencia[$agencia] = $rpe_agencia;
 
 
@@ -2627,6 +2627,11 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
     ?>
 
 
+
+
+
+
+
     <table class="table table-bordered table-hover w-100 " id="example">
         <thead>
             <tr>
@@ -2669,27 +2674,46 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                 </td>
             </tr>
             <!-- Filas para los RPE auxiliares de ERROR EN TOMA DE LECTURA -->
-            <tr id="rpe-lectura-1" class="fila-rpe-auxiliares" style="display: none;">
-                <th>RPE AUXILIAR</th>
-                <td>
-                    <i class="fa-solid fa-arrow-right-from-arc"></i>
-                </td>
-                <!-- Agrega las celdas para los RPE auxiliares -->
-                <?php foreach ($agencias as $agencia) : ?>
-                    <td style="text-align: center;" class="celda columna-resumen" onclick="copiarContenido(this)">
-                        <?php
-                        if (isset($rpe_por_agencia[$agencia])) {
-                            foreach ($rpe_por_agencia[$agencia] as $rpe_auxiliar => $total_veces_ETL_RPE) {
-                                echo "<strong>$rpe_auxiliar:</strong> $total_veces_ETL_RPE<br>";
+            <!-- Este será el código de la tabla a agregar -->
+            <tr id="rpe-lectura-1-clonado" class="fila-rpe-auxiliares" style="display: none;">
+                <td colspan="<?= count($agencias) + 2 ?>"> <!-- Colspan para que ocupe todas las columnas -->
+                    <table class="table table-bordered table-hover w-100 ">
+
+                        <tr id="header-row">
+                            <th>RPE AUXILIAR</th>
+                            <?php foreach ($agencias as $agencia) : ?>
+                                <th><?= $agencia ?></th>
+                            <?php endforeach; ?>
+                            <th>TOTAL</th> <!-- Nueva columna para la suma total -->
+                        </tr>
+
+                        <tbody>
+                            <?php
+                            // Obtener todos los RPE auxiliares únicos
+                            $rpes_unicos = [];
+                            foreach ($rpe_por_agencia as $agencia_rpes) {
+                                foreach ($agencia_rpes as $rpe_auxiliar => $total_veces) {
+                                    $rpes_unicos[$rpe_auxiliar] = true;
+                                }
                             }
-                        } else {
-                            echo "0";
-                        }
-                        ?>
-                    </td>
-                <?php endforeach; ?>
-                <!-- Agrega una celda vacía para el total -->
-                <td style="color: greenyellow; text-align: center; background: #294835b2" class="celda"></td>
+
+                            // Mostrar los valores de participación para cada RPE auxiliar único
+                            foreach ($rpes_unicos as $rpe_auxiliar => $_) {
+                                echo "<tr><td>$rpe_auxiliar</td>";
+                                $total_rpe = 0; // Inicializar la suma total para este RPE auxiliar
+                                foreach ($agencias as $agencia) {
+                                    // Obtener los valores de participación para esta agencia y este RPE auxiliar
+                                    $participacion = isset($rpe_por_agencia[$agencia][$rpe_auxiliar]) ? $rpe_por_agencia[$agencia][$rpe_auxiliar] : 0;
+                                    $total_rpe += $participacion; // Sumar al total del RPE
+                                    echo "<td>$participacion</td>";
+                                }
+                                echo "<td style='color: greenyellow;  text-align: center;  background: #294835b2' class='celda'>$total_rpe</td>"; // Mostrar la suma total de participación para este RPE auxiliar
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </td>
             </tr>
             <!-- Añadir más filas para LECTURA RETIRO -->
             <tr id="fila2">
@@ -2873,12 +2897,12 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                     // Obtiene el id del objetivo de la expansión desde el atributo data-target
                     var idObjetivo = boton.getAttribute('data-target');
                     // Encuentra el elemento con el id del objetivo
-                    var objetivo = document.getElementById(idObjetivo);
+                    var objetivo = document.getElementById(idObjetivo + '-clonado'); // Agregamos '-clonado' al ID
 
                     // Encuentra el elemento de la fila debajo de la fila actual con el mismo nivel de anidamiento
                     var filaSiguiente = boton.closest('tr').nextElementSibling;
 
-                    // Inserta la fila de RPE auxiliares debajo de la fila actual
+                    // Inserta el nuevo código de tabla debajo de la fila actual
                     if (filaSiguiente) {
                         filaSiguiente.parentNode.insertBefore(objetivo, filaSiguiente);
                     } else {
@@ -2892,6 +2916,9 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
             });
         });
     </script>
+
+
+
 
     <!-- por ultimo se carga el footer -->
     <?php require('./layout/footer.php'); ?>
