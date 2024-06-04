@@ -83,6 +83,7 @@
 
         .marca__texto {
             color: rgb(0, 162, 255);
+
             text-decoration: underline;
         }
 
@@ -185,7 +186,7 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right pt-0" aria-labelledby="dd-user-menu">
 
-                                    <h5 class="p-2 text-center bg-primary">
+                                    <h5 class=" text-center bg-primary">
                                         <?= $_SESSION["nombre-sinasu"] . " " . $_SESSION["apellido-sinasu"] ?>
                                     </h5>
                                     <a class="dropdown-item" href="datos_perfil_sinasu.php"><span
@@ -196,7 +197,7 @@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item"
                                         href="../../controlador/controlador_cerrar_sesion_sinasu.php">
-                                        <span class="font-icon glyphicon glyphicon-log-out"></span>cerrar sesion
+                                        <span class="font-icon glyphicon glyphicon-log-out"></span>cerrar sesión
                                     </a>
                                 </div>
                             </div>

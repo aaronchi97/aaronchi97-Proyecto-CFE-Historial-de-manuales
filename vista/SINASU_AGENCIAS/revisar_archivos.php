@@ -11,9 +11,9 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 ?>
 
 <style>
-  ul li:nth-child(1) .activo {
-    background: #9889fe !important;
-  }
+ul li:nth-child(1) .activo {
+    background: #008f5a !important;
+}
 </style>
 
 
@@ -31,7 +31,7 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 
 
 
-  <?php
+    <?php
 
   //Oculta los warnings
   error_reporting(E_ERROR | E_PARSE);
@@ -66,11 +66,11 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 
   ?>
 
-  <?php
+    <?php
   if ($_SESSION['rol-sinasu'] == 3) {
     ?>
     <a href="registro_usuario_sinasu.php" class="btn btn-primary btn-rounded mb-3" style="display: none;"><i
-        class="fa-solid fa-user-plus"></i> &nbsp; REGISTRAR</a>
+            class="fa-solid fa-user-plus"></i> &nbsp; REGISTRAR</a>
     <?php
 
     $mostrarBoton = false;
@@ -93,85 +93,86 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
   ?>
 
 
-  <!-- Botón de atrás a Agencias -->
-  <?php if ($agenciasPresentes): ?>
+
+    <!-- Botón de atrás a Agencias -->
+    <?php if ($agenciasPresentes): ?>
     <!-- Botón de atrás a Agencias -->
     <a href="../SINASU/agencias_filtros.php?id_agencias_filtro=<?= $_GET['id_agencia_revision_administrador'] ?>&id_proceso=<?= $_GET['id_proceso'] ?>&id_departamento=<?= $_GET['id_departamento'] ?>"
-      class="btn btn-danger btn-rounded mb-3 mb-md-4 otro" style="margin: 20px 0px;">
-      <i class="fa-regular fa-circle-left"></i> &nbsp; ATRAS
+        class="btn btn-danger btn-rounded mb-3 mb-md-4 otro" style="margin: 20px 0px;">
+        <i class="fa-regular fa-circle-left"></i> &nbsp; ATRÁS
     </a>
-  <?php elseif ($procesoComercialPresente && ($_GET['id_proceso'] == 4 || $_GET['id_proceso'] == 5)): ?>
+    <?php elseif ($procesoComercialPresente && ($_GET['id_proceso'] == 4 || $_GET['id_proceso'] == 5)): ?>
     <!-- Botón de atrás a Filtro Proceso Comercial -->
     <a href="../SINASU/filtro_proceso_comercial.php?id_proceso=<?= $_GET['id_proceso'] ?>&id_departamento=<?= $_GET['id_departamento'] ?>"
-      class="btn btn-danger btn-rounded mb-3 otro" style="margin: 20px 0px;">
-      <i class="fa-regular fa-circle-left"></i> &nbsp; ATRAS
+        class="btn btn-danger btn-rounded mb-3 otro" style="margin: 20px 0px;">
+        <i class="fa-regular fa-circle-left"></i> &nbsp; ATRÁS
     </a>
-  <?php endif; ?>
+    <?php endif; ?>
 
 
 
-  <?php
+    <?php
 
   // Verificar qué controlador se está utilizando y generar la tabla correspondiente
   if (isset ($_GET["id_agencia_revision_administrador"])) {
     ?>
     <table class="table table-bordered table-hover w-100 " id="example">
-      <thead>
-        <tr>
-          <th><input type="checkbox" id="marcarTodas"> Todo</th>
-          <th scope="col">ID DOCUMENTO</th>
-          <!-- <th scope="col">ID GUIA</th> -->
-          <th scope="col">NOMBRE DOCUMENTO</th>
-          <th scope="col">FECHA SUBIDA</th>
-          <th scope="col">OBSERVACIONES</th>
-          <th scope="col">ESTADO</th>
-          <th scope="col">NOMBRE RESPONSABLE</th>
-          <th scope="col">Responsable </th>
-          <th scope="col">Estado Evidencia</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="marcarTodas"> Todo</th>
+                <th scope="col">ID DOCUMENTO</th>
+                <!-- <th scope="col">ID GUIA</th> -->
+                <th scope="col">NOMBRE DOCUMENTO</th>
+                <th scope="col">FECHA SUBIDA</th>
+                <th scope="col">OBSERVACIONES</th>
+                <th scope="col">ESTADO</th>
+                <th scope="col">NOMBRE RESPONSABLE</th>
+                <th scope="col">Responsable </th>
+                <th scope="col">Estado Evidencia</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
 
-      <tbody>
+        <tbody>
 
-        <!-- AQUI EMPIEZAN LAS CONDICIONES DE VISTA POR ROLES-------------------------------------------------------------------------- -->
+            <!-- AQUI EMPIEZAN LAS CONDICIONES DE VISTA POR ROLES-------------------------------------------------------------------------- -->
 
-        <?php
+            <?php
         while ($datos = $sql_id_agencia_revision_administrador->fetch_object()) { ?>
 
-          <!--dentro imprimiremos los valores que contienen mis tablas 
+            <!--dentro imprimiremos los valores que contienen mis tablas 
     en la base de datos-->
-          <tr>
-            <td>
-              <label class="checkbox-seleccionar">
-                <input type="checkbox" name="documento_seleccionado[]" id="<?= $datos->id_documento ?>">
-                <span class="checkmark"></span>
-              </label>
-            </td>
+            <tr>
+                <td>
+                    <label class="checkbox-seleccionar">
+                        <input type="checkbox" name="documento_seleccionado[]" id="<?= $datos->id_documento ?>">
+                        <span class="checkmark"></span>
+                    </label>
+                </td>
 
 
-            <td class="so" scope="row">
-              <?= $datos->id_documento ?>
-            </td>
-            <!-- <td>
+                <td class="so" scope="row">
+                    <?= $datos->id_documento ?>
+                </td>
+                <!-- <td>
               <?= $datos->id_guia ?>
             </td> -->
-            <td>
-              <a target="_blank" href="<?= $datos->ruta_doc ?>">
-                <?= $datos->nombre_doc ?>
-              </a>
+                <td>
+                    <a target="_blank" href="<?= $datos->ruta_doc ?>">
+                        <?= $datos->nombre_doc ?>
+                    </a>
 
-            </td>
-            <td>
-              <?= $datos->fecha_subida ?>
-            </td>
-            <td>
-              <?= $datos->observaciones ?>
-            </td>
+                </td>
+                <td>
+                    <?= $datos->fecha_subida ?>
+                </td>
+                <td>
+                    <?= $datos->observaciones ?>
+                </td>
 
-            <td>
-              <div class="<?php
+                <td>
+                    <div class="<?php
               switch ($datos->nombre_estado) {
                 case 'Aprobado':
                   echo 'estado-aceptado';
@@ -187,23 +188,23 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
                   echo ''; // Si hay un estado no definido, no se aplica ninguna clase
               }
               ?>">
-                <?= $datos->nombre_estado ?>
-              </div>
-            </td>
+                        <?= $datos->nombre_estado ?>
+                    </div>
+                </td>
 
-            <td>
-              <?= $datos->nombre_responsable ?>
-            </td>
-            <td>
-              <?= $datos->modificador ?>
-            </td>
-
-
+                <td>
+                    <?= $datos->nombre_responsable ?>
+                </td>
+                <td>
+                    <?= $datos->modificador ?>
+                </td>
 
 
 
-            <td>
-              <div class="<?php switch ($datos->nombre_estado_evidencia) {
+
+
+                <td>
+                    <div class="<?php switch ($datos->nombre_estado_evidencia) {
                 case 'Revisado':
                   echo 'estado-evidencia-revisado';
                   break;
@@ -213,77 +214,82 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
                 default:
                   echo ''; //Si hay un estado no definido, no se aplica ninguna clase
               } ?>">
-                <?= $datos->nombre_estado_evidencia ?>
+                        <?= $datos->nombre_estado_evidencia ?>
 
-              </div>
-            </td>
+                    </div>
+                </td>
 
-            <td>
-              <a href="revisar_archivos.php?id=<?= $datos->id_documento ?>&id_guia=<?= $_GET['id_guia'] ?>&id_agencia_revision_administrador=<?= $_GET['id_agencia_revision_administrador'] ?>&id_proceso=<?= $_GET['id_proceso'] ?>&id_departamento=<?= $_GET['id_departamento'] ?>"
-                onclick="advertencia(event)" class="btn btn-danger" style="font-size: 15px;"><i
-                  class="fa-solid fa-trash-can"></i></a>
-              <tool-tip role="tooltip"><b>Eliminar Archivo</b></tool-tip>
-            </td>
+                <td>
+                    <a href="revisar_archivos.php?id=<?= $datos->id_documento ?>&id_guia=<?= $_GET['id_guia'] ?>&id_agencia_revision_administrador=<?= $_GET['id_agencia_revision_administrador'] ?>&id_proceso=<?= $_GET['id_proceso'] ?>&id_departamento=<?= $_GET['id_departamento'] ?>"
+                        onclick="advertencia(event)" class="btn btn-danger" style="font-size: 15px;"><i
+                            class="fa-solid fa-trash-can"></i></a>
+                    <tool-tip role="tooltip"><b>Eliminar Archivo</b></tool-tip>
+                </td>
 
-            <!-- <td>
+                <!-- <td>
               <a href="#" id="abrirbtn" class="btn btn-warning btn-evaluar" onclick="gatito(event)"
                 style="font-size: 15px;"><i class="fa-solid fa-file-circle-check"></i></a>
               <tool-tip role="tooltip"><b>Evaluar evidencia</b></tool-tip>
             </td> -->
-            <td>
-              <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_documento ?> "
-                class="btn btn-warning "><i class="fa-solid fa-file-circle-check"></i></a>
-              <tool-tip role="tooltip"><b>Revisar evidencia</b></tool-tip>
-            </td>
-            <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
+                <td>
+                    <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_documento ?> "
+                        class="btn btn-warning "><i class="fa-solid fa-file-circle-check"></i></a>
+                    <tool-tip role="tooltip"><b>Revisar evidencia</b></tool-tip>
+                </td>
+                <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
 
-          </tr>
+            </tr>
 
 
 
-          <!-- Modal -->
+            <!-- Modal -->
 
-          <div class="modal fade" id="exampleModal<?= $datos->id_documento ?>" tabindex="-1"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog ">
-              <div class="modal-content">
-                <div class="modal-header d-flex justify-content-between titulo_modal">
-                  <h5 class="modal-title w-80" id="exampleModalLabel">Vista previa de la evidencia: <span>
-                      <?= $datos->id_documento ?>
-                    </span></h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="formulario_actualizar_evidencia">
-                    <form action="../../controlador/controlador_actualizar_estado_documento.php" method="post">
+            <div class="modal fade" id="exampleModal<?= $datos->id_documento ?>" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-between titulo_modal">
+                            <h5 class="modal-title w-80" id="exampleModalLabel">Vista previa de la evidencia: <span>
+                                    <?= $datos->id_documento ?>
+                                </span></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="formulario_actualizar_evidencia">
+                                <form action="../../controlador/controlador_actualizar_estado_documento.php"
+                                    method="post">
 
-                      <input type="hidden" name="id_documento" value="<?= $datos->id_documento ?>">
-                      <input type="hidden" name="usuario-sinasu" value="<?= $_SESSION["usuario-sinasu"] ?>">
-                      <label>Observaciones</label>
-                      <textarea class="text-area-observaciones" name="observaciones" id="observacion_evidencia" cols="30"
-                        rows="3" placeholder="Escriba sus observaciones" style="resize: none;"></textarea>
+                                    <input type="hidden" name="id_documento" value="<?= $datos->id_documento ?>">
+                                    <input type="hidden" name="usuario-sinasu"
+                                        value="<?= $_SESSION["usuario-sinasu"] ?>">
+                                    <label>Observaciones</label>
+                                    <textarea class="text-area-observaciones" name="observaciones"
+                                        id="observacion_evidencia" cols="30" rows="3"
+                                        placeholder="Escriba sus observaciones" style="resize: none;"></textarea>
 
-                      <label for="select-estado">Estado de la Evidencia</label>
-                      <select name="select-estado" id="" class="select-estado-evidencia" required>
-                        <option value="" disabled selected hidden>Selecciona Estado</option>
-                        <option value="1">Aprobado</option>
-                        <option value="2">Rechazado</option>
-                      </select>
+                                    <label for="select-estado">Estado de la Evidencia</label>
+                                    <select name="select-estado" id="" class="select-estado-evidencia" required>
+                                        <option value="" disabled selected hidden>Selecciona Estado</option>
+                                        <option value="1">Aprobado</option>
+                                        <option value="2">Rechazado</option>
+                                    </select>
 
-                      <a target="_blank" href="<?= $datos->ruta_doc ?>"
-                        onclick="actualizarEstadoEvidencia(<?= $datos->id_documento ?>)" class="btn btn-info "><i
-                          class="fa-solid fa-file-circle-check"></i> VISTA PREVIA DE LA EVIDENCIA</a>
+                                    <a target="_blank" href="<?= $datos->ruta_doc ?>"
+                                        onclick="actualizarEstadoEvidencia(<?= $datos->id_documento ?>)"
+                                        class="btn btn-info "><i class="fa-solid fa-file-circle-check"></i> VISTA PREVIA
+                                        DE LA EVIDENCIA</a>
 
-                      <div class="modal-footer text-right p-3">
-                        <button type="button" class="btn btn-secondary btn-rounded" data-dismiss="modal">Atras</button>
-                        <button type="submit" value="ok" name="btnmodificar"
-                          class="btn btn-primary btn-rounded">Actualizar</button>
-                      </div>
-                    </form>
+                                    <div class="modal-footer text-right p-3">
+                                        <button type="button" class="btn btn-secondary btn-rounded"
+                                            data-dismiss="modal">AtrÁs</button>
+                                        <button type="submit" value="ok" name="btnmodificar"
+                                            class="btn btn-primary btn-rounded">Actualizar</button>
+                                    </div>
+                                </form>
 
-                    <!-- <iframe src="<?= $datos->ruta_doc ?>" width="100%" height="500px" frameborder="0"
+                                <!-- <iframe src="<?= $datos->ruta_doc ?>" width="100%" height="500px" frameborder="0"
                     sandbox="allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-top-navigation allow-top-navigation-by-user-activation">
                   </iframe> -->
 
@@ -292,16 +298,16 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 
 
 
-                  </div>
-                </div>
-                <!-- <div class="modal-footer">
+                            </div>
+                        </div>
+                        <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary">Guardar</button>
               </div> -->
-              </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        <?php }
+            <?php }
 
         ?>
 
@@ -309,65 +315,65 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 
 
 
-      </tbody>
+        </tbody>
     </table>
-  <?php } else { ?>
+    <?php } else { ?>
     <table class="table table-bordered table-hover w-100 " id="example">
-      <thead>
-        <tr>
-          <th><input type="checkbox" id="marcarTodas"> Todo</th>
-          <th scope="col">ID DOCUMENTO</th>
-          <!-- <th scope="col">ID GUIA</th> -->
-          <th scope="col">NOMBRE DOCUMENTO</th>
-          <th scope="col">FECHA SUBIDA</th>
-          <th scope="col">OBSERVACIONES</th>
-          <th scope="col">ESTADO</th>
-          <th scope="col">NOMBRE RESPONSABLE</th>
-          <th scope="col">Responsable </th>
-          <th scope="col">Estado Evidencia</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="marcarTodas"> Todo</th>
+                <th scope="col">ID DOCUMENTO</th>
+                <!-- <th scope="col">ID GUIA</th> -->
+                <th scope="col">NOMBRE DOCUMENTO</th>
+                <th scope="col">FECHA SUBIDA</th>
+                <th scope="col">OBSERVACIONES</th>
+                <th scope="col">ESTADO</th>
+                <th scope="col">NOMBRE RESPONSABLE</th>
+                <th scope="col">Responsable </th>
+                <th scope="col">Estado Evidencia</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
 
-      <tbody>
+        <tbody>
 
-        <!-- AQUI EMPIEZAN LAS CONDICIONES DE VISTA POR ROLES---------------------------------------------------------------------------->
+            <!-- AQUI EMPIEZAN LAS CONDICIONES DE VISTA POR ROLES---------------------------------------------------------------------------->
 
-        <?php
+            <?php
         while ($datos = $sql_id_guia_revision_administrador->fetch_object()) { ?>
 
-          <!--dentro imprimiremos los valores que contienen mis tablas 
+            <!--dentro imprimiremos los valores que contienen mis tablas 
         en la base de datos-->
-          <tr>
-            <td>
-              <label class="checkbox-seleccionar">
-                <input type="checkbox" name="documento_seleccionado[]" id="<?= $datos->id_documento ?>">
-                <span class="checkmark"></span>
-              </label>
-            </td>
+            <tr>
+                <td>
+                    <label class="checkbox-seleccionar">
+                        <input type="checkbox" name="documento_seleccionado[]" id="<?= $datos->id_documento ?>">
+                        <span class="checkmark"></span>
+                    </label>
+                </td>
 
 
-            <td class="so" scope="row">
-              <?= $datos->id_documento ?>
-            </td>
-            <!-- <td>
+                <td class="so" scope="row">
+                    <?= $datos->id_documento ?>
+                </td>
+                <!-- <td>
               <?= $datos->id_guia ?>
             </td> -->
-            <td>
-              <a target="_blank" href="<?= $datos->ruta_doc ?>">
-                <?= $datos->nombre_doc ?>
-              </a>
+                <td>
+                    <a target="_blank" href="<?= $datos->ruta_doc ?>">
+                        <?= $datos->nombre_doc ?>
+                    </a>
 
-            </td>
-            <td>
-              <?= $datos->fecha_subida ?>
-            </td>
-            <td>
-              <?= $datos->observaciones ?>
-            </td>
-            <td>
-              <div class="<?php
+                </td>
+                <td>
+                    <?= $datos->fecha_subida ?>
+                </td>
+                <td>
+                    <?= $datos->observaciones ?>
+                </td>
+                <td>
+                    <div class="<?php
               switch ($datos->nombre_estado) {
                 case 'Aprobado':
                   echo 'estado-aceptado';
@@ -383,17 +389,17 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
                   echo ''; // Si hay un estado no definido, no se aplica ninguna clase
               }
               ?>">
-                <?= $datos->nombre_estado ?>
-              </div>
-            </td>
-            <td>
-              <?= $datos->nombre_responsable ?>
-            </td>
-            <td>
-              <?= $datos->modificador ?>
-            </td>
-            <td>
-              <div class="<?php switch ($datos->nombre_estado_evidencia) {
+                        <?= $datos->nombre_estado ?>
+                    </div>
+                </td>
+                <td>
+                    <?= $datos->nombre_responsable ?>
+                </td>
+                <td>
+                    <?= $datos->modificador ?>
+                </td>
+                <td>
+                    <div class="<?php switch ($datos->nombre_estado_evidencia) {
                 case 'Revisado':
                   echo 'estado-evidencia-revisado';
                   break;
@@ -403,78 +409,83 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
                 default:
                   echo ''; //Si hay un estado no definido, no se aplica ninguna clase
               } ?>">
-                <?= $datos->nombre_estado_evidencia ?>
+                        <?= $datos->nombre_estado_evidencia ?>
 
-              </div>
-            </td>
+                    </div>
+                </td>
 
-            <td>
-              <a href="revisar_archivos.php?id=<?= $datos->id_documento ?>&id_guia=<?= $_GET['id_guia'] ?>&id_agencia_revision_administrador=<?= $_GET['id_agencia_revision_administrador'] ?>&id_proceso=<?= $_GET['id_proceso'] ?>&id_departamento=<?= $_GET['id_departamento'] ?>"
-                onclick="advertencia(event)" class="btn btn-danger" style="font-size: 15px;"><i
-                  class="fa-solid fa-trash-can"></i></a>
-              <tool-tip role="tooltip"><b>Eliminar Archivo</b></tool-tip>
-            </td>
+                <td>
+                    <a href="revisar_archivos.php?id=<?= $datos->id_documento ?>&id_guia=<?= $_GET['id_guia'] ?>&id_agencia_revision_administrador=<?= $_GET['id_agencia_revision_administrador'] ?>&id_proceso=<?= $_GET['id_proceso'] ?>&id_departamento=<?= $_GET['id_departamento'] ?>"
+                        onclick="advertencia(event)" class="btn btn-danger" style="font-size: 15px;"><i
+                            class="fa-solid fa-trash-can"></i></a>
+                    <tool-tip role="tooltip"><b>Eliminar Archivo</b></tool-tip>
+                </td>
 
-            <!-- <td>
+                <!-- <td>
               <a href="#" id="abrirbtn" class="btn btn-warning btn-evaluar" onclick="gatito(event)"
                 style="font-size: 15px;"><i class="fa-solid fa-file-circle-check"></i></a>
               <tool-tip role="tooltip"><b>Evaluar evidencia</b></tool-tip>
             </td> -->
-            <td>
-              <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_documento ?> "
-                class="btn btn-warning "><i class="fa-solid fa-file-circle-check"></i></a>
-              <tool-tip role="tooltip"><b>Revisar evidencia</b></tool-tip>
-            </td>
+                <td>
+                    <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_documento ?> "
+                        class="btn btn-warning "><i class="fa-solid fa-file-circle-check"></i></a>
+                    <tool-tip role="tooltip"><b>Revisar evidencia</b></tool-tip>
+                </td>
 
-            <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
+                <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
 
-          </tr>
+            </tr>
 
 
 
-          <!-- Modal -->
+            <!-- Modal -->
 
-          <div class="modal fade" id="exampleModal<?= $datos->id_documento ?>" tabindex="-1"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog ">
-              <div class="modal-content">
-                <div class="modal-header d-flex justify-content-between titulo_modal">
-                  <h5 class="modal-title w-100" id="exampleModalLabel">Vista previa de la evidencia: <span>
-                      <?= $datos->id_documento ?>
-                    </span></h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <div class="formulario_actualizar_evidencia">
-                    <form action="../../controlador/controlador_actualizar_estado_documento.php" method="post">
+            <div class="modal fade" id="exampleModal<?= $datos->id_documento ?>" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog ">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-between titulo_modal">
+                            <h5 class="modal-title w-100" id="exampleModalLabel">Vista previa de la evidencia: <span>
+                                    <?= $datos->id_documento ?>
+                                </span></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="formulario_actualizar_evidencia">
+                                <form action="../../controlador/controlador_actualizar_estado_documento.php"
+                                    method="post">
 
-                      <input type="hidden" name="id_documento" value="<?= $datos->id_documento ?>">
-                      <input type="hidden" name="usuario-sinasu" value="<?= $_SESSION["usuario-sinasu"] ?>">
-                      <label>Observaciones</label>
-                      <textarea class="text-area-observaciones" name="observaciones" id="observacion_evidencia" cols="30"
-                        rows="3" placeholder="Escriba sus observaciones" style="resize: none;"></textarea>
+                                    <input type="hidden" name="id_documento" value="<?= $datos->id_documento ?>">
+                                    <input type="hidden" name="usuario-sinasu"
+                                        value="<?= $_SESSION["usuario-sinasu"] ?>">
+                                    <label>Observaciones</label>
+                                    <textarea class="text-area-observaciones" name="observaciones"
+                                        id="observacion_evidencia" cols="30" rows="3"
+                                        placeholder="Escriba sus observaciones" style="resize: none;"></textarea>
 
-                      <label for="select-estado">Estado de la Evidencia</label>
-                      <select name="select-estado" id="" class="select-estado-evidencia" required>
-                        <option value="" disabled selected hidden>Selecciona Estado</option>
-                        <option value="1">Aprobado</option>
-                        <option value="2">Rechazado</option>
-                      </select>
+                                    <label for="select-estado">Estado de la Evidencia</label>
+                                    <select name="select-estado" id="" class="select-estado-evidencia" required>
+                                        <option value="" disabled selected hidden>Selecciona Estado</option>
+                                        <option value="1">Aprobado</option>
+                                        <option value="2">Rechazado</option>
+                                    </select>
 
-                      <a target="_blank" href="<?= $datos->ruta_doc ?>"
-                        onclick="actualizarEstadoEvidencia(<?= $datos->id_documento ?>)" class="btn btn-info "><i
-                          class="fa-solid fa-file-circle-check"></i> VISTA PREVIA DE LA EVIDENCIA</a>
+                                    <a target="_blank" href="<?= $datos->ruta_doc ?>"
+                                        onclick="actualizarEstadoEvidencia(<?= $datos->id_documento ?>)"
+                                        class="btn btn-info "><i class="fa-solid fa-file-circle-check"></i> VISTA PREVIA
+                                        DE LA EVIDENCIA</a>
 
-                      <div class="modal-footer text-right p-3">
-                        <button type="button" class="btn btn-secondary btn-rounded" data-dismiss="modal">Atras</button>
-                        <button type="submit" value="ok" name="btnmodificar"
-                          class="btn btn-primary btn-rounded">Actualizar</button>
-                      </div>
-                    </form>
+                                    <div class="modal-footer text-right p-3">
+                                        <button type="button" class="btn btn-secondary btn-rounded"
+                                            data-dismiss="modal">AtrÁs</button>
+                                        <button type="submit" value="ok" name="btnmodificar"
+                                            class="btn btn-primary btn-rounded">Actualizar</button>
+                                    </div>
+                                </form>
 
-                    <!-- <iframe src="<?= $datos->ruta_doc ?>" width="100%" height="500px" frameborder="0"
+                                <!-- <iframe src="<?= $datos->ruta_doc ?>" width="100%" height="500px" frameborder="0"
                     sandbox="allow-modals allow-orientation-lock allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-top-navigation allow-top-navigation-by-user-activation">
                   </iframe> -->
 
@@ -483,23 +494,23 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 
 
 
-                  </div>
-                </div>
-                <!-- <div class="modal-footer">
+                            </div>
+                        </div>
+                        <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary">Guardar</button>
               </div> -->
-              </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        <?php }
+            <?php }
 
         ?>
-      </tbody>
+        </tbody>
     </table>
 
-  <?php } ?>
-  <!-- <div class="dropdown">
+    <?php } ?>
+    <!-- <div class="dropdown">
     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
       aria-expanded="false">
       Dropdown button
@@ -528,65 +539,65 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 <!-- fin del script -->
 <!-- // Dentro del script que limpia espacios en blanco al escribir -->
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     var nombreInput = document.querySelector('[name="txtnombre"]');
     var apellidoInput = document.querySelector('[name="txtapellido"]');
     var usuarioInput = document.querySelector('[name="txtusuario"]');
 
     // Función para eliminar espacios en blanco
     function removeSpaces(input) {
-      input.value = input.value.replace(/\s/g, ''); // Elimina espacios en blanco
+        input.value = input.value.replace(/\s/g, ''); // Elimina espacios en blanco
     }
 
     // Evento input para los campos de nombre, apellido y usuario
-    nombreInput.addEventListener('input', function () {
-      removeSpaces(this);
+    nombreInput.addEventListener('input', function() {
+        removeSpaces(this);
     });
 
-    apellidoInput.addEventListener('input', function () {
-      removeSpaces(this);
+    apellidoInput.addEventListener('input', function() {
+        removeSpaces(this);
     });
 
-    usuarioInput.addEventListener('input', function () {
-      removeSpaces(this);
+    usuarioInput.addEventListener('input', function() {
+        removeSpaces(this);
     });
-  });
+});
 </script>
 <script>
-  var fondo = document.getElementById("modal");
-  $("#abrirbtn").click(function () {
+var fondo = document.getElementById("modal");
+$("#abrirbtn").click(function() {
     fondo.style.display = "flex";
-  });
+});
 
-  $("#cerrarbtn").click(function () {
+$("#cerrarbtn").click(function() {
     fondo.style.display = "none";
-  });
+});
 
-  window.onclick = function (event) {
+window.onclick = function(event) {
     if (event.target == fondo) {
-      fondo.style.display = "none";
+        fondo.style.display = "none";
     }
-  };
+};
 </script>
 
 <!-- Javascript para el cambio de estados del checkbox -->
 <!-- Agregar este script al final del documento HTML -->
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
     // Obtener referencia al checkbox "marcarTodas"
     var marcarTodasCheckbox = document.getElementById('marcarTodas');
     // Obtener referencia a todos los checkboxes de las filas
     var checkboxesFilas = document.querySelectorAll('.checkbox-seleccionar input[type="checkbox"]');
 
     // Agregar un evento de escucha al checkbox "marcarTodas"
-    marcarTodasCheckbox.addEventListener('change', function () {
-      // Iterar sobre todos los checkboxes de las filas
-      checkboxesFilas.forEach(function (checkbox) {
-        // Marcar o desmarcar el checkbox de la fila según el estado de "marcarTodas"
-        checkbox.checked = marcarTodasCheckbox.checked;
-      });
+    marcarTodasCheckbox.addEventListener('change', function() {
+        // Iterar sobre todos los checkboxes de las filas
+        checkboxesFilas.forEach(function(checkbox) {
+            // Marcar o desmarcar el checkbox de la fila según el estado de "marcarTodas"
+            checkbox.checked = marcarTodasCheckbox.checked;
+        });
     });
-  });
+});
 </script>
 
 

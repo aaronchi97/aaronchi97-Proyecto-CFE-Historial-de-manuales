@@ -10,9 +10,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 ?>
 
 <style>
-  ul li:nth-child(1) .activo {
+ul li:nth-child(1) .activo {
     background: #9889fe !important;
-  }
+}
 </style>
 
 
@@ -30,7 +30,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
 
-  <?php
+    <?php
   //hacemos la conexion
   include "../../modelo/conexion-SINASU.php";
   // include "../../controlador/controlador_vista_documentos_sinasu.php";
@@ -68,14 +68,14 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
   ?>
 
-  <h4 class="text-center text-secondery">PROCESOS</h4>
-  <?php
+    <h4 class="text-center text-secondery">PROCESOS</h4>
+    <?php
   if ($_SESSION['rol-sinasu'] != 3) {
     ?>
     <a href="agencias.php?id_departamento=<?= $_GET['id_departamento'] ?>" class="btn btn-danger btn-rounded mb-3"><i
-        class="fa-regular fa-circle-left"></i>
-      &nbsp; ATRAS</a>
-  <?php } else {
+            class="fa-regular fa-circle-left"></i>
+        &nbsp; ATRÁS</a>
+    <?php } else {
   } ?>
 
 
@@ -85,48 +85,48 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
 
-  <?php
+    <?php
   if ($_SESSION['rol-sinasu'] != 3) { ?>
     <!-- BOTON PARA REGISTRAR AGENCIA -->
 
     <a href="registro_procesos.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-user-plus "></i>
-      &nbsp;
-      REGISTRAR NUEVO PROCESO</a>
+        &nbsp;
+        REGISTRAR NUEVO PROCESO</a>
     <section class="continer-agencias">
-      <?php
+        <?php
       while ($datos_mostrar_agencias = $sql_mostrar_procesos->fetch_object()) { ?>
 
         <!-- <a class="boton-sinasu-agencias"  href="agencias_filtros.php?id_agencias_filtro=<?= $datos_mostrar_agencias->id_agencia ?>"> -->
         <a class="boton-sinasu-agencias"
-          href="filtro_proceso_comercial.php?id_proceso=<?= $datos_mostrar_agencias->id_proceso ?>&id_departamento=<?= $datos_mostrar_agencias->id_departamento ?>">
+            href="filtro_proceso_comercial.php?id_proceso=<?= $datos_mostrar_agencias->id_proceso ?>&id_departamento=<?= $datos_mostrar_agencias->id_departamento ?>">
 
 
 
-          <div class="parte-sinasu-agencias">
+            <div class="parte-sinasu-agencias">
 
-            <figure>
-              <img src="img-sinasu/proceso<?= $datos_mostrar_agencias->id_proceso ?>.jpg" alt="">
-            </figure>
+                <figure>
+                    <img src="img-sinasu/proceso<?= $datos_mostrar_agencias->id_proceso ?>.jpg" alt="">
+                </figure>
 
-            <div class="fondo-agencias-2"></div>
+                <div class="fondo-agencias-2"></div>
 
-            <i class="fa-regular fa-folder-open"></i>
+                <i class="fa-regular fa-folder-open"></i>
 
-            <h1>
-              <?= $datos_mostrar_agencias->nombre_proceso ?>
-            </h1>
+                <h1>
+                    <?= $datos_mostrar_agencias->nombre_proceso ?>
+                </h1>
 
 
-            <!-- <h1><?= $datos_mostrar_agencias->responsable_agencia ?></h1> -->
+                <!-- <h1><?= $datos_mostrar_agencias->responsable_agencia ?></h1> -->
 
-          </div>
+            </div>
 
 
         </a>
 
 
 
-      <?php } ?>
+        <?php } ?>
 
     </section>
 
@@ -134,35 +134,35 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
   } else { ?>
     <section class="continer-agencias">
-      <?php
+        <?php
 
 
       while ($datos_mostrar_agencias = $sql_mostrar_procesos->fetch_object()) { ?>
 
         <!-- <a class="boton-sinasu-agencias"  href="agencias_filtros.php?id_agencias_filtro=<?= $datos_mostrar_agencias->id_agencia ?>"> -->
         <a class="boton-sinasu-agencias"
-          href="agencias_filtros.php?id_agencias_filtro=<?= $id_agencia ?>&id_proceso=<?= $datos_mostrar_agencias->id_proceso ?>&id_departamento=<?= $datos_mostrar_agencias->id_departamento ?>">
+            href="agencias_filtros.php?id_agencias_filtro=<?= $id_agencia ?>&id_proceso=<?= $datos_mostrar_agencias->id_proceso ?>&id_departamento=<?= $datos_mostrar_agencias->id_departamento ?>">
 
 
 
-          <div class="parte-sinasu-agencias">
+            <div class="parte-sinasu-agencias">
 
-            <figure>
-              <img src="img-sinasu/proceso<?= $datos_mostrar_agencias->id_proceso ?>.jpg" alt="">
-            </figure>
+                <figure>
+                    <img src="img-sinasu/proceso<?= $datos_mostrar_agencias->id_proceso ?>.jpg" alt="">
+                </figure>
 
-            <div class="fondo-agencias-2"></div>
+                <div class="fondo-agencias-2"></div>
 
-            <i class="fa-regular fa-folder-open"></i>
+                <i class="fa-regular fa-folder-open"></i>
 
-            <h1>
-              <?= $datos_mostrar_agencias->nombre_proceso ?>
-            </h1>
+                <h1>
+                    <?= $datos_mostrar_agencias->nombre_proceso ?>
+                </h1>
 
 
-            <!-- <h1><?= $datos_mostrar_agencias->responsable_agencia ?></h1> -->
+                <!-- <h1><?= $datos_mostrar_agencias->responsable_agencia ?></h1> -->
 
-          </div>
+            </div>
 
 
         </a>
@@ -170,24 +170,24 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
 
-      <?php } ?>
+        <?php } ?>
 
 
 
 
 
-      <?php
+        <?php
   }
   ?>
 
-    <!-- -----------------HACER EL WHILE PARA VINCULAR TODAS LAS 10 AGENCIAS DE LA BASE DE DATOS-------------------------------- -->
+        <!-- -----------------HACER EL WHILE PARA VINCULAR TODAS LAS 10 AGENCIAS DE LA BASE DE DATOS-------------------------------- -->
 
 
 
 
 
 
-  </section>
+    </section>
 </div>
 
 

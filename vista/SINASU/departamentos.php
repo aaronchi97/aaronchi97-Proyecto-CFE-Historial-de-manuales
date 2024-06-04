@@ -10,9 +10,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 ?>
 
 <style>
-  ul li:nth-child(1) .activo {
-    background: #9889fe !important;
-  }
+ul li:nth-child(1) .activo {
+    background: #008f5a !important;
+}
 </style>
 
 
@@ -30,7 +30,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
 
-  <?php
+    <?php
   //hacemos la conexion
   include "../../modelo/conexion-SINASU.php";
   // include "../../controlador/controlador_vista_documentos_sinasu.php";
@@ -70,50 +70,50 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
   ?>
 
-  <h4 class="text-center text-secondery">DEPARTAMENTOS</h4>
+    <h4 class="text-center text-secondery">DEPARTAMENTOS</h4>
 
-  <!-- BOTON PARA REGISTRAR AGENCIA -->
+    <!-- BOTON PARA REGISTRAR AGENCIA -->
 
-  <!-- <a href="registro_agencias.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-user-plus "></i>
+    <!-- <a href="registro_agencias.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-user-plus "></i>
     &nbsp;
     REGISTRAR NUEVO DEPARTAMENTO</a> -->
 
 
 
 
-  <section class="continer-agencias">
+    <section class="continer-agencias">
 
 
-    <?php
+        <?php
     if ($_SESSION['rol-sinasu'] != 3) { ?>
 
-      <?php
+        <?php
       while ($datos_mostrar_departamentos = $sql_mostrar_departamentos->fetch_object()) { ?>
 
         <!-- <a class="boton-sinasu-agencias"  href="agencias_filtros.php?id_agencias_filtro=<?= $datos_mostrar_departamentos->id_agencia ?>"> -->
         <a class="boton-sinasu-agencias"
-          href="agencias.php?id_departamento=<?= $datos_mostrar_departamentos->id_departamento ?>">
+            href="agencias.php?id_departamento=<?= $datos_mostrar_departamentos->id_departamento ?>">
 
 
 
-          <div class="parte-sinasu-agencias">
+            <div class="parte-sinasu-agencias">
 
-            <figure>
-              <img src="img-sinasu/departamento<?= $datos_mostrar_departamentos->id_departamento ?>.jpg" alt="">
-            </figure>
+                <figure>
+                    <img src="img-sinasu/departamento<?= $datos_mostrar_departamentos->id_departamento ?>.jpg" alt="">
+                </figure>
 
-            <div class="fondo-agencias-2"></div>
+                <div class="fondo-agencias-2"></div>
 
-            <i class="fa-solid fa-building-user"></i>
+                <i class="fa-solid fa-building-user"></i>
 
-            <h1>
-              <?= $datos_mostrar_departamentos->nombre_departamento ?>
-            </h1>
+                <h1>
+                    <?= $datos_mostrar_departamentos->nombre_departamento ?>
+                </h1>
 
 
-            <!-- <h1><?= $datos_mostrar_departamentos->responsable_agencia ?></h1> -->
+                <!-- <h1><?= $datos_mostrar_departamentos->responsable_agencia ?></h1> -->
 
-          </div>
+            </div>
 
 
         </a>
@@ -121,14 +121,14 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
 
-      <?php } ?>
+        <?php } ?>
 
 
-      <?php
+        <?php
 
     } else { ?>
 
-      <?php
+        <?php
 
       for ($j = 1; $j <= $total_departamentos; $i++) {
 
@@ -148,20 +148,20 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
 
-      <?php
+        <?php
     }
     ?>
 
-    <!-- -----------------HACER EL WHILE PARA VINCULAR TODAS LAS 10 AGENCIAS DE LA BASE DE DATOS-------------------------------- -->
+        <!-- -----------------HACER EL WHILE PARA VINCULAR TODAS LAS 10 AGENCIAS DE LA BASE DE DATOS-------------------------------- -->
 
 
 
 
 
 
-  </section>
+    </section>
 
 
 
-  <!-- por ultimo se carga el footer -->
-  <?php require('./../layout/footer_sinasu.php'); ?>
+    <!-- por ultimo se carga el footer -->
+    <?php require('./../layout/footer_sinasu.php'); ?>

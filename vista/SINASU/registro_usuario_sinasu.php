@@ -11,9 +11,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 ?>
 
 <style>
-    ul li:nth-child(2) .activo {
-        background: #9889fe !important;
-    }
+ul li:nth-child(2) .activo {
+    background: #9889fe !important;
+}
 </style>
 
 <!-- Crear el metodo advertencia para el boton de eliminar registro -->
@@ -82,7 +82,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
             <br>
 
             <div class="btn_usuario">
-                <a href="usuario-sinasu.php" class="btn btn-danger btn-rounded">Atras</a>
+                <a href="usuario-sinasu.php" class="btn btn-danger btn-rounded">Atrás</a>
                 <button type="reset" name="btnreinicio" class="btn btn-warning btn-rounded"> Reiniciar</button>
                 <button type="submit" value="ok" name="btnregistrar"
                     class="btn btn-success btn-rounded">Registrar</button>
@@ -96,29 +96,29 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 <!-- fin del contenido principal -->
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var nombreInput = document.querySelector('[name="txtnombre"]');
-        var apellidoInput = document.querySelector('[name="txtapellido"]');
-        var usuarioInput = document.querySelector('[name="txtusuario"]');
+document.addEventListener('DOMContentLoaded', function() {
+    var nombreInput = document.querySelector('[name="txtnombre"]');
+    var apellidoInput = document.querySelector('[name="txtapellido"]');
+    var usuarioInput = document.querySelector('[name="txtusuario"]');
 
-        // Función para eliminar espacios en blanco
-        function removeSpaces(input) {
-            input.value = input.value.replace(/\s/g, ''); // Elimina espacios en blanco
-        }
+    // Función para eliminar espacios en blanco
+    function removeSpaces(input) {
+        input.value = input.value.replace(/\s/g, ''); // Elimina espacios en blanco
+    }
 
-        // Evento input para los campos de nombre, apellido y usuario
-        nombreInput.addEventListener('input', function () {
-            removeSpaces(this);
-        });
-
-        apellidoInput.addEventListener('input', function () {
-            removeSpaces(this);
-        });
-
-        usuarioInput.addEventListener('input', function () {
-            removeSpaces(this);
-        });
+    // Evento input para los campos de nombre, apellido y usuario
+    nombreInput.addEventListener('input', function() {
+        removeSpaces(this);
     });
+
+    apellidoInput.addEventListener('input', function() {
+        removeSpaces(this);
+    });
+
+    usuarioInput.addEventListener('input', function() {
+        removeSpaces(this);
+    });
+});
 </script>
 
 

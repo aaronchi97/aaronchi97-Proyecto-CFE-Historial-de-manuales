@@ -11,9 +11,9 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 ?>
 
 <style>
-  ul li:nth-child(1) .activo {
-    background: #9889fe !important;
-  }
+ul li:nth-child(1) .activo {
+    background: #008f5a !important;
+}
 </style>
 
 
@@ -32,7 +32,7 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 
 
 
-  <?php
+    <?php
   //hacemos la conexion
   include "../../modelo/conexion-SINASU.php";
   //llamamos al controlador para eliminar registros
@@ -67,79 +67,82 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 
   ?>
 
-  <section class="seccion-btns">
-    <a href="../SINASU/procesos.php?id_agencias_filtro=<?= $id_agencias_filtro ?>&id_departamento=<?= $id_departamento ?>"
-      class="btn btn-danger btn-rounded mb-3"><i class="fa-regular fa-circle-left"></i>
-      &nbsp; ATRAS</a>
-    <div id="seccionActualizar" style="display: none;">
-      <button id="btnActualizar" onclick="advertencia2(event)" class="btn btn-primary btn-rounded">Actualizar</button>
-    </div>
-  </section>
+    <section class="seccion-btns">
+        <a href="../SINASU/procesos.php?id_agencias_filtro=<?= $id_agencias_filtro ?>&id_departamento=<?= $id_departamento ?>"
+            class="btn btn-danger btn-rounded mb-3"><i class="fa-regular fa-circle-left"></i>
+            &nbsp; ATRÁS</a>
+        <div id="seccionActualizar" style="display: none;">
+            <button id="btnActualizar" onclick="advertencia2(event)" class="btn btn-primary btn-rounded">
+                <i class="fa-solid fa-rotate-right"></i>
+                Actualizar
+            </button>
+        </div>
+    </section>
 
 
-  <!-- AQUI EMPIEZAN LAS CONDICIONES DE VISTA POR ROLES-------------------------------------------------------------------------- -->
+    <!-- AQUI EMPIEZAN LAS CONDICIONES DE VISTA POR ROLES-------------------------------------------------------------------------- -->
 
-  <?php
+    <?php
   if ($_SESSION['rol-sinasu'] == 3) {
     ?>
 
     <table class="table table-bordered table-hover w-100 " id="example">
-      <thead>
-        <tr>
-          <th scope="col">ID GUIA</th>
-          <th class="PREGUNTA" scope="col">Pregunta</th>
+        <thead>
+            <tr>
+                <th scope="col">Id Guía</th>
+                <th class="PREGUNTA" scope="col">Pregunta</th>
 
-          <th scope="col">Criterio</th>
+                <th scope="col">Criterio</th>
 
-          <th scope="col">Evidencia Esperada</th>
-          <th scope="col">Fuente de la Evidencia</th>
-          <th scope="col">Estado</th>
-          <th scope="col">Observaciones</th>
-          <th scope="col"></th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
+                <th scope="col">Evidencia Esperada</th>
+                <th scope="col">Fuente de la Evidencia</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Observaciones</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
 
-      <tbody>
+        <tbody>
 
-        <?php
+            <?php
         while ($datos = $sql_sinasu_guia->fetch_object()) { ?>
 
-          <tr>
-            <td class="id" scope="row">
-              <?= $datos->id_guia ?>
-            </td>
-            <!-- <td>
+            <tr>
+                <td class="id" scope="row">
+                    <?= $datos->id_guia ?>
+                </td>
+                <!-- <td>
               <?= $datos->nombre_proceso ?>
             </td> -->
-            <!-- <td>
+                <!-- <td>
               <?= $datos->elemento ?>
             </td> -->
-            <td>
-              <div class="pregunta">
-                <?= $datos->pregunta ?>
-              </div>
-            </td>
-            <!-- <td>
+                <td>
+                    <div class="pregunta">
+                        <?= $datos->pregunta ?>
+                    </div>
+                </td>
+                <!-- <td>
               <?= $datos->ponderacion ?>
             </td> -->
-            <td>
-              <?= $datos->criterio ?>
-            </td>
-            <!-- <td class="id" scope="row">
+                <td>
+                    <?= $datos->criterio ?>
+                </td>
+                <!-- <td class="id" scope="row">
               <?= $datos->id_guia ?>
             </td> -->
-            <!-- <td class="id" scope="row">
+                <!-- <td class="id" scope="row">
               <?= $datos->id_agencia ?>
             </td> -->
-            <td>
-              <?= $datos->evidencia_esperada ?>
-            </td>
-            <td>
-              <?= $datos->fuente_de_la_evidencia ?>
-            </td>
-            <td>
-              <div class="<?php
+                <td>
+                    <?= $datos->evidencia_esperada ?>
+                </td>
+                <td>
+                    <?= $datos->fuente_de_la_evidencia ?>
+                </td>
+                <td>
+                    <div class="<?php
               switch ($datos->nombre_estado) {
                 case 'Aprobado':
                   echo 'estado-aceptado';
@@ -155,91 +158,91 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
                   echo ''; // Si hay un estado no definido, no se aplica ninguna clase
               }
               ?>">
-                <?= $datos->nombre_estado ?>
-              </div>
-            </td>
-            <td>
-              <?= $datos->observaciones ?>
-            </td>
-            <td>
-              <!-- AQUI SE AÑADE LA RUTA DE LA VISTA PARA SUBIR LOS DOCUMENTOS, ESPECIFICAR RUTA EN EL HREF -->
-              <a style="font-size: 25px;" class="btn btn-info"
-                href="../SINASU_AGENCIAS/subir_archivos.php?id_guia_subir_doc=<?= $datos->id_guia ?>&id_proceso=<?= $id_proceso ?>&id_departamento=<?= $_GET['id_departamento'] ?>"><i
-                  class="fa-solid fa-file-arrow-up"></i>
-              </a>
-              <tool-tip role="tooltip"><b>Subir evidencias</b></tool-tip>
+                        <?= $datos->nombre_estado ?>
+                    </div>
+                </td>
+                <td>
+                    <?= $datos->observaciones ?>
+                </td>
+                <td>
+                    <!-- AQUI SE AÑADE LA RUTA DE LA VISTA PARA SUBIR LOS DOCUMENTOS, ESPECIFICAR RUTA EN EL HREF -->
+                    <a style="font-size: 25px;" class="btn btn-info"
+                        href="../SINASU_AGENCIAS/subir_archivos.php?id_guia_subir_doc=<?= $datos->id_guia ?>&id_proceso=<?= $id_proceso ?>&id_departamento=<?= $_GET['id_departamento'] ?>"><i
+                            class="fa-solid fa-file-arrow-up"></i>
+                    </a>
+                    <tool-tip role="tooltip"><b>Subir evidencias</b></tool-tip>
 
-              <!-- <a style="font-size: 25px;" class="btn btn-info" href="subir_archivos.php?id=<?= $datos->id_guia ?>"
+                    <!-- <a style="font-size: 25px;" class="btn btn-info" href="subir_archivos.php?id=<?= $datos->id_guia ?>"
                 onclick=" advertencia(event)"><i class="fa-solid fa-file-arrow-up"></i></a>  -->
-            </td>
-            <td>
-              <a style="font-size: 25px;" class="btn btn-primary"
-                href="../SINASU_AGENCIAS/ver_archivos.php?id_guia_subir_doc=<?= $datos->id_guia ?>&id_agencias_filtro=<?= $id_agencias_filtro ?>&id_proceso=<?= $id_proceso ?>&id_departamento=<?= $id_departamento ?>"><i
-                  class="fa-solid fa-eye"></i></a>
-              <tool-tip role="tooltip"><b>Ver evidencias</b></tool-tip>
-            </td>
-          </tr>
+                </td>
+                <td>
+                    <a style="font-size: 25px;" class="btn btn-primary"
+                        href="../SINASU_AGENCIAS/ver_archivos.php?id_guia_subir_doc=<?= $datos->id_guia ?>&id_agencias_filtro=<?= $id_agencias_filtro ?>&id_proceso=<?= $id_proceso ?>&id_departamento=<?= $id_departamento ?>"><i
+                            class="fa-solid fa-eye"></i></a>
+                    <tool-tip role="tooltip"><b>Ver evidencias</b></tool-tip>
+                </td>
+            </tr>
 
 
-        <?php }
+            <?php }
 
         ?>
-        <?php
+            <?php
 
   } else {
     ?>
-      </tbody>
+        </tbody>
     </table>
 
     <table class="table table-bordered table-hover w-100 " id="example">
-      <thead>
-        <tr>
-          <th><input type="checkbox" id="marcarTodas"> All</th>
-          <th scope="col">Id Guia</th>
-          <th class="PREGUNTA" scope="col">Pregunta</th>
-          <th scope="col">Criterio</th>
-          <th scope="col">Evidencia Esperada</th>
-          <th scope="col">Fuente de la Evidencia</th>
-          <th scope="col">Estado</th>
-          <th scope="col">Observaciones</th>
-          <th scope="col">Cambiar estado</th>
-          <th scope="col">Agregar Observaciones</th>
-          <th scope="col"></th>
-        </tr>
-      </thead>
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="marcarTodas"> All</th>
+                <th scope="col">Id Guía</th>
+                <th class="PREGUNTA" scope="col">Pregunta</th>
+                <th scope="col">Criterio</th>
+                <th scope="col">Evidencia Esperada</th>
+                <th scope="col">Fuente de la Evidencia</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Observaciones</th>
+                <th scope="col">Cambiar estado</th>
+                <th scope="col">Agregar Observaciones</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
 
-      <tbody>
+        <tbody>
 
-        <?php
+            <?php
         while ($datos = $sql_sinasu_guia->fetch_object()) { ?>
 
-          <!--dentro imprimiremos los valores que contienen mis tablas 
+            <!--dentro imprimiremos los valores que contienen mis tablas 
     en la base de datos-->
-          <tr>
-            <td><input type="checkbox" name="documento_seleccionado[]" class="id checkbox-seleccionar"
-                id="<?= $datos->id_guia ?>"></td>
+            <tr>
+                <td><input type="checkbox" name="documento_seleccionado[]" class="id checkbox-seleccionar"
+                        id="<?= $datos->id_guia ?>"></td>
 
-            <td>
-              <?= $datos->id_guia ?>
-            </td>
-            <td>
-              <div class="pregunta">
-                <?= $datos->pregunta ?>
-              </div>
-            </td>
-            <td>
-              <div class="criterio">
-                <?= $datos->criterio ?>
-              </div>
-            </td>
-            <td>
-              <?= $datos->evidencia_esperada ?>
-            </td>
-            <td>
-              <?= $datos->fuente_de_la_evidencia ?>
-            </td>
-            <td>
-              <div class="<?php
+                <td>
+                    <?= $datos->id_guia ?>
+                </td>
+                <td>
+                    <div class="pregunta">
+                        <?= $datos->pregunta ?>
+                    </div>
+                </td>
+                <td>
+                    <div class="criterio">
+                        <?= $datos->criterio ?>
+                    </div>
+                </td>
+                <td>
+                    <?= $datos->evidencia_esperada ?>
+                </td>
+                <td>
+                    <?= $datos->fuente_de_la_evidencia ?>
+                </td>
+                <td>
+                    <div class="<?php
               switch ($datos->nombre_estado) {
                 case 'Aprobado':
                   echo 'estado-aceptado';
@@ -255,48 +258,51 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
                   echo ''; // Si hay un estado no definido, no se aplica ninguna clase
               }
               ?>">
-                <?= $datos->nombre_estado ?>
-              </div>
-            </td>
-            <td>
-              <?= $datos->observaciones ?>
-            </td>
-            <td>
-              <select name="estado" class="select-estado" disabled>
-                <option value="" disabled selected hidden>Escoge tu opción</option>
-                <option class="so" value="1" <?php if ($datos->id_estado == 1)
+                        <?= $datos->nombre_estado ?>
+                    </div>
+                </td>
+                <td>
+                    <?= $datos->observaciones ?>
+                </td>
+                <td>
+                    <select name="estado" class="select-estado" disabled>
+                        <option value="" disabled selected hidden>Escoge tu opción</option>
+                        <option class="so" value="1" <?php if ($datos->id_estado == 1)
                   echo "selected"; ?>>Aprobado</option>
-                <option class="so" value="2" <?php if ($datos->id_estado == 2)
+                        <option class="so" value="2" <?php if ($datos->id_estado == 2)
                   echo "selected"; ?>>Rechazado</option>
-                <option class="so" value="3" <?php if ($datos->id_estado == 3)
+                        <option class="so" value="3" <?php if ($datos->id_estado == 3)
                   echo "selected"; ?>>En revisión</option>
-                <option class="so" value="4" <?php if ($datos->id_estado == 4)
+                        <option class="so" value="4" <?php if ($datos->id_estado == 4)
                   echo "selected"; ?>>Sin evidencias</option>
-              </select>
+                    </select>
 
-            </td>
-            <td>
-              <input class="form-control text-observacionnes" type="text" placeholder="Observaciones"
-                aria-label="default input example">
-            </td>
-            <td>
+                </td>
+                <td>
+                    <input class="form-control text-observacionnes" type="text" placeholder="Observaciones"
+                        aria-label="default input example">
+                </td>
+                <td>
 
-              <!-- AQUI SE AÑADE LA RUTA DE LA VISTA PARA REVISAR DOCUMENTACION SUBIDA POR AGENCIAS, ESPECIFICAR RUTA EN EL HREF -->
-              <div class="grupobtns">
-                <a style="font-size: 15px;" class="btn btn-warning"
-                  href="../SINASU_AGENCIAS/revisar_archivos.php?id_guia=<?= $datos->id_guia ?>&id_agencia_revision_administrador=<?= $datos->id_agencia ?>&id_proceso=<?= $datos->id_proceso ?>&id_departamento=<?= $_GET['id_departamento'] ?>"><img
-                    class="doc_review_logo" src="img-sinasu/review-file.svg" alt=""><tool-tip
-                    role="tooltip"><b>EVIDENCIAS</b></tool-tip> </a>
-
-
-                <a style="font-size: 15px;" class="btn "
-                  href="../SINASU_AGENCIAS/subir_archivos_admin.php?id_guia=<?= $datos->id_guia ?>&id_agencia_revision_administrador=<?= $datos->id_agencia ?>&id_proceso=<?= $datos->id_proceso ?>&id_departamento=<?= $_GET['id_departamento'] ?>"><img
-                    class="doc_subir_logo" src="img-sinasu/agregar_evidencia.svg" alt=""> <tool-tip role="tooltip"><b>Subir
-                      evidencias</b></tool-tip></a>
+                    <!-- AQUI SE AÑADE LA RUTA DE LA VISTA PARA REVISAR DOCUMENTACION SUBIDA POR AGENCIAS, ESPECIFICAR RUTA EN EL HREF -->
+                    <div class="grupobtns">
+                        <a style="font-size: 15px;" class="btn btn-warning"
+                            href="../SINASU_AGENCIAS/revisar_archivos.php?id_guia=<?= $datos->id_guia ?>&id_agencia_revision_administrador=<?= $datos->id_agencia ?>&id_proceso=<?= $datos->id_proceso ?>&id_departamento=<?= $_GET['id_departamento'] ?>"><img
+                                class="doc_review_logo" src="img-sinasu/review-file.svg" alt="">
+                            <tool-tip role="tooltip"><b>EVIDENCIAS</b></tool-tip>
+                        </a>
 
 
-                <!-- BTN CON TOOLTIP -->
-                <!-- <button class="Btns">
+                        <a style="font-size: 15px;" class="btn "
+                            href="../SINASU_AGENCIAS/subir_archivos_admin.php?id_guia=<?= $datos->id_guia ?>&id_agencia_revision_administrador=<?= $datos->id_agencia ?>&id_proceso=<?= $datos->id_proceso ?>&id_departamento=<?= $_GET['id_departamento'] ?>"><img
+                                class="doc_subir_logo" src="img-sinasu/agregar_evidencia.svg" alt="">
+                            <tool-tip role="tooltip"><b>Subir
+                                    evidencias</b></tool-tip>
+                        </a>
+
+
+                        <!-- BTN CON TOOLTIP -->
+                        <!-- <button class="Btns">
 
                   <div class="sign"><svg viewBox="0 0 512 512">
                       <path
@@ -307,88 +313,88 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
                   <div class="text">Logout</div>
                 </button> -->
 
-                <!-- FIN -->
-              </div>
-
-            </td>
-
-            <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
-
-          </tr>
-
-
-
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal<?= $datos->id_guia ?>" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header d-flex justify-content-between">
-                  <h5 class="modal-title w-100" id="exampleModalLabel">Moodificar usuario</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <!--Aqui haremos la modificacion de usuario-->
-                  <form action="" method="post">
-                    <div hidden class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="ID" class="input input__text inputmodal" name="txtid"
-                        value="<?= $datos->id_usuario ?>">
-                    </div>
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Nombre" class="input input__text inputmodal" name="txtnombre"
-                        value="<?= $datos->nombre ?>">
-                    </div>
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Apellido" class="input input__text inputmodal" name="txtapellido"
-                        value="<?= $datos->apellido ?>">
-                    </div>
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Usuario" class="input input__text inputmodal" name="txtusuario"
-                        value="<?= $datos->usuario ?>">
+                        <!-- FIN -->
                     </div>
 
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
+                </td>
 
-                      <input type="text" placeholder="Rol" class="input input__text inputmodal" name="txtrol"
-                        value="<?= $datos->id_rol ?>">
-                    </div>
+                <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
+
+            </tr>
 
 
-                    <!-- <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal<?= $datos->id_guia ?>" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-between">
+                            <h5 class="modal-title w-100" id="exampleModalLabel">Moodificar usuario</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!--Aqui haremos la modificacion de usuario-->
+                            <form action="" method="post">
+                                <div hidden class="fl-flex-label mb-4 px-2 col-12  campo">
+
+                                    <input type="text" placeholder="ID" class="input input__text inputmodal"
+                                        name="txtid" value="<?= $datos->id_usuario ?>">
+                                </div>
+                                <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+                                    <input type="text" placeholder="Nombre" class="input input__text inputmodal"
+                                        name="txtnombre" value="<?= $datos->nombre ?>">
+                                </div>
+                                <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+                                    <input type="text" placeholder="Apellido" class="input input__text inputmodal"
+                                        name="txtapellido" value="<?= $datos->apellido ?>">
+                                </div>
+                                <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+                                    <input type="text" placeholder="Usuario" class="input input__text inputmodal"
+                                        name="txtusuario" value="<?= $datos->usuario ?>">
+                                </div>
+
+                                <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+                                    <input type="text" placeholder="Rol" class="input input__text inputmodal"
+                                        name="txtrol" value="<?= $datos->id_rol ?>">
+                                </div>
+
+
+                                <!-- <div class="fl-flex-label mb-4 px-2 col-12  campo">
                     <input type="password" placeholder="Contrasea" class="input input__text inputmodal" name="txtpassword" >
                   </div> -->
 
 
-                    <div class="text-right p-3">
-                      <a href="usuario-sinasu.php" class="btn btn-secondary btn-rounded">Atras</a>
-                      <button type="submit" value="ok" name="btnmodificar"
-                        class="btn btn-primary btn-rounded">Modificar</button>
-                    </div>
+                                <div class="text-right p-3">
+                                    <a href="usuario-sinasu.php" class="btn btn-secondary btn-rounded">Atrás</a>
+                                    <button type="submit" value="ok" name="btnmodificar"
+                                        class="btn btn-primary btn-rounded">Modificar</button>
+                                </div>
 
-                  </form>
+                            </form>
 
 
-                </div>
-                <!-- <div class="modal-footer">
+                        </div>
+                        <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary">Guardar</button>
               </div> -->
-              </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        <?php }
+            <?php }
 
         ?>
 
 
 
-        <?php
+            <?php
 
   }
   ?>
@@ -396,15 +402,15 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 
 
 
-    </tbody>
-    <!-- <tfoot>
+        </tbody>
+        <!-- <tfoot>
       <td>Solo</td>
       <td>Solo</td>
       <td>Solo</td>
       <td>Solo</td>
       <td>Solo</td>
     </tfoot> -->
-  </table>
+    </table>
 </div>
 
 <!-- De los contenedores -->
@@ -449,7 +455,7 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 <!-- SCRIPT PARA LA FUNCION DE LOS checkbox -->
 <!-- Javascript para el cambio de estados del checkbox -->
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function() {
     // Obtener referencias a elementos DOM
     var btnActualizar = document.getElementById('btnActualizar');
     var checkboxesFilas = document.querySelectorAll('.checkbox-seleccionar');
@@ -462,128 +468,126 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 
     // Función para controlar la visibilidad del botón de actualizar
     function controlarVisibilidadBoton() {
-      var hayFilasSeleccionadas = Array.from(checkboxesFilas).some(function (checkbox) {
-        return checkbox.checked;
-      });
-      seccionActualizar.style.display = hayFilasSeleccionadas ? 'block' : 'none';
+        var hayFilasSeleccionadas = Array.from(checkboxesFilas).some(function(checkbox) {
+            return checkbox.checked;
+        });
+        seccionActualizar.style.display = hayFilasSeleccionadas ? 'block' : 'none';
     }
 
     // Función para habilitar/deshabilitar los selects según el estado de los checkboxes
     function actualizarSelects() {
-      checkboxesFilas.forEach(function (checkbox) {
-        var fila = checkbox.closest('tr');
-        var select = fila.querySelector('.select-estado');
-        select.disabled = !checkbox.checked;
-        if (!checkbox.checked) {
-          select.value = ''; // Esto depende de cómo quieras manejar el estado vacío
-        }
-      });
+        checkboxesFilas.forEach(function(checkbox) {
+            var fila = checkbox.closest('tr');
+            var select = fila.querySelector('.select-estado');
+            select.disabled = !checkbox.checked;
+            if (!checkbox.checked) {
+                select.value = ''; // Esto depende de cómo quieras manejar el estado vacío
+            }
+        });
     }
 
     // Función para obtener los datos actualizados
     function obtenerDatosActualizados() {
-      var datosActualizados = [];
-      checkboxesFilas.forEach(function (checkbox) {
-        if (checkbox.checked) {
-          var idGuia = checkbox.id;
-          var nuevoEstado = checkbox.closest('tr').querySelector('.select-estado').value;
-          datosActualizados.push({
-            idGuia: idGuia,
-            nuevoEstado: nuevoEstado
-          });
-        }
-      });
-      return datosActualizados;
+        var datosActualizados = [];
+        checkboxesFilas.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                var idGuia = checkbox.id;
+                var nuevoEstado = checkbox.closest('tr').querySelector('.select-estado').value;
+                datosActualizados.push({
+                    idGuia: idGuia,
+                    nuevoEstado: nuevoEstado
+                });
+            }
+        });
+        return datosActualizados;
     }
 
     // Agregar un evento de escucha al checkbox del encabezado
-    checkboxEncabezado.addEventListener('change', function () {
-      checkboxesFilas.forEach(function (checkbox) {
-        checkbox.checked = checkboxEncabezado.checked;
-      });
-      controlarVisibilidadBoton();
-      actualizarSelects();
+    checkboxEncabezado.addEventListener('change', function() {
+        checkboxesFilas.forEach(function(checkbox) {
+            checkbox.checked = checkboxEncabezado.checked;
+        });
+        controlarVisibilidadBoton();
+        actualizarSelects();
     });
 
     // Agregar un evento de escucha a los checkboxes de las filas
-    checkboxesFilas.forEach(function (checkbox) {
-      checkbox.addEventListener('change', function () {
-        controlarVisibilidadBoton();
-        actualizarSelects();
-      });
+    checkboxesFilas.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+            controlarVisibilidadBoton();
+            actualizarSelects();
+        });
     });
 
     // Agregar un evento de escucha al botón de actualizar
-    btnActualizar.addEventListener('click', function () {
-      advertencia2(event);
+    btnActualizar.addEventListener('click', function() {
+        advertencia2(event);
     });
 
     function advertencia2(event) {
-      event.preventDefault();
-      var checkboxesFilas = document.querySelectorAll('.checkbox-seleccionar:checked');
-      var datosActualizados = [];
+        event.preventDefault();
+        var checkboxesFilas = document.querySelectorAll('.checkbox-seleccionar:checked');
+        var datosActualizados = [];
 
-      checkboxesFilas.forEach(function (checkbox) {
-        var idGuia = checkbox.id;
-        var nuevoEstado = checkbox.closest('tr').querySelector('.select-estado').value;
-        var observaciones = checkbox.closest('tr').querySelector('.text-observacionnes').value; // Obtener las observaciones
-        datosActualizados.push({
-          idGuia: idGuia,
-          nuevoEstado: nuevoEstado,
-          observaciones: observaciones
+        checkboxesFilas.forEach(function(checkbox) {
+            var idGuia = checkbox.id;
+            var nuevoEstado = checkbox.closest('tr').querySelector('.select-estado').value;
+            var observaciones = checkbox.closest('tr').querySelector('.text-observacionnes')
+                .value; // Obtener las observaciones
+            datosActualizados.push({
+                idGuia: idGuia,
+                nuevoEstado: nuevoEstado,
+                observaciones: observaciones
+            });
         });
-      });
 
-      Swal.fire({
-        title: "¿Estás seguro de que deseas actualizar los datos?",
-        text: "El estado será actualizado",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#2CB073",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "MODIFICAR",
-        cancelButtonText: "CANCELAR",
-        reverseButtons: true,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          var data = {
-            id_proceso: idProceso,
-            datos_actualizados: datosActualizados
-          };
-          var jsonData = JSON.stringify(data);
+        Swal.fire({
+            title: "¿Estás seguro de que deseas actualizar los datos?",
+            text: "El estado será actualizado",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#2CB073",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "MODIFICAR",
+            cancelButtonText: "CANCELAR",
+            reverseButtons: true,
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var data = {
+                    id_proceso: idProceso,
+                    datos_actualizados: datosActualizados
+                };
+                var jsonData = JSON.stringify(data);
 
-          var xhr = new XMLHttpRequest();
-          xhr.open('POST', '../SINASU_AGENCIAS/actualizar_datos.php');
-          xhr.setRequestHeader('Content-Type', 'application/json');
-          xhr.send(jsonData);
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '../SINASU_AGENCIAS/actualizar_datos.php');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(jsonData);
 
-          xhr.onload = function () {
-            if (xhr.status === 200) {
-              Swal.fire({
-                title: "CORRECTO",
-                text: "La información se ha actualizado correctamente",
-                icon: "success",
-                confirmButtonColor: "#2CB073"
-              }).then((result) => {
-                location.reload();
-              });
-            } else {
-              Swal.fire({
-                title: "ERROR",
-                text: "Ha ocurrido un error al actualizar la información",
-                icon: "error",
-                confirmButtonColor: "#d33"
-              });
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        Swal.fire({
+                            title: "CORRECTO",
+                            text: "La información se ha actualizado correctamente",
+                            icon: "success",
+                            confirmButtonColor: "#2CB073"
+                        }).then((result) => {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "ERROR",
+                            text: "Ha ocurrido un error al actualizar la información",
+                            icon: "error",
+                            confirmButtonColor: "#d33"
+                        });
+                    }
+                };
             }
-          };
-        }
-      });
+        });
     }
 
-  });
-
-
-
+});
 </script>
 
 

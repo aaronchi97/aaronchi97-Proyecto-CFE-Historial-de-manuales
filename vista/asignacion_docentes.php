@@ -11,9 +11,9 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 ?>
 
 <style>
-  ul li:nth-child(3) .activo {
+ul li:nth-child(3) .activo {
     background: rgb(11, 150, 214) !important;
-  }
+}
 </style>
 
 <!-- Crear el metodo advertencia para el boton de eliminar registro -->
@@ -35,9 +35,9 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 <link rel="stylesheet" href="estiloinicio.css">
 <div class="page-content">
 
-  <h4 class="text-center text-secondery"> ASIGNACION DE HORARIOS/DOCENTES</h4>
+    <h4 class="text-center text-secondery"> ASIGNACION DE HORARIOS/DOCENTES</h4>
 
-  <?php
+    <?php
   //hacemos la conexion
   include "../modelo/conexion.php";
   //llamamos al controlador para eliminar registros
@@ -74,124 +74,129 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
   ?>
-  <a  href="registro_asignacion_docente.php" class="btn btn-primary  btn-rounded mb-3 btn-md"><i class="fa-solid fa-clock"></i>ASIGNAR HORARIOS</a>
-<a  href="docente.php" class="btn btn-danger btn-rounded mb-3 float-right">Regresar</a>
-  <table class="table table-bordered table-hover w-100 " id="example">
-    <thead>
-      <tr>
-        
-        <th scope="col">NOMBRE</th>
-        <th scope="col">APELLIDO</th>
-        <th scope="col">EXPEDIENTE</th>
-        <th scope="col">AULA</th>
-        <th scope="col">HORARIO/DIA</th>
-        <th scope="col">HORARIO/ENTRADA</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
+    <a href="registro_asignacion_docente.php" class="btn btn-primary  btn-rounded mb-3 btn-md"><i
+            class="fa-solid fa-clock"></i>ASIGNAR HORARIOS</a>
+    <a href="docente.php" class="btn btn-danger btn-rounded mb-3 float-right">Regresar</a>
+    <table class="table table-bordered table-hover w-100 " id="example">
+        <thead>
+            <tr>
 
-    <tbody>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">APELLIDO</th>
+                <th scope="col">EXPEDIENTE</th>
+                <th scope="col">AULA</th>
+                <th scope="col">HORARIO/DIA</th>
+                <th scope="col">HORARIO/ENTRADA</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
 
-      <?php
+        <tbody>
+
+            <?php
       while ($datos = $sql->fetch_object()) { ?>
 
-        <!--dentro imprimiremos los valores que contienen mis tablas 
+            <!--dentro imprimiremos los valores que contienen mis tablas 
     en la base de datos-->
-        <tr>
-         
-          <td>
-            <?= $datos->nombre ?>
-          </td>
-          <td>
-            <?= $datos->apellido ?>
-          </td>
-          <td>
-            <?= $datos->expediente ?>
-          </td>
+            <tr>
 
-          <td>
-            <?= $datos->nombre_aula ?>
-          </td>
-          <td>
-            <?= $datos->nombre_dias ?>
-          </td>
-          <td>
-            <?= $datos->hora ?>
-          </td>
-        
-          
-          <td>
-            <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_asignacion ?>"
-              class="btn btn-warning "><i class="fa-solid fa-user-pen"></i></a>
-            <a class="btn btn-danger" href="asignacion_docentes.php?id=<?= $datos->id_asignacion ?>" onclick=" advertencia(event)"><i
-                class="fa-solid fa-trash-can"></i></a>
-          </td>
+                <td>
+                    <?= $datos->nombre ?>
+                </td>
+                <td>
+                    <?= $datos->apellido ?>
+                </td>
+                <td>
+                    <?= $datos->expediente ?>
+                </td>
 
-        </tr>
+                <td>
+                    <?= $datos->nombre_aula ?>
+                </td>
+                <td>
+                    <?= $datos->nombre_dias ?>
+                </td>
+                <td>
+                    <?= $datos->hora ?>
+                </td>
 
 
+                <td>
+                    <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_asignacion ?>"
+                        class="btn btn-warning "><i class="fa-solid fa-user-pen"></i></a>
+                    <a class="btn btn-danger" href="asignacion_docentes.php?id=<?= $datos->id_asignacion ?>"
+                        onclick=" advertencia(event)"><i class="fa-solid fa-trash-can"></i></a>
+                </td>
 
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal<?= $datos->id_asignacion ?>" tabindex="-1"
-          aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header d-flex justify-content-between">
-                <h5 class="modal-title w-100" id="exampleModalLabel">Moodificar docente</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <!--Aqui haremos la modificacion de docente-->
-                <form action="" method="post">
-                  <div hidden class="fl-flex-label mb-4 px-2 col-12  campo">
-  
-                    <input type="text" placeholder="ID" class="input input__text inputmodal" name="txtid" value=" <?= $datos->id_asignacion ?>">
-                  </div>
-                  <div class="fl-flex-label mb-4 px-2 col-12  campo">
-  
-                    <input type="text" placeholder="Nombre" class="input input__text inputmodal" name="txtnombre" value=" <?= $datos->nombre ?>">
-                  </div>
-                  <div class="fl-flex-label mb-4 px-2 col-12  campo">
-                   
-                    <input type="text" placeholder="Apellido" class="input input__text inputmodal" name="txtapellido" value=" <?= $datos->apellido ?>" >
-                  </div>
-                  <div class="fl-flex-label mb-4 px-2 col-12  campo">
-                    
-                    <input type="text" placeholder="Expediente" class="input input__text inputmodal" name="txtexpediente" value=" <?= $datos->expediente ?>" >
-                  </div>
-                  <!-- <div class="fl-flex-label mb-4 px-2 col-12  campo">
+            </tr>
+
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal<?= $datos->id_asignacion ?>" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-between">
+                            <h5 class="modal-title w-100" id="exampleModalLabel">Moodificar docente</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!--Aqui haremos la modificacion de docente-->
+                            <form action="" method="post">
+                                <div hidden class="fl-flex-label mb-4 px-2 col-12  campo">
+
+                                    <input type="text" placeholder="ID" class="input input__text inputmodal"
+                                        name="txtid" value=" <?= $datos->id_asignacion ?>">
+                                </div>
+                                <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+                                    <input type="text" placeholder="Nombre" class="input input__text inputmodal"
+                                        name="txtnombre" value=" <?= $datos->nombre ?>">
+                                </div>
+                                <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+                                    <input type="text" placeholder="Apellido" class="input input__text inputmodal"
+                                        name="txtapellido" value=" <?= $datos->apellido ?>">
+                                </div>
+                                <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+                                    <input type="text" placeholder="Expediente" class="input input__text inputmodal"
+                                        name="txtexpediente" value=" <?= $datos->expediente ?>">
+                                </div>
+                                <!-- <div class="fl-flex-label mb-4 px-2 col-12  campo">
                     <input type="password" placeholder="Contrasea" class="input input__text inputmodal" name="txtpassword" >
                   </div> -->
 
-                  <div class="text-right p-3">
-                    <a href="asignacion_docentes.php" class="btn btn-secondary btn-rounded">Atras</a>
-                    <button type="submit" value="ok" name="btnmodificar"
-                      class="btn btn-primary btn-rounded">Modificar</button>
-                  </div>
+                                <div class="text-right p-3">
+                                    <a href="asignacion_docentes.php" class="btn btn-secondary btn-rounded">Atrás</a>
+                                    <button type="submit" value="ok" name="btnmodificar"
+                                        class="btn btn-primary btn-rounded">Modificar</button>
+                                </div>
 
-                </form>
+                            </form>
 
 
-              </div>
-              <!-- <div class="modal-footer">
+                        </div>
+                        <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary">Guardar</button>
               </div> -->
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      <?php }
+            <?php }
 
       ?>
 
 
 
-    </tbody>
-  </table>
+        </tbody>
+    </table>
 
-  
+
 </div>
 </div>
 <!-- fin del contenido principal -->

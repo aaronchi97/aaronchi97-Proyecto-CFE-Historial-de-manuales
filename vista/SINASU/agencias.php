@@ -10,9 +10,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 ?>
 
 <style>
-  ul li:nth-child(1) .activo {
-    background: #9889fe !important;
-  }
+ul li:nth-child(1) .activo {
+    background: #008f5a !important;
+}
 </style>
 
 
@@ -30,7 +30,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
 
-  <?php
+    <?php
   //hacemos la conexion
   include "../../modelo/conexion-SINASU.php";
   // include "../../controlador/controlador_vista_documentos_sinasu.php";
@@ -70,54 +70,54 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
   ?>
 
-  <h4 class="text-center text-secondery">AGENCIAS</h4>
+    <h4 class="text-center text-secondery">AGENCIAS</h4>
 
-  <!-- BOTON PARA REGISTRAR AGENCIA -->
+    <!-- BOTON PARA REGISTRAR AGENCIA -->
 
-  <a href="departamentos.php" class="btn btn-danger btn-rounded mb-3"><i class="fa-regular fa-circle-left"></i>
-    &nbsp; ATRAS</a>
-  <a href="registro_agencias.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-user-plus "></i>
-    &nbsp;
-    REGISTRAR NUEVA AGENCIA</a>
-
-
-
-  <section class="continer-agencias">
+    <a href="departamentos.php" class="btn btn-danger btn-rounded mb-3"><i class="fa-regular fa-circle-left"></i>
+        &nbsp; ATRÁS</a>
+    <a href="registro_agencias.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-user-plus "></i>
+        &nbsp;
+        REGISTRAR NUEVA AGENCIA</a>
 
 
-    <?php
+
+    <section class="continer-agencias">
+
+
+        <?php
     if ($_SESSION['rol-sinasu'] != 3) { ?>
 
-      <?php
+        <?php
       while ($datos_mostrar_agencias = $sql_mostrar_agencias->fetch_object()) { ?>
 
         <!-- <a class="boton-sinasu-agencias"  href="agencias_filtros.php?id_agencias_filtro=<?= $datos_mostrar_agencias->id_agencia ?>"> -->
         <a class="boton-sinasu-agencias"
-          href="procesos.php?id_agencias_filtro=<?= $datos_mostrar_agencias->id_agencia ?>&id_departamento=<?= $_GET['id_departamento']; ?>">
+            href="procesos.php?id_agencias_filtro=<?= $datos_mostrar_agencias->id_agencia ?>&id_departamento=<?= $_GET['id_departamento']; ?>">
 
 
 
-          <div class="parte-sinasu-agencias">
+            <div class="parte-sinasu-agencias">
 
-            <figure>
-              <img src="img-sinasu/agencia<?= $datos_mostrar_agencias->id_agencia ?>.jpg" alt="">
-            </figure>
+                <figure>
+                    <img src="img-sinasu/agencia<?= $datos_mostrar_agencias->id_agencia ?>.jpg" alt="">
+                </figure>
 
-            <div class="fondo-agencias-2"></div>
+                <div class="fondo-agencias-2"></div>
 
-            <i class="fa-solid fa-users-rectangle"></i>
+                <i class="fa-solid fa-users-rectangle"></i>
 
-            <h1>
-              <?= $datos_mostrar_agencias->nombre_agencia ?>
-            </h1>
+                <h1>
+                    <?= $datos_mostrar_agencias->nombre_agencia ?>
+                </h1>
 
-            <h1>
-              <?= $datos_mostrar_agencias->responsable_agencia ?>
-            </h1>
+                <h1>
+                    <?= $datos_mostrar_agencias->responsable_agencia ?>
+                </h1>
 
-            <!-- <h1><?= $datos_mostrar_agencias->responsable_agencia ?></h1> -->
+                <!-- <h1><?= $datos_mostrar_agencias->responsable_agencia ?></h1> -->
 
-          </div>
+            </div>
 
 
         </a>
@@ -125,14 +125,14 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
 
-      <?php } ?>
+        <?php } ?>
 
 
-      <?php
+        <?php
 
     } else { ?>
 
-      <?php
+        <?php
 
       for ($j = 1; $j <= $total_agencias; $i++) {
 
@@ -152,50 +152,50 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
 
-      <?php
+        <?php
     }
     ?>
 
-    <!-- -----------------HACER EL WHILE PARA VINCULAR TODAS LAS 10 AGENCIAS DE LA BASE DE DATOS-------------------------------- -->
-  </section>
-  <section class="continer-agencias">
+        <!-- -----------------HACER EL WHILE PARA VINCULAR TODAS LAS 10 AGENCIAS DE LA BASE DE DATOS-------------------------------- -->
+    </section>
+    <section class="continer-agencias">
 
-    <?php
+        <?php
     if ($_SESSION['rol-sinasu'] != 3 && $id_departamento == 1) { ?>
-      <h4 class="text-center text-secondery">EXTRAS COMERCIAL</h4>
+        <h4 class="text-center text-secondery">EXTRAS COMERCIAL</h4>
 
-      <a class="boton-sinasu-agencias" href="procesos_comercial.php?id_departamento=<?= $id_departamento ?>">
-
-
-
-        <div class="parte-sinasu-agencias">
-
-          <figure>
-            <img src="img-sinasu/agencia1.jpg" alt="">
-          </figure>
-
-          <div class="fondo-agencias-2"></div>
-
-          <i class="fa-regular fa-star"></i>
-
-          <h1>
-            Gestión Comercial
-          </h1>
+        <a class="boton-sinasu-agencias" href="procesos_comercial.php?id_departamento=<?= $id_departamento ?>">
 
 
 
-        </div>
+            <div class="parte-sinasu-agencias">
+
+                <figure>
+                    <img src="img-sinasu/agencia1.jpg" alt="">
+                </figure>
+
+                <div class="fondo-agencias-2"></div>
+
+                <i class="fa-regular fa-star"></i>
+
+                <h1>
+                    Gestión Comercial
+                </h1>
 
 
-      </a>
+
+            </div>
+
+
+        </a>
 
 
 
-      <?php
+        <?php
 
     } else { ?>
 
-      <?php
+        <?php
 
       echo "No hay agencias";
 
@@ -204,10 +204,10 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
 
-      <?php
+        <?php
     }
     ?>
-  </section>
+    </section>
 </div>
 
 <!-- por ultimo se carga el footer -->

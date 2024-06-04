@@ -12,9 +12,9 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 
 ?>
 <style>
-  ul li:nth-child(1) .activo {
-    background: #9889fe !important;
-  }
+ul li:nth-child(1) .activo {
+    background: #008f5a !important;
+}
 </style>
 <!-- primero se carga el topbar -->
 <?php require ('./../layout/topbar_sinasu.php'); ?>
@@ -30,8 +30,8 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 <link rel="stylesheet" href="../SINASU/estilosinasu.css">
 
 <body class="cuerpo_subir">
-  <div class="page-content">
-    <?php
+    <div class="page-content">
+        <?php
     error_reporting(E_ERROR | E_PARSE);
     $id_agencia_regresar_vista_documentos = $_GET["id_agencia_revision_administrador"];
 
@@ -54,9 +54,9 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
     $_SESSION["mostrar-id-proceso"] = $mostrar_id_proceso;
     ?>
 
-    <input type="hidden" id="mostrar_id_agencia" value="<?php echo $id_agencia_regresar_vista_documentos; ?>">
+        <input type="hidden" id="mostrar_id_agencia" value="<?php echo $id_agencia_regresar_vista_documentos; ?>">
 
-    <?php
+        <?php
     // Verificar si el parámetro relacionado con las agencias está presente en la URL
     $agenciasPresentes = isset ($_GET['id_agencia_revision_administrador']);
 
@@ -65,38 +65,39 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
     ?>
 
 
-    <!-- Botón de atrás a Agencias -->
-    <?php if ($agenciasPresentes): ?>
-      <!-- Botón de atrás a Agencias -->
-      <a href="../SINASU/agencias_filtros.php?id_agencias_filtro=<?= $_GET['id_agencia_revision_administrador'] ?>&id_proceso=<?= $_GET['id_proceso'] ?>&id_departamento=<?= $_GET['id_departamento'] ?>"
-        class="btn btn-danger btn-rounded mb-3 otro" style="margin: 20px 0px">
-        <i class="fa-regular fa-circle-left"></i> &nbsp; ATRAS
-      </a>
-    <?php elseif ($procesoComercialPresente && ($_GET['id_proceso'] == 4 || $_GET['id_proceso'] == 5)): ?>
-      <!-- Botón de atrás a Filtro Proceso Comercial -->
-      <a href="../SINASU/filtro_proceso_comercial.php?id_proceso=<?= $_GET['id_proceso'] ?>&id_departamento=<?= $_GET['id_departamento'] ?>"
-        class="btn btn-danger btn-rounded mb-3 otro" style="margin: 20px 0px">
-        <i class="fa-regular fa-circle-left"></i> &nbsp; ATRAS
-      </a>
-    <?php endif; ?>
+        <!-- Botón de atrás a Agencias -->
+        <?php if ($agenciasPresentes): ?>
+        <!-- Botón de atrás a Agencias -->
+        <a href="../SINASU/agencias_filtros.php?id_agencias_filtro=<?= $_GET['id_agencia_revision_administrador'] ?>&id_proceso=<?= $_GET['id_proceso'] ?>&id_departamento=<?= $_GET['id_departamento'] ?>"
+            class="btn btn-danger btn-rounded mb-3 otro" style="margin: 20px 0px">
+            <i class="fa-regular fa-circle-left"></i> &nbsp; ATRÁS
+        </a>
+        <?php elseif ($procesoComercialPresente && ($_GET['id_proceso'] == 4 || $_GET['id_proceso'] == 5)): ?>
+        <!-- Botón de atrás a Filtro Proceso Comercial -->
+        <a href="../SINASU/filtro_proceso_comercial.php?id_proceso=<?= $_GET['id_proceso'] ?>&id_departamento=<?= $_GET['id_departamento'] ?>"
+            class="btn btn-danger btn-rounded mb-3 otro" style="margin: 20px 0px">
+            <i class="fa-regular fa-circle-left"></i> &nbsp; ATRÁS
+        </a>
+        <?php endif; ?>
 
-    <div class="subir">
-      <div class="drop-area">
-        <h2>Arrastra y suelta la evidencia</h2>
-        <span>O</i>
-        </span>
-        <button>Selecciona tus archivos</button>
-        <input type="file" name="" id="input-file" hidden multipart>
-      </div>
-      <article>
-        <h5 style="color:#aaa;">Nota: Puedes subir imagenes (png, jpg y jpeg), documentos de office(docx, xslx, pptx) y
-          documentos pdf</h5>
-      </article>
-      <div id="preview">
-      </div>
+        <div class="subir">
+            <div class="drop-area">
+                <h2>Arrastra y suelta la evidencia</h2>
+                <span>O</i>
+                </span>
+                <button>Selecciona tus archivos</button>
+                <input type="file" name="" id="input-file" hidden multipart>
+            </div>
+            <article>
+                <h5 style="color:#aaa;">Nota: Puedes subir imagenes (png, jpg y jpeg), documentos de office(docx, xslx,
+                    pptx) y
+                    documentos pdf</h5>
+            </article>
+            <div id="preview">
+            </div>
+        </div>
+
     </div>
-
-  </div>
 </body>
 <script src="upload.js"></script>
 

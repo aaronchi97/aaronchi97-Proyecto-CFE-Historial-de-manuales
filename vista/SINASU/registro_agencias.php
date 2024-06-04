@@ -11,9 +11,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 ?>
 
 <style>
-    ul li:nth-child(2) .activo {
-        background: #9889fe !important;
-    }
+ul li:nth-child(2) .activo {
+    background: #9889fe !important;
+}
 </style>
 
 <!-- Crear el metodo advertencia para el boton de eliminar registro -->
@@ -63,9 +63,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
                     <?php
                     $sql_buscar_usuario = $conexionSINASU->query(" SELECT * FROM usuario");
                     while ($datos_buscar_usuario = $sql_buscar_usuario->fetch_object()) { ?>
-                        <option value="<?= $datos_buscar_usuario->id_usuario ?>">
-                            <?= $datos_buscar_usuario->usuario ?>
-                        </option>
+                    <option value="<?= $datos_buscar_usuario->id_usuario ?>">
+                        <?= $datos_buscar_usuario->usuario ?>
+                    </option>
                     <?php }
                     ?>
                 </select>
@@ -104,7 +104,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
             <div class="text-right p-3">
-                <a href="agencias.php" class="btn btn-secondary btn-rounded">Atras</a>
+                <a href="agencias.php" class="btn btn-secondary btn-rounded">Atrás</a>
                 <button type="submit" value="ok" name="btnregistrar"
                     class="btn btn-primary btn-rounded">Registrar</button>
             </div>
@@ -117,29 +117,29 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 <!-- fin del contenido principal -->
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var nombreInput = document.querySelector('[name="txtnombreagencia"]');
-        var apellidoInput = document.querySelector('[name="txtapellido"]');
-        var usuarioInput = document.querySelector('[name="txtusuario"]');
+document.addEventListener('DOMContentLoaded', function() {
+    var nombreInput = document.querySelector('[name="txtnombreagencia"]');
+    var apellidoInput = document.querySelector('[name="txtapellido"]');
+    var usuarioInput = document.querySelector('[name="txtusuario"]');
 
-        // Función para eliminar espacios en blanco
-        function removeSpaces(input) {
-            input.value = input.value.replace(/\s/g, ''); // Elimina espacios en blanco
-        }
+    // Función para eliminar espacios en blanco
+    function removeSpaces(input) {
+        input.value = input.value.replace(/\s/g, ''); // Elimina espacios en blanco
+    }
 
-        // Evento input para los campos de nombre, apellido y usuario
-        nombreInput.addEventListener('input', function () {
-            removeSpaces(this);
-        });
-
-        apellidoInput.addEventListener('input', function () {
-            removeSpaces(this);
-        });
-
-        usuarioInput.addEventListener('input', function () {
-            removeSpaces(this);
-        });
+    // Evento input para los campos de nombre, apellido y usuario
+    nombreInput.addEventListener('input', function() {
+        removeSpaces(this);
     });
+
+    apellidoInput.addEventListener('input', function() {
+        removeSpaces(this);
+    });
+
+    usuarioInput.addEventListener('input', function() {
+        removeSpaces(this);
+    });
+});
 </script>
 
 

@@ -11,9 +11,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 ?>
 
 <style>
-  ul li:nth-child(2) .activo {
-    background: #9889fe !important;
-  }
+ul li:nth-child(2) .activo {
+    background: #008f5a !important;
+}
 </style>
 
 <!-- Crear el metodo advertencia para el boton de eliminar registro -->
@@ -36,9 +36,9 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 <link rel="stylesheet" href="estiloinicio.css">
 <div class="page-content">
 
-  <h4 class="text-center text-secondery"> USUARIOS</h4>
+    <h4 class="text-center text-secondery"> USUARIOS</h4>
 
-  <?php
+    <?php
   //hacemos la conexion
   include "../../modelo/conexion-SINASU.php";
   //llamamos al controlador para eliminar registros
@@ -54,12 +54,12 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
   ?>
 
 
-  <?php
+    <?php
 
   if ($_SESSION['rol-sinasu'] == 2 || $_SESSION['rol-sinasu'] == 3) {
     ?>
     <a href="registro_usuario_sinasu.php" class="btn btn-primary btn-rounded mb-3" style="display: none;"><i
-        class="fa-solid fa-user-plus"></i> &nbsp; REGISTRAR</a>
+            class="fa-solid fa-user-plus"></i> &nbsp; REGISTRAR</a>
     <?php
 
     $mostrarBoton = false;
@@ -68,167 +68,167 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
     ?>
 
     <a href="registro_usuario_sinasu.php" class="btn btn-primary btn-rounded mb-3 otro"><i
-        class="fa-solid fa-user-plus "></i> &nbsp;
-      REGISTRAR</a>
+            class="fa-solid fa-user-plus "></i> &nbsp;
+        REGISTRAR</a>
     <?php
 
   }
   ?>
 
-  <!-- 
+    <!-- 
   <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3"><i class="fa-solid fa-user-plus"></i> &nbsp;
     REGISTRAR</a> -->
 
 
-  <table class="table table-bordered table-hover w-100 " id="example">
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">NOMBRE</th>
-        <th scope="col">APELLIDO</th>
-        <th scope="col">USUARIO</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
+    <table class="table table-bordered table-hover w-100 " id="example">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">APELLIDO</th>
+                <th scope="col">USUARIO</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
 
-    <tbody>
+        <tbody>
 
-      <!-- AQUI EMPIEZAN LAS CONDICIONES DE VISTA POR ROLES-------------------------------------------------------------------------- -->
-      <?php
+            <!-- AQUI EMPIEZAN LAS CONDICIONES DE VISTA POR ROLES-------------------------------------------------------------------------- -->
+            <?php
       if ($_SESSION['rol-sinasu'] == 2 || $_SESSION['rol-sinasu'] == 3) {
         ?>
-        <?php
+            <?php
         while ($datos = $sql->fetch_object()) { ?>
 
-          <tr>
-            <td class="id" scope="row">
-              <?= $datos->id_usuario ?>
-            </td>
-            <td>
-              <?= $datos->nombre ?>
-            </td>
-            <td>
-              <?= $datos->apellido ?>
-            </td>
-            <td>
-              <?= $datos->usuario ?>
-            </td>
-            <td>
+            <tr>
+                <td class="id" scope="row">
+                    <?= $datos->id_usuario ?>
+                </td>
+                <td>
+                    <?= $datos->nombre ?>
+                </td>
+                <td>
+                    <?= $datos->apellido ?>
+                </td>
+                <td>
+                    <?= $datos->usuario ?>
+                </td>
+                <td>
 
-            </td>
-          </tr>
+                </td>
+            </tr>
 
-        <?php }
+            <?php }
 
         ?>
-        <?php
+            <?php
 
       } else {
         ?>
 
-        <?php
+            <?php
         while ($datos = $sql->fetch_object()) { ?>
 
-          <!--dentro imprimiremos los valores que contienen mis tablas 
+            <!--dentro imprimiremos los valores que contienen mis tablas 
     en la base de datos-->
-          <tr>
-            <td class="id" scope="row">
-              <?= $datos->id_usuario ?>
-            </td>
-            <td>
-              <?= $datos->nombre ?>
-            </td>
-            <td>
-              <?= $datos->apellido ?>
-            </td>
-            <td>
-              <?= $datos->usuario ?>
-            </td>
-            <td>
-              <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_usuario ?> "
-                class="btn btn-warning "><i class="fa-solid fa-user-pen"></i></a>
+            <tr>
+                <td class="id" scope="row">
+                    <?= $datos->id_usuario ?>
+                </td>
+                <td>
+                    <?= $datos->nombre ?>
+                </td>
+                <td>
+                    <?= $datos->apellido ?>
+                </td>
+                <td>
+                    <?= $datos->usuario ?>
+                </td>
+                <td>
+                    <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_usuario ?> "
+                        class="btn btn-warning "><i class="fa-solid fa-user-pen"></i></a>
 
-              <a class="btn btn-danger" href="usuario-sinasu.php?id=<?= $datos->id_usuario ?>"
-                onclick=" advertencia(event)"><i class="fa-solid fa-trash-can"></i></a>
-            </td>
+                    <a class="btn btn-danger" href="usuario-sinasu.php?id=<?= $datos->id_usuario ?>"
+                        onclick=" advertencia(event)"><i class="fa-solid fa-trash-can"></i></a>
+                </td>
 
-            <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
+                <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
 
-          </tr>
-
-
-
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal<?= $datos->id_usuario ?>" tabindex="-1"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header d-flex justify-content-between">
-                  <h5 class="modal-title w-100" id="exampleModalLabel">Modificar usuario</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <!--Aqui haremos la modificacion de usuario-->
-                  <form action="" method="post">
-                    <div hidden class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="ID" class="input input__text inputmodal" name="txtid"
-                        value="<?= $datos->id_usuario ?>">
-                    </div>
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Nombre" class="input input__text inputmodal" name="txtnombre"
-                        value="<?= $datos->nombre ?>">
-                    </div>
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Apellido" class="input input__text inputmodal" name="txtapellido"
-                        value="<?= $datos->apellido ?>">
-                    </div>
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Usuario" class="input input__text inputmodal" name="txtusuario"
-                        value="<?= $datos->usuario ?>">
-                    </div>
-
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Rol" class="input input__text inputmodal" name="txtrol"
-                        value="<?= $datos->id_rol ?>">
-                    </div>
+            </tr>
 
 
-                    <!-- <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal<?= $datos->id_usuario ?>" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex justify-content-between">
+                            <h5 class="modal-title w-100" id="exampleModalLabel">Modificar usuario</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!--Aqui haremos la modificacion de usuario-->
+                            <form action="" method="post">
+                                <div hidden class="fl-flex-label mb-4 px-2 col-12  campo">
+
+                                    <input type="text" placeholder="ID" class="input input__text inputmodal"
+                                        name="txtid" value="<?= $datos->id_usuario ?>">
+                                </div>
+                                <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+                                    <input type="text" placeholder="Nombre" class="input input__text inputmodal"
+                                        name="txtnombre" value="<?= $datos->nombre ?>">
+                                </div>
+                                <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+                                    <input type="text" placeholder="Apellido" class="input input__text inputmodal"
+                                        name="txtapellido" value="<?= $datos->apellido ?>">
+                                </div>
+                                <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+                                    <input type="text" placeholder="Usuario" class="input input__text inputmodal"
+                                        name="txtusuario" value="<?= $datos->usuario ?>">
+                                </div>
+
+                                <div class="fl-flex-label mb-4 px-2 col-12  campo">
+
+                                    <input type="text" placeholder="Rol" class="input input__text inputmodal"
+                                        name="txtrol" value="<?= $datos->id_rol ?>">
+                                </div>
+
+
+                                <!-- <div class="fl-flex-label mb-4 px-2 col-12  campo">
                     <input type="password" placeholder="Contrasea" class="input input__text inputmodal" name="txtpassword" >
                   </div> -->
 
 
-                    <div class="text-right p-3">
-                      <a href="usuario-sinasu.php" class="btn btn-secondary btn-rounded">Atras</a>
-                      <button type="submit" value="ok" name="btnmodificar"
-                        class="btn btn-primary btn-rounded">Modificar</button>
-                    </div>
+                                <div class="text-right p-3">
+                                    <a href="usuario-sinasu.php" class="btn btn-secondary btn-rounded">Atrás</a>
+                                    <button type="submit" value="ok" name="btnmodificar"
+                                        class="btn btn-primary btn-rounded">Modificar</button>
+                                </div>
 
-                  </form>
+                            </form>
 
 
-                </div>
-                <!-- <div class="modal-footer">
+                        </div>
+                        <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary">Guardar</button>
               </div> -->
-              </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        <?php }
+            <?php }
 
         ?>
 
 
 
-        <?php
+            <?php
 
       }
       ?>
@@ -237,8 +237,8 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
 
-    </tbody>
-  </table>
+        </tbody>
+    </table>
 
 </div>
 <!-- fin del contenido principal -->
@@ -246,29 +246,29 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 <!-- // Dentro del script que limpia espacios en blanco al escribir -->
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     var nombreInput = document.querySelector('[name="txtnombre"]');
     var apellidoInput = document.querySelector('[name="txtapellido"]');
     var usuarioInput = document.querySelector('[name="txtusuario"]');
 
     // Función para eliminar espacios en blanco
     function removeSpaces(input) {
-      input.value = input.value.replace(/\s/g, ''); // Elimina espacios en blanco
+        input.value = input.value.replace(/\s/g, ''); // Elimina espacios en blanco
     }
 
     // Evento input para los campos de nombre, apellido y usuario
-    nombreInput.addEventListener('input', function () {
-      removeSpaces(this);
+    nombreInput.addEventListener('input', function() {
+        removeSpaces(this);
     });
 
-    apellidoInput.addEventListener('input', function () {
-      removeSpaces(this);
+    apellidoInput.addEventListener('input', function() {
+        removeSpaces(this);
     });
 
-    usuarioInput.addEventListener('input', function () {
-      removeSpaces(this);
+    usuarioInput.addEventListener('input', function() {
+        removeSpaces(this);
     });
-  });
+});
 </script>
 
 

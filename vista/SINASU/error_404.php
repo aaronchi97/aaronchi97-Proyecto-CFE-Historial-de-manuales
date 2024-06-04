@@ -11,9 +11,9 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 ?>
 
 <style>
-  ul li:nth-child(0) .activo {
-    background: #9889fe !important;
-  }
+ul li:nth-child(0) .activo {
+    background: #008f5a !important;
+}
 </style>
 
 <!-- Crear el metodo advertencia para el boton de eliminar registro -->
@@ -37,11 +37,11 @@ if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu']))
 <div class="page-content">
 
 
-  <h4 class="text-center text-secondery titulo-renta2">Página en mantenimiento</h4>
+    <h4 class="text-center text-secondery titulo-renta2">Página en mantenimiento</h4>
 
-  <figure class="figura_gato">
-    <img class="gato_404" src="img-sinasu/electrician-animate.svg" alt="">
-  </figure>
+    <figure class="figura_gato">
+        <img class="gato_404" src="img-sinasu/electrician-animate.svg" alt="">
+    </figure>
 
 </div>
 
