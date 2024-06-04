@@ -155,14 +155,14 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
               <a style="font-size: 25px;" class="btn btn-info"
                 href="subir_archivos.php?id_guia_subir_doc=<?= $datos->id_guia ?>"><i
                   class="fa-solid fa-file-arrow-up"></i></a>
-              <tool-tip role="tooltip"><b>Subir archivos</b></tool-tip>
+              <tool-tip role="tooltip"><b>Subir evidencias</b></tool-tip>
               <!-- <a style="font-size: 25px;" class="btn btn-info" href="subir_archivos.php?id=<?= $datos->id_guia ?>"
                 onclick=" advertencia(event)"><i class="fa-solid fa-file-arrow-up"></i></a>  -->
             </td>
             <td>
               <a style="font-size: 25px;" class="btn btn-primary"
                 href="ver_archivos.php?id_guia_subir_doc=<?= $datos->id_guia ?>"><i class="fa-solid fa-eye"></i></a>
-              <tool-tip role="tooltip"><b>Ver archivos</b></tool-tip>
+              <tool-tip role="tooltip"><b>Ver evidencias</b></tool-tip>
             </td>
           </tr>
 
@@ -173,6 +173,8 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
   } else {
     ?>
+        <a style="font-size: 15px;" class="btn btn-warning btn-rounded mb-3"
+          href="revisar_archivos.php?id_agencia_revision_administrador=<?= $id_agencia_especifica ?>">REVISAR</a>
 
         <table class="table table-bordered table-hover w-100 " id="example">
           <thead>
@@ -187,7 +189,7 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
               <th scope="col">AGENCIA</th>
               <th scope="col">EVIDENCIA ESPERADA</th>
               <th scope="col">FUENTE DE LA EVIDENCIA</th>
-              <th scope="col"></th>
+              <!-- <th scope="col"></th> -->
             </tr>
           </thead>
 
@@ -226,15 +228,15 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
                 <td>
                   <?= $datos->fuente_de_la_evidencia ?>
                 </td>
-                <td>
+                <!-- <td> -->
 
-                  <!-- AQUI SE AÑADE LA RUTA DE LA VISTA PARA REVISAR DOCUMENTACION SUBIDA POR AGENCIAS, ESPECIFICAR RUTA EN EL HREF -->
+                <!-- AQUI SE AÑADE LA RUTA DE LA VISTA PARA REVISAR DOCUMENTACION SUBIDA POR AGENCIAS, ESPECIFICAR RUTA EN EL HREF -->
 
-                  <a style="font-size: 15px;" class="btn btn-warning"
-                    href="revisar_archivos.php?id_agencia_revision_administrador=<?= $datos->id_agencia ?>">REVISAR</a>
-                  <!-- <a style="font-size: 25px;" class="btn btn-info" href="subir_archivos.php?id=<?= $datos->id_guia ?>"
+                <!-- <a style="font-size: 15px;" class="btn btn-warning"
+                    href="revisar_archivos.php?id_agencia_revision_administrador=<?= $datos->id_agencia ?>">REVISAR</a> -->
+                <!-- <a style="font-size: 25px;" class="btn btn-info" href="subir_archivos.php?id=<?= $datos->id_guia ?>"
                 onclick=" advertencia(event)"><i class="fa-solid fa-file-arrow-up"></i></a>  -->
-                </td>
+                <!-- </td> -->
 
                 <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
 

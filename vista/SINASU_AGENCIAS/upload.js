@@ -3,6 +3,9 @@ const dragText = dropArea.querySelector("h2");
 const button = dropArea.querySelector("button");
 const input = dropArea.querySelector("#input-file");
 let files;
+// Obtener el valor de mostrar_id_guia desde el elemento HTML
+var mostrar_id_agencia = document.getElementById("mostrar_id_agencia").value;
+console.log(mostrar_id_agencia);
 
 button.addEventListener("click", (e) => {
   input.setAttribute("multiple", "multiple");
@@ -19,13 +22,13 @@ input.addEventListener("change", (e) => {
 dropArea.addEventListener("dragover", (e) => {
   e.preventDefault();
   dropArea.classList.add("active");
-  dragText.textContent = "Suelta para subir los archivos";
+  dragText.textContent = "Suelta para subir las evidencias";
 });
 
 dropArea.addEventListener("dragleave", (e) => {
   e.preventDefault();
   dropArea.classList.remove("active");
-  dragText.textContent = "Arrastra y suelta el documento PDF";
+  dragText.textContent = "Arrastra y suelta las evidencias";
 });
 
 dropArea.addEventListener("drop", (e) => {
@@ -33,7 +36,7 @@ dropArea.addEventListener("drop", (e) => {
   files = e.dataTransfer.files;
   showFiles(files);
   dropArea.classList.remove("active");
-  dragText.textContent = "Arrastra y suelta el documento PDF";
+  dragText.textContent = "Arrastra y suelta las evidencias";
 });
 
 function showFiles(files) {
@@ -53,7 +56,18 @@ function showFiles(files) {
 
 function processFile(file) {
   const docType = file.type;
-  const validExtensions = ["application/pdf"];
+  const validExtensions = [
+    "application/pdf",
+    "image/png",
+    "image/jpg",
+    "image/jpeg",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document", //Documentos WORD
+    "application/vnd.ms-excel",
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", //Documentos excel
+    "application/vnd.ms-powerpoint",
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation", //Documentos powerpoint
+  ];
 
   if (validExtensions.includes(docType)) {
     //archivo valido
@@ -64,13 +78,11 @@ function processFile(file) {
       const fileUrl = fileReader.result;
       const documentpdf = `
         <div id="${id}" class="file-container">
-        <i class="fa-regular fa-file-pdf" style="font-size: 20px;"></i>
+        <i class="fa-regular fa-file-lines" style="font-size:20px"></i>
           <div class="status">
-            <span> <a target="_blank" href="../SINASU/uploads/${file.name}" >${file.name}</a></span>
+            <span> <a target="_blank" href="../SINASU/uploads/control${mostrar_id_agencia}${file.name}" >${file.name}</a></span>
             <span class="status-text">
               Loading...
-            </span>
-            <span><a href="#" onclick="eliminarArchivo('${id}', '${file.name}')"><i class="fa-solid fa-circle-xmark"></i> Eliminar</a></span>
           </div>
         </div>
         `;
@@ -133,27 +145,16 @@ async function uploadFile(file, id) {
   }
 }
 
-function eliminarArchivo(id, fileName, id_documento) {
+function eliminarArchivo(mostrar_id_guia) {
   if (confirm("¿Estás seguro de que quieres eliminar este archivo?")) {
-    // Imprimir el JSON que se enviará en la solicitud
-    console.log(
-      JSON.stringify({
-        id: id,
-        fileName: fileName,
-        idDocumento: id_documento,
-      })
-    );
-
-    // Realizar la eliminación del archivo
-    fetch("eliminar_archivo.php", {
+    // Realizar la eliminación del archivo mediante una solicitud al controlador PHP
+    fetch("../../controlador/controlador_eliminar_documentos.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        id: id,
-        fileName: fileName,
-        idDocumento: id_documento,
+        mostrar_id_guia: mostrar_id_guia,
       }),
     })
       .then((response) => {
@@ -163,16 +164,75 @@ function eliminarArchivo(id, fileName, id_documento) {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
-        // Aquí puedes actualizar la interfaz de usuario para reflejar la eliminación del archivo
-        document.getElementById(id).remove(); // Eliminar el contenedor del archivo del DOM
+        // Manejar la respuesta del servidor
+        console.log(data); // Puedes realizar alguna acción adicional según la respuesta del servidor
+        // Por ejemplo, actualizar la interfaz de usuario para reflejar la eliminación del archivo
+        // Por ejemplo, remover el elemento de la interfaz que representa el archivo eliminado
       })
       .catch((error) => {
         console.error("Error:", error);
-        // Aquí puedes mostrar un mensaje de error al usuario
+        // Puedes mostrar un mensaje de error al usuario si la eliminación del archivo falla
       });
   }
 }
+
+// Agregar un evento de clic al ícono de agregar comentario
+// document.addEventListener("click", async function (event) {
+//   if (event.target.matches(".fa-comment")) {
+//     const fileContainer = event.target.closest(".file-container");
+//     const fileName = fileContainer.querySelector("span").textContent.trim();
+
+//     const result = await Swal.fire({
+//       title: `Agregar Comentario a ${fileName}`,
+//       input: "text",
+//       inputPlaceholder: "Ingrese su comentario",
+//       showCancelButton: true,
+//       confirmButtonText: "Enviar",
+//       cancelButtonText: "Cancelar",
+//       allowOutsideClick: false,
+//       inputValidator: (value) => {
+//         if (!value) {
+//           return "Debe ingresar un comentario";
+//         }
+//       },
+//     });
+
+//     if (result.isConfirmed && result.value) {
+//       try {
+//         const response = await fetch("agregar_comentario.php", {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//           body: JSON.stringify({
+//             comentario: result.value,
+//             filename: fileName,
+//           }),
+//         });
+//         console.log("Datos a enviar al servidor:", {
+//           comentario: result.value,
+//           fileName: fileName,
+//         });
+
+//         if (!response.ok) {
+//           throw new Error("Error al enviar el comentario");
+//         }
+
+//         const data = await response.json();
+//         console.log(data); // Mostrar la respuesta JSON en la consola
+
+//         if (data.success) {
+//           Swal.fire("Éxito", "Comentario agregado correctamente", "success");
+//         } else {
+//           Swal.fire("Error", "Hubo un error al agregar el comentario", "error");
+//         }
+//       } catch (error) {
+//         console.error("Error:", error);
+//         Swal.fire("Error", "Hubo un error al agregar el comentario", "error");
+//       }
+//     }
+//   }
+// });
 
 // function uploadFile(file) {
 //   const formData = new FormData();

@@ -1,0 +1,1252 @@
+Array
+(
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 1
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 1
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 3
+                    [nuevoEstado] => 2
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 3
+                    [nuevoEstado] => 3
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 4
+                )
+
+            [1] => Array
+                (
+                    [idGuia] => 3
+                    [nuevoEstado] => 4
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 1
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 4
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 2
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 1
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 3
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 2
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 3
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 1
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 3
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 4
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 3
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 4
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                )
+
+            [1] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 2
+                )
+
+            [2] => Array
+                (
+                    [idGuia] => 3
+                    [nuevoEstado] => 3
+                )
+
+            [3] => Array
+                (
+                    [idGuia] => 4
+                    [nuevoEstado] => 4
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 2
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                    [observaciones] => Documentos correctos
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 2
+                    [observaciones] => 1 documento no corresponde
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                    [observaciones] => Todos los documentos correctos
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 314
+                    [nuevoEstado] => 1
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 314
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 4
+                    [observaciones] =>  
+                )
+
+            [1] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 4
+                    [observaciones] =>  
+                )
+
+            [2] => Array
+                (
+                    [idGuia] => 3
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                    [observaciones] => Cuenta con las evidencias
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                    [observaciones] =>  
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [0] => Array
+        (
+            [idDocumento] => 
+              37            
+            [nuevoEstado] => 2
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 4
+                    [nuevoEstado] => 1
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 4
+                    [nuevoEstado] => 2
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 4
+                    [nuevoEstado] => 1
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 4
+                    [nuevoEstado] => 3
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 4
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 4
+                    [nuevoEstado] => 1
+                    [observaciones] => 
+                )
+
+            [1] => Array
+                (
+                    [idGuia] => 5
+                    [nuevoEstado] => 1
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 4
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+            [1] => Array
+                (
+                    [idGuia] => 5
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 4
+                    [nuevoEstado] => 1
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 4
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                    [observaciones] => cumple
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+            [1] => Array
+                (
+                    [idGuia] => 3
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 3
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 3
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                    [observaciones] => si
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 3
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 2
+                    [observaciones] => Hola x2
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 2
+                    [observaciones] => Faltan evidencias
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 3
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 3
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                    [observaciones] => Hola
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 3
+                    [observaciones] =>  
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+            [1] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 3
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 3
+                    [observaciones] => Todo bien
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                    [observaciones] => Todo bien
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                    [observaciones] => so
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 3
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 3
+                    [observaciones] => 
+                )
+
+            [1] => Array
+                (
+                    [idGuia] => 3
+                    [nuevoEstado] => 3
+                    [observaciones] => 
+                )
+
+            [2] => Array
+                (
+                    [idGuia] => 5
+                    [nuevoEstado] => 3
+                    [observaciones] => 
+                )
+
+            [3] => Array
+                (
+                    [idGuia] => 8
+                    [nuevoEstado] => 3
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 3
+                    [observaciones] => HI
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 4
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 4
+                    [observaciones] =>  
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 2
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+            [1] => Array
+                (
+                    [idGuia] => 3
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+            [2] => Array
+                (
+                    [idGuia] => 5
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+            [3] => Array
+                (
+                    [idGuia] => 8
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 4
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 3
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 1
+                    [observaciones] => 
+                )
+
+        )
+
+)
+
+Array
+(
+    [id_proceso] => 1
+    [datos_actualizados] => Array
+        (
+            [0] => Array
+                (
+                    [idGuia] => 1
+                    [nuevoEstado] => 3
+                    [observaciones] => 
+                )
+
+        )
+
+)
+

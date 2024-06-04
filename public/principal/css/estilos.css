@@ -1,5 +1,6 @@
 .input {
   width: 100%;
+  max-width: 500px;
   border: none;
   border-radius: 10px;
   background: rgb(205, 218, 226);
@@ -12,7 +13,7 @@
   font-weight: 500;
   font-size: 17px;
   box-shadow: 1px 1px 2px rgb(238, 238, 238);
-  margin-bottom: -5px;
+  margin-bottom: 15px;
   margin-left: -5px;
   outline: none !important;
   /* background-image: url(../../images/itm-merida-fondo.webp);

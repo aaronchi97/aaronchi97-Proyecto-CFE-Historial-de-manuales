@@ -1,10 +1,12 @@
 <?php
+include '../../controlador/controlador_eliminar_documentos.php';
+
 
 session_start();
 //si el nombre y apellido estan vacios entonces redirigelos a la pagina de login.php
 //esto hace que si quieres colocar el link que te arroja el navegador al iniciar sesion
 //lo compias y lo pegas desde el inicio entonces no te dejara, hasta que pongas un usuario valido
-if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
+if (empty ($_SESSION['nombre-sinasu']) and empty ($_SESSION['apellido-sinasu'])) {
   header("location:../login/login_sinasu.php");
 }
 
@@ -15,10 +17,10 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
   }
 </style>
 <!-- primero se carga el topbar -->
-<?php require('./../layout/topbar_sinasu.php'); ?>
+<?php require ('./../layout/topbar_sinasu.php'); ?>
 <!-- luego se carga el sidebar -->
-<?php require('./../layout/sidebar_sinasu.php'); ?>
-
+<?php require ('./../layout/sidebar_sinasu.php'); ?>
+<?php include "../../modelo/conexion-SINASU.php"; ?>
 
 <!-- inicio del contenido principal -->
 
@@ -30,23 +32,40 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
     <?php
     $id_agencia_regresar_vista_documentos = $_SESSION["id-agencia-sinasu"];
     $mostrar_id_guia = $_GET['id_guia_subir_doc'];
-    echo "la guia es: " . $mostrar_id_guia;
+    $mostrar_id_proceso = $_GET['id_proceso'];
+
+    $sql_pregunta = $conexionSINASU->query("SELECT pregunta FROM sinasu_guias_" . $mostrar_id_proceso . " WHERE id_guia = '$mostrar_id_guia';");
+
+    if ($sql_pregunta->num_rows > 0) {
+      // Obtener el nombre del proceso del primer resultado
+      $nombre_pregunta = $sql_pregunta->fetch_assoc()['pregunta'];
+
+      // Mostrar el nombre del proceso
+      echo "<h4 class='text-justify text-secondary titulo-renta2'><b>" . $mostrar_id_guia . "- " . $nombre_pregunta . "</b></h4>";
+    }
+    // echo "la guia es: " . $mostrar_id_guia;
     // Verificar si se ha proporcionado un id_guia_subir_doc en la URL
     $_SESSION["mostrar-id-guia"] = $mostrar_id_guia;
+    $_SESSION["mostrar-id-proceso"] = $mostrar_id_proceso;
     ?>
 
-    <a href="../SINASU/agencias_filtros.php?id_agencias_filtro=<?= $id_agencia_regresar_vista_documentos ?>"
+    <input type="hidden" id="mostrar_id_agencia" value="<?php echo $id_agencia_regresar_vista_documentos; ?>">
+    <a href="../SINASU/agencias_filtros.php?id_agencias_filtro=<?= $id_agencia_regresar_vista_documentos ?>&id_proceso=<?= $mostrar_id_proceso ?>&id_departamento=<?= $_GET['id_departamento'] ?>"
       class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-regular fa-circle-left"></i>
       &nbsp;
       ATRAS</a>
     <div class="subir">
       <div class="drop-area">
-        <h2>Arrastra y suelta el documento PDF</h2>
+        <h2>Arrastra y Suelta la Evidencia</h2>
         <span>O</i>
         </span>
         <button>Selecciona tus archivos</button>
         <input type="file" name="" id="input-file" hidden multipart>
       </div>
+      <article>
+        <h5 style="color:#aaa;">Nota: Puedes subir imagenes (png, jpg y jpeg), documentos de office(docx, xslx, pptx) y
+          documentos pdf</h5>
+      </article>
       <div id="preview">
       </div>
     </div>
@@ -57,69 +76,5 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 
 
 
-<!-- <div class="page-content">
-  <h1 class="titulo_subir">Subir Archivos</h1>
-  <a href="agencia1.php" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-regular fa-circle-left"></i> &nbsp;
-    ATRAS</a>
-  <section class="seccion_subir">
-    <article>
-      <div>
-        <form class="form_subir" action="upload.php" method="post" enctype="multipart/form-data" id="uploadForm">
-          <label for="pdfFile">Seleccionar archivo PDF:</label>
-          <input type="file" name="pdfFile" id="pdfFile" accept=".pdf" onchange="previewFile()">
-          <br>
-          <img src="" alt="Vista previa" id="previewImg" style="display:none;">
-          <br>
-          <div id="drop-area" ondrop="dropHandler(event);" ondragover="dragOverHandler(event)">
-            <p>O arrastra y suelta tu archivo PDF aquí</p>
-            <p id="fileNameDisplay"></p>
-          </div>
-          <br>
-          <input type="submit" value="Subir PDF">
-        </form>
-      </div>
-    </article>
-  </section>
-</div>
-
-<script>
-  function dropHandler(event) {
-    event.preventDefault();
-    const files = event.dataTransfer.files;
-
-    // Verifica si hay archivos
-    if (files.length > 0) {
-      // Muestra el nombre del archivo debajo del área de arrastre
-      const fileNameDisplay = document.getElementById('fileNameDisplay');
-      fileNameDisplay.innerHTML = 'Nombre del archivo: ' + files[0].name;
-    }
-  }
-
-  function dragOverHandler(event) {
-    event.preventDefault();
-  }
-
-  function previewFile() {
-    const preview = document.getElementById('previewImg');
-    const file = document.getElementById('pdfFile').files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = function () {
-      preview.src = reader.result;
-      preview.style.display = 'block';
-    }
-
-    if (file) {
-      reader.readAsDataURL(file);
-    } else {
-      preview.src = '';
-      preview.style.display = 'none';
-    }
-  }
-
-</script> -->
-
-
-
 <!-- por ultimo se carga el footer -->
-<?php require('./../layout/footer_sinasu.php'); ?>
+<?php require ('./../layout/footer_sinasu.php'); ?>

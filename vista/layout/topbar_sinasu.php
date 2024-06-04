@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport">
         <meta content="ie=edge" http-equiv="x-ua-compatible">
-        <title>Plantilla-php</title>
+        <title>SINASU</title>
 
 
 
@@ -35,7 +35,7 @@
 
         <!-- form -->
         <link rel="stylesheet" type="text/css"
-            href="../public/app/publico/css/lib/jquery-flex-label/jquery.flex.label.css"> <!-- Original -->
+            href="../../public/app/publico/css/lib/jquery-flex-label/jquery.flex.label.css"> <!-- Original -->
 
         <!-- mis estilos -->
         <link href="../../public/principal/css/estilos.css" rel="stylesheet">
@@ -64,41 +64,41 @@
         <script src="../../public/chart/chart.js"></script>
 
         <style>
-            .marca {
-                width: 100%;
-                background: rgb(13, 39, 48);
-                position: fixed;
-                bottom: 0;
-                z-index: 999;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 10px;
-            }
+        .marca {
+            width: 100%;
+            background: rgb(13, 39, 48);
+            position: fixed;
+            bottom: 0;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
 
-            .marca__parrafo {
-                margin: 0 !important;
-                color: white;
-            }
+        .marca__parrafo {
+            margin: 0 !important;
+            color: white;
+        }
 
-            .marca__texto {
-                color: rgb(0, 162, 255);
-                text-decoration: underline;
-            }
+        .marca__texto {
+            color: rgb(0, 162, 255);
+            text-decoration: underline;
+        }
 
-            .marca__parrafo span {
-                color: red;
-            }
+        .marca__parrafo span {
+            color: red;
+        }
 
+        .page-content {
+            margin-top: 70px;
+        }
+
+        @media screen and (max-width:1056px) {
             .page-content {
-                margin-top: 70px;
+                padding: 15px !important;
             }
-
-            @media screen and (max-width:1056px) {
-                .page-content {
-                    padding: 15px !important;
-                }
-            }
+        }
         </style>
 
     </head>
@@ -135,35 +135,43 @@
 
                             if ($_SESSION['rol-sinasu'] == 1) {
                                 ?>
-                                <div class="dropdown dropdown-notification">
-                                    <h6 class="text-light mt-2">
-                                        Administrador
-                                    </h6>
-                                </div>
-                                <?php
+                            <div class="dropdown dropdown-notification">
+                                <h6 class="text-light mt-2">
+                                    Administrador
+                                </h6>
+                            </div>
+                            <?php
 
                                 // $mostrarBoton = false;
                             
                             } else if ($_SESSION['rol-sinasu'] == 2) {
                                 ?>
-                                    <div class="dropdown dropdown-notification">
-                                        <h6 class="text-light mt-2">
-                                            Supervisor
-                                        </h6>
-                                    </div>
+                            <div class="dropdown dropdown-notification">
+                                <h6 class="text-light mt-2">
+                                    Supervisor
+                                </h6>
+                            </div>
 
-                                <?php
+                            <?php
+
+                            } else if ($_SESSION['rol-sinasu'] == 3){
+                                ?>
+                            <div class="dropdown dropdown-notification">
+                                <h6 class="text-light mt-2">
+                                    Agencia
+                                </h6>
+                            </div>
+
+                            <?php
 
                             } else {
                                 ?>
-                                    <div class="dropdown dropdown-notification">
-                                        <h6 class="text-light mt-2">
-                                            Consultor
-                                        </h6>
-                                    </div>
-
-                                <?php
-
+                            <div class="dropdown dropdown-notification">
+                                <h6 class="text-light mt-2">
+                                    Consulta
+                                </h6>
+                            </div>
+                            <?php
                             }
                             ?>
 
