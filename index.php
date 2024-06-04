@@ -68,8 +68,8 @@
 
 
 
-
-        <a class="boton-sinasu-manuales" href="vista/login/login.php">
+        <!-- ACTIVAR CUANDO REPORTE DE MANUALES ESTE ACTIVO -->
+        <!-- <a class="boton-sinasu-manuales" href="vista/login/login_sinasu.php">
 
 
             <div class="parte-sinasu-manuales">
@@ -85,7 +85,7 @@
                 <h1>REPORTE DE MANUALES</h1>
 
             </div>
-        </a>
+        </a> -->
 
 
     </section>

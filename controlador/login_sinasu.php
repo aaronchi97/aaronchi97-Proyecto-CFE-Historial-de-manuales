@@ -5,9 +5,9 @@ session_start(); //metodo php para guardar sesiones e inicializar sesion
 //y ponemos el metodo sesion dentro de los if
 
 
-if (!empty($_POST["btningresar"])) {
+if (!empty ($_POST["btningresar"])) {
 
-    if (!empty($_POST["usuario"]) and !empty($_POST["password"])) {
+    if (!empty ($_POST["usuario"]) and !empty ($_POST["password"])) {
 
         $usuario = $_POST["usuario"];
         // $password = md5($_POST["password"]); //md5 es para encriptacion de la contraseña
@@ -24,6 +24,8 @@ if (!empty($_POST["btningresar"])) {
             //si la sql tiene datos dentro entonces el usuario existe
             header("location:../SINASU/acerca-sinasu.php"); //redireccionamos a inicio 
 // echo $password;
+            //almacenar el nombre del usuario
+            $_SESSION["usuario-sinasu"] = $usuario;
             //almacenar el nombre de usuario
             $_SESSION["nombre-sinasu"] = $datos->nombre; //el "nombre" es el campo que se llama asi en la bd
 
@@ -38,6 +40,7 @@ if (!empty($_POST["btningresar"])) {
 
 
 
+
             //PARTE DEL CODIGO PARA LA TABLA AGENCIAS
             $id_usuario_sinasu_para_id_agencia = $_SESSION["id-sinasu"];
 
@@ -47,6 +50,7 @@ if (!empty($_POST["btningresar"])) {
 
             //almacenar el id de agencia
             $_SESSION["id-agencia-sinasu"] = $dato_obtener_id_agencia->id_agencia;
+            $_SESSION["id_departamento"] = $dato_obtener_id_agencia->id_departamento;
 
 
 

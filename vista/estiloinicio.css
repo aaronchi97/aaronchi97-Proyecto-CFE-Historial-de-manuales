@@ -27,6 +27,7 @@
 }
 
 */
+
 .table {
   background-image: url(login/img/itm-merida-fondo.webp);
   background-size: cover;
@@ -106,4 +107,62 @@ th[scope="row"] {
   background-color: #195a78;
   color: white;
   transform: scale(1.15);
+}
+
+/* ESTILO PARA LOS ELEMENTOS UI EN ACERCA SINASU */
+
+.ui-elements {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  margin: 20px 0px;
+}
+
+.ui-1 {
+  width: 280px;
+  padding: 24px;
+  background-color: #bdb1fe;
+  color: #242422;
+  border-radius: 30px;
+  display: inline-block;
+}
+.titulo-pendiente {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 10px;
+  text-align: center;
+}
+
+/* ESTILO PARA EL ELEMENTO PENDIENTE DE DEPARTAMENTOS */
+
+.seccion-pendientes {
+  width: 100%;
+  /* border: 1px red solid; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.texto-pendiente {
+  margin: 0;
+}
+.pendientes_total :hover {
+  color: #fff;
+  background-color: #bdb1fe;
+  transform: scale(1.15);
+}
+.pendientes_total {
+  border-radius: 10px;
+  background-color: #242422;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  margin: auto;
+  text-decoration: none;
 }
