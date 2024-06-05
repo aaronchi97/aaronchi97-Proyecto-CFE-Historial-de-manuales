@@ -5,7 +5,7 @@ const input = dropArea.querySelector("#input-file");
 let files;
 // Obtener el valor de mostrar_id_guia desde el elemento HTML
 var mostrar_id_agencia = document.getElementById("mostrar_id_agencia").value;
-console.log(mostrar_id_agencia);
+console.log("mostrar_id_agencia:", mostrar_id_agencia);
 
 button.addEventListener("click", (e) => {
   input.setAttribute("multiple", "multiple");
@@ -80,7 +80,7 @@ function processFile(file) {
         <div id="${id}" class="file-container">
         <i class="fa-regular fa-file-lines" style="font-size:20px"></i>
           <div class="status">
-            <span> <a target="_blank" href="../SINASU/uploads/control${mostrar_id_agencia}${file.name}" >${file.name}</a></span>
+            <span> <a target="_blank" href="../SINASU/uploads/${mostrar_id_agencia}${file.name}" >${file.name}</a></span>
             <span class="status-text">
               Loading...
           </div>
@@ -102,6 +102,12 @@ function processFile(file) {
 async function uploadFile(file, id) {
   const formData = new FormData();
   formData.append("file", file);
+  formData.append("mostrar_id_agencia", mostrar_id_agencia);
+
+  // Verifica que el FormData se ha llenado correctamente
+  for (let pair of formData.entries()) {
+    console.log(pair[0] + ": " + pair[1]);
+  }
 
   try {
     const response = await fetch("upload.php", {

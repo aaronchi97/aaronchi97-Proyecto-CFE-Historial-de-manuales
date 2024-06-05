@@ -66,6 +66,9 @@ ul li:nth-child(1) .activo {
   ");
 
   ?>
+    <section class="seccion-filtros">
+        <input type="month">
+    </section>
 
     <section class="seccion-btns">
         <a href="../SINASU/procesos.php?id_agencias_filtro=<?= $id_agencias_filtro ?>&id_departamento=<?= $id_departamento ?>"
@@ -294,7 +297,7 @@ ul li:nth-child(1) .activo {
 
 
                         <a style="font-size: 15px;" class="btn "
-                            href="../SINASU_AGENCIAS/subir_archivos_admin.php?id_guia=<?= $datos->id_guia ?>&id_agencia_revision_administrador=<?= $datos->id_agencia ?>&id_proceso=<?= $datos->id_proceso ?>&id_departamento=<?= $_GET['id_departamento'] ?>"><img
+                            href="../SINASU_AGENCIAS/subir_archivos_admin.php?id_guia=<?= $datos->id_guia ?>&id_agencias_filtro=<?= $datos->id_agencia ?>&id_proceso=<?= $datos->id_proceso ?>&id_departamento=<?= $_GET['id_departamento'] ?>"><img
                                 class="doc_subir_logo" src="img-sinasu/agregar_evidencia.svg" alt="">
                             <tool-tip role="tooltip"><b>Subir
                                     evidencias</b></tool-tip>

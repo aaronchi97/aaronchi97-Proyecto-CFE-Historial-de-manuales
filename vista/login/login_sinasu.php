@@ -22,14 +22,14 @@
         <div style="height: 150px; overflow: hidden;"><svg viewBox="0 0 500 150" preserveAspectRatio="none"
                 style="height: 100%; width: 100%;">
                 <path d="M-0.18,36.34 C193.38,-52.25 388.07,240.44 502.07,-7.45 L500.00,150.33 L-0.00,150.33 Z"
-                    style="stroke: none; fill: #9889fe;"></path>
+                    style="stroke: none; fill: #008f5b6c;"></path>
             </svg></div>
 
     </section>
 
     <div class="container">
         <div class="img">
-            <img src="img/sinasu-icono1.png">
+            <img src="img/Filing system-pana.svg">
 
         </div>
 
@@ -104,13 +104,13 @@
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var usuarioInput = document.getElementById('usuario');
+    document.addEventListener('DOMContentLoaded', function() {
+        var usuarioInput = document.getElementById('usuario');
 
-            usuarioInput.addEventListener('input', function () {
-                this.value = this.value.replace(/\s/g, ''); // Elimina espacios en blanco
-            });
+        usuarioInput.addEventListener('input', function() {
+            this.value = this.value.replace(/\s/g, ''); // Elimina espacios en blanco
         });
+    });
     </script>
 
     <script src="js/fontawesome.js"></script>

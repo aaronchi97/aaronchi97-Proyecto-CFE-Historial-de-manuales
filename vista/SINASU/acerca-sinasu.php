@@ -15,10 +15,6 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 <?php require ('./../layout/sidebar_sinasu.php');
 include '../../controlador/controlador_pendientes_administrador.php';
 include '../../modelo/conexion-SINASU.php'; ?>
-<?php require ('./../layout/topbar_sinasu.php'); ?>
-<?php require ('./../layout/sidebar_sinasu.php');
-include '../../controlador/controlador_pendientes_administrador.php';
-include '../../modelo/conexion-SINASU.php'; ?>
 
 <style>
 ul li:nth-child(5) .activo {
@@ -156,5 +152,4 @@ var carousel = new bootstrap.Carousel(myCarousel, {
 
 
 
-<?php require ('./../layout/footer_sinasu.php'); ?>
 <?php require ('./../layout/footer_sinasu.php'); ?>

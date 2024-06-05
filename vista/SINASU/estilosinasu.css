@@ -60,7 +60,7 @@
 }
 
 .parte-sinasu-agencias:hover .fondo-2 {
-  background-color: #9989fed4;
+  background-color: #008f5b6c;
 }
 
 .parte-sinasu-agencias {
@@ -74,7 +74,7 @@
   gap: 10px;
   padding: 100px;
   border-radius: 15px;
-  border: 1px #8e8e8e solid;
+  /* border: 1px #8e8e8e solid; */
   transition: all 0.5s;
   overflow: hidden;
   position: relative;

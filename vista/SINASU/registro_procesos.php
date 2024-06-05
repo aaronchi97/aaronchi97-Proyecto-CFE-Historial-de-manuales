@@ -11,8 +11,8 @@ if (empty($_SESSION['nombre-sinasu']) and empty($_SESSION['apellido-sinasu'])) {
 ?>
 
 <style>
-ul li:nth-child(2) .activo {
-    background: #9889fe !important;
+ul li:nth-child(1) .activo {
+    background: #008f5a !important;
 }
 </style>
 

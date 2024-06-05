@@ -33,7 +33,7 @@ ul li:nth-child(1) .activo {
     <div class="page-content">
         <?php
     error_reporting(E_ERROR | E_PARSE);
-    $id_agencia_regresar_vista_documentos = $_GET["id_agencia_revision_administrador"];
+    $id_agencia_regresar_vista_documentos = $_GET["id_agencias_filtro"];
 
     $mostrar_id_guia = $_GET['id_guia'];
     $mostrar_id_proceso = $_GET['id_proceso'];
@@ -58,7 +58,7 @@ ul li:nth-child(1) .activo {
 
         <?php
     // Verificar si el parámetro relacionado con las agencias está presente en la URL
-    $agenciasPresentes = isset ($_GET['id_agencia_revision_administrador']);
+    $agenciasPresentes = isset ($_GET['id_agencias_filtro']);
 
     // Verificar si el parámetro relacionado con el proceso comercial está presente en la URL
     $procesoComercialPresente = isset ($_GET['id_proceso']);
@@ -68,7 +68,7 @@ ul li:nth-child(1) .activo {
         <!-- Botón de atrás a Agencias -->
         <?php if ($agenciasPresentes): ?>
         <!-- Botón de atrás a Agencias -->
-        <a href="../SINASU/agencias_filtros.php?id_agencias_filtro=<?= $_GET['id_agencia_revision_administrador'] ?>&id_proceso=<?= $_GET['id_proceso'] ?>&id_departamento=<?= $_GET['id_departamento'] ?>"
+        <a href="../SINASU/agencias_filtros.php?id_agencias_filtro=<?= $_GET['id_agencias_filtro'] ?>&id_proceso=<?= $_GET['id_proceso'] ?>&id_departamento=<?= $_GET['id_departamento'] ?>"
             class="btn btn-danger btn-rounded mb-3 otro" style="margin: 20px 0px">
             <i class="fa-regular fa-circle-left"></i> &nbsp; ATRÁS
         </a>
