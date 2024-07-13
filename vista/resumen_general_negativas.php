@@ -11,7 +11,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 ?>
 
 <style>
-    ul li:nth-child(1) .activo {
+    ul li:nth-child(2) .activo {
         background: #598b6b !important;
     }
 </style>
@@ -87,196 +87,305 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        //SE HACE LA CONSULTA PARA SABER EL TOTAL DE VECES QUE UNA AGENCIA PARTICIPA EN UN MOTIVO EN ESPECIFICO EN UN INTERVALO DE TIEMPO ESPECIFICO
+        //SE HACE LA CONSULTA PARA SABER EL TOTAL DE VECES QUE UNA AGENCIA PARTICIPA EN UN MOTIVO DE CORRECCION EN ESPECIFICO EN UN INTERVALO DE TIEMPO ESPECIFICO
 
 
 
 
 
-        // Suponiendo que ya tienes tu conexión a la base de datos establecida
+
 
         // Array con las agencias de interés
         $agencias = array('A', 'B', 'C', 'D', 'E', 'G', 'H', 'J', 'K', 'M');
 
         // Inicializar variable para el total general de agencias--------------------------------------------
         $total_agencias = 0;
-        $total_agenciasLR = 0;
-        $total_agenciasASA = 0;
-        $total_agenciasMSR = 0;
-        $total_agenciasECA = 0;
-        $total_agenciasMD = 0;
-        $total_agenciasCDFP = 0;
-        $total_agenciasCD = 0;
-        $total_agenciasELT = 0;
-        $total_agenciasMQ = 0;
+        $total_agenciasOMA = 0;
+        $total_agenciasEMFA = 0;
+        $total_agenciasEL2 = 0;
+        $total_agenciasCM = 0;
+        $total_agenciasEAMA = 0;
+        $total_agenciasLANG = 0;
+        $total_agenciasFAE = 0;
+        $total_agenciasTEFA = 0;
+
         //para la suma individual de las agencias
         $suma_total_agencias = 0;
 
 
         // Inicializar un array para almacenar los totales de cada agencia---------------------------------
         $totales_por_agencia = array();
-        $totales_por_agenciaLR = array();
-        $totales_por_agenciaASA = array();
-        $totales_por_agenciaMSR = array();
-        $totales_por_agenciaECA = array();
-        $totales_por_agenciaMD = array();
-        $totales_por_agenciaCDFP = array();
-        $totales_por_agenciaCD = array();
-        $totales_por_agenciaELT = array();
-        $totales_por_agenciaMQ = array();
+        $totales_por_agenciaOMA = array();
+        $totales_por_agenciaEMFA = array();
+        $totales_por_agenciaEL2 = array();
+        $totales_por_agenciaCM = array();
+        $totales_por_agenciaEAMA = array();
+        $totales_por_agenciaLANG = array();
+        $totales_por_agenciaFAE = array();
+        $totales_por_agenciaTEFA = array();
+
         // Inicializar un array para almacenar los totales por agencia
         $total_por_agencia_global = array();
-        //Array para rpe auxiliar
+        //ARRAYS PARA LOS RPE AUXILIARES
         $rpe_por_agencia = array();
+        $rpe_por_agencia_OMA = array();
+        $rpe_por_agencia_EMFA = array();
+        $rpe_por_agencia_EL2 = array();
+        $rpe_por_agencia_CM = array();
+        $rpe_por_agencia_EAMA = array();
+        $rpe_por_agencia_LANG = array();
+        $rpe_por_agencia_FAE = array();
+        $rpe_por_agencia_TEFA = array();
 
 
 
 
 
 
-        // Consulta SQL para obtener el número de veces que cada agencia aparece-------------------------------------
+        // CONSULTAS SQL para obtener el número de veces que cada agencia aparece-------------------------------------------------------------------------------
         foreach ($agencias as $agencia) {
 
 
-            //CONSULTA PARA  EN ERROR EN TOMA DE LECTURA
+            //CONSULTA PARA  ERROR EN LA TOMA DE LECTURA ANTERIOR------------------------------------------------
             $sql = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR EN TOMA DE LECTURA')) 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN LA TOMA DE LECTURA ANTERIOR')) 
                         AND DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
                         AND agencia = '$agencia'";
 
 
-            //CONSULTA PARA RPE AUXILIARES EN ERROR EN TOMA DE LECTURA
+            //CONSULTA PARA RPE AUXILIARES EN  ERROR EN LA TOMA DE LECTURA ANTERIOR -
             $sql_rpe = "SELECT 
                 rpe_auxiliar,
                 COUNT(*) AS total_veces
             FROM 
-                control_manuales
+                control_negativas
             WHERE 
-                TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR EN TOMA DE LECTURA')) 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN LA TOMA DE LECTURA ANTERIOR')) 
                 AND DATE(fecha_captura) BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
                 AND agencia = '$agencia'
             GROUP BY 
                 rpe_auxiliar";
 
-            //CONSULTA PARA LECTURA DE RETIRO
-
-            $sql_LR = "SELECT 
+            //CONSULTA PARA ORDEN DE MEDICION ATENDIDA -----------------------------------------------------
+            // $sql_LR 
+            $sql_OMA = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('LECTURA DE RETIRO')) 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ORDEN DE MEDICION ATENDIDA')) 
+                        AND DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                        AND agencia = '$agencia'";
+
+            //CONSULTA PARA RPE AUXILIARES EN ORDEN DE MEDICION ATENDIDA -
+            $sql_rpe_OMA = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ORDEN DE MEDICION ATENDIDA')) 
+                AND DATE(fecha_captura) BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
+
+
+            //CONSULTA ESTIMACION MAYOR EN FACT ANTERIOR ---------------------------------------------------
+            // $sql_ASA
+            $sql_EMFA = "SELECT 
+                        COUNT(*) AS total_veces
+                    FROM 
+                       control_negativas
+                    WHERE 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ESTIMACION MAYOR EN FACT ANTERIOR')) 
+                        AND DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                        AND agencia = '$agencia'";
+
+            //CONSULTA PARA RPE AUXILIARES EN ESTIMACION MAYOR EN FACT ANTERIOR-
+            $sql_rpe_EMFA = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ESTIMACION MAYOR EN FACT ANTERIOR')) 
+                AND DATE(fecha_captura) BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
+
+
+            //CONSULTA ERROR LOTE 23NU ---------------------------------------------------------------------
+            // $sql_MSR
+
+            $sql_EL2 = "SELECT 
+                        COUNT(*) AS total_veces
+                    FROM 
+                       control_negativas
+                    WHERE 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR LOTE 23NU')) 
                         AND DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
                         AND agencia = '$agencia'";
 
 
-            //ANOMALIA SIN ATENCION
+            //CONSULTA PARA RPE AUXILIARES EN ERROR LOTE 23NU-
+            $sql_rpe_EL2 = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR LOTE 23NU')) 
+                AND DATE(fecha_captura) BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
 
-            $sql_ASA = "SELECT 
+
+            //CAMBIO DE MEDIDOR ----------------------------------------------------------------------------
+            // $sql_ECA
+
+            $sql_CM = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ANOMALIA SIN ATENCION')) 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('CAMBIO DE MEDIDOR')) 
                         AND DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
                         AND agencia = '$agencia'";
 
 
-            //ANOMALIA MEDIDOR SIN RETROALIMENTAR
+            //CONSULTA PARA RPE AUXILIARES EN CAMBIO DE MEDIDOR-
+            $sql_rpe_CM = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('CAMBIO DE MEDIDOR')) 
+                AND DATE(fecha_captura) BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
 
 
-            $sql_MSR = "SELECT 
+
+            // ERROR EN ANALISIS DE MANUAL ANTERIOR ----------------------------------------------------------
+            // $sql_MD
+
+            $sql_EAMA = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR SIN RETROALIMENTAR')) 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN ANALISIS DE MANUAL ANTERIOR')) 
                         AND DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
                         AND agencia = '$agencia'";
 
 
-            //ANOMALIA ESTIMACION EN CERO CON ANOMALIA
+            //CONSULTA PARA RPE AUXILIARES EN ERROR EN ANALISIS DE MANUAL ANTERIOR-
+            $sql_rpe_EAMA = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN ANALISIS DE MANUAL ANTERIOR')) 
+                AND DATE(fecha_captura) BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
 
 
-            $sql_ECA = "SELECT 
+            // LECTURA ACUMULADA CON NA GENERADA --------------------------------------------------------------
+            // $sql_CDFP
+
+            $sql_LANG = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ESTIMACION EN CERO CON ANOMALIA')) 
-                        AND DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
-
-
-
-            // MEDIDOR DESPROGRAMADO
-
-
-            $sql_MD = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR DESPROGRAMADO')) 
-                        AND DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
-
-
-            // CORRECCION DEMANDA Y/O FP
-
-
-            $sql_CDFP = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('CORRECCION DEMANDA Y/O FP')) 
-                        AND DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
-
-
-            // CORREGIR DEMANDA
-
-
-            $sql_CD = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('CORREGIR DEMANDA')) 
-                        AND DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
-
-
-
-            // ERROR LECTURA TELEMEDIDA
-
-            $sql_ELT = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR LECTURA TELEMEDIDA')) 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('LECTURA ACUMULADA CON NA GENERADA')) 
                         AND DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
                         AND agencia = '$agencia'";
 
 
 
+            //CONSULTA PARA RPE AUXILIARES EN LECTURA ACUMULADA CON NA GENERADA-
+            $sql_rpe_LANG = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('LECTURA ACUMULADA CON NA GENERADA')) 
+                AND DATE(fecha_captura) BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
 
-            // MEDIDOR QUITAPON
 
-            $sql_MQ = "SELECT 
+            // FINIQUITO ANTERIOR ERRONEO -----------------------------------------------------------------------
+            // $sql_CD
+
+            $sql_FAE = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR QUITAPON')) 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('FINIQUITO ANTERIOR ERRONEO')) 
                         AND DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
                         AND agencia = '$agencia'";
+
+
+
+            //CONSULTA PARA RPE AUXILIARES EN FINIQUITO ANTERIOR ERRONEO-
+            $sql_rpe_FAE = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('FINIQUITO ANTERIOR ERRONEO')) 
+                AND DATE(fecha_captura) BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
+
+
+
+            // TELEMEDICION ERRONEA FACT ANTERIOR ---------------------------------------------------------------------
+            // $sql_ELT
+
+            $sql_TEFA = "SELECT 
+                        COUNT(*) AS total_veces
+                    FROM 
+                        control_negativas
+                    WHERE 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('TELEMEDICION ERRONEA FACT ANTERIOR')) 
+                        AND DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                        AND agencia = '$agencia'";
+
+
+
+            //CONSULTA PARA RPE AUXILIARES EN TELEMEDICION ERRONEA FACT ANTERIOR-
+            $sql_rpe_TEFA = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('TELEMEDICION ERRONEA FACT ANTERIOR')) 
+                AND DATE(fecha_captura) BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
+
 
 
 
@@ -290,16 +399,26 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
             // Ejecutar la consulta
             $resultado = mysqli_query($conexion, $sql);
+            $resultado_OMA = mysqli_query($conexion, $sql_OMA);
+            $resultado_EMFA = mysqli_query($conexion, $sql_EMFA);
+            $resultado_EL2 = mysqli_query($conexion, $sql_EL2);
+            $resultado_CM = mysqli_query($conexion, $sql_CM);
+            $resultado_EAMA = mysqli_query($conexion, $sql_EAMA);
+            $resultado_LANG = mysqli_query($conexion, $sql_LANG);
+            $resultado_FAE = mysqli_query($conexion, $sql_FAE);
+            $resultado_TEFA = mysqli_query($conexion, $sql_TEFA);
+            // Ejecutar la consulta RPE AUXILIARES
             $resultado_rpe = mysqli_query($conexion, $sql_rpe);
-            $resultado_LR = mysqli_query($conexion, $sql_LR);
-            $resultado_ASA = mysqli_query($conexion, $sql_ASA);
-            $resultado_MSR = mysqli_query($conexion, $sql_MSR);
-            $resultado_ECA = mysqli_query($conexion, $sql_ECA);
-            $resultado_MD = mysqli_query($conexion, $sql_MD);
-            $resultado_CDFP = mysqli_query($conexion, $sql_CDFP);
-            $resultado_CD = mysqli_query($conexion, $sql_CD);
-            $resultado_ELT = mysqli_query($conexion, $sql_ELT);
-            $resultado_MQ = mysqli_query($conexion, $sql_MQ);
+            $resultado_rpe_OMA = mysqli_query($conexion, $sql_rpe_OMA);
+            $resultado_rpe_EMFA = mysqli_query($conexion, $sql_rpe_EMFA);
+            $resultado_rpe_EL2 = mysqli_query($conexion, $sql_rpe_EL2);
+            $resultado_rpe_CM = mysqli_query($conexion, $sql_rpe_CM);
+            $resultado_rpe_EAMA = mysqli_query($conexion, $sql_rpe_EAMA);
+            $resultado_rpe_LANG = mysqli_query($conexion, $sql_rpe_LANG);
+            $resultado_rpe_FAE = mysqli_query($conexion, $sql_rpe_FAE);
+            $resultado_rpe_TEFA = mysqli_query($conexion, $sql_rpe_TEFA);
+
+
 
 
 
@@ -313,7 +432,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
             // Verificar si la consulta fue exitosa
             if ($resultado) {
 
-                //----------------------------------------------Motivo ERROR EN TOMA DE LECTURA-------------------------------------------------
+                //----------------------------------------------Motivo ERROR EN LA TOMA DE LECTURA ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
                 $fila = mysqli_fetch_assoc($resultado);
@@ -331,7 +450,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                //----------------------------------------------RPE AUXILIARES PARA ERROR EN TOMA DE LECTURA-------------------------------------------------
+                //----------------------------------------------RPE AUXILIARES PARA ERROR EN LA TOMA DE LECTURA ANTERIOR
 
 
 
@@ -358,165 +477,409 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                // Almacenar el total de veces para esta agencia
-                $totales_por_agencia[$agencia] = $total_agencia;
-                // $total_agencias_rpe += $total_agencia;
+                // // Almacenar el total de veces para esta agencia
+                // $totales_por_agencia[$agencia] = $total_agencia;
+                // // $total_agencias_rpe += $total_agencia;
 
                 // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
                 $rpe_por_agencia[$agencia] = $rpe_agencia;
 
 
-                //----------------------------------------------Motivo Lectura Retiro-------------------------------------------------
+                //----------------------------------------------Motivo ORDEN DE MEDICION ATENDIDA ------------------------------------------------
 
 
                 // Obtener el resultado
-                $filaLR = mysqli_fetch_assoc($resultado_LR);
-                $total_vecesLR = $filaLR['total_veces'];
+                $filaOMA = mysqli_fetch_assoc($resultado_OMA);
+                $total_vecesOMA = $filaOMA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaLR[$agencia] = $total_vecesLR;
+                $totales_por_agenciaOMA[$agencia] = $total_vecesOMA;
 
                 // Sumar al total general
-                $total_agenciasLR += $total_vecesLR;
+                $total_agenciasOMA += $total_vecesOMA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_LR" . $agencia} = $total_vecesLR;
+                ${"total_OMA" . $agencia} = $total_vecesOMA;
+
+
+
+                //----------------------------------------------RPE AUXILIARES PARA ERROR EN ORDEN DE MEDICION ATENDIDA 
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeOMA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_OMA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_OMA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_OMA = $fila['rpe_auxiliar'];
+                    $total_veces_OMA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeOMA += $total_veces_OMA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_OMA[$rpe_auxiliar_OMA] = $total_veces_OMA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_OMA[$agencia] = $rpe_agencia_OMA;
 
 
                 //fin consulta 2
 
 
-                //----------------------------------------------Motivo ANOMALIA SIN ATENCION-------------------------------------------------
+                //----------------------------------------------Motivo  ESTIMACION MAYOR EN FACT ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaASA = mysqli_fetch_assoc($resultado_ASA);
-                $total_vecesASA = $filaASA['total_veces'];
+                $filaEMFA = mysqli_fetch_assoc($resultado_EMFA);
+                $total_vecesEMFA = $filaEMFA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaASA[$agencia] = $total_vecesASA;
+                $totales_por_agenciaEMFA[$agencia] = $total_vecesEMFA;
 
                 // Sumar al total general
-                $total_agenciasASA += $total_vecesASA;
+                $total_agenciasEMFA += $total_vecesEMFA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ASA" . $agencia} = $total_vecesASA;
+                ${"total_EMFA" . $agencia} = $total_vecesEMFA;
+
+
+                //----------------------------------------------RPE AUXILIARES PARA ESTIMACION MAYOR EN FACT ANTERIOR
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEMFA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EMFA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EMFA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EMFA = $fila['rpe_auxiliar'];
+                    $total_veces_EMFA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEMFA += $total_veces_EMFA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EMFA[$rpe_auxiliar_EMFA] = $total_veces_EMFA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EMFA[$agencia] = $rpe_agencia_EMFA;
 
 
                 //fin consulta 3
 
 
-                //----------------------------------------------Motivo MEDIDOR SIN RETROALIMENTAR-------------------------------------------------
+                //----------------------------------------------Motivo ERROR LOTE 23NU-------------------------------------------------
 
                 // Obtener el resultado
-                $filaMSR = mysqli_fetch_assoc($resultado_MSR);
-                $total_vecesMSR = $filaMSR['total_veces'];
+                $filaEL2 = mysqli_fetch_assoc($resultado_EL2);
+                $total_vecesEL2 = $filaEL2['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMSR[$agencia] = $total_vecesMSR;
+                $totales_por_agenciaEL2[$agencia] = $total_vecesEL2;
 
                 // Sumar al total general
-                $total_agenciasMSR += $total_vecesMSR;
+                $total_agenciasEL2 += $total_vecesEL2;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_MSR" . $agencia} = $total_vecesMSR;
+                ${"total_EL2" . $agencia} = $total_vecesEL2;
 
 
-                //fin consulta 3
+                //----------------------------------------------RPE AUXILIARES PARA ERROR LOTE 23NU
 
 
 
-                //----------------------------------------------Motivo ESTIMACION EN CERO CON ANOMALIA-------------------------------------------------
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEL2 = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EL2 = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EL2)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EL2 = $fila['rpe_auxiliar'];
+                    $total_veces_EL2_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEL2 += $total_veces_EL2_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EL2[$rpe_auxiliar_EL2] = $total_veces_EL2_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EL2[$agencia] = $rpe_agencia_EL2;
+
+
+                //fin consulta 4
+
+
+
+                //----------------------------------------------Motivo CAMBIO DE MEDIDOR -------------------------------------------------
 
                 // Obtener el resultado
-                $filaECA = mysqli_fetch_assoc($resultado_ECA);
-                $total_vecesECA = $filaECA['total_veces'];
+                $filaCM = mysqli_fetch_assoc($resultado_CM);
+                $total_vecesCM = $filaCM['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaECA[$agencia] = $total_vecesECA;
+                $totales_por_agenciaCM[$agencia] = $total_vecesCM;
 
                 // Sumar al total general
-                $total_agenciasECA += $total_vecesECA;
+                $total_agenciasCM += $total_vecesCM;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ECA" . $agencia} = $total_vecesECA;
+                ${"total_CM" . $agencia} = $total_vecesCM;
 
 
-                //fin consulta 3
+                //----------------------------------------------RPE AUXILIARES PARA CAMBIO DE MEDIDOR
 
 
-                //----------------------------------------------Motivo MEDIDOR DESPROGRAMADO-------------------------------------------------
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeCM = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_CM = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_CM)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_CM = $fila['rpe_auxiliar'];
+                    $total_veces_CM_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeCM += $total_veces_CM_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_CM[$rpe_auxiliar_CM] = $total_veces_CM_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_CM[$agencia] = $rpe_agencia_CM;
+
+
+                //fin consulta 5
+
+
+                //----------------------------------------------Motivo ERROR EN ANALISIS DE MANUAL ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaMD = mysqli_fetch_assoc($resultado_MD);
-                $total_vecesMD = $filaMD['total_veces'];
+                $filaEAMA = mysqli_fetch_assoc($resultado_EAMA);
+                $total_vecesEAMA = $filaEAMA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMD[$agencia] = $total_vecesMD;
+                $totales_por_agenciaEAMA[$agencia] = $total_vecesEAMA;
 
                 // Sumar al total general
-                $total_agenciasMD += $total_vecesMD;
+                $total_agenciasEAMA += $total_vecesEAMA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_MD" . $agencia} = $total_vecesMD;
+                ${"total_EAMA" . $agencia} = $total_vecesEAMA;
 
 
-                //fin consulta 3
+
+                //----------------------------------------------RPE AUXILIARES PARA ANALISIS DE MANUAL ANTERIOR
 
 
-                //----------------------------------------------Motivo CORRECCION DEMANDA Y/O FP-------------------------------------------------
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEAMA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EAMA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EAMA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EAMA = $fila['rpe_auxiliar'];
+                    $total_veces_EAMA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEAMA += $total_veces_EAMA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EAMA[$rpe_auxiliar_EAMA] = $total_veces_EAMA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EAMA[$agencia] = $rpe_agencia_EAMA;
+
+
+                //fin consulta 6
+
+
+                //----------------------------------------------Motivo LECTURA ACUMULADA CON NA GENERADA-------------------------------------------------
 
                 // Obtener el resultado
-                $filaCDFP = mysqli_fetch_assoc($resultado_CDFP);
-                $total_vecesCDFP = $filaCDFP['total_veces'];
+                $filaLANG = mysqli_fetch_assoc($resultado_LANG);
+                $total_vecesLANG = $filaLANG['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaCDFP[$agencia] = $total_vecesCDFP;
+                $totales_por_agenciaLANG[$agencia] = $total_vecesLANG;
 
                 // Sumar al total general
-                $total_agenciasCDFP += $total_vecesCDFP;
+                $total_agenciasLANG += $total_vecesLANG;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_CDFP" . $agencia} = $total_vecesCDFP;
+                ${"total_LANG" . $agencia} = $total_vecesLANG;
+
+                //----------------------------------------------RPE AUXILIARES PARA LECTURA ACUMULADA CON NA GENERADA
 
 
-                //fin consulta 3
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeLANG = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_LANG = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_LANG)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_LANG = $fila['rpe_auxiliar'];
+                    $total_veces_LANG_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeLANG += $total_veces_LANG_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_LANG[$rpe_auxiliar_LANG] = $total_veces_LANG_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_LANG[$agencia] = $rpe_agencia_LANG;
 
 
 
-                //----------------------------------------------Motivo CORREGIR DEMANDA-------------------------------------------------
+
+
+                //fin consulta 7
+
+
+
+                //----------------------------------------------Motivo FINIQUITO ANTERIOR ERRONEO-------------------------------------------------
 
                 // Obtener el resultado
-                $filaCD = mysqli_fetch_assoc($resultado_CD);
-                $total_vecesCD = $filaCD['total_veces'];
+                $filaFAE = mysqli_fetch_assoc($resultado_FAE);
+                $total_vecesFAE = $filaFAE['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaCD[$agencia] = $total_vecesCD;
+                $totales_por_agenciaFAE[$agencia] = $total_vecesFAE;
 
                 // Sumar al total general
-                $total_agenciasCD += $total_vecesCD;
+                $total_agenciasFAE += $total_vecesFAE;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_CD" . $agencia} = $total_vecesCD;
+                ${"total_FAE" . $agencia} = $total_vecesFAE;
+
+                //----------------------------------------------RPE AUXILIARES PARA FINIQUITO ANTERIOR ERRONEO
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeFAE = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_FAE = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_FAE)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_FAE = $fila['rpe_auxiliar'];
+                    $total_veces_FAE_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeFAE += $total_veces_FAE_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_FAE[$rpe_auxiliar_FAE] = $total_veces_FAE_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_FAE[$agencia] = $rpe_agencia_FAE;
 
 
                 //fin consulta 8
 
 
 
-                //----------------------------------------------Motivo ERROR LECTURA TELEMEDIDA-------------------------------------------------
+                //----------------------------------------------Motivo TELEMEDICION ERRONEA FACT ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaELT = mysqli_fetch_assoc($resultado_ELT);
-                $total_vecesELT = $filaELT['total_veces'];
+                $filaTEFA = mysqli_fetch_assoc($resultado_TEFA);
+                $total_vecesTEFA = $filaTEFA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaELT[$agencia] = $total_vecesELT;
+                $totales_por_agenciaTEFA[$agencia] = $total_vecesTEFA;
 
                 // Sumar al total general
-                $total_agenciasELT += $total_vecesELT;
+                $total_agenciasTEFA += $total_vecesTEFA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ELT" . $agencia} = $total_vecesELT;
+                ${"total_TEFA" . $agencia} = $total_vecesTEFA;
+
+
+
+                //----------------------------------------------RPE AUXILIARES PARA TELEMEDICION ERRONEA FACT ANTERIOR
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeTEFA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_TEFA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_TEFA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_TEFA = $fila['rpe_auxiliar'];
+                    $total_veces_TEFA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeTEFA += $total_veces_TEFA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_TEFA[$rpe_auxiliar_TEFA] = $total_veces_TEFA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_TEFA[$agencia] = $rpe_agencia_TEFA;
 
 
                 //fin consulta 9
@@ -524,23 +887,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                //----------------------------------------------Motivo MEDIDOR QUITAPON-------------------------------------------------
 
-                // Obtener el resultado
-                $filaMQ = mysqli_fetch_assoc($resultado_MQ);
-                $total_vecesMQ = $filaMQ['total_veces'];
-
-                // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMQ[$agencia] = $total_vecesMQ;
-
-                // Sumar al total general
-                $total_agenciasMQ += $total_vecesMQ;
-
-                // Asignar el valor a una variable dinámicamente
-                ${"total_MQ" . $agencia} = $total_vecesMQ;
-
-
-                //fin consulta 9
 
 
 
@@ -548,16 +895,12 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
                 // SUMAS TOTALES POR AGENCIA (NO POR MOTIVO)---------------------------------------------------------------------------------------
 
-                // $suma_total_agencias = 0;
-                // // Inicializar un array para almacenar los totales por agencia
-                // $total_por_agencia_global = array();
 
-                // Consulta SQL para obtener el número de veces que cada agencia aparece
-
-                // Aquí va tu consulta SQL
 
                 // Ejemplo hipotético para la variable total_agencia_por_motivo_A
-                $total_agencia_por_motivo = $totales_por_agencia[$agencia] + $totales_por_agenciaLR[$agencia] + $totales_por_agenciaASA[$agencia] + $totales_por_agenciaMSR[$agencia] + $totales_por_agenciaECA[$agencia] + $totales_por_agenciaMD[$agencia] + $totales_por_agenciaCDFP[$agencia] + $totales_por_agenciaCD[$agencia] + $totales_por_agenciaELT[$agencia] + $totales_por_agenciaMQ[$agencia];
+                $total_agencia_por_motivo = $totales_por_agencia[$agencia] + $totales_por_agenciaOMA[$agencia] + $totales_por_agenciaEMFA[$agencia] + $totales_por_agenciaEL2[$agencia] + $totales_por_agenciaCM[$agencia] + $totales_por_agenciaEAMA[$agencia] + $totales_por_agenciaLANG[$agencia] + $totales_por_agenciaFAE[$agencia] + $totales_por_agenciaTEFA[$agencia];
+
+
 
                 // Sumar al total global por agencia
                 $total_por_agencia_global[$agencia] = $total_agencia_por_motivo;
@@ -571,7 +914,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                // Aquí podrías imprimir el total de esta agencia si lo necesitas para depuración
+
                 // echo $total_por_agencia_global['M'];
             } else {
                 // Manejar el caso en el que la consulta falle
@@ -619,189 +962,302 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-
-        // Suponiendo que ya tienes tu conexión a la base de datos establecida
-
         // Array con las agencias de interés
         $agencias = array('A', 'B', 'C', 'D', 'E', 'G', 'H', 'J', 'K', 'M');
 
         // Inicializar variable para el total general de agencias--------------------------------------------
         $total_agencias = 0;
-        $total_agenciasLR = 0;
-        $total_agenciasASA = 0;
-        $total_agenciasMSR = 0;
-        $total_agenciasECA = 0;
-        $total_agenciasMD = 0;
-        $total_agenciasCDFP = 0;
-        $total_agenciasCD = 0;
-        $total_agenciasELT = 0;
-        $total_agenciasMQ = 0;
+        $total_agenciasOMA = 0;
+        $total_agenciasEMFA = 0;
+        $total_agenciasEL2 = 0;
+        $total_agenciasCM = 0;
+        $total_agenciasEAMA = 0;
+        $total_agenciasLANG = 0;
+        $total_agenciasFAE = 0;
+        $total_agenciasTEFA = 0;
+
         //para la suma individual de las agencias
         $suma_total_agencias = 0;
 
 
         // Inicializar un array para almacenar los totales de cada agencia---------------------------------
         $totales_por_agencia = array();
-        $totales_por_agenciaLR = array();
-        $totales_por_agenciaASA = array();
-        $totales_por_agenciaMSR = array();
-        $totales_por_agenciaECA = array();
-        $totales_por_agenciaMD = array();
-        $totales_por_agenciaCDFP = array();
-        $totales_por_agenciaCD = array();
-        $totales_por_agenciaELT = array();
-        $totales_por_agenciaMQ = array();
+        $totales_por_agenciaOMA = array();
+        $totales_por_agenciaEMFA = array();
+        $totales_por_agenciaEL2 = array();
+        $totales_por_agenciaCM = array();
+        $totales_por_agenciaEAMA = array();
+        $totales_por_agenciaLANG = array();
+        $totales_por_agenciaFAE = array();
+        $totales_por_agenciaTEFA = array();
+
         // Inicializar un array para almacenar los totales por agencia
         $total_por_agencia_global = array();
-        //Array para rpe auxiliar
+        //ARRAYS PARA LOS RPE AUXILIARES
         $rpe_por_agencia = array();
+        $rpe_por_agencia_OMA = array();
+        $rpe_por_agencia_EMFA = array();
+        $rpe_por_agencia_EL2 = array();
+        $rpe_por_agencia_CM = array();
+        $rpe_por_agencia_EAMA = array();
+        $rpe_por_agencia_LANG = array();
+        $rpe_por_agencia_FAE = array();
+        $rpe_por_agencia_TEFA = array();
 
 
 
 
-        // Consulta SQL para obtener el número de veces que cada agencia aparece-------------------------------------
+
+
+        // CONSULTAS SQL para obtener el número de veces que cada agencia aparece-------------------------------------------------------------------------------
         foreach ($agencias as $agencia) {
 
-            //CONSULTA PARA ERROR EN TOMA DE LECTURA
+
+            //CONSULTA PARA  ERROR EN LA TOMA DE LECTURA ANTERIOR------------------------------------------------
             $sql = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR EN TOMA DE LECTURA')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
+                 COUNT(*) AS total_veces
+             FROM 
+                 control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN LA TOMA DE LECTURA ANTERIOR')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                 AND agencia = '$agencia'";
 
 
-            //CONSULTA PARA RPE AUXILIARES EN ERROR EN TOMA DE LECTURA
+            //CONSULTA PARA RPE AUXILIARES EN  ERROR EN LA TOMA DE LECTURA ANTERIOR -
             $sql_rpe = "SELECT 
-                rpe_auxiliar,
-                COUNT(*) AS total_veces
-            FROM 
-                control_manuales
-            WHERE 
-                TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR EN TOMA DE LECTURA')) 
-                AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                AND agencia = '$agencia'
-            GROUP BY 
-                rpe_auxiliar";
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN LA TOMA DE LECTURA ANTERIOR')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+         AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
+
+            //CONSULTA PARA ORDEN DE MEDICION ATENDIDA -----------------------------------------------------
+            // $sql_LR 
+            $sql_OMA = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                 control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ORDEN DE MEDICION ATENDIDA')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                 AND agencia = '$agencia'";
+
+            //CONSULTA PARA RPE AUXILIARES EN ORDEN DE MEDICION ATENDIDA -
+            $sql_rpe_OMA = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ORDEN DE MEDICION ATENDIDA')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+         AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
 
 
-            //CONSULTA PARA LECTURA DE RETIRO
+            //CONSULTA ESTIMACION MAYOR EN FACT ANTERIOR ---------------------------------------------------
+            // $sql_ASA
+            $sql_EMFA = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ESTIMACION MAYOR EN FACT ANTERIOR')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                 AND agencia = '$agencia'";
 
-            $sql_LR = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('LECTURA DE RETIRO')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
-
-
-            //ANOMALIA SIN ATENCION
-
-            $sql_ASA = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ANOMALIA SIN ATENCION')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
-
-
-            //ANOMALIA MEDIDOR SIN RETROALIMENTAR
+            //CONSULTA PARA RPE AUXILIARES EN ESTIMACION MAYOR EN FACT ANTERIOR-
+            $sql_rpe_EMFA = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ESTIMACION MAYOR EN FACT ANTERIOR')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+         AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
 
 
-            $sql_MSR = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR SIN RETROALIMENTAR')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
+            //CONSULTA ERROR LOTE 23NU ---------------------------------------------------------------------
+            // $sql_MSR
+
+            $sql_EL2 = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR LOTE 23NU')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                 AND agencia = '$agencia'";
 
 
-            //ANOMALIA ESTIMACION EN CERO CON ANOMALIA
+            //CONSULTA PARA RPE AUXILIARES EN ERROR LOTE 23NU-
+            $sql_rpe_EL2 = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR LOTE 23NU')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+         AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
 
 
-            $sql_ECA = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ESTIMACION EN CERO CON ANOMALIA')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
+            //CAMBIO DE MEDIDOR ----------------------------------------------------------------------------
+            // $sql_ECA
+
+            $sql_CM = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                 control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('CAMBIO DE MEDIDOR')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                 AND agencia = '$agencia'";
 
 
-
-            // MEDIDOR DESPROGRAMADO
-
-
-            $sql_MD = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR DESPROGRAMADO')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
-
-
-            // CORRECCION DEMANDA Y/O FP
-
-
-            $sql_CDFP = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('CORRECCION DEMANDA Y/O FP')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
-
-
-            // CORREGIR DEMANDA
-
-
-            $sql_CD = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('CORREGIR DEMANDA')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
+            //CONSULTA PARA RPE AUXILIARES EN CAMBIO DE MEDIDOR-
+            $sql_rpe_CM = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('CAMBIO DE MEDIDOR')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+         AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
 
 
 
-            // ERROR LECTURA TELEMEDIDA
+            // ERROR EN ANALISIS DE MANUAL ANTERIOR ----------------------------------------------------------
+            // $sql_MD
 
-            $sql_ELT = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR LECTURA TELEMEDIDA')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
+            $sql_EAMA = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                 control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN ANALISIS DE MANUAL ANTERIOR')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                 AND agencia = '$agencia'";
+
+
+            //CONSULTA PARA RPE AUXILIARES EN ERROR EN ANALISIS DE MANUAL ANTERIOR-
+            $sql_rpe_EAMA = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN ANALISIS DE MANUAL ANTERIOR')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+         AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
+
+
+            // LECTURA ACUMULADA CON NA GENERADA --------------------------------------------------------------
+            // $sql_CDFP
+
+            $sql_LANG = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                 control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('LECTURA ACUMULADA CON NA GENERADA')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                 AND agencia = '$agencia'";
+
+
+
+            //CONSULTA PARA RPE AUXILIARES EN LECTURA ACUMULADA CON NA GENERADA-
+            $sql_rpe_LANG = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('LECTURA ACUMULADA CON NA GENERADA')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+         AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
+
+
+            // FINIQUITO ANTERIOR ERRONEO -----------------------------------------------------------------------
+            // $sql_CD
+
+            $sql_FAE = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                 control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('FINIQUITO ANTERIOR ERRONEO')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                 AND agencia = '$agencia'";
+
+
+
+            //CONSULTA PARA RPE AUXILIARES EN FINIQUITO ANTERIOR ERRONEO-
+            $sql_rpe_FAE = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('FINIQUITO ANTERIOR ERRONEO')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+         AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
+
+
+
+            // TELEMEDICION ERRONEA FACT ANTERIOR ---------------------------------------------------------------------
+            // $sql_ELT
+
+            $sql_TEFA = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                 control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('TELEMEDICION ERRONEA FACT ANTERIOR')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                 AND agencia = '$agencia'";
+
+
+
+            //CONSULTA PARA RPE AUXILIARES EN TELEMEDICION ERRONEA FACT ANTERIOR-
+            $sql_rpe_TEFA = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('TELEMEDICION ERRONEA FACT ANTERIOR')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+         AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
 
 
 
 
-            // MEDIDOR QUITAPON
 
-            $sql_MQ = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR QUITAPON')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
+
 
 
 
@@ -810,26 +1266,40 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
             // Ejecutar la consulta
             $resultado = mysqli_query($conexion, $sql);
+            $resultado_OMA = mysqli_query($conexion, $sql_OMA);
+            $resultado_EMFA = mysqli_query($conexion, $sql_EMFA);
+            $resultado_EL2 = mysqli_query($conexion, $sql_EL2);
+            $resultado_CM = mysqli_query($conexion, $sql_CM);
+            $resultado_EAMA = mysqli_query($conexion, $sql_EAMA);
+            $resultado_LANG = mysqli_query($conexion, $sql_LANG);
+            $resultado_FAE = mysqli_query($conexion, $sql_FAE);
+            $resultado_TEFA = mysqli_query($conexion, $sql_TEFA);
+            // Ejecutar la consulta RPE AUXILIARES
             $resultado_rpe = mysqli_query($conexion, $sql_rpe);
-            $resultado_LR = mysqli_query($conexion, $sql_LR);
-            $resultado_ASA = mysqli_query($conexion, $sql_ASA);
-            $resultado_MSR = mysqli_query($conexion, $sql_MSR);
-            $resultado_ECA = mysqli_query($conexion, $sql_ECA);
-            $resultado_MD = mysqli_query($conexion, $sql_MD);
-            $resultado_CDFP = mysqli_query($conexion, $sql_CDFP);
-            $resultado_CD = mysqli_query($conexion, $sql_CD);
-            $resultado_ELT = mysqli_query($conexion, $sql_ELT);
-            $resultado_MQ = mysqli_query($conexion, $sql_MQ);
+            $resultado_rpe_OMA = mysqli_query($conexion, $sql_rpe_OMA);
+            $resultado_rpe_EMFA = mysqli_query($conexion, $sql_rpe_EMFA);
+            $resultado_rpe_EL2 = mysqli_query($conexion, $sql_rpe_EL2);
+            $resultado_rpe_CM = mysqli_query($conexion, $sql_rpe_CM);
+            $resultado_rpe_EAMA = mysqli_query($conexion, $sql_rpe_EAMA);
+            $resultado_rpe_LANG = mysqli_query($conexion, $sql_rpe_LANG);
+            $resultado_rpe_FAE = mysqli_query($conexion, $sql_rpe_FAE);
+            $resultado_rpe_TEFA = mysqli_query($conexion, $sql_rpe_TEFA);
 
 
 
 
 
-            //----------------------------------------------Motivo Lectura Retiro-------------------------------------------------
+
+
+
+
+
+
 
             // Verificar si la consulta fue exitosa
             if ($resultado) {
-                //----------------------------------------------Motivo ERROR EN TOMA DE LECTURA-------------------------------------------------
+
+                //----------------------------------------------Motivo ERROR EN LA TOMA DE LECTURA ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
                 $fila = mysqli_fetch_assoc($resultado);
@@ -847,7 +1317,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                //----------------------------------------------RPE AUXILIARES PARA ERROR EN TOMA DE LECTURA-------------------------------------------------
+                //----------------------------------------------RPE AUXILIARES PARA ERROR EN LA TOMA DE LECTURA ANTERIOR
 
 
 
@@ -874,165 +1344,409 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                // Almacenar el total de veces para esta agencia
-                $totales_por_agencia[$agencia] = $total_agencia;
-                // $total_agencias_rpe += $total_agencia;
+                // // Almacenar el total de veces para esta agencia
+                // $totales_por_agencia[$agencia] = $total_agencia;
+                // // $total_agencias_rpe += $total_agencia;
 
                 // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
                 $rpe_por_agencia[$agencia] = $rpe_agencia;
 
 
-                //----------------------------------------------Motivo Lectura Retiro-------------------------------------------------
+                //----------------------------------------------Motivo ORDEN DE MEDICION ATENDIDA ------------------------------------------------
 
 
                 // Obtener el resultado
-                $filaLR = mysqli_fetch_assoc($resultado_LR);
-                $total_vecesLR = $filaLR['total_veces'];
+                $filaOMA = mysqli_fetch_assoc($resultado_OMA);
+                $total_vecesOMA = $filaOMA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaLR[$agencia] = $total_vecesLR;
+                $totales_por_agenciaOMA[$agencia] = $total_vecesOMA;
 
                 // Sumar al total general
-                $total_agenciasLR += $total_vecesLR;
+                $total_agenciasOMA += $total_vecesOMA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_LR" . $agencia} = $total_vecesLR;
+                ${"total_OMA" . $agencia} = $total_vecesOMA;
+
+
+
+                //----------------------------------------------RPE AUXILIARES PARA ERROR EN ORDEN DE MEDICION ATENDIDA 
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeOMA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_OMA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_OMA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_OMA = $fila['rpe_auxiliar'];
+                    $total_veces_OMA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeOMA += $total_veces_OMA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_OMA[$rpe_auxiliar_OMA] = $total_veces_OMA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_OMA[$agencia] = $rpe_agencia_OMA;
 
 
                 //fin consulta 2
 
 
-                //----------------------------------------------Motivo ANOMALIA SIN ATENCION-------------------------------------------------
+                //----------------------------------------------Motivo  ESTIMACION MAYOR EN FACT ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaASA = mysqli_fetch_assoc($resultado_ASA);
-                $total_vecesASA = $filaASA['total_veces'];
+                $filaEMFA = mysqli_fetch_assoc($resultado_EMFA);
+                $total_vecesEMFA = $filaEMFA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaASA[$agencia] = $total_vecesASA;
+                $totales_por_agenciaEMFA[$agencia] = $total_vecesEMFA;
 
                 // Sumar al total general
-                $total_agenciasASA += $total_vecesASA;
+                $total_agenciasEMFA += $total_vecesEMFA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ASA" . $agencia} = $total_vecesASA;
+                ${"total_EMFA" . $agencia} = $total_vecesEMFA;
+
+
+                //----------------------------------------------RPE AUXILIARES PARA ESTIMACION MAYOR EN FACT ANTERIOR
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEMFA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EMFA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EMFA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EMFA = $fila['rpe_auxiliar'];
+                    $total_veces_EMFA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEMFA += $total_veces_EMFA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EMFA[$rpe_auxiliar_EMFA] = $total_veces_EMFA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EMFA[$agencia] = $rpe_agencia_EMFA;
 
 
                 //fin consulta 3
 
 
-                //----------------------------------------------Motivo MEDIDOR SIN RETROALIMENTAR-------------------------------------------------
+                //----------------------------------------------Motivo ERROR LOTE 23NU-------------------------------------------------
 
                 // Obtener el resultado
-                $filaMSR = mysqli_fetch_assoc($resultado_MSR);
-                $total_vecesMSR = $filaMSR['total_veces'];
+                $filaEL2 = mysqli_fetch_assoc($resultado_EL2);
+                $total_vecesEL2 = $filaEL2['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMSR[$agencia] = $total_vecesMSR;
+                $totales_por_agenciaEL2[$agencia] = $total_vecesEL2;
 
                 // Sumar al total general
-                $total_agenciasMSR += $total_vecesMSR;
+                $total_agenciasEL2 += $total_vecesEL2;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_MSR" . $agencia} = $total_vecesMSR;
+                ${"total_EL2" . $agencia} = $total_vecesEL2;
 
 
-                //fin consulta 3
+                //----------------------------------------------RPE AUXILIARES PARA ERROR LOTE 23NU
 
 
 
-                //----------------------------------------------Motivo ESTIMACION EN CERO CON ANOMALIA-------------------------------------------------
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEL2 = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EL2 = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EL2)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EL2 = $fila['rpe_auxiliar'];
+                    $total_veces_EL2_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEL2 += $total_veces_EL2_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EL2[$rpe_auxiliar_EL2] = $total_veces_EL2_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EL2[$agencia] = $rpe_agencia_EL2;
+
+
+                //fin consulta 4
+
+
+
+                //----------------------------------------------Motivo CAMBIO DE MEDIDOR -------------------------------------------------
 
                 // Obtener el resultado
-                $filaECA = mysqli_fetch_assoc($resultado_ECA);
-                $total_vecesECA = $filaECA['total_veces'];
+                $filaCM = mysqli_fetch_assoc($resultado_CM);
+                $total_vecesCM = $filaCM['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaECA[$agencia] = $total_vecesECA;
+                $totales_por_agenciaCM[$agencia] = $total_vecesCM;
 
                 // Sumar al total general
-                $total_agenciasECA += $total_vecesECA;
+                $total_agenciasCM += $total_vecesCM;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ECA" . $agencia} = $total_vecesECA;
+                ${"total_CM" . $agencia} = $total_vecesCM;
 
 
-                //fin consulta 3
+                //----------------------------------------------RPE AUXILIARES PARA CAMBIO DE MEDIDOR
 
 
-                //----------------------------------------------Motivo MEDIDOR DESPROGRAMADO-------------------------------------------------
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeCM = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_CM = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_CM)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_CM = $fila['rpe_auxiliar'];
+                    $total_veces_CM_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeCM += $total_veces_CM_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_CM[$rpe_auxiliar_CM] = $total_veces_CM_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_CM[$agencia] = $rpe_agencia_CM;
+
+
+                //fin consulta 5
+
+
+                //----------------------------------------------Motivo ERROR EN ANALISIS DE MANUAL ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaMD = mysqli_fetch_assoc($resultado_MD);
-                $total_vecesMD = $filaMD['total_veces'];
+                $filaEAMA = mysqli_fetch_assoc($resultado_EAMA);
+                $total_vecesEAMA = $filaEAMA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMD[$agencia] = $total_vecesMD;
+                $totales_por_agenciaEAMA[$agencia] = $total_vecesEAMA;
 
                 // Sumar al total general
-                $total_agenciasMD += $total_vecesMD;
+                $total_agenciasEAMA += $total_vecesEAMA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_MD" . $agencia} = $total_vecesMD;
+                ${"total_EAMA" . $agencia} = $total_vecesEAMA;
 
 
-                //fin consulta 3
+
+                //----------------------------------------------RPE AUXILIARES PARA ANALISIS DE MANUAL ANTERIOR
 
 
-                //----------------------------------------------Motivo CORRECCION DEMANDA Y/O FP-------------------------------------------------
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEAMA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EAMA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EAMA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EAMA = $fila['rpe_auxiliar'];
+                    $total_veces_EAMA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEAMA += $total_veces_EAMA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EAMA[$rpe_auxiliar_EAMA] = $total_veces_EAMA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EAMA[$agencia] = $rpe_agencia_EAMA;
+
+
+                //fin consulta 6
+
+
+                //----------------------------------------------Motivo LECTURA ACUMULADA CON NA GENERADA-------------------------------------------------
 
                 // Obtener el resultado
-                $filaCDFP = mysqli_fetch_assoc($resultado_CDFP);
-                $total_vecesCDFP = $filaCDFP['total_veces'];
+                $filaLANG = mysqli_fetch_assoc($resultado_LANG);
+                $total_vecesLANG = $filaLANG['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaCDFP[$agencia] = $total_vecesCDFP;
+                $totales_por_agenciaLANG[$agencia] = $total_vecesLANG;
 
                 // Sumar al total general
-                $total_agenciasCDFP += $total_vecesCDFP;
+                $total_agenciasLANG += $total_vecesLANG;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_CDFP" . $agencia} = $total_vecesCDFP;
+                ${"total_LANG" . $agencia} = $total_vecesLANG;
+
+                //----------------------------------------------RPE AUXILIARES PARA LECTURA ACUMULADA CON NA GENERADA
 
 
-                //fin consulta 3
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeLANG = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_LANG = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_LANG)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_LANG = $fila['rpe_auxiliar'];
+                    $total_veces_LANG_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeLANG += $total_veces_LANG_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_LANG[$rpe_auxiliar_LANG] = $total_veces_LANG_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_LANG[$agencia] = $rpe_agencia_LANG;
 
 
 
-                //----------------------------------------------Motivo CORREGIR DEMANDA-------------------------------------------------
+
+
+                //fin consulta 7
+
+
+
+                //----------------------------------------------Motivo FINIQUITO ANTERIOR ERRONEO-------------------------------------------------
 
                 // Obtener el resultado
-                $filaCD = mysqli_fetch_assoc($resultado_CD);
-                $total_vecesCD = $filaCD['total_veces'];
+                $filaFAE = mysqli_fetch_assoc($resultado_FAE);
+                $total_vecesFAE = $filaFAE['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaCD[$agencia] = $total_vecesCD;
+                $totales_por_agenciaFAE[$agencia] = $total_vecesFAE;
 
                 // Sumar al total general
-                $total_agenciasCD += $total_vecesCD;
+                $total_agenciasFAE += $total_vecesFAE;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_CD" . $agencia} = $total_vecesCD;
+                ${"total_FAE" . $agencia} = $total_vecesFAE;
+
+                //----------------------------------------------RPE AUXILIARES PARA FINIQUITO ANTERIOR ERRONEO
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeFAE = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_FAE = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_FAE)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_FAE = $fila['rpe_auxiliar'];
+                    $total_veces_FAE_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeFAE += $total_veces_FAE_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_FAE[$rpe_auxiliar_FAE] = $total_veces_FAE_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_FAE[$agencia] = $rpe_agencia_FAE;
 
 
                 //fin consulta 8
 
 
 
-                //----------------------------------------------Motivo ERROR LECTURA TELEMEDIDA-------------------------------------------------
+                //----------------------------------------------Motivo TELEMEDICION ERRONEA FACT ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaELT = mysqli_fetch_assoc($resultado_ELT);
-                $total_vecesELT = $filaELT['total_veces'];
+                $filaTEFA = mysqli_fetch_assoc($resultado_TEFA);
+                $total_vecesTEFA = $filaTEFA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaELT[$agencia] = $total_vecesELT;
+                $totales_por_agenciaTEFA[$agencia] = $total_vecesTEFA;
 
                 // Sumar al total general
-                $total_agenciasELT += $total_vecesELT;
+                $total_agenciasTEFA += $total_vecesTEFA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ELT" . $agencia} = $total_vecesELT;
+                ${"total_TEFA" . $agencia} = $total_vecesTEFA;
+
+
+
+                //----------------------------------------------RPE AUXILIARES PARA TELEMEDICION ERRONEA FACT ANTERIOR
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeTEFA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_TEFA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_TEFA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_TEFA = $fila['rpe_auxiliar'];
+                    $total_veces_TEFA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeTEFA += $total_veces_TEFA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_TEFA[$rpe_auxiliar_TEFA] = $total_veces_TEFA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_TEFA[$agencia] = $rpe_agencia_TEFA;
 
 
                 //fin consulta 9
@@ -1040,39 +1754,20 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                //----------------------------------------------Motivo MEDIDOR QUITAPON-------------------------------------------------
-
-                // Obtener el resultado
-                $filaMQ = mysqli_fetch_assoc($resultado_MQ);
-                $total_vecesMQ = $filaMQ['total_veces'];
-
-                // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMQ[$agencia] = $total_vecesMQ;
-
-                // Sumar al total general
-                $total_agenciasMQ += $total_vecesMQ;
-
-                // Asignar el valor a una variable dinámicamente
-                ${"total_MQ" . $agencia} = $total_vecesMQ;
 
 
-                //fin consulta 9
 
 
 
 
                 // SUMAS TOTALES POR AGENCIA (NO POR MOTIVO)---------------------------------------------------------------------------------------
 
-                // $suma_total_agencias = 0;
-                // // Inicializar un array para almacenar los totales por agencia
-                // $total_por_agencia_global = array();
 
-                // Consulta SQL para obtener el número de veces que cada agencia aparece
-
-                // Aquí va tu consulta SQL
 
                 // Ejemplo hipotético para la variable total_agencia_por_motivo_A
-                $total_agencia_por_motivo = $totales_por_agencia[$agencia] + $totales_por_agenciaLR[$agencia] + $totales_por_agenciaASA[$agencia] + $totales_por_agenciaMSR[$agencia] + $totales_por_agenciaECA[$agencia] + $totales_por_agenciaMD[$agencia] + $totales_por_agenciaCDFP[$agencia] + $totales_por_agenciaCD[$agencia] + $totales_por_agenciaELT[$agencia] + $totales_por_agenciaMQ[$agencia];
+                $total_agencia_por_motivo = $totales_por_agencia[$agencia] + $totales_por_agenciaOMA[$agencia] + $totales_por_agenciaEMFA[$agencia] + $totales_por_agenciaEL2[$agencia] + $totales_por_agenciaCM[$agencia] + $totales_por_agenciaEAMA[$agencia] + $totales_por_agenciaLANG[$agencia] + $totales_por_agenciaFAE[$agencia] + $totales_por_agenciaTEFA[$agencia];
+
+
 
                 // Sumar al total global por agencia
                 $total_por_agencia_global[$agencia] = $total_agencia_por_motivo;
@@ -1080,6 +1775,14 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
                 // Sumar al total global de todas las agencias
                 $suma_total_agencias += $total_agencia_por_motivo;
+
+
+
+
+
+
+
+                // echo $total_por_agencia_global['M'];
             } else {
                 // Manejar el caso en el que la consulta falle
                 echo "Error al ejecutar la consulta para la agencia $agencia: " . mysqli_error($conexion);
@@ -1128,188 +1831,302 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        // Suponiendo que ya tienes tu conexión a la base de datos establecida
-
         // Array con las agencias de interés
         $agencias = array('A', 'B', 'C', 'D', 'E', 'G', 'H', 'J', 'K', 'M');
 
         // Inicializar variable para el total general de agencias--------------------------------------------
         $total_agencias = 0;
-        $total_agenciasLR = 0;
-        $total_agenciasASA = 0;
-        $total_agenciasMSR = 0;
-        $total_agenciasECA = 0;
-        $total_agenciasMD = 0;
-        $total_agenciasCDFP = 0;
-        $total_agenciasCD = 0;
-        $total_agenciasELT = 0;
-        $total_agenciasMQ = 0;
+        $total_agenciasOMA = 0;
+        $total_agenciasEMFA = 0;
+        $total_agenciasEL2 = 0;
+        $total_agenciasCM = 0;
+        $total_agenciasEAMA = 0;
+        $total_agenciasLANG = 0;
+        $total_agenciasFAE = 0;
+        $total_agenciasTEFA = 0;
+
         //para la suma individual de las agencias
         $suma_total_agencias = 0;
 
 
         // Inicializar un array para almacenar los totales de cada agencia---------------------------------
         $totales_por_agencia = array();
-        $totales_por_agenciaLR = array();
-        $totales_por_agenciaASA = array();
-        $totales_por_agenciaMSR = array();
-        $totales_por_agenciaECA = array();
-        $totales_por_agenciaMD = array();
-        $totales_por_agenciaCDFP = array();
-        $totales_por_agenciaCD = array();
-        $totales_por_agenciaELT = array();
-        $totales_por_agenciaMQ = array();
+        $totales_por_agenciaOMA = array();
+        $totales_por_agenciaEMFA = array();
+        $totales_por_agenciaEL2 = array();
+        $totales_por_agenciaCM = array();
+        $totales_por_agenciaEAMA = array();
+        $totales_por_agenciaLANG = array();
+        $totales_por_agenciaFAE = array();
+        $totales_por_agenciaTEFA = array();
+
         // Inicializar un array para almacenar los totales por agencia
         $total_por_agencia_global = array();
-        //Array para rpe auxiliar
+        //ARRAYS PARA LOS RPE AUXILIARES
         $rpe_por_agencia = array();
+        $rpe_por_agencia_OMA = array();
+        $rpe_por_agencia_EMFA = array();
+        $rpe_por_agencia_EL2 = array();
+        $rpe_por_agencia_CM = array();
+        $rpe_por_agencia_EAMA = array();
+        $rpe_por_agencia_LANG = array();
+        $rpe_por_agencia_FAE = array();
+        $rpe_por_agencia_TEFA = array();
 
 
 
 
-        // Consulta SQL para obtener el número de veces que cada agencia aparece-------------------------------------
+
+
+        // CONSULTAS SQL para obtener el número de veces que cada agencia aparece-------------------------------------------------------------------------------
         foreach ($agencias as $agencia) {
 
-            //CONSULTA PARA ERROR EN TOMA DE LECTURA
+
+            //CONSULTA PARA  ERROR EN LA TOMA DE LECTURA ANTERIOR------------------------------------------------
             $sql = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR EN TOMA DE LECTURA')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN LA TOMA DE LECTURA ANTERIOR')) 
+                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
                         AND agencia = '$agencia'";
 
 
-            //CONSULTA PARA RPE AUXILIARES EN ERROR EN TOMA DE LECTURA
+            //CONSULTA PARA RPE AUXILIARES EN  ERROR EN LA TOMA DE LECTURA ANTERIOR -
             $sql_rpe = "SELECT 
                 rpe_auxiliar,
                 COUNT(*) AS total_veces
             FROM 
-                control_manuales
+                control_negativas
             WHERE 
-                TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR EN TOMA DE LECTURA')) 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN LA TOMA DE LECTURA ANTERIOR')) 
+                AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
+
+            //CONSULTA PARA ORDEN DE MEDICION ATENDIDA -----------------------------------------------------
+            // $sql_LR 
+            $sql_OMA = "SELECT 
+                        COUNT(*) AS total_veces
+                    FROM 
+                        control_negativas
+                    WHERE 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ORDEN DE MEDICION ATENDIDA')) 
+                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                        AND agencia = '$agencia'";
+
+            //CONSULTA PARA RPE AUXILIARES EN ORDEN DE MEDICION ATENDIDA -
+            $sql_rpe_OMA = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ORDEN DE MEDICION ATENDIDA')) 
                 AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
                 AND agencia = '$agencia'
             GROUP BY 
                 rpe_auxiliar";
 
 
-            //CONSULTA PARA LECTURA DE RETIRO
-
-            $sql_LR = "SELECT 
+            //CONSULTA ESTIMACION MAYOR EN FACT ANTERIOR ---------------------------------------------------
+            // $sql_ASA
+            $sql_EMFA = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                       control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('LECTURA DE RETIRO')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ESTIMACION MAYOR EN FACT ANTERIOR')) 
+                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                        AND agencia = '$agencia'";
+
+            //CONSULTA PARA RPE AUXILIARES EN ESTIMACION MAYOR EN FACT ANTERIOR-
+            $sql_rpe_EMFA = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ESTIMACION MAYOR EN FACT ANTERIOR')) 
+                AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
+
+
+            //CONSULTA ERROR LOTE 23NU ---------------------------------------------------------------------
+            // $sql_MSR
+
+            $sql_EL2 = "SELECT 
+                        COUNT(*) AS total_veces
+                    FROM 
+                       control_negativas
+                    WHERE 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR LOTE 23NU')) 
+                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
                         AND agencia = '$agencia'";
 
 
-            //ANOMALIA SIN ATENCION
+            //CONSULTA PARA RPE AUXILIARES EN ERROR LOTE 23NU-
+            $sql_rpe_EL2 = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR LOTE 23NU')) 
+                AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
 
-            $sql_ASA = "SELECT 
+
+            //CAMBIO DE MEDIDOR ----------------------------------------------------------------------------
+            // $sql_ECA
+
+            $sql_CM = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ANOMALIA SIN ATENCION')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('CAMBIO DE MEDIDOR')) 
+                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
                         AND agencia = '$agencia'";
 
 
-            //ANOMALIA MEDIDOR SIN RETROALIMENTAR
+            //CONSULTA PARA RPE AUXILIARES EN CAMBIO DE MEDIDOR-
+            $sql_rpe_CM = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('CAMBIO DE MEDIDOR')) 
+                AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
 
 
-            $sql_MSR = "SELECT 
+
+            // ERROR EN ANALISIS DE MANUAL ANTERIOR ----------------------------------------------------------
+            // $sql_MD
+
+            $sql_EAMA = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR SIN RETROALIMENTAR')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN ANALISIS DE MANUAL ANTERIOR')) 
+                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
                         AND agencia = '$agencia'";
 
 
-            //ANOMALIA ESTIMACION EN CERO CON ANOMALIA
+            //CONSULTA PARA RPE AUXILIARES EN ERROR EN ANALISIS DE MANUAL ANTERIOR-
+            $sql_rpe_EAMA = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN ANALISIS DE MANUAL ANTERIOR')) 
+                AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
 
 
-            $sql_ECA = "SELECT 
+            // LECTURA ACUMULADA CON NA GENERADA --------------------------------------------------------------
+            // $sql_CDFP
+
+            $sql_LANG = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ESTIMACION EN CERO CON ANOMALIA')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
-
-
-
-            // MEDIDOR DESPROGRAMADO
-
-
-            $sql_MD = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR DESPROGRAMADO')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
-
-
-            // CORRECCION DEMANDA Y/O FP
-
-
-            $sql_CDFP = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('CORRECCION DEMANDA Y/O FP')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
-
-
-            // CORREGIR DEMANDA
-
-
-            $sql_CD = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('CORREGIR DEMANDA')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
-                        AND agencia = '$agencia'";
-
-
-
-            // ERROR LECTURA TELEMEDIDA
-
-            $sql_ELT = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR LECTURA TELEMEDIDA')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('LECTURA ACUMULADA CON NA GENERADA')) 
+                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
                         AND agencia = '$agencia'";
 
 
 
+            //CONSULTA PARA RPE AUXILIARES EN LECTURA ACUMULADA CON NA GENERADA-
+            $sql_rpe_LANG = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('LECTURA ACUMULADA CON NA GENERADA')) 
+                AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
 
-            // MEDIDOR QUITAPON
 
-            $sql_MQ = "SELECT 
+            // FINIQUITO ANTERIOR ERRONEO -----------------------------------------------------------------------
+            // $sql_CD
+
+            $sql_FAE = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR QUITAPON')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('FINIQUITO ANTERIOR ERRONEO')) 
+                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
                         AND agencia = '$agencia'";
+
+
+
+            //CONSULTA PARA RPE AUXILIARES EN FINIQUITO ANTERIOR ERRONEO-
+            $sql_rpe_FAE = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('FINIQUITO ANTERIOR ERRONEO')) 
+                AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
+
+
+
+            // TELEMEDICION ERRONEA FACT ANTERIOR ---------------------------------------------------------------------
+            // $sql_ELT
+
+            $sql_TEFA = "SELECT 
+                        COUNT(*) AS total_veces
+                    FROM 
+                        control_negativas
+                    WHERE 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('TELEMEDICION ERRONEA FACT ANTERIOR')) 
+                        AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'
+                        AND agencia = '$agencia'";
+
+
+
+            //CONSULTA PARA RPE AUXILIARES EN TELEMEDICION ERRONEA FACT ANTERIOR-
+            $sql_rpe_TEFA = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('TELEMEDICION ERRONEA FACT ANTERIOR')) 
+                AND DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
+
+
+
+
+
+
 
 
 
@@ -1318,26 +2135,40 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
             // Ejecutar la consulta
             $resultado = mysqli_query($conexion, $sql);
+            $resultado_OMA = mysqli_query($conexion, $sql_OMA);
+            $resultado_EMFA = mysqli_query($conexion, $sql_EMFA);
+            $resultado_EL2 = mysqli_query($conexion, $sql_EL2);
+            $resultado_CM = mysqli_query($conexion, $sql_CM);
+            $resultado_EAMA = mysqli_query($conexion, $sql_EAMA);
+            $resultado_LANG = mysqli_query($conexion, $sql_LANG);
+            $resultado_FAE = mysqli_query($conexion, $sql_FAE);
+            $resultado_TEFA = mysqli_query($conexion, $sql_TEFA);
+            // Ejecutar la consulta RPE AUXILIARES
             $resultado_rpe = mysqli_query($conexion, $sql_rpe);
-            $resultado_LR = mysqli_query($conexion, $sql_LR);
-            $resultado_ASA = mysqli_query($conexion, $sql_ASA);
-            $resultado_MSR = mysqli_query($conexion, $sql_MSR);
-            $resultado_ECA = mysqli_query($conexion, $sql_ECA);
-            $resultado_MD = mysqli_query($conexion, $sql_MD);
-            $resultado_CDFP = mysqli_query($conexion, $sql_CDFP);
-            $resultado_CD = mysqli_query($conexion, $sql_CD);
-            $resultado_ELT = mysqli_query($conexion, $sql_ELT);
-            $resultado_MQ = mysqli_query($conexion, $sql_MQ);
+            $resultado_rpe_OMA = mysqli_query($conexion, $sql_rpe_OMA);
+            $resultado_rpe_EMFA = mysqli_query($conexion, $sql_rpe_EMFA);
+            $resultado_rpe_EL2 = mysqli_query($conexion, $sql_rpe_EL2);
+            $resultado_rpe_CM = mysqli_query($conexion, $sql_rpe_CM);
+            $resultado_rpe_EAMA = mysqli_query($conexion, $sql_rpe_EAMA);
+            $resultado_rpe_LANG = mysqli_query($conexion, $sql_rpe_LANG);
+            $resultado_rpe_FAE = mysqli_query($conexion, $sql_rpe_FAE);
+            $resultado_rpe_TEFA = mysqli_query($conexion, $sql_rpe_TEFA);
 
 
 
 
 
-            //----------------------------------------------Motivo Lectura Retiro-------------------------------------------------
+
+
+
+
+
+
 
             // Verificar si la consulta fue exitosa
             if ($resultado) {
-                //----------------------------------------------Motivo ERROR EN TOMA DE LECTURA-------------------------------------------------
+
+                //----------------------------------------------Motivo ERROR EN LA TOMA DE LECTURA ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
                 $fila = mysqli_fetch_assoc($resultado);
@@ -1355,7 +2186,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                //----------------------------------------------RPE AUXILIARES PARA ERROR EN TOMA DE LECTURA-------------------------------------------------
+                //----------------------------------------------RPE AUXILIARES PARA ERROR EN LA TOMA DE LECTURA ANTERIOR
 
 
 
@@ -1382,165 +2213,409 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                // Almacenar el total de veces para esta agencia
-                $totales_por_agencia[$agencia] = $total_agencia;
-                // $total_agencias_rpe += $total_agencia;
+                // // Almacenar el total de veces para esta agencia
+                // $totales_por_agencia[$agencia] = $total_agencia;
+                // // $total_agencias_rpe += $total_agencia;
 
                 // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
                 $rpe_por_agencia[$agencia] = $rpe_agencia;
 
 
-                //----------------------------------------------Motivo Lectura Retiro-------------------------------------------------
+                //----------------------------------------------Motivo ORDEN DE MEDICION ATENDIDA ------------------------------------------------
 
 
                 // Obtener el resultado
-                $filaLR = mysqli_fetch_assoc($resultado_LR);
-                $total_vecesLR = $filaLR['total_veces'];
+                $filaOMA = mysqli_fetch_assoc($resultado_OMA);
+                $total_vecesOMA = $filaOMA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaLR[$agencia] = $total_vecesLR;
+                $totales_por_agenciaOMA[$agencia] = $total_vecesOMA;
 
                 // Sumar al total general
-                $total_agenciasLR += $total_vecesLR;
+                $total_agenciasOMA += $total_vecesOMA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_LR" . $agencia} = $total_vecesLR;
+                ${"total_OMA" . $agencia} = $total_vecesOMA;
+
+
+
+                //----------------------------------------------RPE AUXILIARES PARA ERROR EN ORDEN DE MEDICION ATENDIDA 
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeOMA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_OMA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_OMA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_OMA = $fila['rpe_auxiliar'];
+                    $total_veces_OMA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeOMA += $total_veces_OMA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_OMA[$rpe_auxiliar_OMA] = $total_veces_OMA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_OMA[$agencia] = $rpe_agencia_OMA;
 
 
                 //fin consulta 2
 
 
-                //----------------------------------------------Motivo ANOMALIA SIN ATENCION-------------------------------------------------
+                //----------------------------------------------Motivo  ESTIMACION MAYOR EN FACT ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaASA = mysqli_fetch_assoc($resultado_ASA);
-                $total_vecesASA = $filaASA['total_veces'];
+                $filaEMFA = mysqli_fetch_assoc($resultado_EMFA);
+                $total_vecesEMFA = $filaEMFA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaASA[$agencia] = $total_vecesASA;
+                $totales_por_agenciaEMFA[$agencia] = $total_vecesEMFA;
 
                 // Sumar al total general
-                $total_agenciasASA += $total_vecesASA;
+                $total_agenciasEMFA += $total_vecesEMFA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ASA" . $agencia} = $total_vecesASA;
+                ${"total_EMFA" . $agencia} = $total_vecesEMFA;
+
+
+                //----------------------------------------------RPE AUXILIARES PARA ESTIMACION MAYOR EN FACT ANTERIOR
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEMFA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EMFA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EMFA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EMFA = $fila['rpe_auxiliar'];
+                    $total_veces_EMFA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEMFA += $total_veces_EMFA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EMFA[$rpe_auxiliar_EMFA] = $total_veces_EMFA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EMFA[$agencia] = $rpe_agencia_EMFA;
 
 
                 //fin consulta 3
 
 
-                //----------------------------------------------Motivo MEDIDOR SIN RETROALIMENTAR-------------------------------------------------
+                //----------------------------------------------Motivo ERROR LOTE 23NU-------------------------------------------------
 
                 // Obtener el resultado
-                $filaMSR = mysqli_fetch_assoc($resultado_MSR);
-                $total_vecesMSR = $filaMSR['total_veces'];
+                $filaEL2 = mysqli_fetch_assoc($resultado_EL2);
+                $total_vecesEL2 = $filaEL2['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMSR[$agencia] = $total_vecesMSR;
+                $totales_por_agenciaEL2[$agencia] = $total_vecesEL2;
 
                 // Sumar al total general
-                $total_agenciasMSR += $total_vecesMSR;
+                $total_agenciasEL2 += $total_vecesEL2;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_MSR" . $agencia} = $total_vecesMSR;
+                ${"total_EL2" . $agencia} = $total_vecesEL2;
 
 
-                //fin consulta 3
+                //----------------------------------------------RPE AUXILIARES PARA ERROR LOTE 23NU
 
 
 
-                //----------------------------------------------Motivo ESTIMACION EN CERO CON ANOMALIA-------------------------------------------------
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEL2 = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EL2 = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EL2)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EL2 = $fila['rpe_auxiliar'];
+                    $total_veces_EL2_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEL2 += $total_veces_EL2_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EL2[$rpe_auxiliar_EL2] = $total_veces_EL2_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EL2[$agencia] = $rpe_agencia_EL2;
+
+
+                //fin consulta 4
+
+
+
+                //----------------------------------------------Motivo CAMBIO DE MEDIDOR -------------------------------------------------
 
                 // Obtener el resultado
-                $filaECA = mysqli_fetch_assoc($resultado_ECA);
-                $total_vecesECA = $filaECA['total_veces'];
+                $filaCM = mysqli_fetch_assoc($resultado_CM);
+                $total_vecesCM = $filaCM['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaECA[$agencia] = $total_vecesECA;
+                $totales_por_agenciaCM[$agencia] = $total_vecesCM;
 
                 // Sumar al total general
-                $total_agenciasECA += $total_vecesECA;
+                $total_agenciasCM += $total_vecesCM;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ECA" . $agencia} = $total_vecesECA;
+                ${"total_CM" . $agencia} = $total_vecesCM;
 
 
-                //fin consulta 3
+                //----------------------------------------------RPE AUXILIARES PARA CAMBIO DE MEDIDOR
 
 
-                //----------------------------------------------Motivo MEDIDOR DESPROGRAMADO-------------------------------------------------
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeCM = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_CM = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_CM)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_CM = $fila['rpe_auxiliar'];
+                    $total_veces_CM_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeCM += $total_veces_CM_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_CM[$rpe_auxiliar_CM] = $total_veces_CM_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_CM[$agencia] = $rpe_agencia_CM;
+
+
+                //fin consulta 5
+
+
+                //----------------------------------------------Motivo ERROR EN ANALISIS DE MANUAL ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaMD = mysqli_fetch_assoc($resultado_MD);
-                $total_vecesMD = $filaMD['total_veces'];
+                $filaEAMA = mysqli_fetch_assoc($resultado_EAMA);
+                $total_vecesEAMA = $filaEAMA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMD[$agencia] = $total_vecesMD;
+                $totales_por_agenciaEAMA[$agencia] = $total_vecesEAMA;
 
                 // Sumar al total general
-                $total_agenciasMD += $total_vecesMD;
+                $total_agenciasEAMA += $total_vecesEAMA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_MD" . $agencia} = $total_vecesMD;
+                ${"total_EAMA" . $agencia} = $total_vecesEAMA;
 
 
-                //fin consulta 3
+
+                //----------------------------------------------RPE AUXILIARES PARA ANALISIS DE MANUAL ANTERIOR
 
 
-                //----------------------------------------------Motivo CORRECCION DEMANDA Y/O FP-------------------------------------------------
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEAMA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EAMA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EAMA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EAMA = $fila['rpe_auxiliar'];
+                    $total_veces_EAMA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEAMA += $total_veces_EAMA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EAMA[$rpe_auxiliar_EAMA] = $total_veces_EAMA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EAMA[$agencia] = $rpe_agencia_EAMA;
+
+
+                //fin consulta 6
+
+
+                //----------------------------------------------Motivo LECTURA ACUMULADA CON NA GENERADA-------------------------------------------------
 
                 // Obtener el resultado
-                $filaCDFP = mysqli_fetch_assoc($resultado_CDFP);
-                $total_vecesCDFP = $filaCDFP['total_veces'];
+                $filaLANG = mysqli_fetch_assoc($resultado_LANG);
+                $total_vecesLANG = $filaLANG['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaCDFP[$agencia] = $total_vecesCDFP;
+                $totales_por_agenciaLANG[$agencia] = $total_vecesLANG;
 
                 // Sumar al total general
-                $total_agenciasCDFP += $total_vecesCDFP;
+                $total_agenciasLANG += $total_vecesLANG;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_CDFP" . $agencia} = $total_vecesCDFP;
+                ${"total_LANG" . $agencia} = $total_vecesLANG;
+
+                //----------------------------------------------RPE AUXILIARES PARA LECTURA ACUMULADA CON NA GENERADA
 
 
-                //fin consulta 3
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeLANG = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_LANG = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_LANG)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_LANG = $fila['rpe_auxiliar'];
+                    $total_veces_LANG_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeLANG += $total_veces_LANG_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_LANG[$rpe_auxiliar_LANG] = $total_veces_LANG_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_LANG[$agencia] = $rpe_agencia_LANG;
 
 
 
-                //----------------------------------------------Motivo CORREGIR DEMANDA-------------------------------------------------
+
+
+                //fin consulta 7
+
+
+
+                //----------------------------------------------Motivo FINIQUITO ANTERIOR ERRONEO-------------------------------------------------
 
                 // Obtener el resultado
-                $filaCD = mysqli_fetch_assoc($resultado_CD);
-                $total_vecesCD = $filaCD['total_veces'];
+                $filaFAE = mysqli_fetch_assoc($resultado_FAE);
+                $total_vecesFAE = $filaFAE['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaCD[$agencia] = $total_vecesCD;
+                $totales_por_agenciaFAE[$agencia] = $total_vecesFAE;
 
                 // Sumar al total general
-                $total_agenciasCD += $total_vecesCD;
+                $total_agenciasFAE += $total_vecesFAE;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_CD" . $agencia} = $total_vecesCD;
+                ${"total_FAE" . $agencia} = $total_vecesFAE;
+
+                //----------------------------------------------RPE AUXILIARES PARA FINIQUITO ANTERIOR ERRONEO
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeFAE = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_FAE = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_FAE)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_FAE = $fila['rpe_auxiliar'];
+                    $total_veces_FAE_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeFAE += $total_veces_FAE_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_FAE[$rpe_auxiliar_FAE] = $total_veces_FAE_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_FAE[$agencia] = $rpe_agencia_FAE;
 
 
                 //fin consulta 8
 
 
 
-                //----------------------------------------------Motivo ERROR LECTURA TELEMEDIDA-------------------------------------------------
+                //----------------------------------------------Motivo TELEMEDICION ERRONEA FACT ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaELT = mysqli_fetch_assoc($resultado_ELT);
-                $total_vecesELT = $filaELT['total_veces'];
+                $filaTEFA = mysqli_fetch_assoc($resultado_TEFA);
+                $total_vecesTEFA = $filaTEFA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaELT[$agencia] = $total_vecesELT;
+                $totales_por_agenciaTEFA[$agencia] = $total_vecesTEFA;
 
                 // Sumar al total general
-                $total_agenciasELT += $total_vecesELT;
+                $total_agenciasTEFA += $total_vecesTEFA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ELT" . $agencia} = $total_vecesELT;
+                ${"total_TEFA" . $agencia} = $total_vecesTEFA;
+
+
+
+                //----------------------------------------------RPE AUXILIARES PARA TELEMEDICION ERRONEA FACT ANTERIOR
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeTEFA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_TEFA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_TEFA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_TEFA = $fila['rpe_auxiliar'];
+                    $total_veces_TEFA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeTEFA += $total_veces_TEFA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_TEFA[$rpe_auxiliar_TEFA] = $total_veces_TEFA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_TEFA[$agencia] = $rpe_agencia_TEFA;
 
 
                 //fin consulta 9
@@ -1548,39 +2623,20 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                //----------------------------------------------Motivo MEDIDOR QUITAPON-------------------------------------------------
-
-                // Obtener el resultado
-                $filaMQ = mysqli_fetch_assoc($resultado_MQ);
-                $total_vecesMQ = $filaMQ['total_veces'];
-
-                // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMQ[$agencia] = $total_vecesMQ;
-
-                // Sumar al total general
-                $total_agenciasMQ += $total_vecesMQ;
-
-                // Asignar el valor a una variable dinámicamente
-                ${"total_MQ" . $agencia} = $total_vecesMQ;
 
 
-                //fin consulta 9
 
 
 
 
                 // SUMAS TOTALES POR AGENCIA (NO POR MOTIVO)---------------------------------------------------------------------------------------
 
-                // $suma_total_agencias = 0;
-                // // Inicializar un array para almacenar los totales por agencia
-                // $total_por_agencia_global = array();
 
-                // Consulta SQL para obtener el número de veces que cada agencia aparece
-
-                // Aquí va tu consulta SQL
 
                 // Ejemplo hipotético para la variable total_agencia_por_motivo_A
-                $total_agencia_por_motivo = $totales_por_agencia[$agencia] + $totales_por_agenciaLR[$agencia] + $totales_por_agenciaASA[$agencia] + $totales_por_agenciaMSR[$agencia] + $totales_por_agenciaECA[$agencia] + $totales_por_agenciaMD[$agencia] + $totales_por_agenciaCDFP[$agencia] + $totales_por_agenciaCD[$agencia] + $totales_por_agenciaELT[$agencia] + $totales_por_agenciaMQ[$agencia];
+                $total_agencia_por_motivo = $totales_por_agencia[$agencia] + $totales_por_agenciaOMA[$agencia] + $totales_por_agenciaEMFA[$agencia] + $totales_por_agenciaEL2[$agencia] + $totales_por_agenciaCM[$agencia] + $totales_por_agenciaEAMA[$agencia] + $totales_por_agenciaLANG[$agencia] + $totales_por_agenciaFAE[$agencia] + $totales_por_agenciaTEFA[$agencia];
+
+
 
                 // Sumar al total global por agencia
                 $total_por_agencia_global[$agencia] = $total_agencia_por_motivo;
@@ -1588,6 +2644,14 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
                 // Sumar al total global de todas las agencias
                 $suma_total_agencias += $total_agencia_por_motivo;
+
+
+
+
+
+
+
+                // echo $total_por_agencia_global['M'];
             } else {
                 // Manejar el caso en el que la consulta falle
                 echo "Error al ejecutar la consulta para la agencia $agencia: " . mysqli_error($conexion);
@@ -1599,6 +2663,8 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
         // Cerrar la conexión a la base de datos
         mysqli_close($conexion);
+
+
 
 
 
@@ -1632,189 +2698,293 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-
-        // Suponiendo que ya tienes tu conexión a la base de datos establecida
-
         // Array con las agencias de interés
         $agencias = array('A', 'B', 'C', 'D', 'E', 'G', 'H', 'J', 'K', 'M');
 
         // Inicializar variable para el total general de agencias--------------------------------------------
         $total_agencias = 0;
-        $total_agenciasLR = 0;
-        $total_agenciasASA = 0;
-        $total_agenciasMSR = 0;
-        $total_agenciasECA = 0;
-        $total_agenciasMD = 0;
-        $total_agenciasCDFP = 0;
-        $total_agenciasCD = 0;
-        $total_agenciasELT = 0;
-        $total_agenciasMQ = 0;
+        $total_agenciasOMA = 0;
+        $total_agenciasEMFA = 0;
+        $total_agenciasEL2 = 0;
+        $total_agenciasCM = 0;
+        $total_agenciasEAMA = 0;
+        $total_agenciasLANG = 0;
+        $total_agenciasFAE = 0;
+        $total_agenciasTEFA = 0;
+
         //para la suma individual de las agencias
         $suma_total_agencias = 0;
 
 
         // Inicializar un array para almacenar los totales de cada agencia---------------------------------
         $totales_por_agencia = array();
-        $totales_por_agenciaLR = array();
-        $totales_por_agenciaASA = array();
-        $totales_por_agenciaMSR = array();
-        $totales_por_agenciaECA = array();
-        $totales_por_agenciaMD = array();
-        $totales_por_agenciaCDFP = array();
-        $totales_por_agenciaCD = array();
-        $totales_por_agenciaELT = array();
-        $totales_por_agenciaMQ = array();
+        $totales_por_agenciaOMA = array();
+        $totales_por_agenciaEMFA = array();
+        $totales_por_agenciaEL2 = array();
+        $totales_por_agenciaCM = array();
+        $totales_por_agenciaEAMA = array();
+        $totales_por_agenciaLANG = array();
+        $totales_por_agenciaFAE = array();
+        $totales_por_agenciaTEFA = array();
+
         // Inicializar un array para almacenar los totales por agencia
         $total_por_agencia_global = array();
-        //Array para rpe auxiliar
+        //ARRAYS PARA LOS RPE AUXILIARES
         $rpe_por_agencia = array();
+        $rpe_por_agencia_OMA = array();
+        $rpe_por_agencia_EMFA = array();
+        $rpe_por_agencia_EL2 = array();
+        $rpe_por_agencia_CM = array();
+        $rpe_por_agencia_EAMA = array();
+        $rpe_por_agencia_LANG = array();
+        $rpe_por_agencia_FAE = array();
+        $rpe_por_agencia_TEFA = array();
 
 
 
 
-        // Consulta SQL para obtener el número de veces que cada agencia aparece-------------------------------------
+
+
+        // CONSULTAS SQL para obtener el número de veces que cada agencia aparece-------------------------------------------------------------------------------
         foreach ($agencias as $agencia) {
 
-            //CONSULTA PARA ERROR EN TOMA DE LECTURA
+
+            //CONSULTA PARA  ERROR EN LA TOMA DE LECTURA ANTERIOR------------------------------------------------
             $sql = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR EN TOMA DE LECTURA')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
-                        AND agencia = '$agencia'";
+                 COUNT(*) AS total_veces
+             FROM 
+                 control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN LA TOMA DE LECTURA ANTERIOR')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
+                 AND agencia = '$agencia'";
 
 
-            //CONSULTA PARA RPE AUXILIARES EN ERROR EN TOMA DE LECTURA
+            //CONSULTA PARA RPE AUXILIARES EN  ERROR EN LA TOMA DE LECTURA ANTERIOR -
             $sql_rpe = "SELECT 
-                rpe_auxiliar,
-                COUNT(*) AS total_veces
-            FROM 
-                control_manuales
-            WHERE 
-                TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR EN TOMA DE LECTURA')) 
-                AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
-                AND agencia = '$agencia'
-            GROUP BY 
-                rpe_auxiliar";
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN LA TOMA DE LECTURA ANTERIOR')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'        AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
+
+            //CONSULTA PARA ORDEN DE MEDICION ATENDIDA -----------------------------------------------------
+            // $sql_LR 
+            $sql_OMA = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                 control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ORDEN DE MEDICION ATENDIDA')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
+                 AND agencia = '$agencia'";
+
+            //CONSULTA PARA RPE AUXILIARES EN ORDEN DE MEDICION ATENDIDA -
+            $sql_rpe_OMA = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ORDEN DE MEDICION ATENDIDA')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'        AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
 
 
-            //CONSULTA PARA LECTURA DE RETIRO
+            //CONSULTA ESTIMACION MAYOR EN FACT ANTERIOR ---------------------------------------------------
+            // $sql_ASA
+            $sql_EMFA = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ESTIMACION MAYOR EN FACT ANTERIOR')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
+                 AND agencia = '$agencia'";
 
-            $sql_LR = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('LECTURA DE RETIRO')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
-                        AND agencia = '$agencia'";
-
-
-            //ANOMALIA SIN ATENCION
-
-            $sql_ASA = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ANOMALIA SIN ATENCION')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
-                        AND agencia = '$agencia'";
-
-
-            //ANOMALIA MEDIDOR SIN RETROALIMENTAR
+            //CONSULTA PARA RPE AUXILIARES EN ESTIMACION MAYOR EN FACT ANTERIOR-
+            $sql_rpe_EMFA = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ESTIMACION MAYOR EN FACT ANTERIOR')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'        AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
 
 
-            $sql_MSR = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR SIN RETROALIMENTAR')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
-                        AND agencia = '$agencia'";
+            //CONSULTA ERROR LOTE 23NU ---------------------------------------------------------------------
+            // $sql_MSR
+
+            $sql_EL2 = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR LOTE 23NU')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
+                 AND agencia = '$agencia'";
 
 
-            //ANOMALIA ESTIMACION EN CERO CON ANOMALIA
+            //CONSULTA PARA RPE AUXILIARES EN ERROR LOTE 23NU-
+            $sql_rpe_EL2 = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR LOTE 23NU')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'        AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
 
 
-            $sql_ECA = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ESTIMACION EN CERO CON ANOMALIA')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
-                        AND agencia = '$agencia'";
+            //CAMBIO DE MEDIDOR ----------------------------------------------------------------------------
+            // $sql_ECA
+
+            $sql_CM = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                 control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('CAMBIO DE MEDIDOR')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
+                 AND agencia = '$agencia'";
 
 
-
-            // MEDIDOR DESPROGRAMADO
-
-
-            $sql_MD = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR DESPROGRAMADO')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
-                        AND agencia = '$agencia'";
-
-
-            // CORRECCION DEMANDA Y/O FP
-
-
-            $sql_CDFP = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('CORRECCION DEMANDA Y/O FP')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
-                        AND agencia = '$agencia'";
-
-
-            // CORREGIR DEMANDA
-
-
-            $sql_CD = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('CORREGIR DEMANDA')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
-                        AND agencia = '$agencia'";
-
-
-
-            // ERROR LECTURA TELEMEDIDA
-
-            $sql_ELT = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR LECTURA TELEMEDIDA')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
-                        AND agencia = '$agencia'";
+            //CONSULTA PARA RPE AUXILIARES EN CAMBIO DE MEDIDOR-
+            $sql_rpe_CM = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('CAMBIO DE MEDIDOR')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'        AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
 
 
 
+            // ERROR EN ANALISIS DE MANUAL ANTERIOR ----------------------------------------------------------
+            // $sql_MD
 
-            // MEDIDOR QUITAPON
+            $sql_EAMA = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                 control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN ANALISIS DE MANUAL ANTERIOR')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
+                 AND agencia = '$agencia'";
 
-            $sql_MQ = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR QUITAPON')) 
-                        AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
-                        AND agencia = '$agencia'";
+
+            //CONSULTA PARA RPE AUXILIARES EN ERROR EN ANALISIS DE MANUAL ANTERIOR-
+            $sql_rpe_EAMA = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN ANALISIS DE MANUAL ANTERIOR')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'        AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
+
+
+            // LECTURA ACUMULADA CON NA GENERADA --------------------------------------------------------------
+            // $sql_CDFP
+
+            $sql_LANG = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                 control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('LECTURA ACUMULADA CON NA GENERADA')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
+                 AND agencia = '$agencia'";
+
+
+
+            //CONSULTA PARA RPE AUXILIARES EN LECTURA ACUMULADA CON NA GENERADA-
+            $sql_rpe_LANG = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('LECTURA ACUMULADA CON NA GENERADA')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'        AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
+
+
+            // FINIQUITO ANTERIOR ERRONEO -----------------------------------------------------------------------
+            // $sql_CD
+
+            $sql_FAE = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                 control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('FINIQUITO ANTERIOR ERRONEO')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
+                 AND agencia = '$agencia'";
+
+
+
+            //CONSULTA PARA RPE AUXILIARES EN FINIQUITO ANTERIOR ERRONEO-
+            $sql_rpe_FAE = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('FINIQUITO ANTERIOR ERRONEO')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'        AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
+
+
+
+            // TELEMEDICION ERRONEA FACT ANTERIOR ---------------------------------------------------------------------
+            // $sql_ELT
+
+            $sql_TEFA = "SELECT 
+                 COUNT(*) AS total_veces
+             FROM 
+                 control_negativas
+             WHERE 
+                 TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('TELEMEDICION ERRONEA FACT ANTERIOR')) 
+                 AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'
+                 AND agencia = '$agencia'";
+
+
+
+            //CONSULTA PARA RPE AUXILIARES EN TELEMEDICION ERRONEA FACT ANTERIOR-
+            $sql_rpe_TEFA = "SELECT 
+         rpe_auxiliar,
+         COUNT(*) AS total_veces
+     FROM 
+         control_negativas
+     WHERE 
+         TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('TELEMEDICION ERRONEA FACT ANTERIOR')) 
+         AND DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'        AND agencia = '$agencia'
+     GROUP BY 
+         rpe_auxiliar";
+
+
+
+
+
+
 
 
 
@@ -1823,26 +2993,40 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
             // Ejecutar la consulta
             $resultado = mysqli_query($conexion, $sql);
+            $resultado_OMA = mysqli_query($conexion, $sql_OMA);
+            $resultado_EMFA = mysqli_query($conexion, $sql_EMFA);
+            $resultado_EL2 = mysqli_query($conexion, $sql_EL2);
+            $resultado_CM = mysqli_query($conexion, $sql_CM);
+            $resultado_EAMA = mysqli_query($conexion, $sql_EAMA);
+            $resultado_LANG = mysqli_query($conexion, $sql_LANG);
+            $resultado_FAE = mysqli_query($conexion, $sql_FAE);
+            $resultado_TEFA = mysqli_query($conexion, $sql_TEFA);
+            // Ejecutar la consulta RPE AUXILIARES
             $resultado_rpe = mysqli_query($conexion, $sql_rpe);
-            $resultado_LR = mysqli_query($conexion, $sql_LR);
-            $resultado_ASA = mysqli_query($conexion, $sql_ASA);
-            $resultado_MSR = mysqli_query($conexion, $sql_MSR);
-            $resultado_ECA = mysqli_query($conexion, $sql_ECA);
-            $resultado_MD = mysqli_query($conexion, $sql_MD);
-            $resultado_CDFP = mysqli_query($conexion, $sql_CDFP);
-            $resultado_CD = mysqli_query($conexion, $sql_CD);
-            $resultado_ELT = mysqli_query($conexion, $sql_ELT);
-            $resultado_MQ = mysqli_query($conexion, $sql_MQ);
+            $resultado_rpe_OMA = mysqli_query($conexion, $sql_rpe_OMA);
+            $resultado_rpe_EMFA = mysqli_query($conexion, $sql_rpe_EMFA);
+            $resultado_rpe_EL2 = mysqli_query($conexion, $sql_rpe_EL2);
+            $resultado_rpe_CM = mysqli_query($conexion, $sql_rpe_CM);
+            $resultado_rpe_EAMA = mysqli_query($conexion, $sql_rpe_EAMA);
+            $resultado_rpe_LANG = mysqli_query($conexion, $sql_rpe_LANG);
+            $resultado_rpe_FAE = mysqli_query($conexion, $sql_rpe_FAE);
+            $resultado_rpe_TEFA = mysqli_query($conexion, $sql_rpe_TEFA);
 
 
 
 
 
-            //----------------------------------------------Motivo Lectura Retiro-------------------------------------------------
+
+
+
+
+
+
 
             // Verificar si la consulta fue exitosa
             if ($resultado) {
-                //----------------------------------------------Motivo ERROR EN TOMA DE LECTURA-------------------------------------------------
+
+                //----------------------------------------------Motivo ERROR EN LA TOMA DE LECTURA ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
                 $fila = mysqli_fetch_assoc($resultado);
@@ -1860,7 +3044,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                //----------------------------------------------RPE AUXILIARES PARA ERROR EN TOMA DE LECTURA-------------------------------------------------
+                //----------------------------------------------RPE AUXILIARES PARA ERROR EN LA TOMA DE LECTURA ANTERIOR
 
 
 
@@ -1887,165 +3071,409 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                // Almacenar el total de veces para esta agencia
-                $totales_por_agencia[$agencia] = $total_agencia;
-                // $total_agencias_rpe += $total_agencia;
+                // // Almacenar el total de veces para esta agencia
+                // $totales_por_agencia[$agencia] = $total_agencia;
+                // // $total_agencias_rpe += $total_agencia;
 
                 // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
                 $rpe_por_agencia[$agencia] = $rpe_agencia;
 
 
-                //----------------------------------------------Motivo Lectura Retiro-------------------------------------------------
+                //----------------------------------------------Motivo ORDEN DE MEDICION ATENDIDA ------------------------------------------------
 
 
                 // Obtener el resultado
-                $filaLR = mysqli_fetch_assoc($resultado_LR);
-                $total_vecesLR = $filaLR['total_veces'];
+                $filaOMA = mysqli_fetch_assoc($resultado_OMA);
+                $total_vecesOMA = $filaOMA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaLR[$agencia] = $total_vecesLR;
+                $totales_por_agenciaOMA[$agencia] = $total_vecesOMA;
 
                 // Sumar al total general
-                $total_agenciasLR += $total_vecesLR;
+                $total_agenciasOMA += $total_vecesOMA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_LR" . $agencia} = $total_vecesLR;
+                ${"total_OMA" . $agencia} = $total_vecesOMA;
+
+
+
+                //----------------------------------------------RPE AUXILIARES PARA ERROR EN ORDEN DE MEDICION ATENDIDA 
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeOMA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_OMA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_OMA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_OMA = $fila['rpe_auxiliar'];
+                    $total_veces_OMA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeOMA += $total_veces_OMA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_OMA[$rpe_auxiliar_OMA] = $total_veces_OMA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_OMA[$agencia] = $rpe_agencia_OMA;
 
 
                 //fin consulta 2
 
 
-                //----------------------------------------------Motivo ANOMALIA SIN ATENCION-------------------------------------------------
+                //----------------------------------------------Motivo  ESTIMACION MAYOR EN FACT ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaASA = mysqli_fetch_assoc($resultado_ASA);
-                $total_vecesASA = $filaASA['total_veces'];
+                $filaEMFA = mysqli_fetch_assoc($resultado_EMFA);
+                $total_vecesEMFA = $filaEMFA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaASA[$agencia] = $total_vecesASA;
+                $totales_por_agenciaEMFA[$agencia] = $total_vecesEMFA;
 
                 // Sumar al total general
-                $total_agenciasASA += $total_vecesASA;
+                $total_agenciasEMFA += $total_vecesEMFA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ASA" . $agencia} = $total_vecesASA;
+                ${"total_EMFA" . $agencia} = $total_vecesEMFA;
+
+
+                //----------------------------------------------RPE AUXILIARES PARA ESTIMACION MAYOR EN FACT ANTERIOR
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEMFA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EMFA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EMFA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EMFA = $fila['rpe_auxiliar'];
+                    $total_veces_EMFA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEMFA += $total_veces_EMFA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EMFA[$rpe_auxiliar_EMFA] = $total_veces_EMFA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EMFA[$agencia] = $rpe_agencia_EMFA;
 
 
                 //fin consulta 3
 
 
-                //----------------------------------------------Motivo MEDIDOR SIN RETROALIMENTAR-------------------------------------------------
+                //----------------------------------------------Motivo ERROR LOTE 23NU-------------------------------------------------
 
                 // Obtener el resultado
-                $filaMSR = mysqli_fetch_assoc($resultado_MSR);
-                $total_vecesMSR = $filaMSR['total_veces'];
+                $filaEL2 = mysqli_fetch_assoc($resultado_EL2);
+                $total_vecesEL2 = $filaEL2['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMSR[$agencia] = $total_vecesMSR;
+                $totales_por_agenciaEL2[$agencia] = $total_vecesEL2;
 
                 // Sumar al total general
-                $total_agenciasMSR += $total_vecesMSR;
+                $total_agenciasEL2 += $total_vecesEL2;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_MSR" . $agencia} = $total_vecesMSR;
+                ${"total_EL2" . $agencia} = $total_vecesEL2;
 
 
-                //fin consulta 3
+                //----------------------------------------------RPE AUXILIARES PARA ERROR LOTE 23NU
 
 
 
-                //----------------------------------------------Motivo ESTIMACION EN CERO CON ANOMALIA-------------------------------------------------
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEL2 = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EL2 = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EL2)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EL2 = $fila['rpe_auxiliar'];
+                    $total_veces_EL2_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEL2 += $total_veces_EL2_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EL2[$rpe_auxiliar_EL2] = $total_veces_EL2_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EL2[$agencia] = $rpe_agencia_EL2;
+
+
+                //fin consulta 4
+
+
+
+                //----------------------------------------------Motivo CAMBIO DE MEDIDOR -------------------------------------------------
 
                 // Obtener el resultado
-                $filaECA = mysqli_fetch_assoc($resultado_ECA);
-                $total_vecesECA = $filaECA['total_veces'];
+                $filaCM = mysqli_fetch_assoc($resultado_CM);
+                $total_vecesCM = $filaCM['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaECA[$agencia] = $total_vecesECA;
+                $totales_por_agenciaCM[$agencia] = $total_vecesCM;
 
                 // Sumar al total general
-                $total_agenciasECA += $total_vecesECA;
+                $total_agenciasCM += $total_vecesCM;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ECA" . $agencia} = $total_vecesECA;
+                ${"total_CM" . $agencia} = $total_vecesCM;
 
 
-                //fin consulta 3
+                //----------------------------------------------RPE AUXILIARES PARA CAMBIO DE MEDIDOR
 
 
-                //----------------------------------------------Motivo MEDIDOR DESPROGRAMADO-------------------------------------------------
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeCM = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_CM = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_CM)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_CM = $fila['rpe_auxiliar'];
+                    $total_veces_CM_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeCM += $total_veces_CM_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_CM[$rpe_auxiliar_CM] = $total_veces_CM_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_CM[$agencia] = $rpe_agencia_CM;
+
+
+                //fin consulta 5
+
+
+                //----------------------------------------------Motivo ERROR EN ANALISIS DE MANUAL ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaMD = mysqli_fetch_assoc($resultado_MD);
-                $total_vecesMD = $filaMD['total_veces'];
+                $filaEAMA = mysqli_fetch_assoc($resultado_EAMA);
+                $total_vecesEAMA = $filaEAMA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMD[$agencia] = $total_vecesMD;
+                $totales_por_agenciaEAMA[$agencia] = $total_vecesEAMA;
 
                 // Sumar al total general
-                $total_agenciasMD += $total_vecesMD;
+                $total_agenciasEAMA += $total_vecesEAMA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_MD" . $agencia} = $total_vecesMD;
+                ${"total_EAMA" . $agencia} = $total_vecesEAMA;
 
 
-                //fin consulta 3
+
+                //----------------------------------------------RPE AUXILIARES PARA ANALISIS DE MANUAL ANTERIOR
 
 
-                //----------------------------------------------Motivo CORRECCION DEMANDA Y/O FP-------------------------------------------------
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEAMA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EAMA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EAMA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EAMA = $fila['rpe_auxiliar'];
+                    $total_veces_EAMA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEAMA += $total_veces_EAMA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EAMA[$rpe_auxiliar_EAMA] = $total_veces_EAMA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EAMA[$agencia] = $rpe_agencia_EAMA;
+
+
+                //fin consulta 6
+
+
+                //----------------------------------------------Motivo LECTURA ACUMULADA CON NA GENERADA-------------------------------------------------
 
                 // Obtener el resultado
-                $filaCDFP = mysqli_fetch_assoc($resultado_CDFP);
-                $total_vecesCDFP = $filaCDFP['total_veces'];
+                $filaLANG = mysqli_fetch_assoc($resultado_LANG);
+                $total_vecesLANG = $filaLANG['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaCDFP[$agencia] = $total_vecesCDFP;
+                $totales_por_agenciaLANG[$agencia] = $total_vecesLANG;
 
                 // Sumar al total general
-                $total_agenciasCDFP += $total_vecesCDFP;
+                $total_agenciasLANG += $total_vecesLANG;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_CDFP" . $agencia} = $total_vecesCDFP;
+                ${"total_LANG" . $agencia} = $total_vecesLANG;
+
+                //----------------------------------------------RPE AUXILIARES PARA LECTURA ACUMULADA CON NA GENERADA
 
 
-                //fin consulta 3
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeLANG = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_LANG = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_LANG)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_LANG = $fila['rpe_auxiliar'];
+                    $total_veces_LANG_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeLANG += $total_veces_LANG_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_LANG[$rpe_auxiliar_LANG] = $total_veces_LANG_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_LANG[$agencia] = $rpe_agencia_LANG;
 
 
 
-                //----------------------------------------------Motivo CORREGIR DEMANDA-------------------------------------------------
+
+
+                //fin consulta 7
+
+
+
+                //----------------------------------------------Motivo FINIQUITO ANTERIOR ERRONEO-------------------------------------------------
 
                 // Obtener el resultado
-                $filaCD = mysqli_fetch_assoc($resultado_CD);
-                $total_vecesCD = $filaCD['total_veces'];
+                $filaFAE = mysqli_fetch_assoc($resultado_FAE);
+                $total_vecesFAE = $filaFAE['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaCD[$agencia] = $total_vecesCD;
+                $totales_por_agenciaFAE[$agencia] = $total_vecesFAE;
 
                 // Sumar al total general
-                $total_agenciasCD += $total_vecesCD;
+                $total_agenciasFAE += $total_vecesFAE;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_CD" . $agencia} = $total_vecesCD;
+                ${"total_FAE" . $agencia} = $total_vecesFAE;
+
+                //----------------------------------------------RPE AUXILIARES PARA FINIQUITO ANTERIOR ERRONEO
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeFAE = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_FAE = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_FAE)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_FAE = $fila['rpe_auxiliar'];
+                    $total_veces_FAE_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeFAE += $total_veces_FAE_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_FAE[$rpe_auxiliar_FAE] = $total_veces_FAE_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_FAE[$agencia] = $rpe_agencia_FAE;
 
 
                 //fin consulta 8
 
 
 
-                //----------------------------------------------Motivo ERROR LECTURA TELEMEDIDA-------------------------------------------------
+                //----------------------------------------------Motivo TELEMEDICION ERRONEA FACT ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaELT = mysqli_fetch_assoc($resultado_ELT);
-                $total_vecesELT = $filaELT['total_veces'];
+                $filaTEFA = mysqli_fetch_assoc($resultado_TEFA);
+                $total_vecesTEFA = $filaTEFA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaELT[$agencia] = $total_vecesELT;
+                $totales_por_agenciaTEFA[$agencia] = $total_vecesTEFA;
 
                 // Sumar al total general
-                $total_agenciasELT += $total_vecesELT;
+                $total_agenciasTEFA += $total_vecesTEFA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ELT" . $agencia} = $total_vecesELT;
+                ${"total_TEFA" . $agencia} = $total_vecesTEFA;
+
+
+
+                //----------------------------------------------RPE AUXILIARES PARA TELEMEDICION ERRONEA FACT ANTERIOR
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeTEFA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_TEFA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_TEFA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_TEFA = $fila['rpe_auxiliar'];
+                    $total_veces_TEFA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeTEFA += $total_veces_TEFA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_TEFA[$rpe_auxiliar_TEFA] = $total_veces_TEFA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_TEFA[$agencia] = $rpe_agencia_TEFA;
 
 
                 //fin consulta 9
@@ -2053,39 +3481,20 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                //----------------------------------------------Motivo MEDIDOR QUITAPON-------------------------------------------------
-
-                // Obtener el resultado
-                $filaMQ = mysqli_fetch_assoc($resultado_MQ);
-                $total_vecesMQ = $filaMQ['total_veces'];
-
-                // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMQ[$agencia] = $total_vecesMQ;
-
-                // Sumar al total general
-                $total_agenciasMQ += $total_vecesMQ;
-
-                // Asignar el valor a una variable dinámicamente
-                ${"total_MQ" . $agencia} = $total_vecesMQ;
 
 
-                //fin consulta 9
 
 
 
 
                 // SUMAS TOTALES POR AGENCIA (NO POR MOTIVO)---------------------------------------------------------------------------------------
 
-                // $suma_total_agencias = 0;
-                // // Inicializar un array para almacenar los totales por agencia
-                // $total_por_agencia_global = array();
 
-                // Consulta SQL para obtener el número de veces que cada agencia aparece
-
-                // Aquí va tu consulta SQL
 
                 // Ejemplo hipotético para la variable total_agencia_por_motivo_A
-                $total_agencia_por_motivo = $totales_por_agencia[$agencia] + $totales_por_agenciaLR[$agencia] + $totales_por_agenciaASA[$agencia] + $totales_por_agenciaMSR[$agencia] + $totales_por_agenciaECA[$agencia] + $totales_por_agenciaMD[$agencia] + $totales_por_agenciaCDFP[$agencia] + $totales_por_agenciaCD[$agencia] + $totales_por_agenciaELT[$agencia] + $totales_por_agenciaMQ[$agencia];
+                $total_agencia_por_motivo = $totales_por_agencia[$agencia] + $totales_por_agenciaOMA[$agencia] + $totales_por_agenciaEMFA[$agencia] + $totales_por_agenciaEL2[$agencia] + $totales_por_agenciaCM[$agencia] + $totales_por_agenciaEAMA[$agencia] + $totales_por_agenciaLANG[$agencia] + $totales_por_agenciaFAE[$agencia] + $totales_por_agenciaTEFA[$agencia];
+
+
 
                 // Sumar al total global por agencia
                 $total_por_agencia_global[$agencia] = $total_agencia_por_motivo;
@@ -2093,6 +3502,14 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
                 // Sumar al total global de todas las agencias
                 $suma_total_agencias += $total_agencia_por_motivo;
+
+
+
+
+
+
+
+                // echo $total_por_agencia_global['M'];
             } else {
                 // Manejar el caso en el que la consulta falle
                 echo "Error al ejecutar la consulta para la agencia $agencia: " . mysqli_error($conexion);
@@ -2146,188 +3563,295 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        // Suponiendo que ya tienes tu conexión a la base de datos establecida
-
         // Array con las agencias de interés
         $agencias = array('A', 'B', 'C', 'D', 'E', 'G', 'H', 'J', 'K', 'M');
 
         // Inicializar variable para el total general de agencias--------------------------------------------
         $total_agencias = 0;
-        $total_agenciasLR = 0;
-        $total_agenciasASA = 0;
-        $total_agenciasMSR = 0;
-        $total_agenciasECA = 0;
-        $total_agenciasMD = 0;
-        $total_agenciasCDFP = 0;
-        $total_agenciasCD = 0;
-        $total_agenciasELT = 0;
-        $total_agenciasMQ = 0;
+        $total_agenciasOMA = 0;
+        $total_agenciasEMFA = 0;
+        $total_agenciasEL2 = 0;
+        $total_agenciasCM = 0;
+        $total_agenciasEAMA = 0;
+        $total_agenciasLANG = 0;
+        $total_agenciasFAE = 0;
+        $total_agenciasTEFA = 0;
+
         //para la suma individual de las agencias
         $suma_total_agencias = 0;
 
 
         // Inicializar un array para almacenar los totales de cada agencia---------------------------------
         $totales_por_agencia = array();
-        $totales_por_agenciaLR = array();
-        $totales_por_agenciaASA = array();
-        $totales_por_agenciaMSR = array();
-        $totales_por_agenciaECA = array();
-        $totales_por_agenciaMD = array();
-        $totales_por_agenciaCDFP = array();
-        $totales_por_agenciaCD = array();
-        $totales_por_agenciaELT = array();
-        $totales_por_agenciaMQ = array();
+        $totales_por_agenciaOMA = array();
+        $totales_por_agenciaEMFA = array();
+        $totales_por_agenciaEL2 = array();
+        $totales_por_agenciaCM = array();
+        $totales_por_agenciaEAMA = array();
+        $totales_por_agenciaLANG = array();
+        $totales_por_agenciaFAE = array();
+        $totales_por_agenciaTEFA = array();
+
         // Inicializar un array para almacenar los totales por agencia
         $total_por_agencia_global = array();
-        //Array para rpe auxiliar
+        //ARRAYS PARA LOS RPE AUXILIARES
         $rpe_por_agencia = array();
+        $rpe_por_agencia_OMA = array();
+        $rpe_por_agencia_EMFA = array();
+        $rpe_por_agencia_EL2 = array();
+        $rpe_por_agencia_CM = array();
+        $rpe_por_agencia_EAMA = array();
+        $rpe_por_agencia_LANG = array();
+        $rpe_por_agencia_FAE = array();
+        $rpe_por_agencia_TEFA = array();
 
 
 
 
-        // Consulta SQL para obtener el número de veces que cada agencia aparece-------------------------------------
+
+
+        // CONSULTAS SQL para obtener el número de veces que cada agencia aparece-------------------------------------------------------------------------------
         foreach ($agencias as $agencia) {
 
-            //CONSULTA PARA ERROR EN TOMA DE LECTURA
+
+            //CONSULTA PARA  ERROR EN LA TOMA DE LECTURA ANTERIOR------------------------------------------------
             $sql = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR EN TOMA DE LECTURA')) 
-                      
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN LA TOMA DE LECTURA ANTERIOR')) 
+                        
                         AND agencia = '$agencia'";
 
 
-            //CONSULTA PARA RPE AUXILIARES EN ERROR EN TOMA DE LECTURA
+            //CONSULTA PARA RPE AUXILIARES EN  ERROR EN LA TOMA DE LECTURA ANTERIOR -
             $sql_rpe = "SELECT 
                 rpe_auxiliar,
                 COUNT(*) AS total_veces
             FROM 
-                control_manuales
+                control_negativas
             WHERE 
-                TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR EN TOMA DE LECTURA')) 
-             
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN LA TOMA DE LECTURA ANTERIOR')) 
+                
+                AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
+
+            //CONSULTA PARA ORDEN DE MEDICION ATENDIDA -----------------------------------------------------
+            // $sql_LR 
+            $sql_OMA = "SELECT 
+                        COUNT(*) AS total_veces
+                    FROM 
+                        control_negativas
+                    WHERE 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ORDEN DE MEDICION ATENDIDA')) 
+                       
+                        AND agencia = '$agencia'";
+
+            //CONSULTA PARA RPE AUXILIARES EN ORDEN DE MEDICION ATENDIDA -
+            $sql_rpe_OMA = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ORDEN DE MEDICION ATENDIDA')) 
+                
                 AND agencia = '$agencia'
             GROUP BY 
                 rpe_auxiliar";
 
 
-            //CONSULTA PARA LECTURA DE RETIRO
-
-            $sql_LR = "SELECT 
+            //CONSULTA ESTIMACION MAYOR EN FACT ANTERIOR ---------------------------------------------------
+            // $sql_ASA
+            $sql_EMFA = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                       control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('LECTURA DE RETIRO')) 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ESTIMACION MAYOR EN FACT ANTERIOR')) 
+                        
+                        AND agencia = '$agencia'";
+
+            //CONSULTA PARA RPE AUXILIARES EN ESTIMACION MAYOR EN FACT ANTERIOR-
+            $sql_rpe_EMFA = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ESTIMACION MAYOR EN FACT ANTERIOR')) 
+                               AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
+
+
+            //CONSULTA ERROR LOTE 23NU ---------------------------------------------------------------------
+            // $sql_MSR
+
+            $sql_EL2 = "SELECT 
+                        COUNT(*) AS total_veces
+                    FROM 
+                       control_negativas
+                    WHERE 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR LOTE 23NU')) 
                         
                         AND agencia = '$agencia'";
 
 
-            //ANOMALIA SIN ATENCION
+            //CONSULTA PARA RPE AUXILIARES EN ERROR LOTE 23NU-
+            $sql_rpe_EL2 = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR LOTE 23NU')) 
+                               AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
 
-            $sql_ASA = "SELECT 
+
+            //CAMBIO DE MEDIDOR ----------------------------------------------------------------------------
+            // $sql_ECA
+
+            $sql_CM = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ANOMALIA SIN ATENCION')) 
-                       
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('CAMBIO DE MEDIDOR')) 
+                        
                         AND agencia = '$agencia'";
 
 
-            //ANOMALIA MEDIDOR SIN RETROALIMENTAR
+            //CONSULTA PARA RPE AUXILIARES EN CAMBIO DE MEDIDOR-
+            $sql_rpe_CM = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('CAMBIO DE MEDIDOR')) 
+                               AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
 
 
-            $sql_MSR = "SELECT 
+
+            // ERROR EN ANALISIS DE MANUAL ANTERIOR ----------------------------------------------------------
+            // $sql_MD
+
+            $sql_EAMA = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR SIN RETROALIMENTAR')) 
-                      
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN ANALISIS DE MANUAL ANTERIOR')) 
+                        
                         AND agencia = '$agencia'";
 
 
-            //ANOMALIA ESTIMACION EN CERO CON ANOMALIA
+            //CONSULTA PARA RPE AUXILIARES EN ERROR EN ANALISIS DE MANUAL ANTERIOR-
+            $sql_rpe_EAMA = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('ERROR EN ANALISIS DE MANUAL ANTERIOR')) 
+                               AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
 
 
-            $sql_ECA = "SELECT 
+            // LECTURA ACUMULADA CON NA GENERADA --------------------------------------------------------------
+            // $sql_CDFP
+
+            $sql_LANG = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ESTIMACION EN CERO CON ANOMALIA')) 
-                       
-                        AND agencia = '$agencia'";
-
-
-
-            // MEDIDOR DESPROGRAMADO
-
-
-            $sql_MD = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR DESPROGRAMADO')) 
-                       
-                        AND agencia = '$agencia'";
-
-
-            // CORRECCION DEMANDA Y/O FP
-
-
-            $sql_CDFP = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('CORRECCION DEMANDA Y/O FP')) 
-                      
-                        AND agencia = '$agencia'";
-
-
-            // CORREGIR DEMANDA
-
-
-            $sql_CD = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('CORREGIR DEMANDA')) 
-                       
-                        AND agencia = '$agencia'";
-
-
-
-            // ERROR LECTURA TELEMEDIDA
-
-            $sql_ELT = "SELECT 
-                        COUNT(*) AS total_veces
-                    FROM 
-                        control_manuales
-                    WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('ERROR LECTURA TELEMEDIDA')) 
-                       
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('LECTURA ACUMULADA CON NA GENERADA')) 
+                        
                         AND agencia = '$agencia'";
 
 
 
+            //CONSULTA PARA RPE AUXILIARES EN LECTURA ACUMULADA CON NA GENERADA-
+            $sql_rpe_LANG = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('LECTURA ACUMULADA CON NA GENERADA')) 
+                               AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
 
-            // MEDIDOR QUITAPON
 
-            $sql_MQ = "SELECT 
+            // FINIQUITO ANTERIOR ERRONEO -----------------------------------------------------------------------
+            // $sql_CD
+
+            $sql_FAE = "SELECT 
                         COUNT(*) AS total_veces
                     FROM 
-                        control_manuales
+                        control_negativas
                     WHERE 
-                        TRIM(UPPER(id_motivomanual)) = TRIM(UPPER('MEDIDOR QUITAPON')) 
-                     
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('FINIQUITO ANTERIOR ERRONEO')) 
+                        
                         AND agencia = '$agencia'";
+
+
+
+            //CONSULTA PARA RPE AUXILIARES EN FINIQUITO ANTERIOR ERRONEO-
+            $sql_rpe_FAE = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('FINIQUITO ANTERIOR ERRONEO')) 
+                               AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
+
+
+
+            // TELEMEDICION ERRONEA FACT ANTERIOR ---------------------------------------------------------------------
+            // $sql_ELT
+
+            $sql_TEFA = "SELECT 
+                        COUNT(*) AS total_veces
+                    FROM 
+                        control_negativas
+                    WHERE 
+                        TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('TELEMEDICION ERRONEA FACT ANTERIOR')) 
+                        
+                        AND agencia = '$agencia'";
+
+
+
+            //CONSULTA PARA RPE AUXILIARES EN TELEMEDICION ERRONEA FACT ANTERIOR-
+            $sql_rpe_TEFA = "SELECT 
+                rpe_auxiliar,
+                COUNT(*) AS total_veces
+            FROM 
+                control_negativas
+            WHERE 
+                TRIM(UPPER(motivo_correccion)) = TRIM(UPPER('TELEMEDICION ERRONEA FACT ANTERIOR')) 
+                               AND agencia = '$agencia'
+            GROUP BY 
+                rpe_auxiliar";
+
+
+
+
+
+
 
 
 
@@ -2336,26 +3860,40 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
             // Ejecutar la consulta
             $resultado = mysqli_query($conexion, $sql);
+            $resultado_OMA = mysqli_query($conexion, $sql_OMA);
+            $resultado_EMFA = mysqli_query($conexion, $sql_EMFA);
+            $resultado_EL2 = mysqli_query($conexion, $sql_EL2);
+            $resultado_CM = mysqli_query($conexion, $sql_CM);
+            $resultado_EAMA = mysqli_query($conexion, $sql_EAMA);
+            $resultado_LANG = mysqli_query($conexion, $sql_LANG);
+            $resultado_FAE = mysqli_query($conexion, $sql_FAE);
+            $resultado_TEFA = mysqli_query($conexion, $sql_TEFA);
+            // Ejecutar la consulta RPE AUXILIARES
             $resultado_rpe = mysqli_query($conexion, $sql_rpe);
-            $resultado_LR = mysqli_query($conexion, $sql_LR);
-            $resultado_ASA = mysqli_query($conexion, $sql_ASA);
-            $resultado_MSR = mysqli_query($conexion, $sql_MSR);
-            $resultado_ECA = mysqli_query($conexion, $sql_ECA);
-            $resultado_MD = mysqli_query($conexion, $sql_MD);
-            $resultado_CDFP = mysqli_query($conexion, $sql_CDFP);
-            $resultado_CD = mysqli_query($conexion, $sql_CD);
-            $resultado_ELT = mysqli_query($conexion, $sql_ELT);
-            $resultado_MQ = mysqli_query($conexion, $sql_MQ);
+            $resultado_rpe_OMA = mysqli_query($conexion, $sql_rpe_OMA);
+            $resultado_rpe_EMFA = mysqli_query($conexion, $sql_rpe_EMFA);
+            $resultado_rpe_EL2 = mysqli_query($conexion, $sql_rpe_EL2);
+            $resultado_rpe_CM = mysqli_query($conexion, $sql_rpe_CM);
+            $resultado_rpe_EAMA = mysqli_query($conexion, $sql_rpe_EAMA);
+            $resultado_rpe_LANG = mysqli_query($conexion, $sql_rpe_LANG);
+            $resultado_rpe_FAE = mysqli_query($conexion, $sql_rpe_FAE);
+            $resultado_rpe_TEFA = mysqli_query($conexion, $sql_rpe_TEFA);
 
 
 
 
 
-            //----------------------------------------------Motivo Lectura Retiro-------------------------------------------------
+
+
+
+
+
+
 
             // Verificar si la consulta fue exitosa
             if ($resultado) {
-                //----------------------------------------------Motivo ERROR EN TOMA DE LECTURA-------------------------------------------------
+
+                //----------------------------------------------Motivo ERROR EN LA TOMA DE LECTURA ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
                 $fila = mysqli_fetch_assoc($resultado);
@@ -2373,7 +3911,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                //----------------------------------------------RPE AUXILIARES PARA ERROR EN TOMA DE LECTURA-------------------------------------------------
+                //----------------------------------------------RPE AUXILIARES PARA ERROR EN LA TOMA DE LECTURA ANTERIOR
 
 
 
@@ -2400,165 +3938,409 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                // Almacenar el total de veces para esta agencia
-                $totales_por_agencia[$agencia] = $total_agencia;
-                // $total_agencias_rpe += $total_agencia;
+                // // Almacenar el total de veces para esta agencia
+                // $totales_por_agencia[$agencia] = $total_agencia;
+                // // $total_agencias_rpe += $total_agencia;
 
                 // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
                 $rpe_por_agencia[$agencia] = $rpe_agencia;
 
 
-                //----------------------------------------------Motivo Lectura Retiro-------------------------------------------------
+                //----------------------------------------------Motivo ORDEN DE MEDICION ATENDIDA ------------------------------------------------
 
 
                 // Obtener el resultado
-                $filaLR = mysqli_fetch_assoc($resultado_LR);
-                $total_vecesLR = $filaLR['total_veces'];
+                $filaOMA = mysqli_fetch_assoc($resultado_OMA);
+                $total_vecesOMA = $filaOMA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaLR[$agencia] = $total_vecesLR;
+                $totales_por_agenciaOMA[$agencia] = $total_vecesOMA;
 
                 // Sumar al total general
-                $total_agenciasLR += $total_vecesLR;
+                $total_agenciasOMA += $total_vecesOMA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_LR" . $agencia} = $total_vecesLR;
+                ${"total_OMA" . $agencia} = $total_vecesOMA;
+
+
+
+                //----------------------------------------------RPE AUXILIARES PARA ERROR EN ORDEN DE MEDICION ATENDIDA 
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeOMA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_OMA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_OMA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_OMA = $fila['rpe_auxiliar'];
+                    $total_veces_OMA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeOMA += $total_veces_OMA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_OMA[$rpe_auxiliar_OMA] = $total_veces_OMA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_OMA[$agencia] = $rpe_agencia_OMA;
 
 
                 //fin consulta 2
 
 
-                //----------------------------------------------Motivo ANOMALIA SIN ATENCION-------------------------------------------------
+                //----------------------------------------------Motivo  ESTIMACION MAYOR EN FACT ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaASA = mysqli_fetch_assoc($resultado_ASA);
-                $total_vecesASA = $filaASA['total_veces'];
+                $filaEMFA = mysqli_fetch_assoc($resultado_EMFA);
+                $total_vecesEMFA = $filaEMFA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaASA[$agencia] = $total_vecesASA;
+                $totales_por_agenciaEMFA[$agencia] = $total_vecesEMFA;
 
                 // Sumar al total general
-                $total_agenciasASA += $total_vecesASA;
+                $total_agenciasEMFA += $total_vecesEMFA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ASA" . $agencia} = $total_vecesASA;
+                ${"total_EMFA" . $agencia} = $total_vecesEMFA;
+
+
+                //----------------------------------------------RPE AUXILIARES PARA ESTIMACION MAYOR EN FACT ANTERIOR
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEMFA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EMFA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EMFA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EMFA = $fila['rpe_auxiliar'];
+                    $total_veces_EMFA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEMFA += $total_veces_EMFA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EMFA[$rpe_auxiliar_EMFA] = $total_veces_EMFA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EMFA[$agencia] = $rpe_agencia_EMFA;
 
 
                 //fin consulta 3
 
 
-                //----------------------------------------------Motivo MEDIDOR SIN RETROALIMENTAR-------------------------------------------------
+                //----------------------------------------------Motivo ERROR LOTE 23NU-------------------------------------------------
 
                 // Obtener el resultado
-                $filaMSR = mysqli_fetch_assoc($resultado_MSR);
-                $total_vecesMSR = $filaMSR['total_veces'];
+                $filaEL2 = mysqli_fetch_assoc($resultado_EL2);
+                $total_vecesEL2 = $filaEL2['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMSR[$agencia] = $total_vecesMSR;
+                $totales_por_agenciaEL2[$agencia] = $total_vecesEL2;
 
                 // Sumar al total general
-                $total_agenciasMSR += $total_vecesMSR;
+                $total_agenciasEL2 += $total_vecesEL2;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_MSR" . $agencia} = $total_vecesMSR;
+                ${"total_EL2" . $agencia} = $total_vecesEL2;
 
 
-                //fin consulta 3
+                //----------------------------------------------RPE AUXILIARES PARA ERROR LOTE 23NU
 
 
 
-                //----------------------------------------------Motivo ESTIMACION EN CERO CON ANOMALIA-------------------------------------------------
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEL2 = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EL2 = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EL2)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EL2 = $fila['rpe_auxiliar'];
+                    $total_veces_EL2_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEL2 += $total_veces_EL2_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EL2[$rpe_auxiliar_EL2] = $total_veces_EL2_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EL2[$agencia] = $rpe_agencia_EL2;
+
+
+                //fin consulta 4
+
+
+
+                //----------------------------------------------Motivo CAMBIO DE MEDIDOR -------------------------------------------------
 
                 // Obtener el resultado
-                $filaECA = mysqli_fetch_assoc($resultado_ECA);
-                $total_vecesECA = $filaECA['total_veces'];
+                $filaCM = mysqli_fetch_assoc($resultado_CM);
+                $total_vecesCM = $filaCM['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaECA[$agencia] = $total_vecesECA;
+                $totales_por_agenciaCM[$agencia] = $total_vecesCM;
 
                 // Sumar al total general
-                $total_agenciasECA += $total_vecesECA;
+                $total_agenciasCM += $total_vecesCM;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ECA" . $agencia} = $total_vecesECA;
+                ${"total_CM" . $agencia} = $total_vecesCM;
 
 
-                //fin consulta 3
+                //----------------------------------------------RPE AUXILIARES PARA CAMBIO DE MEDIDOR
 
 
-                //----------------------------------------------Motivo MEDIDOR DESPROGRAMADO-------------------------------------------------
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeCM = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_CM = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_CM)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_CM = $fila['rpe_auxiliar'];
+                    $total_veces_CM_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeCM += $total_veces_CM_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_CM[$rpe_auxiliar_CM] = $total_veces_CM_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_CM[$agencia] = $rpe_agencia_CM;
+
+
+                //fin consulta 5
+
+
+                //----------------------------------------------Motivo ERROR EN ANALISIS DE MANUAL ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaMD = mysqli_fetch_assoc($resultado_MD);
-                $total_vecesMD = $filaMD['total_veces'];
+                $filaEAMA = mysqli_fetch_assoc($resultado_EAMA);
+                $total_vecesEAMA = $filaEAMA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMD[$agencia] = $total_vecesMD;
+                $totales_por_agenciaEAMA[$agencia] = $total_vecesEAMA;
 
                 // Sumar al total general
-                $total_agenciasMD += $total_vecesMD;
+                $total_agenciasEAMA += $total_vecesEAMA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_MD" . $agencia} = $total_vecesMD;
+                ${"total_EAMA" . $agencia} = $total_vecesEAMA;
 
 
-                //fin consulta 3
+
+                //----------------------------------------------RPE AUXILIARES PARA ANALISIS DE MANUAL ANTERIOR
 
 
-                //----------------------------------------------Motivo CORRECCION DEMANDA Y/O FP-------------------------------------------------
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeEAMA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_EAMA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_EAMA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_EAMA = $fila['rpe_auxiliar'];
+                    $total_veces_EAMA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeEAMA += $total_veces_EAMA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_EAMA[$rpe_auxiliar_EAMA] = $total_veces_EAMA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_EAMA[$agencia] = $rpe_agencia_EAMA;
+
+
+                //fin consulta 6
+
+
+                //----------------------------------------------Motivo LECTURA ACUMULADA CON NA GENERADA-------------------------------------------------
 
                 // Obtener el resultado
-                $filaCDFP = mysqli_fetch_assoc($resultado_CDFP);
-                $total_vecesCDFP = $filaCDFP['total_veces'];
+                $filaLANG = mysqli_fetch_assoc($resultado_LANG);
+                $total_vecesLANG = $filaLANG['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaCDFP[$agencia] = $total_vecesCDFP;
+                $totales_por_agenciaLANG[$agencia] = $total_vecesLANG;
 
                 // Sumar al total general
-                $total_agenciasCDFP += $total_vecesCDFP;
+                $total_agenciasLANG += $total_vecesLANG;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_CDFP" . $agencia} = $total_vecesCDFP;
+                ${"total_LANG" . $agencia} = $total_vecesLANG;
+
+                //----------------------------------------------RPE AUXILIARES PARA LECTURA ACUMULADA CON NA GENERADA
 
 
-                //fin consulta 3
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeLANG = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_LANG = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_LANG)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_LANG = $fila['rpe_auxiliar'];
+                    $total_veces_LANG_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeLANG += $total_veces_LANG_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_LANG[$rpe_auxiliar_LANG] = $total_veces_LANG_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_LANG[$agencia] = $rpe_agencia_LANG;
 
 
 
-                //----------------------------------------------Motivo CORREGIR DEMANDA-------------------------------------------------
+
+
+                //fin consulta 7
+
+
+
+                //----------------------------------------------Motivo FINIQUITO ANTERIOR ERRONEO-------------------------------------------------
 
                 // Obtener el resultado
-                $filaCD = mysqli_fetch_assoc($resultado_CD);
-                $total_vecesCD = $filaCD['total_veces'];
+                $filaFAE = mysqli_fetch_assoc($resultado_FAE);
+                $total_vecesFAE = $filaFAE['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaCD[$agencia] = $total_vecesCD;
+                $totales_por_agenciaFAE[$agencia] = $total_vecesFAE;
 
                 // Sumar al total general
-                $total_agenciasCD += $total_vecesCD;
+                $total_agenciasFAE += $total_vecesFAE;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_CD" . $agencia} = $total_vecesCD;
+                ${"total_FAE" . $agencia} = $total_vecesFAE;
+
+                //----------------------------------------------RPE AUXILIARES PARA FINIQUITO ANTERIOR ERRONEO
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeFAE = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_FAE = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_FAE)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_FAE = $fila['rpe_auxiliar'];
+                    $total_veces_FAE_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeFAE += $total_veces_FAE_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_FAE[$rpe_auxiliar_FAE] = $total_veces_FAE_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_FAE[$agencia] = $rpe_agencia_FAE;
 
 
                 //fin consulta 8
 
 
 
-                //----------------------------------------------Motivo ERROR LECTURA TELEMEDIDA-------------------------------------------------
+                //----------------------------------------------Motivo TELEMEDICION ERRONEA FACT ANTERIOR-------------------------------------------------
 
                 // Obtener el resultado
-                $filaELT = mysqli_fetch_assoc($resultado_ELT);
-                $total_vecesELT = $filaELT['total_veces'];
+                $filaTEFA = mysqli_fetch_assoc($resultado_TEFA);
+                $total_vecesTEFA = $filaTEFA['total_veces'];
 
                 // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaELT[$agencia] = $total_vecesELT;
+                $totales_por_agenciaTEFA[$agencia] = $total_vecesTEFA;
 
                 // Sumar al total general
-                $total_agenciasELT += $total_vecesELT;
+                $total_agenciasTEFA += $total_vecesTEFA;
 
                 // Asignar el valor a una variable dinámicamente
-                ${"total_ELT" . $agencia} = $total_vecesELT;
+                ${"total_TEFA" . $agencia} = $total_vecesTEFA;
+
+
+
+                //----------------------------------------------RPE AUXILIARES PARA TELEMEDICION ERRONEA FACT ANTERIOR
+
+
+
+                // Inicializar el total de veces para esta agencia
+                // $total_agencias_rpe = 0;
+                $total_agencia_rpeTEFA = 0;
+
+                // Array para almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                $rpe_agencia_TEFA = array();
+
+                // Recorrer los resultados de la consulta
+                while ($fila = mysqli_fetch_assoc($resultado_rpe_TEFA)) {
+
+                    // Obtener los datos de la fila
+                    $rpe_auxiliar_TEFA = $fila['rpe_auxiliar'];
+                    $total_veces_TEFA_RPE = $fila['total_veces'];
+
+
+                    // Almacenar el total de veces para esta agencia
+                    $total_agencia_rpeTEFA += $total_veces_TEFA_RPE;
+                    // Almacenar los RPE auxiliares y la cantidad de veces que aparecen
+                    $rpe_agencia_TEFA[$rpe_auxiliar_TEFA] = $total_veces_TEFA_RPE;
+                }
+
+
+                // Almacenar los RPE auxiliares y la cantidad de veces que aparecen por agencia
+                $rpe_por_agencia_TEFA[$agencia] = $rpe_agencia_TEFA;
 
 
                 //fin consulta 9
@@ -2566,39 +4348,20 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-                //----------------------------------------------Motivo MEDIDOR QUITAPON-------------------------------------------------
-
-                // Obtener el resultado
-                $filaMQ = mysqli_fetch_assoc($resultado_MQ);
-                $total_vecesMQ = $filaMQ['total_veces'];
-
-                // Almacenar el valor en el array de totales por agencia
-                $totales_por_agenciaMQ[$agencia] = $total_vecesMQ;
-
-                // Sumar al total general
-                $total_agenciasMQ += $total_vecesMQ;
-
-                // Asignar el valor a una variable dinámicamente
-                ${"total_MQ" . $agencia} = $total_vecesMQ;
 
 
-                //fin consulta 9
 
 
 
 
                 // SUMAS TOTALES POR AGENCIA (NO POR MOTIVO)---------------------------------------------------------------------------------------
 
-                // $suma_total_agencias = 0;
-                // // Inicializar un array para almacenar los totales por agencia
-                // $total_por_agencia_global = array();
 
-                // Consulta SQL para obtener el número de veces que cada agencia aparece
-
-                // Aquí va tu consulta SQL
 
                 // Ejemplo hipotético para la variable total_agencia_por_motivo_A
-                $total_agencia_por_motivo = $totales_por_agencia[$agencia] + $totales_por_agenciaLR[$agencia] + $totales_por_agenciaASA[$agencia] + $totales_por_agenciaMSR[$agencia] + $totales_por_agenciaECA[$agencia] + $totales_por_agenciaMD[$agencia] + $totales_por_agenciaCDFP[$agencia] + $totales_por_agenciaCD[$agencia] + $totales_por_agenciaELT[$agencia] + $totales_por_agenciaMQ[$agencia];
+                $total_agencia_por_motivo = $totales_por_agencia[$agencia] + $totales_por_agenciaOMA[$agencia] + $totales_por_agenciaEMFA[$agencia] + $totales_por_agenciaEL2[$agencia] + $totales_por_agenciaCM[$agencia] + $totales_por_agenciaEAMA[$agencia] + $totales_por_agenciaLANG[$agencia] + $totales_por_agenciaFAE[$agencia] + $totales_por_agenciaTEFA[$agencia];
+
+
 
                 // Sumar al total global por agencia
                 $total_por_agencia_global[$agencia] = $total_agencia_por_motivo;
@@ -2606,6 +4369,14 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
                 // Sumar al total global de todas las agencias
                 $suma_total_agencias += $total_agencia_por_motivo;
+
+
+
+
+
+
+
+                // echo $total_por_agencia_global['M'];
             } else {
                 // Manejar el caso en el que la consulta falle
                 echo "Error al ejecutar la consulta para la agencia $agencia: " . mysqli_error($conexion);
@@ -2619,8 +4390,8 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
         mysqli_close($conexion);
     }
 
-
     ?>
+
 
 
     <table class="table table-bordered table-hover w-100 " id="example">
@@ -2646,10 +4417,11 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
         </thead>
 
 
+
         <tbody>
             <!-- Filas para ERROR EN TOMA DE LECTURA -->
             <tr id="fila1">
-                <th>ERROR EN TOMA DE LECTURA
+                <th>ERROR EN LA TOMA DE LECTURA ANTERIOR
 
                 </th>
                 <td>
@@ -2665,175 +4437,524 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                 </td>
             </tr>
             <!-- Filas para los RPE auxiliares de ERROR EN TOMA DE LECTURA -->
-            <tr id="rpe-lectura-1" class="fila-rpe-auxiliares" style="display: none;">
-                <th>RPE AUXILIAR</th>
-                <td>
-                    <i class="fa-solid fa-arrow-right-from-arc"></i>
-                </td>
-                <!-- Agrega las celdas para los RPE auxiliares -->
-                <?php foreach ($agencias as $agencia) : ?>
-                    <td style="text-align: center;" class="celda columna-resumen" onclick="copiarContenido(this)">
-                        <?php
-                        if (isset($rpe_por_agencia[$agencia])) {
-                            foreach ($rpe_por_agencia[$agencia] as $rpe_auxiliar => $total_veces_ETL_RPE) {
-                                echo "<strong>$rpe_auxiliar:</strong> $total_veces_ETL_RPE<br>";
+            <!-- Este será el código de la tabla a agregar -->
+            <tr id="rpe-lectura-1-clonado" class="fila-rpe-auxiliares" style="display: none;">
+                <td colspan="<?= count($agencias) + 2 ?>"> <!-- Colspan para que ocupe todas las columnas -->
+                    <table class="table table-bordered table-hover w-100 ">
+
+                        <tr id="header-row">
+                            <th>RPE AUXILIAR</th>
+                            <?php foreach ($agencias as $agencia) : ?>
+                                <th><?= $agencia ?></th>
+                            <?php endforeach; ?>
+                            <th>TOTAL</th> <!-- Nueva columna para la suma total -->
+                        </tr>
+
+                        <tbody>
+                            <?php
+                            // Obtener todos los RPE auxiliares únicos
+                            $rpes_unicos = [];
+                            foreach ($rpe_por_agencia as $agencia_rpes) {
+                                foreach ($agencia_rpes as $rpe_auxiliar => $total_veces) {
+                                    $rpes_unicos[$rpe_auxiliar] = true;
+                                }
                             }
-                        } else {
-                            echo "0";
-                        }
-                        ?>
-                    </td>
-                <?php endforeach; ?>
-                <!-- Agrega una celda vacía para el total -->
-                <td style="color: greenyellow; text-align: center; background: #294835b2" class="celda"></td>
+
+                            // Mostrar los valores de participación para cada RPE auxiliar único
+                            foreach ($rpes_unicos as $rpe_auxiliar => $_) {
+                                echo "<tr><td>$rpe_auxiliar</td>";
+                                $total_rpe = 0; // Inicializar la suma total para este RPE auxiliar
+                                foreach ($agencias as $agencia) {
+                                    // Obtener los valores de participación para esta agencia y este RPE auxiliar
+                                    $participacion = isset($rpe_por_agencia[$agencia][$rpe_auxiliar]) ? $rpe_por_agencia[$agencia][$rpe_auxiliar] : 0;
+                                    $total_rpe += $participacion; // Sumar al total del RPE
+                                    echo "<td>$participacion</td>";
+                                }
+                                echo "<td style='color: greenyellow;  text-align: center;  background: #294835b2' class='celda'>$total_rpe</td>"; // Mostrar la suma total de participación para este RPE auxiliar
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </td>
             </tr>
-            <!-- Añadir más filas para LECTURA RETIRO -->
+            <!-- Añadir más filas para ORDEN DE MEDICION ATENDIDA -->
             <tr id="fila2">
-                <th>LECTURA DE RETIRO</th>
+                <th>ORDEN DE MEDICION ATENDIDA</th>
                 <td>
-                    <i class="fa-solid fa-circle-chevron-down"></i>
+                    <a class="expandir-rpe" data-target="rpe-lectura-2"><i class="fa-solid fa-circle-chevron-down"></i></a>
                 </td>
                 <?php foreach ($agencias as $agencia) : ?>
                     <td style="text-align: center;" class="celda columna-resumen" onclick="copiarContenido(this)">
-                        <?= ${"total_LR" . $agencia} ?>
+                        <?= ${"total_OMA" . $agencia} ?>
                     </td>
                 <?php endforeach; ?>
                 <td style="color: greenyellow;   text-align: center;  background: #294835b2" class="celda" onclick="copiarContenido(this)">
-                    <?= $total_agenciasLR ?>
+                    <?= $total_agenciasOMA ?>
+                </td>
+            </tr>
+            <!-- Filas para los RPE auxiliares de ORDEN DE MEDICION ATENDIDA-->
+            <!-- Este será el código de la tabla a agregar -->
+            <tr id="rpe-lectura-2-clonado" class="fila-rpe-auxiliares" style="display: none;">
+                <td colspan="<?= count($agencias) + 2 ?>"> <!-- Colspan para que ocupe todas las columnas -->
+                    <table class="table table-bordered table-hover w-100 ">
+
+                        <tr id="header-row">
+                            <th>RPE AUXILIAR</th>
+                            <?php foreach ($agencias as $agencia) : ?>
+                                <th><?= $agencia ?></th>
+                            <?php endforeach; ?>
+                            <th>TOTAL</th> <!-- Nueva columna para la suma total -->
+                        </tr>
+
+                        <tbody>
+                            <?php
+                            // Obtener todos los RPE auxiliares únicos
+                            $rpes_unicos_OMA = [];
+                            foreach ($rpe_por_agencia_OMA as $agencia_rpes_OMA) {
+                                foreach ($agencia_rpes_OMA as $rpe_auxiliar_OMA => $total_vecesOMA) {
+                                    $rpes_unicos_OMA[$rpe_auxiliar_OMA] = true;
+                                }
+                            }
+
+                            // Mostrar los valores de participación para cada RPE auxiliar único
+                            foreach ($rpes_unicos_OMA as $rpe_auxiliar_OMA => $_) {
+                                echo "<tr><td>$rpe_auxiliar_OMA</td>";
+                                $total_rpe_OMA = 0; // Inicializar la suma total para este RPE auxiliar
+                                foreach ($agencias as $agencia) {
+                                    // Obtener los valores de participación para esta agencia y este RPE auxiliar
+                                    $participacion_OMA = isset($rpe_por_agencia_OMA[$agencia][$rpe_auxiliar_OMA]) ? $rpe_por_agencia_OMA[$agencia][$rpe_auxiliar_OMA] : 0;
+                                    $total_rpe_OMA += $participacion_OMA; // Sumar al total del RPE
+                                    echo "<td>$participacion_OMA</td>";
+                                }
+                                echo "<td style='color: greenyellow;  text-align: center;  background: #294835b2' class='celda'>$total_rpe_OMA</td>"; // Mostrar la suma total de participación para este RPE auxiliar
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </td>
             </tr>
 
-            <!-- Añadir más filas para ANOMALIA SIN ATENCION -->
+            <!-- Añadir más filas para ESTIMACION MAYOR EN FACT ANTERIOR-->
             <tr id="fila3">
-                <th>ANOMALIA SIN ATENCIÓN</th>
+                <th>ESTIMACION MAYOR EN FACT ANTERIOR</th>
                 <td>
-                    <i class="fa-solid fa-circle-chevron-down"></i></a>
+                    <a class="expandir-rpe" data-target="rpe-lectura-3"><i class="fa-solid fa-circle-chevron-down"></i></a>
                 </td>
                 <?php foreach ($agencias as $agencia) : ?>
                     <td style="text-align: center;" class="celda columna-resumen" onclick="copiarContenido(this)">
-                        <?= ${"total_ASA" . $agencia} ?>
+                        <?= ${"total_EMFA" . $agencia} ?>
                     </td>
                 <?php endforeach; ?>
                 <td style="color: greenyellow;   text-align: center;  background: #294835b2" class="celda" onclick="copiarContenido(this)">
-                    <?= $total_agenciasASA ?>
+                    <?= $total_agenciasEMFA ?>
                 </td>
             </tr>
 
-            <!-- Añadir más filas para MEDIDOR SIN RETROALIMENTAR-->
+            <!-- Filas para los RPE auxiliares de ESTIMACION MAYOR EN FACT ANTERIOR-->
+            <!-- Este será el código de la tabla a agregar -->
+            <tr id="rpe-lectura-3-clonado" class="fila-rpe-auxiliares" style="display: none;">
+                <td colspan="<?= count($agencias) + 2 ?>"> <!-- Colspan para que ocupe todas las columnas -->
+                    <table class="table table-bordered table-hover w-100 ">
+
+                        <tr id="header-row">
+                            <th>RPE AUXILIAR</th>
+                            <?php foreach ($agencias as $agencia) : ?>
+                                <th><?= $agencia ?></th>
+                            <?php endforeach; ?>
+                            <th>TOTAL</th> <!-- Nueva columna para la suma total -->
+                        </tr>
+
+                        <tbody>
+                            <?php
+                            // Obtener todos los RPE auxiliares únicos
+                            $rpes_unicos_EMFA = [];
+                            foreach ($rpe_por_agencia_EMFA as $agencia_rpes_EMFA) {
+                                foreach ($agencia_rpes_EMFA as $rpe_auxiliar_EMFA => $total_vecesEMFA) {
+                                    $rpes_unicos_EMFA[$rpe_auxiliar_EMFA] = true;
+                                }
+                            }
+
+                            // Mostrar los valores de participación para cada RPE auxiliar único
+                            foreach ($rpes_unicos_EMFA as $rpe_auxiliar_EMFA => $_) {
+                                echo "<tr><td>$rpe_auxiliar_EMFA</td>";
+                                $total_rpe_EMFA = 0; // Inicializar la suma total para este RPE auxiliar
+                                foreach ($agencias as $agencia) {
+                                    // Obtener los valores de participación para esta agencia y este RPE auxiliar
+                                    $participacion_EMFA = isset($rpe_por_agencia_EMFA[$agencia][$rpe_auxiliar_EMFA]) ? $rpe_por_agencia_EMFA[$agencia][$rpe_auxiliar_EMFA] : 0;
+                                    $total_rpe_EMFA += $participacion_EMFA; // Sumar al total del RPE
+                                    echo "<td>$participacion_EMFA</td>";
+                                }
+                                echo "<td style='color: greenyellow;  text-align: center;  background: #294835b2' class='celda'>$total_rpe_EMFA</td>"; // Mostrar la suma total de participación para este RPE auxiliar
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+            <!-- Añadir más filas para ERROR LOTE 23NU-->
             <tr id="fila4">
-                <th>MEDIDOR SIN RETROALIMENTAR</th>
+                <th>ERROR LOTE 23NU</th>
                 <td>
-                    <i class="fa-solid fa-circle-chevron-down"></i>
+                    <a class="expandir-rpe" data-target="rpe-lectura-4"><i class="fa-solid fa-circle-chevron-down"></i></a>
                 </td>
                 <?php foreach ($agencias as $agencia) : ?>
                     <td style="text-align: center;" class="celda columna-resumen" onclick="copiarContenido(this)">
-                        <?= ${"total_MSR" . $agencia} ?>
+                        <?= ${"total_EL2" . $agencia} ?>
                     </td>
                 <?php endforeach; ?>
 
                 <td style="color: greenyellow;   text-align: center;  background: #294835b2" class="celda" onclick="copiarContenido(this)">
-                    <?= $total_agenciasMSR ?>
+                    <?= $total_agenciasEL2 ?>
                 </td>
             </tr>
 
-            <!-- Añadir más filas para ESTIMACION EN CERO CON ANOMALIA-->
+            <!-- Filas para los RPE auxiliares de ERROR LOTE 23NU-->
+            <!-- Este será el código de la tabla a agregar -->
+            <tr id="rpe-lectura-4-clonado" class="fila-rpe-auxiliares" style="display: none;">
+                <td colspan="<?= count($agencias) + 2 ?>"> <!-- Colspan para que ocupe todas las columnas -->
+                    <table class="table table-bordered table-hover w-100 ">
+
+                        <tr id="header-row">
+                            <th>RPE AUXILIAR</th>
+                            <?php foreach ($agencias as $agencia) : ?>
+                                <th><?= $agencia ?></th>
+                            <?php endforeach; ?>
+                            <th>TOTAL</th> <!-- Nueva columna para la suma total -->
+                        </tr>
+
+                        <tbody>
+                            <?php
+                            // Obtener todos los RPE auxiliares únicos
+                            $rpes_unicos_EL2 = [];
+                            foreach ($rpe_por_agencia_EL2 as $agencia_rpes_EL2) {
+                                foreach ($agencia_rpes_EL2 as $rpe_auxiliar_EL2 => $total_vecesEL2) {
+                                    $rpes_unicos_EL2[$rpe_auxiliar_EL2] = true;
+                                }
+                            }
+
+                            // Mostrar los valores de participación para cada RPE auxiliar único
+                            foreach ($rpes_unicos_EL2 as $rpe_auxiliar_EL2 => $_) {
+                                echo "<tr><td>$rpe_auxiliar_EL2</td>";
+                                $total_rpe_EL2 = 0; // Inicializar la suma total para este RPE auxiliar
+                                foreach ($agencias as $agencia) {
+                                    // Obtener los valores de participación para esta agencia y este RPE auxiliar
+                                    $participacion_EL2 = isset($rpe_por_agencia_EL2[$agencia][$rpe_auxiliar_EL2]) ? $rpe_por_agencia_EL2[$agencia][$rpe_auxiliar_EL2] : 0;
+                                    $total_rpe_EL2 += $participacion_EL2; // Sumar al total del RPE
+                                    echo "<td>$participacion_EL2</td>";
+                                }
+                                echo "<td style='color: greenyellow;  text-align: center;  background: #294835b2' class='celda'>$total_rpe_EL2</td>"; // Mostrar la suma total de participación para este RPE auxiliar
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+
+            <!-- Añadir más filas para CAMBIO DE MEDIDOR-->
             <tr id="fila5">
-                <th>MESTIMACION EN CERO CON ANOMALÍA</th>
+                <th>CAMBIO DE MEDIDOR</th>
                 <td>
-                    <i class="fa-solid fa-circle-chevron-down"></i>
+                    <a class="expandir-rpe" data-target="rpe-lectura-5"><i class="fa-solid fa-circle-chevron-down"></i></a>
                 </td>
                 <?php foreach ($agencias as $agencia) : ?>
                     <td style="text-align: center;" class="celda columna-resumen" onclick="copiarContenido(this)">
-                        <?= ${"total_ECA" . $agencia} ?>
+                        <?= ${"total_CM" . $agencia} ?>
                     </td>
                 <?php endforeach; ?>
                 <td style="color: greenyellow;   text-align: center;  background: #294835b2" class="celda" onclick="copiarContenido(this)">
-                    <?= $total_agenciasECA ?>
+                    <?= $total_agenciasCM ?>
+                </td>
+            </tr>
+
+            <!-- Filas para los RPE auxiliares de CAMBIO DE MEDIDOR-->
+            <!-- Este será el código de la tabla a agregar -->
+            <tr id="rpe-lectura-5-clonado" class="fila-rpe-auxiliares" style="display: none;">
+                <td colspan="<?= count($agencias) + 2 ?>"> <!-- Colspan para que ocupe todas las columnas -->
+                    <table class="table table-bordered table-hover w-100 ">
+
+                        <tr id="header-row">
+                            <th>RPE AUXILIAR</th>
+                            <?php foreach ($agencias as $agencia) : ?>
+                                <th><?= $agencia ?></th>
+                            <?php endforeach; ?>
+                            <th>TOTAL</th> <!-- Nueva columna para la suma total -->
+                        </tr>
+
+                        <tbody>
+                            <?php
+                            // Obtener todos los RPE auxiliares únicos
+                            $rpes_unicos_CM = [];
+                            foreach ($rpe_por_agencia_CM as $agencia_rpes_CM) {
+                                foreach ($agencia_rpes_CM as $rpe_auxiliar_CM => $total_vecesCM) {
+                                    $rpes_unicos_CM[$rpe_auxiliar_CM] = true;
+                                }
+                            }
+
+                            // Mostrar los valores de participación para cada RPE auxiliar único
+                            foreach ($rpes_unicos_CM as $rpe_auxiliar_CM => $_) {
+                                echo "<tr><td>$rpe_auxiliar_CM</td>";
+                                $total_rpe_CM = 0; // Inicializar la suma total para este RPE auxiliar
+                                foreach ($agencias as $agencia) {
+                                    // Obtener los valores de participación para esta agencia y este RPE auxiliar
+                                    $participacion_CM = isset($rpe_por_agencia_CM[$agencia][$rpe_auxiliar_CM]) ? $rpe_por_agencia_CM[$agencia][$rpe_auxiliar_CM] : 0;
+                                    $total_rpe_CM += $participacion_CM; // Sumar al total del RPE
+                                    echo "<td>$participacion_CM</td>";
+                                }
+                                echo "<td style='color: greenyellow;  text-align: center;  background: #294835b2' class='celda'>$total_rpe_CM</td>"; // Mostrar la suma total de participación para este RPE auxiliar
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </td>
             </tr>
 
 
-            <!-- Añadir más filas para MEDIDOR DESPROGRAMADO-->
+            <!-- Añadir más filas para ERROR EN ANALISIS DE MANUAL ANTERIOR -->
             <tr id="fila6">
-                <th>MEDIDOR DESPROGRAMADO</th>
+                <th>ERROR EN ANALISIS DE MANUAL ANTERIOR</th>
                 <td>
-                    <i class="fa-solid fa-circle-chevron-down"></i>
+                    <a class="expandir-rpe" data-target="rpe-lectura-6"><i class="fa-solid fa-circle-chevron-down"></i></a>
                 </td>
                 <?php foreach ($agencias as $agencia) : ?>
                     <td style="text-align: center;" class="celda columna-resumen" onclick="copiarContenido(this)">
-                        <?= ${"total_MD" . $agencia} ?>
+                        <?= ${"total_EAMA" . $agencia} ?>
                     </td>
                 <?php endforeach; ?>
                 <td style="color: greenyellow;   text-align: center;  background: #294835b2" class="celda" onclick="copiarContenido(this)">
-                    <?= $total_agenciasMD ?>
+                    <?= $total_agenciasEAMA ?>
                 </td>
             </tr>
 
-            <!-- Añadir más filas para CORRECCION DEMANDA Y/O FP-->
+            <!-- Filas para los RPE auxiliares de ERROR EN ANALISIS DE MANUAL ANTERIOR-->
+            <!-- Este será el código de la tabla a agregar -->
+            <tr id="rpe-lectura-6-clonado" class="fila-rpe-auxiliares" style="display: none;">
+                <td colspan="<?= count($agencias) + 2 ?>"> <!-- Colspan para que ocupe todas las columnas -->
+                    <table class="table table-bordered table-hover w-100 ">
+
+                        <tr id="header-row">
+                            <th>RPE AUXILIAR</th>
+                            <?php foreach ($agencias as $agencia) : ?>
+                                <th><?= $agencia ?></th>
+                            <?php endforeach; ?>
+                            <th>TOTAL</th> <!-- Nueva columna para la suma total -->
+                        </tr>
+
+                        <tbody>
+                            <?php
+                            // Obtener todos los RPE auxiliares únicos
+                            $rpes_unicos_EAMA = [];
+                            foreach ($rpe_por_agencia_EAMA as $agencia_rpes_EAMA) {
+                                foreach ($agencia_rpes_EAMA as $rpe_auxiliar_EAMA => $total_vecesEAMA) {
+                                    $rpes_unicos_EAMA[$rpe_auxiliar_EAMA] = true;
+                                }
+                            }
+
+                            // Mostrar los valores de participación para cada RPE auxiliar único
+                            foreach ($rpes_unicos_EAMA as $rpe_auxiliar_EAMA => $_) {
+                                echo "<tr><td>$rpe_auxiliar_EAMA</td>";
+                                $total_rpe_EAMA = 0; // Inicializar la suma total para este RPE auxiliar
+                                foreach ($agencias as $agencia) {
+                                    // Obtener los valores de participación para esta agencia y este RPE auxiliar
+                                    $participacion_EAMA = isset($rpe_por_agencia_EAMA[$agencia][$rpe_auxiliar_EAMA]) ? $rpe_por_agencia_EAMA[$agencia][$rpe_auxiliar_EAMA] : 0;
+                                    $total_rpe_EAMA += $participacion_EAMA; // Sumar al total del RPE
+                                    echo "<td>$participacion_EAMA</td>";
+                                }
+                                echo "<td style='color: greenyellow;  text-align: center;  background: #294835b2' class='celda'>$total_rpe_EAMA</td>"; // Mostrar la suma total de participación para este RPE auxiliar
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+            <!-- Añadir más filas para LECTURA ACUMULADA CON NA GENERADA -->
             <tr id="fila7">
-                <th>CORRECCION DEMANDA Y/O FP</th>
+                <th>LECTURA ACUMULADA CON NA GENERADA</th>
                 <td>
-                    <i class="fa-solid fa-circle-chevron-down">
+                    <a class="expandir-rpe" data-target="rpe-lectura-7"><i class="fa-solid fa-circle-chevron-down"></i></a>
                 </td>
                 <?php foreach ($agencias as $agencia) : ?>
                     <td style="text-align: center;" class="celda columna-resumen" onclick="copiarContenido(this)">
-                        <?= ${"total_CDFP" . $agencia} ?>
+                        <?= ${"total_LANG" . $agencia} ?>
                     </td>
                 <?php endforeach; ?>
                 <td style="color: greenyellow;   text-align: center;  background: #294835b2" class="celda" onclick="copiarContenido(this)">
-                    <?= $total_agenciasCDFP ?>
+                    <?= $total_agenciasLANG ?>
                 </td>
             </tr>
 
-            <!-- Añadir más filas para CORREGIR DEMANDA-->
+            <!-- Filas para los RPE auxiliares de LECTURA ACUMULADA CON NA GENERADA -->
+            <!-- Este será el código de la tabla a agregar -->
+            <tr id="rpe-lectura-7-clonado" class="fila-rpe-auxiliares" style="display: none;">
+                <td colspan="<?= count($agencias) + 2 ?>"> <!-- Colspan para que ocupe todas las columnas -->
+                    <table class="table table-bordered table-hover w-100 ">
+
+                        <tr id="header-row">
+                            <th>RPE AUXILIAR</th>
+                            <?php foreach ($agencias as $agencia) : ?>
+                                <th><?= $agencia ?></th>
+                            <?php endforeach; ?>
+                            <th>TOTAL</th> <!-- Nueva columna para la suma total -->
+                        </tr>
+
+                        <tbody>
+                            <?php
+                            // Obtener todos los RPE auxiliares únicos
+                            $rpes_unicos_LANG = [];
+                            foreach ($rpe_por_agencia_LANG as $agencia_rpes_LANG) {
+                                foreach ($agencia_rpes_LANG as $rpe_auxiliar_LANG => $total_vecesLANG) {
+                                    $rpes_unicos_LANG[$rpe_auxiliar_LANG] = true;
+                                }
+                            }
+
+                            // Mostrar los valores de participación para cada RPE auxiliar único
+                            foreach ($rpes_unicos_LANG as $rpe_auxiliar_LANG => $_) {
+                                echo "<tr><td>$rpe_auxiliar_LANG</td>";
+                                $total_rpe_LANG = 0; // Inicializar la suma total para este RPE auxiliar
+                                foreach ($agencias as $agencia) {
+                                    // Obtener los valores de participación para esta agencia y este RPE auxiliar
+                                    $participacion_LANG = isset($rpe_por_agencia_LANG[$agencia][$rpe_auxiliar_LANG]) ? $rpe_por_agencia_LANG[$agencia][$rpe_auxiliar_LANG] : 0;
+                                    $total_rpe_LANG += $participacion_LANG; // Sumar al total del RPE
+                                    echo "<td>$participacion_LANG</td>";
+                                }
+                                echo "<td style='color: greenyellow;  text-align: center;  background: #294835b2' class='celda'>$total_rpe_LANG</td>"; // Mostrar la suma total de participación para este RPE auxiliar
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+
+            <!-- Añadir más filas para FINIQUITO ANTERIOR ERRONEO-->
             <tr id="fila8">
-                <th>CORREGIR DEMANDA</th>
+                <th>FINIQUITO ANTERIOR ERRONEO</th>
                 <td>
-                    <i class="fa-solid fa-circle-chevron-down">
+                    <a class="expandir-rpe" data-target="rpe-lectura-8"><i class="fa-solid fa-circle-chevron-down"></i></a>
                 </td>
                 <?php foreach ($agencias as $agencia) : ?>
                     <td style="text-align: center;" class="celda columna-resumen" onclick="copiarContenido(this)">
-                        <?= ${"total_CD" . $agencia} ?>
+                        <?= ${"total_FAE" . $agencia} ?>
                     </td>
                 <?php endforeach; ?>
                 <td style="color: greenyellow;   text-align: center;  background: #294835b2" class="celda" onclick="copiarContenido(this)">
-                    <?= $total_agenciasCD ?>
+                    <?= $total_agenciasFAE ?>
+                </td>
+            </tr>
+
+            <!-- Filas para los RPE auxiliares de FINIQUITO ANTERIOR ERRONEO -->
+            <!-- Este será el código de la tabla a agregar -->
+            <tr id="rpe-lectura-8-clonado" class="fila-rpe-auxiliares" style="display: none;">
+                <td colspan="<?= count($agencias) + 2 ?>"> <!-- Colspan para que ocupe todas las columnas -->
+                    <table class="table table-bordered table-hover w-100 ">
+
+                        <tr id="header-row">
+                            <th>RPE AUXILIAR</th>
+                            <?php foreach ($agencias as $agencia) : ?>
+                                <th><?= $agencia ?></th>
+                            <?php endforeach; ?>
+                            <th>TOTAL</th> <!-- Nueva columna para la suma total -->
+                        </tr>
+
+                        <tbody>
+                            <?php
+                            // Obtener todos los RPE auxiliares únicos
+                            $rpes_unicos_FAE = [];
+                            foreach ($rpe_por_agencia_FAE as $agencia_rpes_FAE) {
+                                foreach ($agencia_rpes_FAE as $rpe_auxiliar_FAE => $total_vecesFAE) {
+                                    $rpes_unicos_FAE[$rpe_auxiliar_FAE] = true;
+                                }
+                            }
+
+                            // Mostrar los valores de participación para cada RPE auxiliar único
+                            foreach ($rpes_unicos_FAE as $rpe_auxiliar_FAE => $_) {
+                                echo "<tr><td>$rpe_auxiliar_FAE</td>";
+                                $total_rpe_FAE = 0; // Inicializar la suma total para este RPE auxiliar
+                                foreach ($agencias as $agencia) {
+                                    // Obtener los valores de participación para esta agencia y este RPE auxiliar
+                                    $participacion_FAE = isset($rpe_por_agencia_FAE[$agencia][$rpe_auxiliar_FAE]) ? $rpe_por_agencia_FAE[$agencia][$rpe_auxiliar_FAE] : 0;
+                                    $total_rpe_FAE += $participacion_FAE; // Sumar al total del RPE
+                                    echo "<td>$participacion_FAE</td>";
+                                }
+                                echo "<td style='color: greenyellow;  text-align: center;  background: #294835b2' class='celda'>$total_rpe_FAE</td>"; // Mostrar la suma total de participación para este RPE auxiliar
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </td>
             </tr>
 
 
-            <!-- Añadir más filas para ERROR LECTURA TELEMEDIDA-->
+            <!-- Añadir más filas para TELEMEDICION ERRONEA FACT ANTERIOR-->
             <tr id="fila9">
-                <th>ERROR LECTURA TELEMEDIDA</th>
+                <th>TELEMEDICION ERRONEA FACT ANTERIOR</th>
                 <td>
-                    <i class="fa-solid fa-circle-chevron-down">
+                    <a class="expandir-rpe" data-target="rpe-lectura-9"><i class="fa-solid fa-circle-chevron-down"></i></a>
                 </td>
                 <?php foreach ($agencias as $agencia) : ?>
                     <td style="text-align: center;" class="celda columna-resumen" onclick="copiarContenido(this)">
-                        <?= ${"total_ELT" . $agencia} ?>
+                        <?= ${"total_TEFA" . $agencia} ?>
                     </td>
                 <?php endforeach; ?>
                 <td style="color: greenyellow;   text-align: center;  background: #294835b2" class="celda" onclick="copiarContenido(this)">
-                    <?= $total_agenciasELT ?>
+                    <?= $total_agenciasTEFA ?>
                 </td>
             </tr>
 
 
-            <!-- Añadir más filas para MEDIDOR QUITAPON-->
-            <tr id="fila10">
-                <th>MEDIDOR QUITAPON</th>
-                <td>
-                    <i class="fa-solid fa-circle-chevron-down"></i>
-                </td>
-                <?php foreach ($agencias as $agencia) : ?>
-                    <td style="text-align: center;" class="celda columna-resumen" onclick="copiarContenido(this)">
-                        <?= ${"total_MQ" . $agencia} ?>
-                    </td>
-                <?php endforeach; ?>
-                <td style="color: greenyellow;   text-align: center;  background: #294835b2" class="celda" onclick="copiarContenido(this)">
-                    <?= $total_agenciasMQ ?>
+            <!-- Filas para los RPE auxiliares de FINIQUITO ANTERIOR ERRONEO -->
+            <!-- Este será el código de la tabla a agregar -->
+            <tr id="rpe-lectura-9-clonado" class="fila-rpe-auxiliares" style="display: none;">
+                <td colspan="<?= count($agencias) + 2 ?>"> <!-- Colspan para que ocupe todas las columnas -->
+                    <table class="table table-bordered table-hover w-100 ">
+
+                        <tr id="header-row">
+                            <th>RPE AUXILIAR</th>
+                            <?php foreach ($agencias as $agencia) : ?>
+                                <th><?= $agencia ?></th>
+                            <?php endforeach; ?>
+                            <th>TOTAL</th> <!-- Nueva columna para la suma total -->
+                        </tr>
+
+                        <tbody>
+                            <?php
+                            // Obtener todos los RPE auxiliares únicos
+                            $rpes_unicos_TEFA = [];
+                            foreach ($rpe_por_agencia_TEFA as $agencia_rpes_TEFA) {
+                                foreach ($agencia_rpes_TEFA as $rpe_auxiliar_TEFA => $total_vecesTEFA) {
+                                    $rpes_unicos_TEFA[$rpe_auxiliar_TEFA] = true;
+                                }
+                            }
+
+                            // Mostrar los valores de participación para cada RPE auxiliar único
+                            foreach ($rpes_unicos_TEFA as $rpe_auxiliar_TEFA => $_) {
+                                echo "<tr><td>$rpe_auxiliar_TEFA</td>";
+                                $total_rpe_TEFA = 0; // Inicializar la suma total para este RPE auxiliar
+                                foreach ($agencias as $agencia) {
+                                    // Obtener los valores de participación para esta agencia y este RPE auxiliar
+                                    $participacion_TEFA = isset($rpe_por_agencia_TEFA[$agencia][$rpe_auxiliar_TEFA]) ? $rpe_por_agencia_TEFA[$agencia][$rpe_auxiliar_TEFA] : 0;
+                                    $total_rpe_TEFA += $participacion_TEFA; // Sumar al total del RPE
+                                    echo "<td>$participacion_TEFA</td>";
+                                }
+                                echo "<td style='color: greenyellow;  text-align: center;  background: #294835b2' class='celda'>$total_rpe_TEFA</td>"; // Mostrar la suma total de participación para este RPE auxiliar
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </td>
             </tr>
+
+
 
 
 
@@ -2869,6 +4990,39 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                     // Obtiene el id del objetivo de la expansión desde el atributo data-target
                     var idObjetivo = boton.getAttribute('data-target');
                     // Encuentra el elemento con el id del objetivo
+                    var objetivo = document.getElementById(idObjetivo + '-clonado'); // Agregamos '-clonado' al ID
+
+                    // Encuentra el elemento de la fila debajo de la fila actual con el mismo nivel de anidamiento
+                    var filaSiguiente = boton.closest('tr').nextElementSibling;
+
+                    // Inserta el nuevo código de tabla debajo de la fila actual
+                    if (filaSiguiente) {
+                        filaSiguiente.parentNode.insertBefore(objetivo, filaSiguiente);
+                    } else {
+                        // Si no hay una fila siguiente con el mismo nivel de anidamiento, simplemente añádela al final del tbody
+                        boton.closest('tbody').appendChild(objetivo);
+                    }
+
+                    // Alternar la visibilidad del elemento objetivo
+                    objetivo.style.display = objetivo.style.display === 'none' ? 'table-row' : 'none';
+                });
+            });
+        });
+    </script>
+
+
+
+    <!-- <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtén todos los botones de expansión
+            var botonesExpandir = document.querySelectorAll('.expandir-rpe');
+
+            // Agrega un controlador de eventos a cada botón de expansión
+            botonesExpandir.forEach(function(boton) {
+                boton.addEventListener('click', function() {
+                    // Obtiene el id del objetivo de la expansión desde el atributo data-target
+                    var idObjetivo = boton.getAttribute('data-target');
+                    // Encuentra el elemento con el id del objetivo
                     var objetivo = document.getElementById(idObjetivo);
 
                     // Encuentra el elemento de la fila debajo de la fila actual con el mismo nivel de anidamiento
@@ -2887,7 +5041,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                 });
             });
         });
-    </script>
+    </script> -->
 
     <!-- por ultimo se carga el footer -->
     <?php require('./layout/footer.php'); ?>

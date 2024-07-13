@@ -6,7 +6,7 @@ if (!empty($_POST["btnmodificar"])) {
         and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"]) and !empty($_POST["txtkwh_recuperar"])
         and !empty($_POST["txtrespaldo_manual"]) and !empty($_POST["txtobservaciones"])
         and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"]) and !empty($_POST["txtmotivo"])
-
+        and $_POST["txtidmotivomanual"] == 'ESTIMACION EN CERO CON ANOMALIA'
 
     ) {
 
@@ -28,6 +28,9 @@ if (!empty($_POST["btnmodificar"])) {
         $responsable_manual = $_POST["txtresponsable_manual"];
         $no_ordenservicio = $_POST["txtno_ordenservicio"];
         $motivo_correccion = $_POST["txtmotivo"];
+
+        //Responsable de modificar manual
+        $responsable_modificacion = $_POST["txtresponsable_modificacion"];
 
 
         $sql = $conexion->query(" select count(*) as 'Total' from control_manuales where rpu=$rpu and id_control_manuales!=$id_manual");
@@ -59,36 +62,46 @@ if (!empty($_POST["btnmodificar"])) {
       
             agencia = '$agencia',
             responsable_manual = '$responsable_manual',
-            no_ordenservicio = '$no_ordenservicio'
+            no_ordenservicio = '$no_ordenservicio',
+            id_motivohistorial = $motivo_correccion,
+            responsable_modificacion = '$responsable_modificacion'
             WHERE id_control_manuales = $id_manual");
 
 
-            //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]
 
-            // Verificar si la consulta principal fue exitosa
-            if ($modificar) {
-                // Obtener el ID de la fila más reciente en la tabla historial_manuales relacionada
-                $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_manuales) AS id_historial_manuales FROM historial_manuales WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
 
-                if ($consultaIDHistorial) {
-                    $filaIDHistorial = $consultaIDHistorial->fetch_assoc();
-                    $id_historial = $filaIDHistorial['id_historial_manuales'];
+            //EL CODIGO COMENTADO DE ABAJO ASIGNA UN ID DEL MOTIVO DE LA MODIFICACION DE LA MANUAL PERO LO ASIGNA AL REGISTRO ANTERIOR
+            //ES DECIR SI UN USUARIO MODIFICA UNA MANUAL, EL MOTIVO DE ESA MODIFICACION SE IMPREGNARA JUNTO CON LOS VALORES DE ESA MANUAL
+            //ANTES DE SER MODIFICADA, SI SE QUIERE SEGUIR CON ESE PROCESO DESCOMENTAR EL CODIGO:
 
-                    // Ahora, realizar la actualización en la tabla de historiales
-                    $actualizarHistorial = $conexion->query("UPDATE historial_manuales SET id_motivohistorial = '$motivo_correccion'
-            WHERE id_historial_manuales = $id_historial");
 
-                    // Verificar si la actualización del historial fue exitosa
-                    if ($actualizarHistorial) {
-                    } else {
-                        echo $conexion->error;
-                    }
-                } else {
-                    echo  $conexion->error;
-                }
-            } else {
-                echo  $conexion->error;
-            }
+            // //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]
+
+            // // Verificar si la consulta principal fue exitosa
+            // if ($modificar) {
+            //     // Obtener el ID de la fila más reciente en la tabla historial_manuales relacionada
+            //     $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_manuales) AS id_historial_manuales FROM historial_manuales WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
+
+            //     if ($consultaIDHistorial) {
+            //         $filaIDHistorial = $consultaIDHistorial->fetch_assoc();
+            //         $id_historial = $filaIDHistorial['id_historial_manuales'];
+
+            //         // Ahora, realizar la actualización en la tabla de historiales agregando el motivo de la modificacion y el responsable
+            //         //tener en cuenta que esta informacion se pasara a los datos antiguos 
+            //         $actualizarHistorial = $conexion->query("UPDATE historial_manuales SET id_motivohistorial = '$motivo_correccion', responsable_modificacion = '$responsable_modificacion'
+            // WHERE id_historial_manuales = $id_historial");
+
+            //         // Verificar si la actualización del historial fue exitosa
+            //         if ($actualizarHistorial) {
+            //         } else {
+            //             echo $conexion->error;
+            //         }
+            //     } else {
+            //         echo  $conexion->error;
+            //     }
+            // } else {
+            //     echo  $conexion->error;
+            // }
 
 
 
@@ -100,7 +113,7 @@ if (!empty($_POST["btnmodificar"])) {
                         new PNotify({
                             title: "CORRECTO",
                             type: "success",
-                            text: "Se ha genarado la manual del RPU <?= $rpu ?> correctamente",
+                            text: "Se ha modificado la manual del RPU <?= $rpu ?>, con motivo: <?= $motivo_manual ?>, correctamente",
                             styling: "bootstrap3"
                         })
                     })
@@ -113,7 +126,7 @@ if (!empty($_POST["btnmodificar"])) {
                         new PNotify({
                             title: "INCORRECTO",
                             type: "error",
-                            text: "Error al generar la manual con RPU <?= $rpu ?>",
+                            text: "Error al modificar la manual con RPU <?= $rpu ?>",
                             styling: "bootstrap3"
                         })
                     })
@@ -136,6 +149,7 @@ if (!empty($_POST["btnmodificar"])) {
         and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"])
         and !empty($_POST["txtrespaldo_manual"]) and !empty($_POST["txtrpe_auxiliar"]) and !empty($_POST["txtobservaciones"])
         and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"]) and !empty($_POST["txtmotivo"])
+        and $_POST["txtidmotivomanual"] == 'ERROR EN TOMA DE LECTURA'
     ) {
 
         $id_manual = $_POST["txtid"];
@@ -155,6 +169,9 @@ if (!empty($_POST["btnmodificar"])) {
         $responsable_manual = $_POST["txtresponsable_manual"];
         $no_ordenservicio = $_POST["txtno_ordenservicio"];
         $motivo_correccion = $_POST["txtmotivo"];
+
+        //Responsable de modificar manual
+        $responsable_modificacion = $_POST["txtresponsable_modificacion"];
 
 
 
@@ -187,36 +204,38 @@ if (!empty($_POST["btnmodificar"])) {
         
             agencia = '$agencia',
             responsable_manual = '$responsable_manual',
-            no_ordenservicio = '$no_ordenservicio'
+            no_ordenservicio = '$no_ordenservicio',
+            id_motivohistorial = $motivo_correccion,
+            responsable_modificacion = '$responsable_modificacion'
             WHERE id_control_manuales = $id_manual");
 
 
-            //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]
+            // //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]
 
-            // Verificar si la consulta principal fue exitosa
-            if ($modificar) {
-                // Obtener el ID de la fila más reciente en la tabla historial_manuales relacionada
-                $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_manuales) AS id_historial_manuales FROM historial_manuales WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
+            // // Verificar si la consulta principal fue exitosa
+            // if ($modificar) {
+            //     // Obtener el ID de la fila más reciente en la tabla historial_manuales relacionada
+            //     $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_manuales) AS id_historial_manuales FROM historial_manuales WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
 
-                if ($consultaIDHistorial) {
-                    $filaIDHistorial = $consultaIDHistorial->fetch_assoc();
-                    $id_historial = $filaIDHistorial['id_historial_manuales'];
+            //     if ($consultaIDHistorial) {
+            //         $filaIDHistorial = $consultaIDHistorial->fetch_assoc();
+            //         $id_historial = $filaIDHistorial['id_historial_manuales'];
 
-                    // Ahora, realizar la actualización en la tabla de historiales
-                    $actualizarHistorial = $conexion->query("UPDATE historial_manuales SET id_motivohistorial = '$motivo_correccion'
-            WHERE id_historial_manuales = $id_historial");
+            //         // Ahora, realizar la actualización en la tabla de historiales
+            //         $actualizarHistorial = $conexion->query("UPDATE historial_manuales SET id_motivohistorial = '$motivo_correccion', responsable_modificacion = '$responsable_modificacion'
+            // WHERE id_historial_manuales = $id_historial");
 
-                    // Verificar si la actualización del historial fue exitosa
-                    if ($actualizarHistorial) {
-                    } else {
-                        echo $conexion->error;
-                    }
-                } else {
-                    echo  $conexion->error;
-                }
-            } else {
-                echo  $conexion->error;
-            }
+            //         // Verificar si la actualización del historial fue exitosa
+            //         if ($actualizarHistorial) {
+            //         } else {
+            //             echo $conexion->error;
+            //         }
+            //     } else {
+            //         echo  $conexion->error;
+            //     }
+            // } else {
+            //     echo  $conexion->error;
+            // }
 
 
 
@@ -228,7 +247,7 @@ if (!empty($_POST["btnmodificar"])) {
                         new PNotify({
                             title: "CORRECTO",
                             type: "success",
-                            text: "Se ha genarado la manual del RPU <?= $rpu ?> correctamente",
+                            text: "Se ha modificado la manual del RPU <?= $rpu ?>, con motivo: <?= $motivo_manual ?>, correctamente",
                             styling: "bootstrap3"
                         })
                     })
@@ -241,7 +260,7 @@ if (!empty($_POST["btnmodificar"])) {
                         new PNotify({
                             title: "INCORRECTO",
                             type: "error",
-                            text: "Error al generar la manual con RPU <?= $rpu ?>",
+                            text: "Error al modificar la manual con RPU <?= $rpu ?>",
                             styling: "bootstrap3"
                         })
                     })
@@ -267,6 +286,7 @@ if (!empty($_POST["btnmodificar"])) {
         and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"]) and !empty($_POST["txtkwh_recuperar"])
         and !empty($_POST["txtobservaciones"])
         and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"]) and !empty($_POST["txtmotivo"])
+        and $_POST["txtidmotivomanual"] == 'LECTURA DE RETIRO'
     ) {
 
 
@@ -286,6 +306,10 @@ if (!empty($_POST["btnmodificar"])) {
         $agencia = $_POST["txtagencia"];
         $responsable_manual = $_POST["txtresponsable_manual"];
         $motivo_correccion = $_POST["txtmotivo"];
+
+        //Responsable de modificar manual
+        $responsable_modificacion = $_POST["txtresponsable_modificacion"];
+
 
 
         $sql = $conexion->query(" select count(*) as 'Total' from control_manuales where rpu=$rpu and id_control_manuales!=$id_manual");
@@ -317,37 +341,39 @@ if (!empty($_POST["btnmodificar"])) {
             observaciones = '$observaciones',
      
             agencia = '$agencia',
-            responsable_manual = '$responsable_manual'
+            responsable_manual = '$responsable_manual',
+            id_motivohistorial = $motivo_correccion,
+            responsable_modificacion = '$responsable_modificacion'
      
             WHERE id_control_manuales = $id_manual");
 
 
-            //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]
+            // //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES] ---------------------------------------------
 
-            // Verificar si la consulta principal fue exitosa
-            if ($modificar) {
-                // Obtener el ID de la fila más reciente en la tabla historial_manuales relacionada
-                $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_manuales) AS id_historial_manuales FROM historial_manuales WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
+            // // Verificar si la consulta principal fue exitosa
+            // if ($modificar) {
+            //     // Obtener el ID de la fila más reciente en la tabla historial_manuales relacionada
+            //     $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_manuales) AS id_historial_manuales FROM historial_manuales WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
 
-                if ($consultaIDHistorial) {
-                    $filaIDHistorial = $consultaIDHistorial->fetch_assoc();
-                    $id_historial = $filaIDHistorial['id_historial_manuales'];
+            //     if ($consultaIDHistorial) {
+            //         $filaIDHistorial = $consultaIDHistorial->fetch_assoc();
+            //         $id_historial = $filaIDHistorial['id_historial_manuales'];
 
-                    // Ahora, realizar la actualización en la tabla de historiales
-                    $actualizarHistorial = $conexion->query("UPDATE historial_manuales SET id_motivohistorial = '$motivo_correccion'
-            WHERE id_historial_manuales = $id_historial");
+            //         // Ahora, realizar la actualización en la tabla de historiales
+            //         $actualizarHistorial = $conexion->query("UPDATE historial_manuales SET id_motivohistorial = '$motivo_correccion', responsable_modificacion = '$responsable_modificacion'
+            // WHERE id_historial_manuales = $id_historial");
 
-                    // Verificar si la actualización del historial fue exitosa
-                    if ($actualizarHistorial) {
-                    } else {
-                        echo $conexion->error;
-                    }
-                } else {
-                    echo  $conexion->error;
-                }
-            } else {
-                echo  $conexion->error;
-            }
+            //         // Verificar si la actualización del historial fue exitosa
+            //         if ($actualizarHistorial) {
+            //         } else {
+            //             echo $conexion->error;
+            //         }
+            //     } else {
+            //         echo  $conexion->error;
+            //     }
+            // } else {
+            //     echo  $conexion->error;
+            // }
 
 
 
@@ -359,7 +385,7 @@ if (!empty($_POST["btnmodificar"])) {
                         new PNotify({
                             title: "CORRECTO",
                             type: "success",
-                            text: "Se ha genarado la manual del RPU <?= $rpu ?> correctamente",
+                            text: "Se ha modificado la manual del RPU <?= $rpu ?>, con motivo: <?= $motivo_manual ?>, correctamente",
                             styling: "bootstrap3"
                         })
                     })
@@ -372,7 +398,7 @@ if (!empty($_POST["btnmodificar"])) {
                         new PNotify({
                             title: "INCORRECTO",
                             type: "error",
-                            text: "Error al generar la manual con RPU <?= $rpu ?>",
+                            text: "Error al modificar la manual con RPU <?= $rpu ?>",
                             styling: "bootstrap3"
                         })
                     })
@@ -399,6 +425,7 @@ if (!empty($_POST["btnmodificar"])) {
         and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"])
         and !empty($_POST["txtobservaciones"])
         and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"]) and !empty($_POST["txtmotivo"])
+        and $_POST["txtidmotivomanual"] == 'MEDIDOR SIN RETROALIMENTAR'
 
     ) {
 
@@ -419,6 +446,10 @@ if (!empty($_POST["btnmodificar"])) {
         $agencia = $_POST["txtagencia"];
         $responsable_manual = $_POST["txtresponsable_manual"];
         $motivo_correccion = $_POST["txtmotivo"];
+
+        //Responsable de modificar manual
+        $responsable_modificacion = $_POST["txtresponsable_modificacion"];
+
 
 
 
@@ -452,37 +483,39 @@ if (!empty($_POST["btnmodificar"])) {
             observaciones = '$observaciones',
           
             agencia = '$agencia',
-            responsable_manual = '$responsable_manual'
+            responsable_manual = '$responsable_manual',
+            id_motivohistorial = $motivo_correccion,
+            responsable_modificacion = '$responsable_modificacion'
       
             WHERE id_control_manuales = $id_manual");
 
 
-            //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]
+            // //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]
 
-            // Verificar si la consulta principal fue exitosa
-            if ($modificar) {
-                // Obtener el ID de la fila más reciente en la tabla historial_manuales relacionada
-                $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_manuales) AS id_historial_manuales FROM historial_manuales WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
+            // // Verificar si la consulta principal fue exitosa
+            // if ($modificar) {
+            //     // Obtener el ID de la fila más reciente en la tabla historial_manuales relacionada
+            //     $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_manuales) AS id_historial_manuales FROM historial_manuales WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
 
-                if ($consultaIDHistorial) {
-                    $filaIDHistorial = $consultaIDHistorial->fetch_assoc();
-                    $id_historial = $filaIDHistorial['id_historial_manuales'];
+            //     if ($consultaIDHistorial) {
+            //         $filaIDHistorial = $consultaIDHistorial->fetch_assoc();
+            //         $id_historial = $filaIDHistorial['id_historial_manuales'];
 
-                    // Ahora, realizar la actualización en la tabla de historiales
-                    $actualizarHistorial = $conexion->query("UPDATE historial_manuales SET id_motivohistorial = '$motivo_correccion'
-            WHERE id_historial_manuales = $id_historial");
+            //         // Ahora, realizar la actualización en la tabla de historiales
+            //         $actualizarHistorial = $conexion->query("UPDATE historial_manuales SET id_motivohistorial = '$motivo_correccion', responsable_modificacion = '$responsable_modificacion'
+            // WHERE id_historial_manuales = $id_historial");
 
-                    // Verificar si la actualización del historial fue exitosa
-                    if ($actualizarHistorial) {
-                    } else {
-                        echo $conexion->error;
-                    }
-                } else {
-                    echo  $conexion->error;
-                }
-            } else {
-                echo  $conexion->error;
-            }
+            //         // Verificar si la actualización del historial fue exitosa
+            //         if ($actualizarHistorial) {
+            //         } else {
+            //             echo $conexion->error;
+            //         }
+            //     } else {
+            //         echo  $conexion->error;
+            //     }
+            // } else {
+            //     echo  $conexion->error;
+            // }
 
 
 
@@ -494,7 +527,7 @@ if (!empty($_POST["btnmodificar"])) {
                         new PNotify({
                             title: "CORRECTO",
                             type: "success",
-                            text: "Se ha genarado la manual del RPU <?= $rpu ?> correctamente",
+                            text: "Se ha modificado la manual del RPU <?= $rpu ?>, con motivo: <?= $motivo_manual ?>, correctamente",
                             styling: "bootstrap3"
                         })
                     })
@@ -507,7 +540,7 @@ if (!empty($_POST["btnmodificar"])) {
                         new PNotify({
                             title: "INCORRECTO",
                             type: "error",
-                            text: "Error al generar la manual con RPU <?= $rpu ?>",
+                            text: "Error al modificar la manual con RPU <?= $rpu ?>",
                             styling: "bootstrap3"
                         })
                     })
@@ -536,6 +569,10 @@ if (!empty($_POST["btnmodificar"])) {
         and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"])
         and !empty($_POST["txtobservaciones"]) and !empty($_POST["txtrespaldo_manual"])
         and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"]) and !empty($_POST["txtmotivo"])
+        and ($_POST["txtidmotivomanual"] == 'MEDIDOR DESPROGRAMADO' || $_POST["txtidmotivomanual"] == 'ANOMALIA SIN ATENCION'
+            || $_POST["txtidmotivomanual"] == 'MEDIDOR QUITAPON' || $_POST["txtidmotivomanual"] == 'LECTURA ACUMULADA'
+            || $_POST["txtidmotivomanual"] == 'ERROR LOTE 23NU' || $_POST["txtidmotivomanual"] == 'MEDIDOR INTERIOR'
+            || $_POST["txtidmotivomanual"] == 'ERROR LECTURA TELEMEDIDA' || $_POST["txtidmotivomanual"] == 'CORRECCION DEMANDA Y/O FP')
     ) {
 
 
@@ -556,6 +593,10 @@ if (!empty($_POST["btnmodificar"])) {
         $responsable_manual = $_POST["txtresponsable_manual"];
         $no_ordenservicio = $_POST["txtno_ordenservicio"];
         $motivo_correccion = $_POST["txtmotivo"];
+
+        //Responsable de modificar manual
+        $responsable_modificacion = $_POST["txtresponsable_modificacion"];
+
 
 
 
@@ -590,36 +631,38 @@ if (!empty($_POST["btnmodificar"])) {
     
             agencia = '$agencia',
             responsable_manual = '$responsable_manual',
-            no_ordenservicio = '$no_ordenservicio'
+            no_ordenservicio = '$no_ordenservicio',
+            id_motivohistorial = $motivo_correccion,
+            responsable_modificacion = '$responsable_modificacion'
             WHERE id_control_manuales = $id_manual");
 
 
-            //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]
+            // //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]
 
-            // Verificar si la consulta principal fue exitosa
-            if ($modificar) {
-                // Obtener el ID de la fila más reciente en la tabla historial_manuales relacionada
-                $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_manuales) AS id_historial_manuales FROM historial_manuales WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
+            // // Verificar si la consulta principal fue exitosa
+            // if ($modificar) {
+            //     // Obtener el ID de la fila más reciente en la tabla historial_manuales relacionada
+            //     $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_manuales) AS id_historial_manuales FROM historial_manuales WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
 
-                if ($consultaIDHistorial) {
-                    $filaIDHistorial = $consultaIDHistorial->fetch_assoc();
-                    $id_historial = $filaIDHistorial['id_historial_manuales'];
+            //     if ($consultaIDHistorial) {
+            //         $filaIDHistorial = $consultaIDHistorial->fetch_assoc();
+            //         $id_historial = $filaIDHistorial['id_historial_manuales'];
 
-                    // Ahora, realizar la actualización en la tabla de historiales
-                    $actualizarHistorial = $conexion->query("UPDATE historial_manuales SET id_motivohistorial = '$motivo_correccion'
-            WHERE id_historial_manuales = $id_historial");
+            //         // Ahora, realizar la actualización en la tabla de historiales
+            //         $actualizarHistorial = $conexion->query("UPDATE historial_manuales SET id_motivohistorial = '$motivo_correccion', responsable_modificacion = '$responsable_modificacion'
+            // WHERE id_historial_manuales = $id_historial");
 
-                    // Verificar si la actualización del historial fue exitosa
-                    if ($actualizarHistorial) {
-                    } else {
-                        echo $conexion->error;
-                    }
-                } else {
-                    echo  $conexion->error;
-                }
-            } else {
-                echo  $conexion->error;
-            }
+            //         // Verificar si la actualización del historial fue exitosa
+            //         if ($actualizarHistorial) {
+            //         } else {
+            //             echo $conexion->error;
+            //         }
+            //     } else {
+            //         echo  $conexion->error;
+            //     }
+            // } else {
+            //     echo  $conexion->error;
+            // }
 
 
 
@@ -631,7 +674,7 @@ if (!empty($_POST["btnmodificar"])) {
                         new PNotify({
                             title: "CORRECTO",
                             type: "success",
-                            text: "Se ha genarado la manual del RPU <?= $rpu ?> correctamente",
+                            text: "Se ha modificado la manual del RPU <?= $rpu ?>, con motivo: <?= $motivo_manual ?>, correctamente",
                             styling: "bootstrap3"
                         })
                     })
@@ -644,7 +687,7 @@ if (!empty($_POST["btnmodificar"])) {
                         new PNotify({
                             title: "INCORRECTO",
                             type: "error",
-                            text: "Error al generar la manual con RPU <?= $rpu ?>",
+                            text: "Error al modificar la manual con RPU <?= $rpu ?>",
                             styling: "bootstrap3"
                         })
                     })

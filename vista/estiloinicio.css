@@ -471,3 +471,13 @@ th[scope="row"] {
 tr {
   display: table-row; /* Asegura que todas las filas se muestren como filas de tabla */
 }
+
+#header-row {
+  position: sticky;
+  top: 0;
+  /* Fija la fila en la parte superior de la tabla */
+  z-index: 1;
+  /* Asegura que la fila esté encima del contenido de la tabla */
+  background-color: #ffffff;
+  /* Color de fondo de la fila */
+}

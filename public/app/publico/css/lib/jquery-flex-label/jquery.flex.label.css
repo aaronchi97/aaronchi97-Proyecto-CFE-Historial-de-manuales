@@ -47,7 +47,7 @@
 }
 
 .fl-flex-label.fl-collapsed.fl-background .fl-label {
-  background: #fff;
+  /* background: #fff; */
 }
 
 .fl-flex-label .fl-label .fl-required {

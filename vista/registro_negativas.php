@@ -46,7 +46,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
 
-                <input type="text" placeholder="RPU" class="input input__text inputmodal_ineditable" name="txtrpu" autocomplete="on">
+                <input type="text" placeholder="RPU" class="input input__text inputmodal_ineditable" name="txtrpu" autocomplete="on" onkeypress="return validarNumeros(event)">
             </div>
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
 
@@ -77,7 +77,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
 
-                <input type="text" placeholder="AA_MM" class="input input__text inputmodal" name="txtaa_mm" list="aammList" autocomplete="off" maxlength="4" onkeypress="return validarFecha(event)">
+                <input type="text" placeholder="AA_MM (año-mes)" class="input input__text inputmodal" name="txtaa_mm" list="aammList" autocomplete="off" maxlength="4" onkeypress="return validarFecha(event)">
                 <!-- <datalist id="aammList"></datalist> -->
             </div>
 

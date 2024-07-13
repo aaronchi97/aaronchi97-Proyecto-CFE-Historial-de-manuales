@@ -31,6 +31,10 @@ if (!empty($_POST["btnmodificar"])) {
         //la fecha de modificacion se agrega automaticamente con el trigger en la tabla principal
 
 
+        //Responsable de modificar manual
+        $responsable_modificacion = $_POST["txtresponsable_modificacion"];
+
+
 
         $sql = $conexion->query(" select count(*) as 'Total' from control_negativas where rpu=$rpu and id_control_negativas != $id_negativa");
 
@@ -63,36 +67,44 @@ if (!empty($_POST["btnmodificar"])) {
             responsable_negativa = '$responsable_negativa',
             rpe_auxiliar = '$rpe_auxiliar',
             agencia= '$agencia',
-            motivo_correccion= '$motivo_negativa'
+            motivo_correccion= '$motivo_negativa',
+            id_motivohistorial = $motivo_correccion,
+            responsable_modificacion = '$responsable_modificacion'
             WHERE id_control_negativas = $id_negativa");
 
 
-            //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]
 
-            // Verificar si la consulta principal fue exitosa
-            if ($modificar) {
-                // Obtener el ID de la fila más reciente en la tabla historial_manuales relacionada
-                $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_negativas) AS id_historial_negativas FROM historial_negativas WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
+            //EL CODIGO COMENTADO DE ABAJO ASIGNA UN ID DEL MOTIVO DE LA MODIFICACION DE LA MANUAL PERO LO ASIGNA AL REGISTRO ANTERIOR
+            //ES DECIR SI UN USUARIO MODIFICA UNA MANUAL, EL MOTIVO DE ESA MODIFICACION SE IMPREGNARA JUNTO CON LOS VALORES DE ESA MANUAL
+            //ANTES DE SER MODIFICADA, SI SE QUIERE SEGUIR CON ESE PROCESO DESCOMENTAR EL CODIGO:
 
-                if ($consultaIDHistorial) {
-                    $filaIDHistorial = $consultaIDHistorial->fetch_assoc();
-                    $id_historial = $filaIDHistorial['id_historial_negativas'];
 
-                    // Ahora, realizar la actualización en la tabla de historiales
-                    $actualizarHistorial = $conexion->query("UPDATE historial_negativas SET id_motivohistorial = '$motivo_correccion'
-            WHERE id_historial_negativas = $id_historial");
+            // //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]
 
-                    // Verificar si la actualización del historial fue exitosa
-                    if ($actualizarHistorial) {
-                    } else {
-                        echo $conexion->error;
-                    }
-                } else {
-                    echo  $conexion->error;
-                }
-            } else {
-                echo  $conexion->error;
-            }
+            // // Verificar si la consulta principal fue exitosa
+            // if ($modificar) {
+            //     // Obtener el ID de la fila más reciente en la tabla historial_manuales relacionada
+            //     $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_negativas) AS id_historial_negativas FROM historial_negativas WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
+
+            //     if ($consultaIDHistorial) {
+            //         $filaIDHistorial = $consultaIDHistorial->fetch_assoc();
+            //         $id_historial = $filaIDHistorial['id_historial_negativas'];
+
+            //         // Ahora, realizar la actualización en la tabla de historiales
+            //         $actualizarHistorial = $conexion->query("UPDATE historial_negativas SET id_motivohistorial = '$motivo_correccion'
+            // WHERE id_historial_negativas = $id_historial");
+
+            //         // Verificar si la actualización del historial fue exitosa
+            //         if ($actualizarHistorial) {
+            //         } else {
+            //             echo $conexion->error;
+            //         }
+            //     } else {
+            //         echo  $conexion->error;
+            //     }
+            // } else {
+            //     echo  $conexion->error;
+            // }
 
 
 
@@ -104,7 +116,7 @@ if (!empty($_POST["btnmodificar"])) {
                         new PNotify({
                             title: "CORRECTO",
                             type: "success",
-                            text: "Se ha genarado la manual del RPU <?= $rpu ?> correctamente",
+                            text: "Se ha modificado la negativa con RPU <?= $rpu ?> correctamente",
                             styling: "bootstrap3"
                         })
                     })
@@ -117,7 +129,7 @@ if (!empty($_POST["btnmodificar"])) {
                         new PNotify({
                             title: "INCORRECTO",
                             type: "error",
-                            text: "Error al generar la manual con RPU <?= $rpu ?>",
+                            text: "Error al modificar la negativa con RPU <?= $rpu ?>",
                             styling: "bootstrap3"
                         })
                     })

@@ -49,11 +49,40 @@
                 </li>
 
                 <li>
-                    <a href="estadisticos_manuales.php" class="">
+                    <a href="emplazamientos.php" class="">
 
-                        <span class="lbl"><i class="fa-solid fa-clipboard-question"></i> Emplazamiento</span>
+                        <span class="lbl"><i class="fa-solid fa-clipboard-question"></i> Emplazamientos</span>
                     </a>
                 </li>
+
+
+                <?php
+
+                if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
+                ?>
+
+                    <li>
+                        <a hidden href="configuracion_manuales.php" class="">
+
+                            <span class="lbl"> <i class="fa-solid fa-gear icono_config"></i> Configuración</span>
+                        </a>
+                    </li>
+
+                <?php } else { ?>
+                    <li>
+                        <a href="configuracion_manuales.php" class="">
+
+                            <span class="lbl"> <i class="fa-solid fa-gear icono_config"></i> Configuración</span>
+                        </a>
+                    </li>
+
+
+                <?php }
+                ?>
+
+
+
+
             </ul>
         </li>
 
@@ -94,6 +123,30 @@
                         <span class="lbl"> <i class="fa-solid fa-chart-simple"></i> Estadísticos</span>
                     </a>
                 </li>
+
+                <?php
+
+                if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
+                ?>
+
+                    <li>
+                        <a hidden href="configuracion_negativas.php" class="">
+
+                            <span class="lbl"> <i class="fa-solid fa-gear icono_config"></i> Configuración</span>
+                        </a>
+                    </li>
+
+                <?php } else { ?>
+                    <li>
+                        <a href="configuracion_negativas.php" class="">
+
+                            <span class="lbl"> <i class="fa-solid fa-gear icono_config"></i> Configuración</span>
+                        </a>
+                    </li>
+
+
+                <?php }
+                ?>
             </ul>
         </li>
 
@@ -122,7 +175,7 @@
 
         <?php
 
-        if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
+        if ($_SESSION['rol'] == 2 || $_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
         ?>
             <li class="red">
                 <a hidden href="usuario.php" class="activo">
@@ -182,6 +235,35 @@
                 <span class="lbl">INICIO</span>
             </a>
         </li>
+
+
+
+
+        <!-- <li class=" with-sub green ">
+
+            <span class="activo">
+
+                <i class="fa-solid fa-gear icono_config"></i>
+
+            </span>
+
+            <ul>
+                <li>
+                    <a href="configuracion_manuales.php" class="">
+
+                        <span class="lbl"> <i class="fa-solid fa-plus"></i> Manuales</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="configuracion_negativas.php" class="">
+
+                        <span class="lbl"><i class="fa-solid fa-list-check"></i> Negativas </span>
+                    </a>
+                </li>
+
+
+            </ul>
+        </li> -->
 
 
 

@@ -23,13 +23,22 @@
 <script src="../public/app/publico/js/lib/datatables-net/datatables.min.js"></script>
 
 
+<!-- Google maps -->
+<script type="module" src="https://unpkg.com/@googlemaps/extended-component-library@0.6"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDB1ZAbXIPoh9I7pTh_AwFveGiyAUn_xEc&libraries=places"></script>
+<script type="module" src="./index.js"></script>
+
+
+
+
 
 <!-- sweet alert -->
 <script src="../public/sweet/js/sweetalert2.js"></script>
 <script src="../public/sweet/js/sweet.js"></script>
 
 
-<script>
+<!-- <script>
     $(function() {
         $('#example').DataTable({
             select: {
@@ -38,6 +47,7 @@
             responsive: true,
             pageLength: 15,
             // responsive: false,
+            "ordering": false, // Desactiva el ordenamiento predeterminado 
             "language": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -69,6 +79,89 @@
         });
     });
 </script>
+ -->
+
+<script>
+    let table;
+    let responsiveEnabled = true; // Estado inicial de la opción responsive
+
+    $(document).ready(function() {
+        // Inicializar la tabla con el estado inicial de responsive
+        table = $('#example').DataTable({
+            responsive: responsiveEnabled,
+            pageLength: 15,
+            ordering: false, // Desactiva el ordenamiento predeterminado 
+            language: {
+                sProcessing: "Procesando...",
+                sLengthMenu: "Mostrar _MENU_ registros",
+                sZeroRecords: "No se encontraron resultados",
+                sEmptyTable: "Lo siento <?= $_SESSION["nombre"] ?> <?= $_SESSION["apellido"] ?>, no hay datos disponibles",
+                sInfo: "Registros del _START_ al _END_ de _TOTAL_ registros",
+                sInfoEmpty: "Registros del 0 al 0 de 0 registros",
+                sInfoFiltered: "-",
+                sInfoPostFix: "",
+                sSearch: "Buscar:",
+                sUrl: "",
+                sInfoThousands: ",",
+                sLoadingRecords: "Cargando...",
+                oPaginate: {
+                    sFirst: "Primero",
+                    sLast: "Último",
+                    sNext: "Siguiente",
+                    sPrevious: "Anterior"
+                },
+                oAria: {
+                    sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+                    sSortDescending: ": Activar para ordenar la columna de manera descendente"
+                },
+                buttons: {
+                    copy: "Copiar",
+                    colvis: "Visibilidad"
+                }
+            }
+        });
+
+        // Manejar el clic en el botón para alternar el estado de responsive
+        $('#toggleResponsive').on('click', function() {
+            responsiveEnabled = !responsiveEnabled;
+            table.destroy(); // Destruir la tabla actual
+            table = $('#example').DataTable({
+                responsive: responsiveEnabled ? true : null, // Alternar el estado de responsive
+                pageLength: 15,
+                ordering: false, // Desactiva el ordenamiento predeterminado 
+                language: {
+                    sProcessing: "Procesando...",
+                    sLengthMenu: "Mostrar _MENU_ registros",
+                    sZeroRecords: "No se encontraron resultados",
+                    sEmptyTable: "Lo siento <?= $_SESSION["nombre"] ?> <?= $_SESSION["apellido"] ?>, no hay datos disponibles",
+                    sInfo: "Registros del _START_ al _END_ de _TOTAL_ registros",
+                    sInfoEmpty: "Registros del 0 al 0 de 0 registros",
+                    sInfoFiltered: "-",
+                    sInfoPostFix: "",
+                    sSearch: "Buscar:",
+                    sUrl: "",
+                    sInfoThousands: ",",
+                    sLoadingRecords: "Cargando...",
+                    oPaginate: {
+                        sFirst: "Primero",
+                        sLast: "Último",
+                        sNext: "Siguiente",
+                        sPrevious: "Anterior"
+                    },
+                    oAria: {
+                        sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+                        sSortDescending: ": Activar para ordenar la columna de manera descendente"
+                    },
+                    buttons: {
+                        copy: "Copiar",
+                        colvis: "Visibilidad"
+                    }
+                }
+            });
+        });
+    });
+</script>
+
 
 
 <script type="text/javascript" src="../public/app/publico/js/lib/jqueryui/jquery-ui.min.js"></script>

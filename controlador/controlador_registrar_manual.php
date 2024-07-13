@@ -70,7 +70,7 @@ if (!empty($_POST["btnregistrar"])) {
             observaciones,
             no_ordenservicio,	
             agencia,
-            responsable_manual, id_estatus, fecha_captura)values($rpu, '$cuenta',
+            responsable_manual, id_estatus, fecha_captura, id_motivohistorial, responsable_modificacion)values($rpu, '$cuenta',
             $ciclo,
             '$tarifa',
             '$motivo_manual',
@@ -84,7 +84,9 @@ if (!empty($_POST["btnregistrar"])) {
             '$agencia',
             '$responsable_manual',
              $estatus,
-            '$fecha_captura' )  ");
+            '$fecha_captura',
+            '7',
+            'SIN MODIFICACION, REGISTRO NUEVO' )  ");
 
 
 
@@ -178,7 +180,7 @@ if (!empty($_POST["btnregistrar"])) {
             observaciones,
             no_ordenservicio,
             agencia,
-            responsable_manual, id_estatus, fecha_captura)values($rpu, '$cuenta',
+            responsable_manual, id_estatus, fecha_captura, id_motivohistorial, responsable_modificacion)values($rpu, '$cuenta',
             $ciclo,
             '$tarifa',
             '$motivo_manual',
@@ -192,7 +194,9 @@ if (!empty($_POST["btnregistrar"])) {
             '$agencia',
             '$responsable_manual',
              $estatus,
-            '$fecha_captura' )  ");
+            '$fecha_captura',
+            '7',
+            'SIN MODIFICACION, REGISTRO NUEVO' )  ");
 
 
 
@@ -290,7 +294,7 @@ if (!empty($_POST["btnregistrar"])) {
             observaciones,
         
             agencia,
-            responsable_manual, id_estatus, fecha_captura)values($rpu, '$cuenta',
+            responsable_manual, id_estatus, fecha_captura, id_motivohistorial, responsable_modificacion)values($rpu, '$cuenta',
             $ciclo,
             '$tarifa',
             '$motivo_manual',
@@ -304,7 +308,9 @@ if (!empty($_POST["btnregistrar"])) {
             '$agencia',
             '$responsable_manual',
              $estatus,
-            '$fecha_captura' )  ");
+            '$fecha_captura',
+            '7',
+            'SIN MODIFICACION, REGISTRO NUEVO' )  ");
 
 
 
@@ -403,7 +409,7 @@ if (!empty($_POST["btnregistrar"])) {
             observaciones,
           
             agencia,
-            responsable_manual, id_estatus, fecha_captura)values($rpu, '$cuenta',
+            responsable_manual, id_estatus, fecha_captura, id_motivohistorial, responsable_modificacion)values($rpu, '$cuenta',
             $ciclo,
             '$tarifa',
             '$motivo_manual',
@@ -415,7 +421,9 @@ if (!empty($_POST["btnregistrar"])) {
             '$agencia',
             '$responsable_manual',
              $estatus,
-            '$fecha_captura' )  ");
+            '$fecha_captura',
+            '7',
+            'SIN MODIFICACION, REGISTRO NUEVO' )  ");
 
 
 
@@ -521,7 +529,7 @@ if (!empty($_POST["btnregistrar"])) {
             observaciones,
             no_ordenservicio,
             agencia,
-            responsable_manual, id_estatus, fecha_captura)values($rpu, '$cuenta',
+            responsable_manual, id_estatus, fecha_captura, id_motivohistorial, responsable_modificacion)values($rpu, '$cuenta',
             $ciclo,
             '$tarifa',
             '$motivo_manual',
@@ -536,7 +544,9 @@ if (!empty($_POST["btnregistrar"])) {
             '$agencia',
             '$responsable_manual',
              $estatus,
-            '$fecha_captura' )  ");
+            '$fecha_captura',
+            '7',
+            'SIN MODIFICACION, REGISTRO NUEVO' )  ");
 
 
 

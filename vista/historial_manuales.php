@@ -35,6 +35,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
   //llamamos al controlador para eliminar registros
   //   include "../controlador/controlador_modificar_manual.php";
   // include "../controlador/controlador_eliminar_usuario.php";
+  include "../controlador/control-historiales/controlador_regresar_historico_manual.php";
 
 
 
@@ -50,6 +51,11 @@ JOIN motivo_historial ON historial_manuales.id_motivohistorial = motivo_historia
 JOIN estatus ON historial_manuales.id_estatus = estatus.id_estatus
 WHERE historial_manuales.id_control_manuales = $id_manual_obtenido
 ORDER BY historial_manuales.fecha_historial DESC;");
+
+
+  //RESOLVER PROBLEMA DE ORDEN EN LAS TABLAS SEGUN FECHA, LA TABLA CREO QUE ACOMODA EL ORDEN 
+  //POR ORDEN ALFABETICO SEGUN LA PALABRA DE LA PRIMERA COLUMNA "AGREGAR" COMO EMPIEZA CON LA LETRA "A"
+  //LA TABLA AUTOMATICAMENTE LA PONE COMO EL PRIMER VALOR IGNORANDO LA INSTRUCCION DE LA CONSULTA
 
 
 
@@ -71,30 +77,16 @@ ORDER BY historial_manuales.fecha_historial DESC;");
   ?>
 
 
-    <table class="table table-bordered table-hover w-100 " id="example">
+    <table class="table table-bordered table-hover w-100 " id="example" class="display myTable">
       <thead>
         <tr>
 
-          <th scope="col">ACCION</th>
-          <th scope="col">MOTIVO</th>
-          <th scope="col">RPU</th>
-          <th scope="col">ESTATUS</th>
-          <th scope="col">CUENTA</th>
-          <th scope="col">CICLO</th>
-          <th scope="col">TARIFA</th>
-          <th scope="col">MOTIVO MANUAL</th>
-          <!-- <th scope="col">SIN USO</th> -->
-          <th scope="col">LECTURA MANUAL</th>
-          <th scope="col">KWH A RECUPERAR</th>
-          <th scope="col">RESPALDO</th>
-          <th scope="col">RPE_AUXILIAR</th>
-          <th scope="col">OBSERVACIONES</th>
-          <th scope="col">CORRECCION</th>
-          <th scope="col">CUENTA2</th>
-          <th scope="col">RESPONSABLE_MANUAL</th>
-          <th scope="col">FECHA CAPTURA MANUAL</th>
-          <th scope="col">FECHA HISTORIAL</th>
-          <th scope="col">ACCION</th>
+          <!-- //SE AGREGA CODIGO DE LAS CABECERAS DE LA TABLA VISTA PARA ADMINISTRADOR Y SUPERVISOR-->
+
+          <?php
+          include "tablas/cabecera_historial_manuales_admin.php";
+          ?>
+
         </tr>
       </thead>
 
@@ -106,243 +98,30 @@ ORDER BY historial_manuales.fecha_historial DESC;");
 
           <tr>
 
-            <td style="color: #AAEA6D;" class="celda" onclick="copiarContenido(this)">
-              <?= $datos->accion_historial ?>
-            </td>
 
-            <td style="color: #F07267;" class="celda" onclick="copiarContenido(this)">
-              <?= $datos->nombre_motivo ?>
-            </td>
-
+            <!-- //SE AGREGA CODIGO DE LAS FILAS DE LA TABLA VISTA PARA ADMINISTRADOR Y SUPERVISOR-->
             <?php
-            if ($datos->id_estatus == '1') { ?>
-              <td style="color:whitesmoke; font-weight: bold; background-color: rgba(110, 149, 52, 0.8);" class="td-celda-rpu celda" onclick="copiarContenido(this)">
-                <?= $datos->rpu ?>
-              </td>
+            include "tablas/filas_historial_manuales_admin.php";
+            ?>
 
 
-
-              <td style="background-color: rgba(110, 149, 52, 0.7); text-decoration: none;" class="td-celda-icono-estatus">
-                <a href="#">
-                  ATENDIDO </i>
-                </a>
-              </td>
-
-            <?php } else if (($datos->id_estatus == '2')) { ?>
-
-              <td style="color:whitesmoke; font-weight: bold; background-color: rgba(245, 174, 22, 0.8);" class="td-celda-rpu celda" onclick="copiarContenido(this)">
-                <?= $datos->rpu ?>
-              </td>
-
-
-              <td style="background-color:rgba(245, 174, 22, 0.7); text-decoration: none;" class="td-celda-icono-estatus">
-
-                <a href="#">
-                  PENDIENTE</a>
-
-              </td>
-
-
-            <?php } else { ?>
-
-
-              <td style="color:whitesmoke; font-weight: bold; background-color:rgba(255, 53, 53, 0.8);" class="td-celda-rpu celda" onclick="copiarContenido(this)">
-                <?= $datos->rpu ?>
-              </td>
-
-
-              <td style="background-color: rgba(255, 53, 53, 0.7);" class="td-celda-icono-estatus">
-
-                <a href="#">
-                  RECHAZADO </a>
-
-              </td>
-
-
-            <?php } ?>
-
-
-
-
-
-
-
-
-
-
-            <td class="celda" onclick="copiarContenido(this)">
-              <?= $datos->cuenta ?>
-            </td>
-            <td class="celda" onclick="copiarContenido(this)">
-              <?= $datos->ciclo ?>
-            </td>
-            <td class="celda" onclick="copiarContenido(this)">
-              <?= $datos->tarifa ?>
-            </td>
-            <td class="celda" onclick="copiarContenido(this)">
-              <?= $datos->id_motivomanual ?>
-            </td>
-            <!-- <td id="celdaSinUso" onclick="copiarContenido('celdaSinUso')">
-                <?= $datos->sin_uso ?>
-              </td> -->
-            <td class="celda" onclick="copiarContenido(this)">
-              <?= $datos->lectura_manual ?>
-            </td>
-            <td class="celda" onclick="copiarContenido(this)">
-              <?= $datos->kwh_recuperar ?>
-            </td>
-            <td class="celda" onclick="copiarContenido(this)">
-              <?= $datos->respaldo_man ?>
-            </td>
-            <td class="celda" onclick="copiarContenido(this)">
-              <?= $datos->rpe_auxiliar ?>
-            </td>
-            <td class="celda" onclick="copiarContenido(this)">
-              <?= $datos->observaciones ?>
-            </td>
-            <td class="celda" onclick="copiarContenido(this)">
-              <?= $datos->correccion ?>
-            </td>
-            <td class="celda" onclick="copiarContenido(this)">
-              <?= $datos->agencia ?>
-            </td>
-            <td class="celda" onclick="copiarContenido(this)">
-              <?= $datos->responsable_manual ?>
-            </td>
-            <td class="celda" onclick="copiarContenido(this)">
-              <?= $datos->fecha_captura ?>
-            </td>
-            <td class="celda" onclick="copiarContenido(this)">
-              <?= $datos->fecha_historial ?>
-            </td>
-            <td>
-              <a class="btn btn-danger" href="manuales.php?id_manual_eliminar=<?= $datos->id_control_manuales ?>" onclick=" advertencia(event)"><i class="fa-solid fa-trash-can"></i></a>
-            </td>
           </tr>
 
 
 
 
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal<?= $datos->id_control_manuales  ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header d-flex justify-content-between">
-                  <h5 class="modal-title w-100" id="exampleModalLabel">GENERAR MANUAL</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <!--Aqui haremos la modificacion de usuario-->
-                  <form action="" method="post">
-                    <div hidden class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="ID" class="input input__text inputmodal" name="txtid" value=" <?= $datos->id_control_manuales ?>" readonly>
-                    </div>
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="RPU" class="input input__text inputmodal" name="txtrpu" value=" <?= $datos->rpu ?>" readonly>
-                    </div>
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Cuenta" class="input input__text inputmodal" name="txtcuenta" value=" <?= $datos->cuenta ?>">
-                    </div>
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Ciclo" class="input input__text inputmodal" name="txtciclo" value=" <?= $datos->ciclo ?>">
-                    </div>
-
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Tarifa" class="input input__text inputmodal" name="txttarifa" value=" <?= $datos->tarifa ?>">
-                    </div>
-
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Motivo de la manual" class="input input__text inputmodal" name="txtidmotivomanual" value=" <?= $datos->id_motivomanual ?>">
-                    </div>
-
-                    <!-- <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="sin_uso" class="input input__text inputmodal" name="txtsin_uso"
-                        value=" <?= $datos->sin_uso ?>">
-                    </div> -->
-
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="lectura de manual" class="input input__text inputmodal" name="txtlectura_manual" value=" <?= $datos->lectura_manual ?>">
-                    </div>
-
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="kwh a recuperar" class="input input__text inputmodal" name="txtkwh_recuperar" value=" <?= $datos->kwh_recuperar ?>">
-                    </div>
-
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Respaldo_manual" class="input input__text inputmodal" name="txtrespaldo_manual" value=" <?= $datos->respaldo_man ?>">
-                    </div>
-
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="RPE auxiliar" class="input input__text inputmodal" name="txtrpe_auxiliar" value=" <?= $datos->rpe_auxiliar ?>">
-                    </div>
-
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Observaciones" class="input input__text inputmodal" name="txtobservaciones" value=" <?= $datos->observaciones ?>">
-                    </div>
-
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Correccion" class="input input__text inputmodal" name="txtcorreccion" value=" <?= $datos->correccion ?>">
-                    </div>
-
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Agencia" class="input input__text inputmodal" name="txtagencia" value=" <?= $datos->agencia ?>">
-                    </div>
-
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Responsable Manual" class="input input__text inputmodal" name="txtresponsable_manual" value=" <?= $datos->responsable_manual ?>">
-                    </div>
-
-                    <!-- <div class="fl-flex-label mb-4 px-2 col-12  campo">
-
-                      <input type="text" placeholder="Fecha Captura" class="input input__text inputmodal" name="txtfecha_captura"
-                        value=" <?= $datos->fecha_captura ?>">
-                    </div> -->
-
-
-
-
-
-                    <!-- <div class="fl-flex-label mb-4 px-2 col-12  campo">
-                    <input type="password" placeholder="Contrasea" class="input input__text inputmodal" name="txtpassword" >
-                  </div> -->
-
-                    <div class="text-right p-3">
-                      <a href="usuario.php" class="btn btn-secondary btn-rounded">Atras</a>
-                      <button type="submit" value="ok" name="btnmodificar" class="btn btn-primary btn-rounded">Modificar</button>
-                    </div>
-
-                  </form>
-
-
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-
         <?php
 
+          // <!-- MODAL PARA HACER COMPARACIONES DE HISTORICOS DE MANUALES, SE COMPARA CUALQUIER HISTORICO CON LA MANUAL ACTUAL ---->
+
+          include "modales/modal_comparacion_historicos_manuales.php";
         }
 
+
+
         ?>
+
+
       <?php
 
     } else {
@@ -354,25 +133,11 @@ ORDER BY historial_manuales.fecha_historial DESC;");
             <tr>
 
 
-              <th scope="col">ACCION</th>
-              <th scope="col">MOTIVO</th>
-              <th scope="col">RPU</th>
-              <th scope="col">ESTATUS</th>
-              <th scope="col">CUENTA</th>
-              <th scope="col">CICLO</th>
-              <th scope="col">TARIFA</th>
-              <th scope="col">MOTIVO MANUAL</th>
-              <!-- <th scope="col">SIN USO</th> -->
-              <th scope="col">LECTURA MANUAL</th>
-              <th scope="col">KWH A RECUPERAR</th>
-              <th scope="col">RESPALDO</th>
-              <th scope="col">RPE_AUXILIAR</th>
-              <th scope="col">OBSERVACIONES</th>
-              <th scope="col">CORRECCION</th>
-              <th scope="col">CUENTA2</th>
-              <th scope="col">RESPONSABLE_MANUAL</th>
-              <th scope="col">FECHA CAPTURA</th>
-              <th scope="col">FECHA HISTORIAL</th>
+              <!-- //SE AGREGA CODIGO DE LAS CABECERAS DE LA TABLA VISTA PARA PROFESIONISTAS Y CONSULTAS-->
+
+              <?php
+              include "tablas/cabecera_historial_manuales_consultor.php";
+              ?>
 
             </tr>
           </thead>
@@ -381,118 +146,20 @@ ORDER BY historial_manuales.fecha_historial DESC;");
 
             <?php
             while ($datos = $sql->fetch_object()) { ?>
+              <tr>
 
-
-              <td style="color: #AAEA6D;" class="celda" onclick="copiarContenido(this)">
-                <?= $datos->accion_historial ?>
-              </td>
-              <td style="color: #AAEA6D;" class="celda" onclick="copiarContenido(this)">
-                <?= $datos->nombre_motivo ?>
-              </td>
-
-
-              <?php
-              if ($datos->id_estatus == '1') { ?>
-                <td style="color:whitesmoke; font-weight: bold; background-color: rgba(110, 149, 52, 0.6);" class="td-celda-rpu celda" onclick="copiarContenido(this)">
-                  <?= $datos->rpu ?>
-                </td>
-
-
-
-                <td style="background-color: rgba(110, 149, 52, 0.5); text-decoration: none;" class="td-celda-icono-estatus">
-                  <a href="#">
-                    ATENDIDO </i>
-                  </a>
-                </td>
-
-              <?php } else if (($datos->id_estatus == '2')) { ?>
-
-                <td style="color:whitesmoke; font-weight: bold; background-color: rgba(245, 174, 22, 0.6);" class="td-celda-rpu celda" onclick="copiarContenido(this)">
-                  <?= $datos->rpu ?>
-                </td>
-
-
-                <td style="background-color:rgba(245, 174, 22, 0.5); text-decoration: none;" class="td-celda-icono-estatus">
-
-                  <a href="#">
-                    PENDIENTE</a>
-
-                </td>
-
-
-              <?php } else { ?>
-
-
-                <td style="color:whitesmoke; font-weight: bold; background-color:rgba(255, 53, 53, 0.6);" class="td-celda-rpu celda" onclick="copiarContenido(this)">
-                  <?= $datos->rpu ?>
-                </td>
-
-
-                <td style="background-color: rgba(255, 53, 53, 0.5);" class="td-celda-icono-estatus">
-
-                  <a href="#">
-                    RECHAZADO </a>
-
-                </td>
-
-
-              <?php } ?>
-
-
-
-
-
-
-              <td class="celda" onclick="copiarContenido(this)">
-                <?= $datos->cuenta ?>
-              </td>
-              <td class="celda" onclick="copiarContenido(this)">
-                <?= $datos->ciclo ?>
-              </td>
-              <td class="celda" onclick="copiarContenido(this)">
-                <?= $datos->tarifa ?>
-              </td>
-              <td class="celda" onclick="copiarContenido(this)">
-                <?= $datos->id_motivomanual ?>
-              </td>
-              <!-- <td id="celdaSinUso" onclick="copiarContenido('celdaSinUso')">
-                <?= $datos->sin_uso ?>
-              </td> -->
-              <td class="celda" onclick="copiarContenido(this)">
-                <?= $datos->lectura_manual ?>
-              </td>
-              <td class="celda" onclick="copiarContenido(this)">
-                <?= $datos->kwh_recuperar ?>
-              </td>
-              <td class="celda" onclick="copiarContenido(this)">
-                <?= $datos->respaldo_man ?>
-              </td>
-              <td class="celda" onclick="copiarContenido(this)">
-                <?= $datos->rpe_auxiliar ?>
-              </td>
-              <td class="celda" onclick="copiarContenido(this)">
-                <?= $datos->observaciones ?>
-              </td>
-              <td class="celda" onclick="copiarContenido(this)">
-                <?= $datos->correccion ?>
-              </td>
-              <td class="celda" onclick="copiarContenido(this)">
-                <?= $datos->agencia ?>
-              </td>
-              <td class="celda" onclick="copiarContenido(this)">
-                <?= $datos->responsable_manual ?>
-              </td>
-              <td>
-                <?= $datos->fecha_captura ?>
-              </td>
-              <td class="celda" onclick="copiarContenido(this)">
-                <?= $datos->fecha_historial ?>
-              </td>
-
-
+                <!-- //SE AGREGA CODIGO DE LAS FILAS DE LA TABLA VISTA PARA ADMINISTRADOR Y SUPERVISOR-->
+                <?php
+                include "tablas/filas_historial_manuales_consultor.php";
+                ?>
 
               </tr>
-            <?php } ?>
+
+            <?php
+              // <!-- MODAL PARA HACER COMPARACIONES DE HISTORICOS DE MANUALES, SE COMPARA CUALQUIER HISTORICO CON LA MANUAL ACTUAL ---->
+
+              include "modales/modal_comparacion_historicos_manuales.php";
+            } ?>
 
 
 
@@ -511,8 +178,14 @@ ORDER BY historial_manuales.fecha_historial DESC;");
           </tbody>
         </table>
 
+        <!-- //BOTON PARA QUITAR O OTORGAR EL ESTADO RESPONSIVE DE LA TABLA -->
+
+        <button class="btn" id="toggleResponsive"><i class="fa-solid fa-up-right-and-down-left-from-center"></i></button>
+
 </div>
 </div>
+
+
 <!-- fin del contenido principal -->
 
 

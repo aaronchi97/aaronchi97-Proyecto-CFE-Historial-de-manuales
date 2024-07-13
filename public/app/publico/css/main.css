@@ -2029,6 +2029,8 @@ input {
 button,
 select {
   text-transform: none;
+  /* edicion aqui abajo */
+  display: none;
 }
 button,
 html input[type="button"],
@@ -12569,6 +12571,13 @@ html {
 .icon-manual i {
   color: green;
 }
+
+/* .icono_config {
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
 
 .side-menu-list a:hover,
 .side-menu-list li > span:hover {

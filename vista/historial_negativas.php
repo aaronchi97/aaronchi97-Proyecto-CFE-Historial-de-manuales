@@ -11,7 +11,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 ?>
 
 <style>
-    ul li:nth-child(1) .activo {
+    ul li:nth-child(2) .activo {
         background: #598b6b !important;
     }
 </style>
@@ -43,6 +43,8 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
     //llamamos al controlador para eliminar registros
     //   include "../controlador/controlador_modificar_manual.php";
     // include "../controlador/controlador_eliminar_usuario.php";
+    // <!-- INCLUDE PARA LLAMAR AL CONTROLADOR QUE SALVA LA NEGATIVA DESDE EL HISTORIAL -->
+    include "../controlador/control-historiales/controlador_regresar_historico_negativa.php";
 
 
 
@@ -58,9 +60,6 @@ JOIN motivo_historial ON historial_negativas.id_motivohistorial = motivo_histori
 JOIN estatus ON historial_negativas.id_estatus = estatus.id_estatus
 WHERE historial_negativas.id_control_negativas = $id_negativa_obtenido
 ORDER BY historial_negativas.fecha_historial DESC;");
-
-
-
 
 
 
@@ -83,30 +82,13 @@ ORDER BY historial_negativas.fecha_historial DESC;");
             <thead>
                 <tr>
 
-                    <th scope="col">ACCION</th>
-                    <th scope="col">MOTIVO</th>
-                    <th scope="col">RPU</th>
-                    <th scope="col">ESTATUS</th>
-                    <th scope="col">CUENTA</th>
-                    <th scope="col">CICLO</th>
-                    <th scope="col">AGENCIA</th>
-                    <th scope="col">TARIFA</th>
-                    <th scope="col">MEDIDOR</th>
-                    <!-- <th scope="col">SIN USO</th> -->
-                    <th scope="col">AA_MM</th>
-                    <th scope="col">TIPO MEDIDOR</th>
-                    <th scope="col">CVE</th>
-                    <th scope="col">DICE</th>
-                    <th scope="col">DEBE DECIR</th>
-                    <th scope="col">KWH_A_RECUPERAR</th>
-                    <th scope="col">RESPALDO_NEGATIVA</th>
-                    <th scope="col">MOTIVO_CORRECCION</th>
-                    <th scope="col">RPE AUXILIAR</th>
-                    <th scope="col">OBSERVACIONES</th>
-                    <th scope="col">RESPONSABLE</th>
-                    <th scope="col">FECHA CAPTURA NEGATIVA</th>
-                    <th scope="col">FECHA HISTORIAL</th>
-                    <th scope="col">ACCION</th>
+                    <!-- //SE AGREGA CODIGO DE LAS CABECERAS DE LA TABLA VISTA PARA ADMINISTRADOR Y SUPERVISOR-->
+
+                    <?php
+                    include "tablas/cabecera_historial_negativas_admin.php";
+                    ?>
+
+
                 </tr>
             </thead>
 
@@ -119,126 +101,12 @@ ORDER BY historial_negativas.fecha_historial DESC;");
                     <tr>
 
 
-
-
-                        <td style="color: #AAEA6D;" id="accionhistorial" class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->accion_historial ?>
-                        </td>
-
-                        <td style="color: #AAEA6D;" class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->nombre_motivo ?>
-                        </td>
-
-
+                        <!-- //SE AGREGA CODIGO DE LAS FILAS DE LA TABLA VISTA PARA ADMINISTRADOR Y SUPERVISOR-->
                         <?php
-                        if ($datos->id_estatus == '1') { ?>
-                            <td style="color:whitesmoke; font-weight: bold; background-color: rgba(110, 149, 52, 0.8);" class="td-celda-rpu celda" onclick="copiarContenido(this)">
-                                <?= $datos->rpu ?>
-                            </td>
+                        include "tablas/filas_historial_negativas_admin.php";
+                        ?>
 
 
-
-                            <td style="background-color: rgba(110, 149, 52, 0.7); text-decoration: none;" class="td-celda-icono-estatus">
-                                <a href="#">
-                                    ATENDIDO <i class="fa-solid fa-circle-check" style="color: #42ca07;"></i>
-                                </a>
-                            </td>
-
-                        <?php } else if (($datos->id_estatus == '2')) { ?>
-
-                            <td style="color:whitesmoke; font-weight: bold; background-color: rgba(245, 174, 22, 0.8);" class="td-celda-rpu celda" onclick="copiarContenido(this)">
-                                <?= $datos->rpu ?>
-                            </td>
-
-
-                            <td style="background-color:rgba(245, 174, 22, 0.7); text-decoration: none;" class="td-celda-icono-estatus">
-
-                                <a href="#">
-                                    PENDIENTE <i class="fa-solid fa-clock" style="color: #f4a701;"></i> </a>
-
-                            </td>
-
-
-                        <?php } else { ?>
-
-
-                            <td style="color:whitesmoke; font-weight: bold; background-color:rgba(255, 53, 53, 0.8);" class="td-celda-rpu celda" onclick="copiarContenido(this)">
-                                <?= $datos->rpu ?>
-                            </td>
-
-
-                            <td style="background-color: rgba(255, 53, 53, 0.7);" class="td-celda-icono-estatus">
-
-                                <a href="#">
-                                    RECHAZADO <i class="fa-solid fa-circle-xmark" style="color: #ff2424;"></i> </a>
-
-                            </td>
-
-
-                        <?php } ?>
-
-
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->cuenta ?>
-                        </td>
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->ciclo ?>
-                        </td>
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->agencia ?>
-                        </td>
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->tarifa ?>
-                        </td>
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->medidor ?>
-                        </td>
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->aa_mm ?>
-                        </td>
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->tipo_medidor ?>
-                        </td>
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->cve ?>
-                        </td>
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->dice ?>
-                        </td>
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->debe_decir ?>
-                        </td>
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->kwh_recuperar ?>
-                        </td>
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->id_justificacionnegativas ?>
-                        </td>
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->motivo_correccion ?>
-                        </td>
-
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->rpe_auxiliar ?>
-                        </td>
-
-
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->observaciones ?>
-                        </td>
-                        <td class="celda" onclick="copiarContenido(this)">
-                            <?= $datos->responsable_negativa ?>
-                        </td>
-
-                        <td id="celdaFechaCaptura" onclick="copiarContenido('celdaFechaCaptura')">
-                            <?= $datos->fecha_captura ?>
-                        </td>
-                        <td id="celdaFechaCaptura" onclick="copiarContenido('celdaFechaCaptura')">
-                            <?= $datos->fecha_historial ?>
-                        </td>
-                        <td>
-                            <a class="btn btn-danger" href="negativas.php?id_negativa_eliminar=<?= $datos->id_control_negativas ?>" onclick=" advertencia(event)"><i class="fa-solid fa-trash-can"></i></a>
-                        </td>
                     </tr>
 
 
@@ -247,6 +115,11 @@ ORDER BY historial_negativas.fecha_historial DESC;");
 
                 <?php
 
+
+
+                    // <!-- MODAL PARA HACER COMPARACIONES DE HISTORICOS DE NEGATIVAS, SE COMPARA CUALQUIER HISTORICO CON LA MANUAL ACTUAL ---->
+
+                    include "modales/modal_comparacion_historicos_negativas.php";
                 }
 
                 ?>
@@ -260,29 +133,12 @@ ORDER BY historial_negativas.fecha_historial DESC;");
                     <thead>
                         <tr>
 
-                            <th scope="col">ACCION</th>
-                            <th scope="col">MOTIVO</th>
-                            <th scope="col">RPU</th>
-                            <th scope="col">ESTATUS</th>
-                            <th scope="col">CUENTA</th>
-                            <th scope="col">CICLO</th>
-                            <th scope="col">AGENCIA</th>
-                            <th scope="col">TARIFA</th>
-                            <th scope="col">MEDIDOR</th>
-                            <!-- <th scope="col">SIN USO</th> -->
-                            <th scope="col">AA_MM</th>
-                            <th scope="col">TIPO MEDIDOR</th>
-                            <th scope="col">CVE</th>
-                            <th scope="col">DICE</th>
-                            <th scope="col">DEBE DECIR</th>
-                            <th scope="col">KWH_A_RECUPERAR</th>
-                            <th scope="col">RESPALDO_NEGATIVA</th>
-                            <th scope="col">MOTIVO_CORRECCION</th>
-                            <th scope="col">RPE AUXILIAR</th>
-                            <th scope="col">OBSERVACIONES</th>
-                            <th scope="col">RESPONSABLE</th>
-                            <th scope="col">FECHA CAPTURA NEGATIVA</th>
-                            <th scope="col">FECHA HISTORIAL</th>
+                            <!-- //SE AGREGA CODIGO DE LAS CABECERAS DE LA TABLA VISTA PARA PROFESIONISTAS Y CONSULTAS-->
+
+                            <?php
+                            include "tablas/cabecera_historial_negativas_consultor.php";
+                            ?>
+
                         </tr>
                     </thead>
 
@@ -290,129 +146,23 @@ ORDER BY historial_negativas.fecha_historial DESC;");
 
                         <?php
                         while ($datos = $sql->fetch_object()) { ?>
+                            <tr>
 
 
+                                <!-- //SE AGREGA CODIGO DE LAS FILAS DE LA TABLA VISTA PARA ADMINISTRADOR Y SUPERVISOR-->
+                                <?php
+                                include "tablas/filas_historial_negativas_consultor.php";
+                                ?>
 
-
-                            <td style="color: #AAEA6D;" id="accionhistorial" onclick="copiarContenido('accionhistorial')">
-                                <?= $datos->accion_historial ?>
-                            </td>
-
-                            <td style="color: #AAEA6D;" id="motivo" onclick="copiarContenido('motivo')">
-                                <?= $datos->nombre_motivo ?>
-                            </td>
-
-
-                            <?php
-                            if ($datos->id_estatus == '1') { ?>
-                                <td style="color:whitesmoke; font-weight: bold; background-color: rgba(110, 149, 52, 0.8);" class="td-celda-rpu celda" onclick="copiarContenido(this)">
-                                    <?= $datos->rpu ?>
-                                </td>
-
-
-
-                                <td style="background-color: rgba(110, 149, 52, 0.7); text-decoration: none;" class="td-celda-icono-estatus">
-                                    <a href="#">
-                                        ATENDIDO <i class="fa-solid fa-circle-check" style="color: #42ca07;"></i>
-                                    </a>
-                                </td>
-
-                            <?php } else if (($datos->id_estatus == '2')) { ?>
-
-                                <td style="color:whitesmoke; font-weight: bold; background-color: rgba(245, 174, 22, 0.8);" class="td-celda-rpu celda" onclick="copiarContenido(this)">
-                                    <?= $datos->rpu ?>
-                                </td>
-
-
-                                <td style="background-color:rgba(245, 174, 22, 0.7); text-decoration: none;" class="td-celda-icono-estatus">
-
-                                    <a href="#">
-                                        PENDIENTE <i class="fa-solid fa-clock" style="color: #f4a701;"></i> </a>
-
-                                </td>
-
-
-                            <?php } else { ?>
-
-
-                                <td style="color:whitesmoke; font-weight: bold; background-color:rgba(255, 53, 53, 0.8);" class="td-celda-rpu celda" onclick="copiarContenido(this)">
-                                    <?= $datos->rpu ?>
-                                </td>
-
-
-                                <td style="background-color: rgba(255, 53, 53, 0.7);" class="td-celda-icono-estatus">
-
-                                    <a href="#">
-                                        RECHAZADO <i class="fa-solid fa-circle-xmark" style="color: #ff2424;"></i> </a>
-
-                                </td>
-
-
-                            <?php } ?>
-
-
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->cuenta ?>
-                            </td>
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->ciclo ?>
-                            </td>
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->agencia ?>
-                            </td>
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->tarifa ?>
-                            </td>
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->medidor ?>
-                            </td>
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->aa_mm ?>
-                            </td>
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->tipo_medidor ?>
-                            </td>
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->cve ?>
-                            </td>
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->dice ?>
-                            </td>
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->debe_decir ?>
-                            </td>
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->kwh_recuperar ?>
-                            </td>
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->id_justificacionnegativas ?>
-                            </td>
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->motivo_correccion ?>
-                            </td>
-
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->rpe_auxiliar ?>
-                            </td>
-
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->observaciones ?>
-                            </td>
-                            <td class="celda" onclick="copiarContenido(this)">
-                                <?= $datos->responsable_negativa ?>
-                            </td>
-
-                            <td id="celdaFechaCaptura" onclick="copiarContenido('celdaFechaCaptura')">
-                                <?= $datos->fecha_captura ?>
-                            </td>
-                            <td id="celdaFechaCaptura" onclick="copiarContenido('celdaFechaCaptura')">
-                                <?= $datos->fecha_historial ?>
-                            </td>
-
-                            <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
+                                <!-- <?php echo $mostrarBoton ? 'otro' : ''; ?>  -->
 
                             </tr>
-                        <?php } ?>
+                        <?php
+
+                            // <!-- MODAL PARA HACER COMPARACIONES DE HISTORICOS DE NEGATIVAS, SE COMPARA CUALQUIER HISTORICO CON LA MANUAL ACTUAL ---->
+
+                            include "modales/modal_comparacion_historicos_negativas.php";
+                        } ?>
 
 
 
@@ -498,6 +248,7 @@ ORDER BY historial_negativas.fecha_historial DESC;");
         }
     }
 </script>
+
 
 
 

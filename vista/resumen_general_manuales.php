@@ -14,16 +14,6 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
     ul li:nth-child(1) .activo {
         background: #598b6b !important;
     }
-
-    #header-row {
-        position: sticky;
-        top: 0;
-        /* Fija la fila en la parte superior de la tabla */
-        z-index: 1;
-        /* Asegura que la fila esté encima del contenido de la tabla */
-        background-color: #ffffff;
-        /* Color de fondo de la fila */
-    }
 </style>
 
 <!-- Crear el metodo advertencia para el boton de eliminar registro -->

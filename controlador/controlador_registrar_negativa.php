@@ -62,7 +62,7 @@ if (!empty($_POST["btnregistrar"])) {
             kwh_recuperar,
             id_justificacionnegativas,
             observaciones,
-            responsable_negativa, fecha_captura, id_estatus, rpe_auxiliar, agencia, motivo_correccion)values($rpu, '$cuenta',
+            responsable_negativa, fecha_captura, id_estatus, rpe_auxiliar, agencia, motivo_correccion, id_motivohistorial, responsable_modificacion)values($rpu, '$cuenta',
             $ciclo,
             '$tarifa',
             '$medidor',
@@ -79,7 +79,9 @@ if (!empty($_POST["btnregistrar"])) {
              $estatus,
              '$rpe_auxiliar',
              '$agencia',
-             '$motivo_correccion' )  ");
+             '$motivo_correccion',
+             '7',
+            'SIN MODIFICACION, REGISTRO NUEVO'  )  ");
 
 
             //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]

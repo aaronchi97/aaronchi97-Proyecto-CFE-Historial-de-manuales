@@ -16,13 +16,19 @@
             <div class="modal-body">
                 <!--Aqui haremos la modificacion de usuario-->
                 <form action="" method="post">
+
+                    <!-- CUALQUIER DIV CON ID QUE INICIE CON "contenedor_" SE OCULTARA AUTOMATICAMENTE
+                    PARA MANIPULAR SU COMPARTAMIENTO BAJAR AL SCRIPT DONDE SE OCULTAN O MUESTRAN SEGUN 
+                    EL MOTIVO DE LA MANUAL QUE ESCRIBE EL USUARIO -------------------- -->
+
+
                     <div hidden class="fl-flex-label mb-4 px-2 col-12  campo">
 
                         <input type="text" placeholder="ID" class="input input__text inputmodal input_modificado" name="txtid" value="<?= $datos->id_control_manuales ?>" readonly>
                     </div>
                     <div class="fl-flex-label mb-4 px-2 col-12  campo">
 
-                        <input type="text" placeholder="RPU" class="input input__text inputmodal_ineditable input_modificado" name="txtrpu" value="<?= $datos->rpu ?>" readonly>
+                        <input type="text" placeholder="RPU" class="input input__text inputmodal_ineditable input_modificado" onkeypress="return validarNumeros(event)" name="txtrpu" value="<?= $datos->rpu ?>" readonly>
                     </div>
                     <div class="fl-flex-label mb-4 px-2 col-12  campo">
 
@@ -90,7 +96,7 @@
                         <datalist id="respaldomanualList"></datalist>
                     </div>
 
-                    <div id="contenedor_no_ordenservicio" class="fl-flex-label mb-4 px-2 col-12 col-md-10  campo">
+                    <div id="contenedor_no_ordenservicio" class="fl-flex-label mb-4 px-2 col-12 col-10  campo">
 
                         <input type="text" placeholder="ORDEN DE SERVICIO ACTUAL: <?= trim($datos->no_ordenservicio) ?> " class="input input__text inputmodal" name="txtno_ordenservicio" autocomplete="off" value="<?= trim($datos->no_ordenservicio) ?>">
 
@@ -121,6 +127,15 @@
                     </div>
 
 
+                    <!-- SE REGISTRA QUIEN ES EL RESPONSABLE DE MODIFICAR REGISTRO -------------------- -->
+
+                    <div class="fl-flex-label mb-4 px-2 col-12   campo">
+
+                        <input type="text" placeholder="MODIFICA:" class="input input__text inputmodal" name="txtresponsable_modificacion" autocomplete="off" value="<?= $_SESSION["nombre"] . " " .  $_SESSION["apellido"] ?>" readonly>
+
+                    </div>
+
+
 
                     <div id="contenedor_txtmotivo_<?= $datos->id_control_manuales ?>" class="fl-flex-label mb-4 px-2 col-12 campo">
 
@@ -130,9 +145,12 @@
                             <?php
                             $sql_mostrar_motivo_historial_manuales = $conexion->query(" SELECT *
                                 FROM motivo_historial ");
-                            while ($datos5 = $sql_mostrar_motivo_historial_manuales->fetch_object()) { ?>
-                                <option value="<?= $datos5->id_motivohistorial ?>"><?= $datos5->nombre_motivo ?></option>
+                            while ($datos5 = $sql_mostrar_motivo_historial_manuales->fetch_object()) {
+                                //se omite el 4 que es el valor de cambio de estatus
+                                if ($datos5->id_motivohistorial != 4 && $datos5->id_motivohistorial != 6 && $datos5->id_motivohistorial != 7) { ?>
+                                    <option value="<?= $datos5->id_motivohistorial ?>"><?= $datos5->nombre_motivo ?></option>
                             <?php }
+                            }
                             ?>
 
                         </select>
@@ -143,10 +161,13 @@
 
 
                     <div class="text-right p-3">
-                        <button style="margin-top: 5%;" type="button" class="close " data-dismiss="modal" aria-label="Close">
+                        <!-- <button style="margin-top: 5%;" type="button" class="close " data-dismiss="modal" aria-label="Close">
                             <span style="padding: 5px;" aria-hidden="true"> <i class="fa-solid fa-left-long"></i></span>
-                        </button>
+                        </button> -->
                         <button style="margin-top: 5%;" type="submit" value="ok" name="btnmodificar" class="btn btn-primary btn-rounded" onclick="return confirm('¿Estás seguro de que deseas modificar el registro?')">Actualizar <i class="fa-solid fa-arrows-rotate"></i></button>
+                        <button style="margin-top: 5%;" type="button" class="btn btn-danger btn-rounded" data-dismiss="modal" aria-label="Close">
+                            <span style="padding: 5px;" aria-hidden="true">Cancelar </span>
+                        </button>
                     </div>
 
                 </form>
@@ -210,8 +231,12 @@
 
 
                     <div class="text-center p-3">
-                        <a style="margin-top: 5%;" href="manuales.php" class="btn btn-danger btn-rounded">Cancelar <i class="fa-brands fa-xbox"></i></a>
+                        <!-- <a style="margin-top: 5%;" href="manuales.php" class="btn btn-danger btn-rounded">Cancelar <i class="fa-brands fa-xbox"></i></a> -->
                         <button style="margin-top: 5%;" type="submit" value="ok" name="btnmodificar_estatus" class="btn btn-primary btn-rounded">Asignar <i class="fa-brands fa-playstation"></i></button>
+                        <button style="margin-top: 5%;" type="button" class="btn btn-danger btn-rounded" data-dismiss="modal" aria-label="Close">
+                            <span style="padding: 5px;" aria-hidden="true">Cancelar <i class="fa-brands fa-xbox"></i></i></span>
+                        </button>
+
                     </div>
 
                 </form>
@@ -442,8 +467,8 @@ SCRIPT PARA ACTIVAR INPUTS SEGUN SEA EL CASO POR MOTIVO DE MANUALES.------------
             // Limpia los campos al cambiar el motivo para que no haya mezclas entre datos añadidos por el motivo
             //  limpiarCampos();
 
-            // Limpiar los campos específicos dependiendo del motivo
-            limpiarCamposSegunMotivo(motivo);
+            // // Limpiar los campos específicos dependiendo del motivo
+            // limpiarCamposSegunMotivo(motivo);
 
 
 
@@ -456,7 +481,7 @@ SCRIPT PARA ACTIVAR INPUTS SEGUN SEA EL CASO POR MOTIVO DE MANUALES.------------
                     $('[id^="contenedor_observaciones"]').show();
                     $('[id^="contenedor_responsable_manual"]').show();
                     $('[id^="contenedor_txtmotivo"]').show();
-                    $('[id^="contenedor_respaldo_manual"]').show();
+                    // $('[id^="contenedor_respaldo_manual"]').show();
 
                     break;
                 case 'LECTURA DE RETIRO':
@@ -572,46 +597,41 @@ SCRIPT PARA ACTIVAR INPUTS SEGUN SEA EL CASO POR MOTIVO DE MANUALES.------------
             }
         }
 
-        // Función para limpiar los campos según el motivo seleccionado
-        function limpiarCamposSegunMotivo(motivo) {
-            switch (motivo) {
-                case 'ERROR EN TOMA DE LECTURA':
-                    $('input[name="txtkwh_recuperar"]').val(null);
-                    break;
-                case 'LECTURA DE RETIRO':
-                    $('input[name="txtrespaldo_manual"]').val(null);
-                    $('input[name="txtrpe_auxiliar"]').val(null);
-                    $('input[name="txtno_ordenservicio"]').val(null);
-                    break;
-                case 'ESTIMACION EN CERO CON ANOMALIA':
-                    $('input[name="txtrpe_auxiliar"]').val(null);
-                    break;
-                case 'MEDIDOR SIN RETROALIMENTAR':
-                    $('input[name="txtkwh_recuperar"]').val(null);
-                    $('input[name="txtrespaldo_manual"]').val(null);
-                    $('input[name="txtrpe_auxiliar"]').val(null);
-                    $('input[name="txtno_ordenservicio"]').val(null);
-                    break;
-                default:
-                    $('input[name="txtkwh_recuperar"]').val(null);
-                    $('input[name="txtrpe_auxiliar"]').val(null);
-                    break;
-            }
-        }
 
 
-        //  // Función para limpiar los campos
-        //  function limpiarCampos() {
-        //      // Agrega aquí las líneas para limpiar los campos específicos que deseas
-        //      $('input[name="txtno_ordenservicio"]').val(null);
-        //        $('input[name="txtkwh_recuperar"]').val(null);
-        //      $('input[name="txtkwh_recuperar"]').val(null);
-        //      $('input[name="txtlectura_manual"]').val(null);
-        //     $('input[name="txtrpe_auxiliar"]').val(null);
-        //      $('input[name="txtrespaldo_manual"]').val(null);
+
+        //********* ESTA FUNCION DE ABAJO "limpiarCamposSegunMotivo" SOLO SIRVE EN DADO CASO QUE EL CONTROLADOR DE 
+        //MODIFICAR MANUALES NO DEJASE EN NULL LOS VALORES DE LOS INPUTS QUE SE OCULTAN SEGUN EL MOTIVO
+        //SELECCIONADO. EN DADO CONTRARIO MANTENER COMENTADO ESTA PARTE DEL CODIGO
+
+        // // Función para limpiar los campos según el motivo seleccionado
+        // function limpiarCamposSegunMotivo(motivo) {
+        //     switch (motivo) {
+        //         case 'ERROR EN TOMA DE LECTURA':
+        //             $('input[name="txtkwh_recuperar"]').val(null);
+        //             break;
+        //         case 'LECTURA DE RETIRO':
+        //             $('input[name="txtrespaldo_manual"]').val(null);
+        //             $('input[name="txtrpe_auxiliar"]').val(null);
+        //             $('input[name="txtno_ordenservicio"]').val(null);
+        //             break;
+        //         case 'ESTIMACION EN CERO CON ANOMALIA':
+        //             $('input[name="txtrpe_auxiliar"]').val(null);
+        //             break;
+        //         case 'MEDIDOR SIN RETROALIMENTAR':
+        //             $('input[name="txtkwh_recuperar"]').val(null);
+        //             $('input[name="txtrespaldo_manual"]').val(null);
+        //             $('input[name="txtrpe_auxiliar"]').val(null);
+        //             $('input[name="txtno_ordenservicio"]').val(null);
+        //             break;
+        //         default:
+        //             $('input[name="txtkwh_recuperar"]').val(null);
+        //             $('input[name="txtrpe_auxiliar"]').val(null);
+        //             break;
+        //     }
+        // }
 
 
-        //  }
 
 
         // Función para verificar campos vacíos

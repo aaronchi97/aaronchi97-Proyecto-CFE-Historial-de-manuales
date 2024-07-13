@@ -17,7 +17,7 @@
                     </div>
                     <div class="fl-flex-label mb-4 px-2 col-12  campo">
 
-                        <input type="text" placeholder="RPU ACTUAL: <?= $datos->rpu ?>" class="input input__text inputmodal_ineditable" name="txtrpu" value="<?= $datos->rpu ?>" readonly>
+                        <input type="text" placeholder="RPU ACTUAL: <?= $datos->rpu ?>" class="input input__text inputmodal_ineditable" name="txtrpu" onkeypress="return validarNumeros(event)" value="<?= $datos->rpu ?>" readonly>
                     </div>
                     <div class="fl-flex-label mb-4 px-2 col-12  campo">
 
@@ -49,7 +49,7 @@
 
                     <div class="fl-flex-label mb-4 px-2 col-12  campo">
 
-                        <input type="text" placeholder="AA_MM ACTUAL: <?= $datos->aa_mm ?>" class="input input__text inputmodal" name="txtaa_mm" value="<?= $datos->aa_mm ?>" autocomplete="off" maxlength="4" onkeypress="return validarFecha(event)">
+                        <input type="text" placeholder="AA_MM (año-mes) ACTUAL: <?= $datos->aa_mm ?>" class="input input__text inputmodal" name="txtaa_mm" value="<?= $datos->aa_mm ?>" autocomplete="off" maxlength="4" onkeypress="return validarFecha(event)">
                     </div>
 
                     <div class="fl-flex-label mb-4 px-2 col-12  campo">
@@ -113,6 +113,15 @@
                         <input type="text" placeholder="RESPONSABLE DE CAPTURA" class="input input__text inputmodal" name="txtresponsable_negativa" value="<?= $datos->responsable_negativa ?>" autocomplete="off" readonly>
                     </div>
 
+                    <!-- SE REGISTRA QUIEN ES EL RESPONSABLE DE MODIFICAR REGISTRO -------------------- -->
+
+                    <div class="fl-flex-label mb-4 px-2 col-12   campo">
+
+                        <input type="text" placeholder="MODIFICA:" class="input input__text inputmodal" name="txtresponsable_modificacion" autocomplete="off" value="<?= $_SESSION["nombre"] . " " .  $_SESSION["apellido"] ?>" readonly>
+
+                    </div>
+
+
 
                     <div class="fl-flex-label mb-4 px-2 col-12 campo">
 
@@ -121,9 +130,12 @@
                             <option value=""> SELECCIONA EL MOTIVO </option>
                             <?php
                             $sql_mostrar_motivo_historial_negativas = $conexion->query(" SELECT *FROM motivo_historial ");
-                            while ($datos6 = $sql_mostrar_motivo_historial_negativas->fetch_object()) { ?>
-                                <option value="<?= $datos6->id_motivohistorial ?>"><?= $datos6->nombre_motivo ?></option>
+                            while ($datos6 = $sql_mostrar_motivo_historial_negativas->fetch_object()) {
+                                //se omite el 4 que es el valor de cambio de estatus
+                                if ($datos6->id_motivohistorial != 4 && $datos6->id_motivohistorial != 6 && $datos6->id_motivohistorial != 7) { ?>
+                                    <option value="<?= $datos6->id_motivohistorial ?>"><?= $datos6->nombre_motivo ?></option>
                             <?php }
+                            }
                             ?>
 
                         </select>
@@ -139,10 +151,13 @@
 
                     <div class="text-right p-3">
                         <!-- <a style="margin-top: 5%;" href="negativas.php" class="btn btn-secondary btn-rounded">Atras</a> -->
-                        <button style="margin-top: 5%;" type="button" class="close " data-dismiss="modal" aria-label="Close">
+                        <!-- <button style="margin-top: 5%;" type="button" class="close " data-dismiss="modal" aria-label="Close">
                             <span style="padding: 5px;" aria-hidden="true"> <i class="fa-solid fa-left-long"></i></span>
-                        </button>
+                        </button> -->
                         <button style="margin-top: 5%;" type="submit" value="ok" name="btnmodificar" class="btn btn-primary btn-rounded">Actualizar <i class="fa-solid fa-rotate"></i></button>
+                        <button style="margin-top: 5%;" type="button" class="btn btn-danger btn-rounded" data-dismiss="modal" aria-label="Close">
+                            <span style="padding: 5px;" aria-hidden="true">Cancelar </span>
+                        </button>
                     </div>
 
                 </form>
@@ -209,6 +224,9 @@
                             <span style="padding: 5px;" aria-hidden="true"> <i class="fa-solid fa-left-long"></i></span>
                         </button> -->
                         <button style="margin-top: 5%;" type="submit" value="ok" name="btnmodificar_estatus" class="btn btn-primary btn-rounded">Asignar <i class="fa-brands fa-playstation"></i></button>
+                        <button style="margin-top: 5%;" type="button" class="btn btn-danger btn-rounded" data-dismiss="modal" aria-label="Close">
+                            <span style="padding: 5px;" aria-hidden="true">Cancelar <i class="fa-brands fa-xbox"></i></i></span>
+                        </button>
                     </div>
 
                 </form>

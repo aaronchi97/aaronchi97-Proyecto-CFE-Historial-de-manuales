@@ -42,7 +42,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
 
-                <input id="txtrpu" type="text" placeholder="RPU" class="input input__text inputmodal_ineditable" name="txtrpu" autocomplete="off">
+                <input id="txtrpu" type="text" placeholder="RPU" class="input input__text inputmodal_ineditable" name="txtrpu" autocomplete="off" onkeypress="return validarNumeros(event)">
             </div>
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
 

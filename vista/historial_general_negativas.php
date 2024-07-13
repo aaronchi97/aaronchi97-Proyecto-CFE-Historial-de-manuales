@@ -66,7 +66,7 @@ ORDER BY historial_negativas.fecha_historial DESC;");
 
 
 
-    <a href="negativas.php" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-solid fa-caret-left"></i>
+    <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-solid fa-caret-left"></i>
         ATRAS</a>
 
 
