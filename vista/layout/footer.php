@@ -25,7 +25,7 @@
 
 <!-- Google maps -->
 <script type="module" src="https://unpkg.com/@googlemaps/extended-component-library@0.6"></script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script> -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDB1ZAbXIPoh9I7pTh_AwFveGiyAUn_xEc&libraries=places"></script>
 <script type="module" src="./index.js"></script>
 

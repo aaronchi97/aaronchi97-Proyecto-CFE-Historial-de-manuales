@@ -103,11 +103,11 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        <a data-toggle="modal" data-target="#atendidasModal" class="btn-manual-validas">VER VALIDADAS <i class="fa-solid fa-check"></i></a>
+        <a data-toggle="modal" data-target="#atendidasModal" class="btn-manual-validas">PRIMER REPORTE <i class="fa-solid fa-hand-fist"></i></a>
 
-        <a data-toggle="modal" data-target="#desatendidasModal" class="btn-manual-pendiente">VER PENDIENTES <i class="fa-regular fa-clock"></i></a>
+        <a data-toggle="modal" data-target="#desatendidasModal" class="btn-manual-pendiente">SEGUNDO REPORTE <i class="fa-solid fa-flag"></i></a>
 
-        <a data-toggle="modal" data-target="#fechaModal" class="btn-manual-pendiente">VER POR FECHA <i class="fa-regular fa-calendar-check"></i></a>
+        <a data-toggle="modal" data-target="#fechaModal" class="btn-manual-pendiente">POR CANCELAR <i class="fa-solid fa-skull-crossbones"></i></a>
 
     </section>
 

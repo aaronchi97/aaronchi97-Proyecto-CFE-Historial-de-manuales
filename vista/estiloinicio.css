@@ -191,6 +191,30 @@ th[scope="row"] {
   transform: scale(1.05);
 }
 
+.btn-reportes-configuracion {
+  /* background-color: rgba(54, 96, 128, 0.8); */
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  text-decoration: none;
+  color: grey !important;
+  border-radius: 0;
+  font-size: 20px;
+  font-weight: 600;
+  gap: 10px;
+  transition: all 0.5s;
+  border-bottom: 1px rgb(168, 168, 168) solid;
+}
+.btn-reportes-configuracion:hover {
+  /* background-color: #2849644d; */
+  background-color: #02353b4d;
+  color: white !important;
+  border-radius: 2px;
+  transform: scale(1.1);
+}
+
 /* ESTILOS PARA PROYECTO HISTORIAL DE MANUALES--------------- */
 .modificado {
   color: greenyellow;

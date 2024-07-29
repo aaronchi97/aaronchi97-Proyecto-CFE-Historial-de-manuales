@@ -61,17 +61,7 @@
 
 
 
-                        <!-- <select  name="txtidmotivomanual" class="input input__select inputmodal" >
-                      
-                                <option value="">  <?= $datos->id_motivomanual ?> </option>
-                                <?php
-                                $sql_mostrar_motivo_manuales = $conexion->query(" SELECT DISTINCT TRIM(id_motivomanual) AS id_motivomanual
-                                FROM control_manuales ");
-                                while ($datoss = $sql_mostrar_motivo_manuales->fetch_object()) { ?>
-                                  <option value="<?= $datoss->id_motivomanual ?>"><?= $datoss->id_motivomanual ?></option>
-                                <?php }
-                                ?>
-                        </select>-->
+
                     </div>
 
 

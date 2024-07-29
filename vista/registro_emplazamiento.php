@@ -17,8 +17,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDB1ZAbXIPoh9I7pTh_AwFveGiyAUn_xEc&libraries=places"></script>
-<!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDB1ZAbXIPoh9I7pTh_AwFveGiyAUn_xEc&libraries=places&callback=initMap"> -->
+
 </script>
 
 </script>
@@ -78,7 +77,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
             </div>
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
 
-                <input id="txtcuenta" type="text" placeholder="CUENTA" class="input input__text inputmodal" name="txtcuenta" autocomplete="off" readonly value="<?= trim($datos_emplazamiento->cuenta) ?>">
+                <input id="txtcuenta" type="text" placeholder="CUENTA" class="input input__text inputmodal_ineditable" name="txtcuenta" autocomplete="off" readonly value="<?= trim($datos_emplazamiento->cuenta) ?>">
 
             </div>
 
@@ -86,13 +85,13 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
 
-                <input id="txtagencia" type="text" placeholder="AGENCIA" class="input input__text inputmodal" name="txtagencia" autocomplete="off" readonly value="<?= trim($datos_emplazamiento->agencia) ?>">
+                <input id="txtagencia" type="text" placeholder="AGENCIA" class="input input__text inputmodal_ineditable" name="txtagencia" autocomplete="off" readonly value="<?= trim($datos_emplazamiento->agencia) ?>">
 
             </div>
 
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
 
-                <input id="txtciclo" type="text" placeholder="CICLO" class="input input__text inputmodal" name="txtciclo" autocomplete="off" readonly value="<?= trim($datos_emplazamiento->ciclo) ?>">
+                <input id="txtciclo" type="text" placeholder="CICLO" class="input input__text inputmodal_ineditable" name="txtciclo" autocomplete="off" readonly value="<?= trim($datos_emplazamiento->ciclo) ?>">
             </div>
 
 
