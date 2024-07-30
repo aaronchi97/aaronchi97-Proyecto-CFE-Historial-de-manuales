@@ -49,19 +49,19 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
     <form action="" method="post">
       <div class="fl-flex-label mb-4 px-2 col-12 col-md-6">
 
-        <input type="text" placeholder="Nombre" class="input input__text" name="txtnombre">
+        <input type="text" placeholder="Nombre" autocomplete="off" class="input input__text" name="txtnombre">
       </div>
       <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 ">
 
-        <input type="text" placeholder="Apellido" class="input input__text" name="txtapellido">
+        <input type="text" placeholder="Apellido" autocomplete="off" class="input input__text" name="txtapellido">
       </div>
       <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 ">
 
-        <input type="text" placeholder="Usuario" class="input input__text" name="txtusuario">
+        <input type="text" placeholder="Usuario" autocomplete="off" class="input input__text" name="txtusuario">
       </div>
 
 
-      <div class="fl-flex-label mb-4 px-2 col-12 col-md-12  ">
+      <div class="fl-flex-label mb-4 px-2 col-12 col-md-6  ">
 
         <select name="txtid_rol" class="input input__select inputmodal">
           <option value=""> Selecciona rol</option>
@@ -76,7 +76,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
       </div>
 
 
-      <div class="fl-flex-label mb-4 px-2 col-12 col-md-6 ">
+      <div class="fl-flex-label mb-4 px-2 col-12 col-md-12 ">
 
         <input type="password" placeholder="Contraseña" class="input input__text" name="txtpassword">
       </div>

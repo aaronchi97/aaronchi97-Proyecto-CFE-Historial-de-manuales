@@ -2030,7 +2030,8 @@ button,
 select {
   text-transform: none;
   /* edicion aqui abajo */
-  display: none;
+  /* display: none; */
+  /* display: flex; */
 }
 button,
 html input[type="button"],
