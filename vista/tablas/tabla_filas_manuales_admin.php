@@ -89,17 +89,29 @@ if ($datos->id_estatus == '1') { ?>
 <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->agencia ?>
 </td>
+
 <td class="celda" onclick="copiarContenido(this)">
-    <?= $datos->responsable_manual ?>
+    <?php if ($datos->responsable_manual == 0): ?>
+        NO ACTUALIZADO
+    <?php else: ?>
+        <?= $datos->responsable_manual ?>
+    <?php endif; ?>
 </td>
 <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->fecha_captura ?>
 </td>
+
 <td class="celda" onclick="copiarContenido(this)">
-    <?= $datos->responsable_modificacion ?>
+    <?php if ($datos->responsable_modificacion == 0): ?>
+        NADIE HA MODIFICADO EL REGISTRO
+    <?php else: ?>
+        <?= $datos->responsable_modificacion ?>
+    <?php endif; ?>
 </td>
+
+
 <td class="celda" onclick="copiarContenido(this)">
-    <?= $datos->id_motivohistorial ?>
+    <?= $datos->nombre_motivo ?>
 </td>
 
 <td>

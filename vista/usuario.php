@@ -47,55 +47,55 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
   //Hacemos la consulta relacionando las tablas que necesitemos
   //para dicha consulta necesitamos la tabla usuario
   // $sql = $conexion->query(" SELECT * from usuario ");
- 
+
 
 
   // Modificar la consulta para incluir la cláusula WHERE
   $sql = $conexion->query("SELECT * FROM usuario");
 
-    ?>
+  ?>
 
 
 
-        
+
   <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-user-plus "></i> &nbsp;
     REGISTRAR</a>
-  
 
-  
-<!-- 
+
+
+  <!-- 
   <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3"><i class="fa-solid fa-user-plus"></i> &nbsp;
     REGISTRAR</a> -->
 
-     <!-- CONDICION PARA OCULTAR O MOSTRAR LA TABLA SEGUN LOS VALORES QUE INGRESE EL USUARIO -->
-
- 
-        
+  <!-- CONDICION PARA OCULTAR O MOSTRAR LA TABLA SEGUN LOS VALORES QUE INGRESE EL USUARIO -->
 
 
-  <table class="table table-bordered table-hover w-100 " id="example" >
+
+
+
+  <table class="table table-bordered table-hover w-100 " id="example">
     <thead>
       <tr>
-        <th scope="col">ID</th>
+        <th hidden scope="col">ID</th>
         <th scope="col">NOMBRE</th>
         <th scope="col">APELLIDO</th>
         <th scope="col">USUARIO</th>
         <th scope="col"></th>
-       
+
       </tr>
     </thead>
 
     <tbody>
 
-  
 
-        <?php
+
+      <?php
       while ($datos = $sql->fetch_object()) { ?>
 
         <!--dentro imprimiremos los valores que contienen mis tablas 
     en la base de datos-->
         <tr>
-          <td class="id" scope="row">
+          <td hidden class="id" scope="row">
             <?= $datos->id_usuario ?>
           </td>
           <td>
@@ -113,13 +113,13 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
             <a class="btn btn-danger" href="usuario.php?id=<?= $datos->id_usuario ?>" onclick=" advertencia(event)"><i
                 class="fa-solid fa-trash-can"></i></a>
           </td>
-        
 
-       
+
+
 
         </tr>
 
-        
+
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModal<?= $datos->id_usuario ?>" tabindex="-1"
@@ -136,28 +136,28 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                 <!--Aqui haremos la modificacion de usuario-->
                 <form action="" method="post">
                   <div hidden class="fl-flex-label mb-4 px-2 col-12  campo">
-  
+
                     <input type="text" placeholder="ID" class="input input__text inputmodal" name="txtid" value=" <?= $datos->id_usuario ?>">
                   </div>
                   <div class="fl-flex-label mb-4 px-2 col-12  campo">
-  
+
                     <input type="text" placeholder="Nombre" class="input input__text inputmodal" name="txtnombre" value=" <?= $datos->nombre ?>">
                   </div>
                   <div class="fl-flex-label mb-4 px-2 col-12  campo">
-                   
-                    <input type="text" placeholder="Apellido" class="input input__text inputmodal" name="txtapellido" value=" <?= $datos->apellido ?>" >
+
+                    <input type="text" placeholder="Apellido" class="input input__text inputmodal" name="txtapellido" value=" <?= $datos->apellido ?>">
                   </div>
                   <div class="fl-flex-label mb-4 px-2 col-12  campo">
-                    
-                    <input type="text" placeholder="Usuario" class="input input__text inputmodal" name="txtusuario" value=" <?= $datos->usuario ?>" >
+
+                    <input type="text" placeholder="Usuario" class="input input__text " name="txtusuario" value=" <?= $datos->usuario ?>">
                   </div>
                   <!-- <div class="fl-flex-label mb-4 px-2 col-12  campo">
                     <input type="password" placeholder="Contrasea" class="input input__text inputmodal" name="txtpassword" >
                   </div> -->
 
                   <div class="text-right p-3">
-                    <a href="usuario.php" class="btn btn-secondary btn-rounded">Atras</a>
-                    <button type="submit" value="ok" name="btnmodificar"
+                    <a style="margin-top: 3%;" href="usuario.php" class="btn btn-secondary btn-rounded">Atras</a>
+                    <button style="margin-top: 3%;" type="submit" value="ok" name="btnmodificar"
                       class="btn btn-primary btn-rounded">Modificar</button>
                   </div>
 
@@ -172,8 +172,8 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
             </div>
           </div>
         </div>
-     
-        <?php } ?>
+
+      <?php } ?>
 
 
     </tbody>

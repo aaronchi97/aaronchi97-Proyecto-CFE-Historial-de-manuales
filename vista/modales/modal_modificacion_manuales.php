@@ -137,7 +137,7 @@
                                 FROM motivo_historial ");
                             while ($datos5 = $sql_mostrar_motivo_historial_manuales->fetch_object()) {
                                 //se omite el 4 que es el valor de cambio de estatus
-                                if ($datos5->id_motivohistorial != 4 && $datos5->id_motivohistorial != 6 && $datos5->id_motivohistorial != 7) { ?>
+                                if ($datos5->id_motivohistorial != 4 && $datos5->id_motivohistorial != 6 && $datos5->id_motivohistorial != 7 && $datos5->id_motivohistorial != 8) { ?>
                                     <option value="<?= $datos5->id_motivohistorial ?>"><?= $datos5->nombre_motivo ?></option>
                             <?php }
                             }

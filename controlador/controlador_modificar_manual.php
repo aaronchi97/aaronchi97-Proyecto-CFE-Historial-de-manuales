@@ -5,7 +5,7 @@ if (!empty($_POST["btnmodificar"])) {
         and !empty($_POST["txtciclo"]) and !empty($_POST["txttarifa"]) and !empty($_POST["txtidmotivomanual"])
         and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"]) and !empty($_POST["txtkwh_recuperar"])
         and !empty($_POST["txtrespaldo_manual"]) and !empty($_POST["txtobservaciones"])
-        and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"]) and !empty($_POST["txtmotivo"])
+        and !empty($_POST["txtagencia"]) and !empty($_POST["txtmotivo"])
         and $_POST["txtidmotivomanual"] == 'ESTIMACION EN CERO CON ANOMALIA'
 
     ) {
@@ -148,7 +148,7 @@ if (!empty($_POST["btnmodificar"])) {
         and !empty($_POST["txtciclo"]) and !empty($_POST["txttarifa"]) and !empty($_POST["txtidmotivomanual"])
         and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"])
         and !empty($_POST["txtrespaldo_manual"]) and !empty($_POST["txtrpe_auxiliar"]) and !empty($_POST["txtobservaciones"])
-        and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"]) and !empty($_POST["txtmotivo"])
+        and !empty($_POST["txtagencia"]) and !empty($_POST["txtmotivo"])
         and $_POST["txtidmotivomanual"] == 'ERROR EN TOMA DE LECTURA'
     ) {
 
@@ -285,7 +285,7 @@ if (!empty($_POST["btnmodificar"])) {
         and !empty($_POST["txtciclo"]) and !empty($_POST["txttarifa"]) and !empty($_POST["txtidmotivomanual"])
         and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"]) and !empty($_POST["txtkwh_recuperar"])
         and !empty($_POST["txtobservaciones"])
-        and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"]) and !empty($_POST["txtmotivo"])
+        and !empty($_POST["txtagencia"]) and !empty($_POST["txtmotivo"])
         and $_POST["txtidmotivomanual"] == 'LECTURA DE RETIRO'
     ) {
 
@@ -424,7 +424,7 @@ if (!empty($_POST["btnmodificar"])) {
         and !empty($_POST["txtciclo"]) and !empty($_POST["txttarifa"]) and !empty($_POST["txtidmotivomanual"])
         and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"])
         and !empty($_POST["txtobservaciones"])
-        and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"]) and !empty($_POST["txtmotivo"])
+        and !empty($_POST["txtagencia"]) and !empty($_POST["txtmotivo"])
         and $_POST["txtidmotivomanual"] == 'MEDIDOR SIN RETROALIMENTAR'
 
     ) {
@@ -568,7 +568,7 @@ if (!empty($_POST["btnmodificar"])) {
         and !empty($_POST["txtciclo"]) and !empty($_POST["txttarifa"]) and !empty($_POST["txtidmotivomanual"])
         and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"])
         and !empty($_POST["txtobservaciones"]) and !empty($_POST["txtrespaldo_manual"])
-        and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"]) and !empty($_POST["txtmotivo"])
+        and !empty($_POST["txtagencia"]) and !empty($_POST["txtmotivo"])
         and ($_POST["txtidmotivomanual"] == 'MEDIDOR DESPROGRAMADO' || $_POST["txtidmotivomanual"] == 'ANOMALIA SIN ATENCION'
             || $_POST["txtidmotivomanual"] == 'MEDIDOR QUITAPON' || $_POST["txtidmotivomanual"] == 'LECTURA ACUMULADA'
             || $_POST["txtidmotivomanual"] == 'ERROR LOTE 23NU' || $_POST["txtidmotivomanual"] == 'MEDIDOR INTERIOR'

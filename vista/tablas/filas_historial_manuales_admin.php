@@ -111,8 +111,15 @@ if ($datos->id_estatus == '1') { ?>
 <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->agencia ?>
 </td>
-<td class="celda" onclick="copiarContenido(this)">
+<!-- <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->responsable_manual ?>
+</td> -->
+<td class="celda" onclick="copiarContenido(this)">
+    <?php if ($datos->responsable_manual == 0): ?>
+        NO ACTUALIZADO
+    <?php else: ?>
+        <?= $datos->responsable_manual ?>
+    <?php endif; ?>
 </td>
 <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->fecha_captura ?>
@@ -120,9 +127,19 @@ if ($datos->id_estatus == '1') { ?>
 <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->fecha_historial ?>
 </td>
-<td class="celda" onclick="copiarContenido(this)">
+<!-- <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->responsable_modificacion ?>
+</td> -->
+
+<td class="celda" onclick="copiarContenido(this)">
+    <?php if ($datos->responsable_modificacion == 0): ?>
+        NADIE HA MODIFICADO EL REGISTRO
+    <?php else: ?>
+        <?= $datos->responsable_modificacion ?>
+    <?php endif; ?>
 </td>
+
+
 <td>
 
     <a class="btn btn-danger" href="historial_manuales.php?id_manual_eliminar=<?= $datos->id_control_manuales ?>" onclick=" advertencia(event)"><i class="fa-solid fa-trash-can"></i></a>

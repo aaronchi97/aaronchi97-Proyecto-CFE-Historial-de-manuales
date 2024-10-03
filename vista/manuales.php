@@ -151,7 +151,12 @@ LOS RPU QUE SE HAN REGISTRADO EN EL MES ACTUAL  -->
     $rpu_buscar = $_POST['txtbuscarrpu'];
     // $rpu_vuelta = $_GET['id_manuales_vuelta'];
     // Modificar la consulta para incluir la cláusula WHERE
-    $sql = $conexion->query("SELECT * FROM control_manuales WHERE control_manuales.rpu = '$rpu_buscar'  ");
+    // $sql = $conexion->query("SELECT * FROM control_manuales WHERE control_manuales.rpu = '$rpu_buscar'  ");
+    $sql = $conexion->query("SELECT cm.*, mh.*
+FROM control_manuales cm
+JOIN motivo_historial mh ON cm.id_motivohistorial = mh.id_motivohistorial
+WHERE cm.rpu = '$rpu_buscar';");
+
 
 
     // Activar la visualización de las tablas
@@ -161,7 +166,14 @@ LOS RPU QUE SE HAN REGISTRADO EN EL MES ACTUAL  -->
     $mes_actual = date('m');
 
     // Realizar la consulta SQL
-    $sql_mes = $conexion->query("SELECT * FROM control_manuales WHERE MONTH(fecha_captura) = $mes_actual ORDER BY fecha_captura DESC");
+    // $sql_mes = $conexion->query("SELECT * FROM control_manuales WHERE MONTH(fecha_captura) = $mes_actual ORDER BY fecha_captura DESC");
+    $sql_mes = $conexion->query("SELECT cm.*, mh.*
+FROM control_manuales cm
+JOIN motivo_historial mh ON cm.id_motivohistorial = mh.id_motivohistorial
+WHERE MONTH(cm.fecha_captura) = $mes_actual
+ORDER BY cm.fecha_captura DESC;");
+
+
 
 
 

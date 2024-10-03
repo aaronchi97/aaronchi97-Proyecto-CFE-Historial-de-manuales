@@ -52,6 +52,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
     include "../controlador/control-configuracion/controlador_agregar_motivo.php";
     include "../controlador/control-configuracion/controlador_agregar_respaldo.php";
     include "../controlador/control-configuracion/controlador_agregar_rpe.php";
+
     ?>
 
 
@@ -63,7 +64,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
     <a data-toggle="modal" data-target="#añadirRespaldo" class="btn-reportes-configuracion ">AÑADIR RESPALDO <i class="fa-solid fa-shield-dog"></i></a>
 
-    <a data-toggle="modal" data-target="#añadirCuenta" class="btn-reportes-configuracion ">AÑADIR CUENTA <i class="fa-solid fa-address-book"></i></a>
+    <a data-toggle="modal" data-target="#añadirCuenta<?= $_SESSION["id"] ?>" class="btn-reportes-configuracion ">AÑADIR CUENTA <i class="fa-solid fa-address-book"></i></a>
 
     <a data-toggle="modal" data-target="#añadirRPE" class="btn-reportes-configuracion ">AÑADIR RPE <i class="fa-solid fa-person-circle-plus"></i></a>
 
@@ -100,6 +101,9 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                 const validateInputs = function() {
                     const inputPassword = passwordInput.value;
                     const motivoCampoValue = campoMotivoInput.value;
+
+                    console.log('Input Password:', inputPassword);
+                    console.log('Correct Password:', correctPassword);
 
                     if (inputPassword === correctPassword && motivoCampoValue.trim() !== "") {
                         submitButton.disabled = false;
@@ -138,6 +142,28 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
             });
         });
     </script>
+
+
+
+
+
+    <!-- CONVERTIR EN MAYUSCULAS TODOS LOS INPUTS EN DONDE PUEDA ESCRIBIR -->
+
+    <script>
+        // Función para convertir el texto a mayúsculas
+        function convertirAMayusculas(event) {
+            var input = event.target;
+            input.value = input.value.toUpperCase();
+        }
+
+        // Obtener todos los elementos con la clase 'input' y asignar el evento a cada uno
+        var inputs = document.querySelectorAll('.input');
+        inputs.forEach(function(input) {
+            input.addEventListener('input', convertirAMayusculas);
+        });
+    </script>
+
+
 
 
 

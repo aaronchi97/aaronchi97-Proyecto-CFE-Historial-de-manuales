@@ -43,7 +43,7 @@
 
                     <div class="fl-flex-label mb-4 px-2 col-mb-6  campo">
 
-                        <input type="password" placeholder="CONTRASEÑA ADMINISTRADOR " class="txtcontraseña input input__text inputmodal input_modificado" autocomplete="new-password" name="txtcontraseña_config">
+                        <input type="password" placeholder="CONTRASEÑA ADMINISTRADOR " class="txtcontraseña input__text inputmodal input_modificado" autocomplete="new-password" name="txtcontraseña_config">
                     </div>
 
 
@@ -100,21 +100,8 @@
         input.addEventListener('keydown', evitarEspacios);
     });
 </script>
-<!-- CONVERTIR EN MAYUSCULAS TODOS LOS INPUTS EN DONDE PUEDA ESCRIBIR -->
 
-<script>
-    // Función para convertir el texto a mayúsculas
-    function convertirAMayusculas(event) {
-        var input = event.target;
-        input.value = input.value.toUpperCase();
-    }
 
-    // Obtener todos los elementos con la clase 'input' y asignar el evento a cada uno
-    var inputs = document.querySelectorAll('.input');
-    inputs.forEach(function(input) {
-        input.addEventListener('input', convertirAMayusculas);
-    });
-</script>
 
 <script>
     function mostrarConfirmacion() {

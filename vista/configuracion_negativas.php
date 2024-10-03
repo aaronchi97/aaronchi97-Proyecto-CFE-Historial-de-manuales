@@ -60,7 +60,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
     <!-- <a data-toggle="modal" data-target="#añadirRespaldo" class="btn-reportes-configuracion ">AÑADIR RESPALDO <i class="fa-solid fa-file-signature"></i></a> -->
 
-    <a data-toggle="modal" data-target="#añadirCuenta" class="btn-reportes-configuracion ">AÑADIR CUENTA <i class="fa-solid fa-address-book"></i></a>
+    <!-- <a data-toggle="modal" data-target="#añadirCuenta<?= $_SESSION["id"] ?>" class="btn-reportes-configuracion ">AÑADIR CUENTA <i class="fa-solid fa-address-book"></i></a> -->
 
     <a data-toggle="modal" data-target="#añadirMedidor" class="btn-reportes-configuracion ">AÑADIR MEDIDOR <i class="fa-solid fa-gauge"></i></a>
 

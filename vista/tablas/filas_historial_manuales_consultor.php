@@ -102,8 +102,15 @@ if ($datos->id_estatus == '1') { ?>
 <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->agencia ?>
 </td>
-<td class="celda" onclick="copiarContenido(this)">
+<!-- <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->responsable_manual ?>
+</td> -->
+<td class="celda" onclick="copiarContenido(this)">
+    <?php if ($datos->responsable_manual == 0): ?>
+        NO ACTUALIZADO
+    <?php else: ?>
+        <?= $datos->responsable_manual ?>
+    <?php endif; ?>
 </td>
 <td>
     <?= $datos->fecha_captura ?>
@@ -111,9 +118,17 @@ if ($datos->id_estatus == '1') { ?>
 <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->fecha_historial ?>
 </td>
-<td class="celda" onclick="copiarContenido(this)">
+<!-- <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->responsable_modificacion ?>
+</td> -->
+<td class="celda" onclick="copiarContenido(this)">
+    <?php if ($datos->responsable_modificacion == 0): ?>
+        NADIE HA MODIFICADO EL REGISTRO
+    <?php else: ?>
+        <?= $datos->responsable_modificacion ?>
+    <?php endif; ?>
 </td>
+
 <td>
 
     <a href="" data-toggle="modal" data-target="#modal_comparacion_manuales_historial<?= $datos->id_historial_manuales ?> " class="btn btn-warning ">COMPARAR <i class="fa-solid fa-code-compare"></i></a>

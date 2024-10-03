@@ -99,18 +99,39 @@ if ($datos->id_estatus == '1') { ?>
 <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->observaciones ?>
 </td>
-<td class="celda" onclick="copiarContenido(this)">
+<!-- <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->responsable_negativa ?>
+</td> -->
+<td class="celda" onclick="copiarContenido(this)">
+    <?php if ($datos->responsable_negativa == 0): ?>
+        NO ACTUALIZADO
+    <?php else: ?>
+        <?= $datos->responsable_negativa ?>
+    <?php endif; ?>
 </td>
+
+
 <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->fecha_captura ?>
 </td>
-<td class="celda" onclick="copiarContenido(this)">
+<!-- <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->responsable_modificacion ?>
+</td> -->
+<td class="celda" onclick="copiarContenido(this)">
+    <?php if ($datos->responsable_modificacion == 0): ?>
+        NADIE HA MODIFICADO EL REGISTRO
+    <?php else: ?>
+        <?= $datos->responsable_modificacion ?>
+    <?php endif; ?>
 </td>
+
+
 <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->id_motivohistorial ?>
 </td>
+<!-- <td class="celda" onclick="copiarContenido(this)">
+    <?= $datos->nombre_motivo ?>
+</td> -->
 <td>
     <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_control_negativas ?> " class="btn btn-success ">CORREGIR NEGATIVA <i class="fa-brands fa-stack-overflow"></i></a>
 

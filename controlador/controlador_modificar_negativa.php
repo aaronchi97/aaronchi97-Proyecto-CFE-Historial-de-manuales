@@ -5,7 +5,7 @@ if (!empty($_POST["btnmodificar"])) {
         and !empty($_POST["txtciclo"]) and !empty($_POST["txttarifa"]) and !empty($_POST["txtmedidor"])
         and !empty($_POST["txtaa_mm"]) and !empty($_POST["txttipo_medidor"]) and !empty($_POST["txtcve"])
         and !empty($_POST["txtdice"]) and !empty($_POST["txtdebe_decir"]) and !empty($_POST["txtkwh_recuperar"])
-        and !empty($_POST["txtid_justificacionnegativa"]) and !empty($_POST["txtobservaciones"]) and !empty($_POST["txtresponsable_negativa"])
+        and !empty($_POST["txtid_justificacionnegativa"]) and !empty($_POST["txtobservaciones"])
         and !empty($_POST["txtmotivo"]) and !empty($_POST["txtrpe_auxiliar"]) and !empty($_POST["txtagencia"]) and !empty($_POST["txtmotivo_correccion"])
 
     ) {
