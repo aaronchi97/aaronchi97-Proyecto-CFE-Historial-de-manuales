@@ -51,7 +51,7 @@ $id = $_SESSION["id"];
     <!--Aqui especificamos el metodo-->
     <!--LOS ESTILOS ESTAN EN estilos.css-->
 
-    <form action="" method="post">
+    <form action="" method="post" autocomplete="off">
 
       <?php
       while ($datos = $sql->fetch_object()) { ?>
@@ -123,7 +123,9 @@ $id = $_SESSION["id"];
 
         <div class="fl-flex-label mb-4 px-2 col-12 col-md-12 campo">
 
-          <input style="background-color: whitesmoke;" type="password" placeholder="Ingrese contraseña para continuar" class="txtcontraseña input input__text " autocomplete="off" name="txtclave_filtro" value="000.">
+
+
+          <input style="background-color: whitesmoke;" type="password" placeholder="Ingrese contraseña para continuar" class="txtcontraseña input input__text " autocomplete="new-password" name="txtclave_filtro">
         </div>
 
 
@@ -172,6 +174,10 @@ $id = $_SESSION["id"];
     const errorMessages = document.querySelectorAll(".errorMessage");
     const okMessages = document.querySelectorAll(".okMessage");
 
+    submitButtons.forEach(function(submitButton) {
+      submitButton.disabled = true; // Deshabilitar el botón al cargar
+    });
+
     // Iterar sobre cada input de contraseña para agregar listeners
     passwordInputs.forEach(function(passwordInput, index) {
       // const campoMotivoInput = camposMotivoInputs[index];
@@ -194,6 +200,7 @@ $id = $_SESSION["id"];
             okMessage.textContent = "";
 
           } else {
+
             errorMessage.textContent = "";
             okMessage.textContent = "";
           }
@@ -218,6 +225,8 @@ $id = $_SESSION["id"];
     });
   });
 </script>
+
+
 
 
 

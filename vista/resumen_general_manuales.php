@@ -64,11 +64,11 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-    <a href="estadisticos_manuales.php" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-solid fa-caret-left"></i>
+    <a style="margin-bottom: 3%;" href="estadisticos_manuales.php" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-solid fa-caret-left"></i>
         ATRAS</a>
 
-    <a href="solicitud_mismo_servicio_manuales.php" class="btn btn-info btn-rounded mb-3 otro">
-        VER POR SOLICITUDES DOBLES <i class="fa-solid fa-repeat"></i></a>
+    <a style="margin-bottom: 3%;" href="solicitud_mismo_servicio_manuales.php" class="btn btn-warning btn-rounded mb-3 otro">
+        VER POR SOLICITUDES AL MISMO SERVICIO <i class="fa-solid fa-folder-tree"></i></a>
 
     <?php
 

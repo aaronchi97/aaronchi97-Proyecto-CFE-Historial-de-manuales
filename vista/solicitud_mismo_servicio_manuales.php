@@ -80,9 +80,10 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.*
+        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.* , mh.*
         FROM control_manuales AS control
         INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+         INNER JOIN motivo_historial AS mh ON historial.id_motivohistorial = mh.id_motivohistorial
         WHERE historial.id_motivohistorial = '2'
         AND historial.fecha_captura BETWEEN '$FECHAINICIO' AND '$FECHAFIN';");
 
@@ -123,9 +124,10 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.*
+        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.* , mh.*
         FROM control_manuales AS control
         INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+        INNER JOIN motivo_historial AS mh ON historial.id_motivohistorial = mh.id_motivohistorial
         WHERE historial.id_motivohistorial = '2'
         AND DATE_FORMAT(historial.fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN';");
 
@@ -168,9 +170,10 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.*
+        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.* , mh.*
         FROM control_manuales AS control
         INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+         INNER JOIN motivo_historial AS mh ON historial.id_motivohistorial = mh.id_motivohistorial
         WHERE historial.id_motivohistorial = '2'
         AND DATE_FORMAT(historial.fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN';");
 
@@ -211,9 +214,10 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.*
+        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.* , mh.*
         FROM control_manuales AS control
         INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+         INNER JOIN motivo_historial AS mh ON historial.id_motivohistorial = mh.id_motivohistorial
         WHERE historial.id_motivohistorial = '2'
         AND DATE_FORMAT(historial.fecha_captura, '%Y-%m') = '$FECHAINICIO' ;");
 
@@ -257,9 +261,10 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
     } else {
-        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.*
+        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control.* , mh.*
         FROM control_manuales AS control
         INNER JOIN historial_manuales AS historial ON control.rpu = historial.rpu
+         INNER JOIN motivo_historial AS mh ON historial.id_motivohistorial = mh.id_motivohistorial
         WHERE historial.id_motivohistorial = '2';");
 
         $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros

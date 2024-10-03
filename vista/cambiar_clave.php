@@ -108,6 +108,10 @@ $id = $_SESSION["id"];
       const errorMessages = document.querySelectorAll(".errorMessage");
       const okMessages = document.querySelectorAll(".okMessage");
 
+      submitButtons.forEach(function(submitButton) {
+        submitButton.disabled = true; // Deshabilitar el botón al cargar
+      });
+
       // Iterar sobre cada input de contraseña para agregar listeners
       passwordInputs.forEach(function(passwordInput, index) {
         // const campoMotivoInput = camposMotivoInputs[index];

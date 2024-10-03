@@ -74,6 +74,15 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
             <span class="line -bottom"></span>
         </a>
 
+        <a data-toggle="modal" data-target="#doblesolicitudModal">
+            <span class="text">SOLICITUDES DOBLES
+                <i class="fa-solid fa-calendar-days" style="color: purple"></i></span>
+            <span class="line -right"></span>
+            <span class="line -top"></span>
+            <span class="line -left"></span>
+            <span class="line -bottom"></span>
+        </a>
+
         <a data-toggle="modal" data-target="#resumenGeneralModal">
             <span class="text">RESUMEN GENERAL
                 <i class="fa-solid fa-calendar-days" style="color: #fbff14"></i></span>

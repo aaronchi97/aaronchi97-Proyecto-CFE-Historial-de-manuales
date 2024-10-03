@@ -1,5 +1,5 @@
 <?php
-if (!empty($_POST["btn_verxfecha"]) || !empty($_POST["btn_verxatendidas"]) || !empty($_POST["btn_verxdesatendidas"]) || !empty($_POST["btn_verxresumen"])) {
+if (!empty($_POST["btn_verxfecha"]) || !empty($_POST["btn_verxatendidas"]) || !empty($_POST["btn_verxdesatendidas"]) || !empty($_POST["btn_verxresumen"]) || !empty($_POST["btn_verxdobless"])) {
 
 
     $_SESSION["fechainicio"] = null;
@@ -24,8 +24,8 @@ if (!empty($_POST["btn_verxfecha"]) || !empty($_POST["btn_verxatendidas"]) || !e
         $_SESSION["fechafin"] = $fecha_fin;
 
 
-        echo "primer fecha:" . $_SESSION["fechainicio"] . " ";
-        echo "segunda fecha:" . $_SESSION["fechafin"];
+        // echo "primer fecha:" . $_SESSION["fechainicio"] . " ";
+        // echo "segunda fecha:" . $_SESSION["fechafin"];
 
 
 
@@ -44,8 +44,8 @@ if (!empty($_POST["btn_verxfecha"]) || !empty($_POST["btn_verxatendidas"]) || !e
         $_SESSION["fecha_sextomes"] = $fecha_sextomes;
 
 
-        echo "primer mes:" . $_SESSION["fecha_primermes"] . " ";
-        echo "sexto mes:" . $_SESSION["fecha_sextomes"];
+        // echo "primer mes:" . $_SESSION["fecha_primermes"] . " ";
+        // echo "sexto mes:" . $_SESSION["fecha_sextomes"];
 
 
 
@@ -57,7 +57,7 @@ if (!empty($_POST["btn_verxfecha"]) || !empty($_POST["btn_verxatendidas"]) || !e
         $_SESSION["fechaxmes"] =  $fecha_1mes;
 
 
-        echo "mes:" . $_SESSION["fechaxmes"];
+        // echo "mes:" . $_SESSION["fechaxmes"];
 
 
 
@@ -70,8 +70,8 @@ if (!empty($_POST["btn_verxfecha"]) || !empty($_POST["btn_verxatendidas"]) || !e
         $_SESSION["fecha_año"] =  $fecha_año;
         $_SESSION["fecha_mesdoce"] = $doce_mes;
 
-        echo "mes:" . $_SESSION["fecha_año"] . " ";
-        echo "mes:" . $_SESSION["fecha_mesdoce"];
+        // echo "mes:" . $_SESSION["fecha_año"] . " ";
+        // echo "mes:" . $_SESSION["fecha_mesdoce"];
 
 
 
