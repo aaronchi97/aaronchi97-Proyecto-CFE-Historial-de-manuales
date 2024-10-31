@@ -83,6 +83,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
+
             <div class="fl-flex-label mb-4 px-2 col-md-4  campo">
 
                 <input id="txtagencia" type="text" placeholder="AGENCIA" class="input input__text inputmodal_ineditable" name="txtagencia" autocomplete="off" readonly value="<?= trim($datos_emplazamiento->agencia) ?>">
@@ -192,6 +193,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                 <p>Latitud: <span id="latitude"></span></p>
                 <p>Longitud: <span id="longitude"></span></p>
             </div> -->
+
 
 
 

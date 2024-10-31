@@ -126,13 +126,13 @@ if ($datos->id_estatus == '1') { ?>
 </td>
 
 
-<td class="celda" onclick="copiarContenido(this)">
-    <?= $datos->id_motivohistorial ?>
-</td>
-
 <!-- <td class="celda" onclick="copiarContenido(this)">
-<?= $datos->nombre_motivo ?>
+    <?= $datos->id_motivohistorial ?>
 </td> -->
+
+<td class="celda" onclick="copiarContenido(this)">
+    <?= $datos->nombre_motivo ?>
+</td>
 
 
 <td>

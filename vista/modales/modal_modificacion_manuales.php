@@ -110,11 +110,25 @@
 
 
 
-                    <div id="contenedor_responsable_manual_<?= $datos->id_control_manuales ?>" class="fl-flex-label mb-4 px-2 col-12  campo">
+                    <!-- <div id="contenedor_responsable_manual_<?= $datos->id_control_manuales ?>" class="fl-flex-label mb-4 px-2 col-12  campo">
 
                         <input type="text" placeholder="RESPONSABLE DE CAPTURA" class="input input__text inputmodal input_modificado" name="txtresponsable_manual" autocomplete="off" value="<?= trim($datos->responsable_manual) ?>" readonly>
 
+                    </div> -->
+
+                    <div id="contenedor_responsable_manual_<?= $datos->id_control_manuales ?>" class="fl-flex-label mb-4 px-2 col-12 campo">
+                        <input type="text"
+                            placeholder="RESPONSABLE DE CAPTURA"
+                            class="input input__text inputmodal input_modificado"
+                            name="txtresponsable_manual"
+                            autocomplete="off"
+                            value="<?= trim($datos->responsable_manual) == 0 ? 'SIN REGISTRO' : trim($datos->responsable_manual) ?>"
+                            readonly>
                     </div>
+
+
+
+
 
 
                     <!-- SE REGISTRA QUIEN ES EL RESPONSABLE DE MODIFICAR REGISTRO -------------------- -->

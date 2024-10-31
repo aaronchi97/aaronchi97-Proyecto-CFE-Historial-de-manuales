@@ -290,14 +290,28 @@
 
                     <!-- -------------------------------------------- -->
 
+
+                    <?php
+                    if ($_SESSION['rol'] == 1) { ?>
+
+                        <div class="fl-flex-label mb-4 px-2 col-md-12    campo">
+                            <input type="password" placeholder="Ingresa contraseña" class=" txtcontraseña input input__text " name="txtpassword">
+                        </div>
+
+                        <p class="errorMessage" style="color: red; font-weight:600;"></p>
+                        <p class="okMessage" style="color: green; font-weight:600;"></p>
+
+                    <?php } else { ?>
+
+
+                        <p>-</p>
+
+                    <?php } ?>
                     <br>
-                    <div class="fl-flex-label mb-4 px-2 col-md-12    campo">
-                        <input type="password" placeholder="Ingresa contraseña" class=" txtcontraseña input input__text " name="txtpassword">
-                    </div>
 
 
-                    <p class="errorMessage" style="color: red; font-weight:600;"></p>
-                    <p class="okMessage" style="color: green; font-weight:600;"></p>
+
+
 
 
                     <!-- -------------------------------------------- -->

@@ -126,12 +126,12 @@ if ($datos->id_estatus == '1') { ?>
 </td>
 
 
-<td class="celda" onclick="copiarContenido(this)">
-    <?= $datos->id_motivohistorial ?>
-</td>
 <!-- <td class="celda" onclick="copiarContenido(this)">
-    <?= $datos->nombre_motivo ?>
+    <?= $datos->id_motivohistorial ?>
 </td> -->
+<td class="celda" onclick="copiarContenido(this)">
+    <?= $datos->nombre_motivo ?>
+</td>
 <td>
     <a href="" data-toggle="modal" data-target="#exampleModal<?= $datos->id_control_negativas ?> " class="btn btn-success ">CORREGIR NEGATIVA <i class="fa-brands fa-stack-overflow"></i></a>
 

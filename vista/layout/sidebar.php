@@ -21,12 +21,34 @@
             </span>
 
             <ul>
-                <li>
-                    <a href="registro_manuales.php" class="">
 
-                        <span class="lbl"> <i class="fa-solid fa-plus"></i> Generar </span>
-                    </a>
-                </li>
+
+
+
+                <?php
+
+                if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
+                ?>
+
+                    <li>
+                        <a hidden href="registro_manuales.php" class="">
+
+                            <span class="lbl"> <i class="fa-solid fa-plus"></i> Generar </span>
+                        </a>
+                    </li>
+
+                <?php } else { ?>
+                    <li>
+                        <a href="registro_manuales.php" class="">
+
+                            <span class="lbl"> <i class="fa-solid fa-plus"></i> Generar </span>
+                        </a>
+                    </li>
+
+
+                <?php }
+                ?>
+
                 <li>
                     <a href="manuales.php" class="">
 
@@ -35,7 +57,8 @@
                 </li>
 
                 <li>
-                    <a href="historial_general_manuales.php" class="">
+                    <a href="historial_general_manualesRPU.php" class="">
+
 
                         <span class="lbl"><i class="fa-regular fa-floppy-disk"></i> Historial </span>
                     </a>
@@ -97,12 +120,36 @@
 
             <ul>
 
-                <li>
-                    <a href="registro_negativas.php" class="">
 
-                        <span class="lbl"> <i class="fa-solid fa-plus"></i> Generar </span>
-                    </a>
-                </li>
+
+                <?php
+
+                if ($_SESSION['rol'] == 3 || $_SESSION['rol'] == 4) {
+                ?>
+
+                    <li>
+                        <a hidden href="registro_negativas.php" class="">
+
+                            <span class="lbl"> <i class="fa-solid fa-plus"></i> Generar </span>
+                        </a>
+                    </li>
+
+                <?php } else { ?>
+                    <li>
+                        <a href="registro_negativas.php" class="">
+
+                            <span class="lbl"> <i class="fa-solid fa-plus"></i> Generar </span>
+                        </a>
+                    </li>
+
+
+                <?php }
+                ?>
+
+
+
+
+
                 <li>
                     <a href="negativas.php" class="">
 
@@ -111,7 +158,7 @@
                 </li>
 
                 <li>
-                    <a href="historial_general_negativas.php" href="" class="">
+                    <a href="historial_general_negativasRPU.php" href="" class="">
 
                         <span class="lbl"><i class="fa-regular fa-floppy-disk"></i> Historial</span>
                     </a>

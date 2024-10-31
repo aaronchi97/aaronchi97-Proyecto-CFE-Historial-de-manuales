@@ -112,8 +112,9 @@ LOS RPU QUE SE HAN REGISTRADO EN EL MES ACTUAL  -->
 
 
     // $sql = $conexion->query("SELECT * FROM control_negativas WHERE rpu = $rpu_buscar  ");
-    $sql = $conexion->query("SELECT * FROM control_negativas 
-    WHERE control_negativas.rpu = '$rpu_buscar'
+    $sql = $conexion->query("SELECT cn.*, mh.* FROM control_negativas cn
+    JOIN motivo_historial mh ON cn.id_motivohistorial = mh.id_motivohistorial
+    WHERE cn.rpu = '$rpu_buscar'
      ");
 
     // Activar la visualización de las tablas
@@ -135,7 +136,9 @@ LOS RPU QUE SE HAN REGISTRADO EN EL MES ACTUAL  -->
 
 
     // $sql_mes_negativa = $conexion->query("SELECT * FROM control_negativas WHERE MONTH(fecha_captura) = $mes_actual_negativa");
-    $sql_mes_negativa = $conexion->query("SELECT * FROM control_negativas WHERE MONTH(fecha_captura) = $mes_actual_negativa");
+    $sql_mes_negativa = $conexion->query("SELECT cn.*, mh.* FROM control_negativas cn 
+    JOIN motivo_historial mh ON cn.id_motivohistorial = mh.id_motivohistorial
+    WHERE MONTH(cn.fecha_captura) = $mes_actual_negativa ORDER BY cn.fecha_captura DESC;");
 
 
 

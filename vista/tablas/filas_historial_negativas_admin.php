@@ -107,8 +107,16 @@ if ($datos->id_estatus == '1') { ?>
 <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->observaciones ?>
 </td>
-<td class="celda" onclick="copiarContenido(this)">
+<!-- <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->responsable_negativa ?>
+</td> -->
+
+<td class="celda" onclick="copiarContenido(this)">
+    <?php if ($datos->responsable_negativa == 0): ?>
+        NO ACTUALIZADO
+    <?php else: ?>
+        <?= $datos->responsable_negativa ?>
+    <?php endif; ?>
 </td>
 
 <td id="celdaFechaCaptura" onclick="copiarContenido('celdaFechaCaptura')">
@@ -117,8 +125,15 @@ if ($datos->id_estatus == '1') { ?>
 <td id="celdaFechaCaptura" onclick="copiarContenido('celdaFechaCaptura')">
     <?= $datos->fecha_historial ?>
 </td>
-<td class="celda" onclick="copiarContenido(this)">
+<!-- <td class="celda" onclick="copiarContenido(this)">
     <?= $datos->responsable_modificacion ?>
+</td> -->
+<td class="celda" onclick="copiarContenido(this)">
+    <?php if ($datos->responsable_modificacion == 0): ?>
+        NADIE HA MODIFICADO EL REGISTRO
+    <?php else: ?>
+        <?= $datos->responsable_modificacion ?>
+    <?php endif; ?>
 </td>
 <td>
     <a class="btn btn-danger" href="negativas.php?id_historial_negativa_eliminar=<?= $datos->id_control_negativas ?>" onclick=" advertencia(event)"><i class="fa-solid fa-trash-can"></i></a>

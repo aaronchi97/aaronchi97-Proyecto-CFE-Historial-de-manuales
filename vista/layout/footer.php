@@ -91,6 +91,13 @@
             responsive: responsiveEnabled,
             pageLength: 15,
             ordering: false, // Desactiva el ordenamiento predeterminado 
+            // ajax: {
+            //     url: '.../centro_datos.php', // URL del script PHP donde estan las consultas de historico general negativas y manuales
+            //     type: 'POST',
+            //     data: function(d) {
+            //         d.tipo = $('#example').data('tipo'); // Lee el tipo de datos desde el atributo data-tipo
+            //     }
+            // },
             language: {
                 sProcessing: "Procesando...",
                 sLengthMenu: "Mostrar _MENU_ registros",
@@ -129,6 +136,13 @@
                 responsive: responsiveEnabled ? true : null, // Alternar el estado de responsive
                 pageLength: 15,
                 ordering: false, // Desactiva el ordenamiento predeterminado 
+                // ajax: {
+                //     url: '.../centro_datos.php', // URL del script PHP donde estan las consultas de historico general negativas y manuales
+                //     type: 'POST',
+                //     data: function(d) {
+                //         d.tipo = $('#example').data('tipo'); // Lee el tipo de datos desde el atributo data-tipo
+                //     }
+                // },
                 language: {
                     sProcessing: "Procesando...",
                     sLengthMenu: "Mostrar _MENU_ registros",

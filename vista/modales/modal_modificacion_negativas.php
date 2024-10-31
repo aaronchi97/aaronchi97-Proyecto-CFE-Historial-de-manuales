@@ -108,10 +108,21 @@
                         <input type="text" placeholder="OBSERVACIÓN ACTUAL:  <?= $datos->observaciones ?> " class="input input__text inputmodal" name="txtobservaciones" value="<?= $datos->observaciones ?>" autocomplete="off">
                     </div>
 
-                    <div class="fl-flex-label mb-4 px-2 col-12  campo">
+                    <!-- <div class="fl-flex-label mb-4 px-2 col-12  campo">
 
                         <input type="text" placeholder="RESPONSABLE DE CAPTURA" class="input input__text inputmodal" name="txtresponsable_negativa" value="<?= $datos->responsable_negativa ?>" autocomplete="off" readonly>
+                    </div> -->
+
+                    <div class="fl-flex-label mb-4 px-2 col-12 campo">
+                        <input type="text"
+                            placeholder="RESPONSABLE DE CAPTURA"
+                            class="input input__text inputmodal"
+                            name="txtresponsable_negativa"
+                            value="<?= $datos->responsable_negativa == 0 ? 'SIN REGISTRO' : $datos->responsable_negativa ?>"
+                            autocomplete="off"
+                            readonly>
                     </div>
+
 
                     <!-- SE REGISTRA QUIEN ES EL RESPONSABLE DE MODIFICAR REGISTRO -------------------- -->
 
@@ -132,7 +143,7 @@
                             $sql_mostrar_motivo_historial_negativas = $conexion->query(" SELECT *FROM motivo_historial ");
                             while ($datos6 = $sql_mostrar_motivo_historial_negativas->fetch_object()) {
                                 //se omite el 4 que es el valor de cambio de estatus
-                                if ($datos6->id_motivohistorial != 4 && $datos6->id_motivohistorial != 6 && $datos6->id_motivohistorial != 7) { ?>
+                                if ($datos6->id_motivohistorial != 4 && $datos6->id_motivohistorial != 6 && $datos6->id_motivohistorial != 7 && $datos6->id_motivohistorial != 8) { ?>
                                     <option value="<?= $datos6->id_motivohistorial ?>"><?= $datos6->nombre_motivo ?></option>
                             <?php }
                             }
