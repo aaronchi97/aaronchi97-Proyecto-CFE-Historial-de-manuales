@@ -4,11 +4,11 @@
 
 
 
-<div class="modal fade" id="añadirMedidor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="añadirTipoMedidor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header d-flex justify-content-between">
-                <h5 class="modal-title w-100" id="exampleModalLabel">AÑADIR MEDIDOR</h5>
+                <h5 class="modal-title w-100" id="exampleModalLabel">AÑADIR TIPO MEDIDOR</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -35,7 +35,7 @@
 
                     <div class="fl-flex-label mb-4 px-2 col-12  campo">
 
-                        <input id="txtmedidor<?= $_SESSION["id"] ?>" type="text" placeholder="INGRESA NUEVO MEDIDOR" autocomplete="off" class="mayuscula campo_motivo input input__text inputmodal input_modificado" name="txtagregar_medidor">
+                        <input id="txttipomedidor<?= $_SESSION["id"] ?>" type="text" placeholder="INGRESA NUEVO TIPO DE MEDIDOR" autocomplete="off" class="mayuscula campo_motivo input input__text inputmodal input_modificado" name="txtagregar_tipomedidor">
                     </div>
 
                     <br><br>
@@ -53,7 +53,7 @@
                     <p class="okMessage" style="color: green; font-weight:600;"></p>
 
                     <div class="text-right p-3">
-                        <button style="margin-top: 5%;" type="submit" value="ok" name="btnregistrar_medidor" class=" submitButton btn btn-primary btn-rounded" disabled onclick="return confirm('¿Estás seguro de que deseas registrar esto?')">
+                        <button style="margin-top: 5%;" type="submit" value="ok" name="btnregistrar_tipomedidor" class=" submitButton btn btn-primary btn-rounded" disabled onclick="return confirm('¿Estás seguro de que deseas registrar este nuevo tipo de medidor?')">
                             Añadir <i class="fa-regular fa-face-flushed"></i>
                         </button>
                         <button style="margin-top: 5%;" type="button" class="btn btn-danger btn-rounded" data-dismiss="modal" aria-label="Close">

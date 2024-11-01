@@ -224,27 +224,30 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                 }
             });
 
-            // Manejar datos de tarifa
-            $('#tarifaList').find('option').each(function() {
-                existingOptions[$(this).val()] = true;
-            });
-            $.each(data.tarifa, function(key, val) {
-                if (!existingOptions[val]) {
-                    $('#tarifaList').append("<option value='" + val + "' />");
-                    existingOptions[val] = true;
-                }
-            });
+            // // Manejar datos de tarifa
+            // $('#tarifaList').find('option').each(function() {
+            //     existingOptions[$(this).val()] = true;
+            // });
+            // $.each(data.tarifa, function(key, val) {
+            //     if (!existingOptions[val]) {
+            //         $('#tarifaList').append("<option value='" + val + "' />");
+            //         existingOptions[val] = true;
+            //     }
+            // });
 
-            // Manejar datos de tipo de medidor
-            $('#tipo_medidorList').find('option').each(function() {
-                existingOptions[$(this).val()] = true;
-            });
-            $.each(data.tipo_medidor, function(key, val) {
-                if (!existingOptions[val]) {
-                    $('#tipo_medidorList').append("<option value='" + val + "' />");
-                    existingOptions[val] = true;
-                }
-            });
+
+
+
+            // // Manejar datos de tipo de medidor
+            // $('#tipo_medidorList').find('option').each(function() {
+            //     existingOptions[$(this).val()] = true;
+            // });
+            // $.each(data.tipo_medidor, function(key, val) {
+            //     if (!existingOptions[val]) {
+            //         $('#tipo_medidorList').append("<option value='" + val + "' />");
+            //         existingOptions[val] = true;
+            //     }
+            // });
 
             // Manejar datos de motivo de correccion
             $('#MotivoCorreccionList').find('option').each(function() {
@@ -282,6 +285,50 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
+
+
+
+            //NUEVOS AUTOCOMPLETADOS CON TABLAS SIN DEPENDENCIA --------------------------------------------------------------------------------------------------------------
+
+
+            // Manejar datos de medidor
+            $('#medidorList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
+            $.each(data.medidor_tabla, function(key, val) {
+                if (!existingOptions[val]) {
+                    $('#medidorList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
+            });
+
+
+            // Manejar datos de tipo de medidor
+            $('#tipo_medidorList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
+            $.each(data.tipo_medidor_tabla, function(key, val) {
+                if (!existingOptions[val]) {
+                    $('#tipo_medidorList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
+            });
+
+
+
+            // Manejar datos de tarifa
+            $('#tarifaList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
+            $.each(data.tarifa_tabla, function(key, val) {
+                if (!existingOptions[val]) {
+                    $('#tarifaList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
+            });
+
+
+
         });
     });
 
@@ -294,7 +341,8 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
         $.getJSON("funciones_ajax/busquedas_manuales.php", function(data) {
             var existingOptions = {};
 
-            // Manejar datos de RPE auxiliar
+
+            // Manejar datos de RPE auxiliar de la tabla control_negativas
             $('#rpeauxiliarList').find('option').each(function() {
                 existingOptions[$(this).val()] = true;
             });
@@ -304,6 +352,31 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                     existingOptions[val] = true;
                 }
             });
+
+            // Manejar datos de RPE auxiliar directo de la tabla rpe_auxiliar
+            $('#rpeauxiliarList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
+            $.each(data.rpeauxiliar_tabla, function(key, val) {
+                if (!existingOptions[val]) {
+                    $('#rpeauxiliarList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
+            });
+
+
+            // Manejar datos de cuenta
+            $('#cuentaList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
+            $.each(data.cuenta_tabla, function(key, val) {
+                if (!existingOptions[val]) {
+                    $('#cuentaList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
+            });
+
+
 
 
 

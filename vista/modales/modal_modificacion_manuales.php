@@ -392,6 +392,65 @@ POR ESO EN EL SCRIPT SE IDENTIFICAN SIEMPRE QUE LOS ID EMPIECEN CON LA PALABRA D
                 }
             });
 
+
+
+            //NUEVOS MOTIVOS ESPECIFICOS POR TABLAS ESPECIFICAS---------------------------------------------------------------------------------------------------
+
+
+
+            // Manejar datos de id_motivomanual
+            $('#motivosList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
+            $.each(data.motivo_tabla, function(key, val) {
+                if (!existingOptions[val]) {
+                    $('#motivosList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
+            });
+
+
+            // Manejar datos de cuenta
+            $('#cuentaList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
+            $.each(data.cuenta_tabla, function(key, val) {
+                if (!existingOptions[val]) {
+                    $('#cuentaList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
+            });
+
+
+            // Manejar datos de respaldo
+            $('#respaldomanualList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
+            $.each(data.respaldo_tabla, function(key, val) {
+                if (!existingOptions[val]) {
+                    $('#respaldomanualList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
+            });
+
+            // Manejar datos de RPE auxiliar
+            $('#rpeauxiliarList').find('option').each(function() {
+                existingOptions[$(this).val()] = true;
+            });
+            $.each(data.rpeauxiliar_tabla, function(key, val) {
+                if (!existingOptions[val]) {
+                    $('#rpeauxiliarList').append("<option value='" + val + "' />");
+                    existingOptions[val] = true;
+                }
+            });
+
+
+
+
+
+
+
+
         });
     });
 </script>

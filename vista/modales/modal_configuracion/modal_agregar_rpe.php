@@ -35,7 +35,7 @@
 
                     <div class="fl-flex-label mb-4 px-2 col-12  campo">
 
-                        <input id="txtrpe<?= $_SESSION["id"] ?>" type="text" placeholder="INGRESA NUEVO RPE AUXILIAR" autocomplete="off" class=" campo_motivo input input__text inputmodal input_modificado" name="txtagregar_rpe">
+                        <input id="txtrpe<?= $_SESSION["id"] ?>" type="text" placeholder="INGRESA NUEVO RPE AUXILIAR" autocomplete="off" class="mayuscula campo_motivo input input__text inputmodal input_modificado" name="txtagregar_rpe">
                     </div>
 
                     <br><br>

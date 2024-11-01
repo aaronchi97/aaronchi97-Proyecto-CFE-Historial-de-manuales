@@ -35,7 +35,7 @@
 
                     <div class="fl-flex-label mb-4 px-2 col-12  campo">
 
-                        <input id="txtmotivo_correccion<?= $_SESSION["id"] ?>" type="text" placeholder="INGRESA NUEVO MOTIVO DE CORRECCIÓN" autocomplete="off" class=" campo_motivo input input__text inputmodal input_modificado" name="txtagregar_motivo_correccion">
+                        <input id="txtmotivo_correccion<?= $_SESSION["id"] ?>" type="text" placeholder="INGRESA NUEVO MOTIVO DE CORRECCIÓN" autocomplete="off" class="mayuscula campo_motivo input input__text inputmodal input_modificado" name="txtagregar_motivo_correccion">
                     </div>
 
                     <br><br>

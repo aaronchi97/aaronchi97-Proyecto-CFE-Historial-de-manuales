@@ -41,6 +41,31 @@ $sql_busqueda_respaldos = $conexion->query("SELECT DISTINCT respaldo_negativa FR
 
 
 
+//CONSULTAS DIRECTAS DE TABLAS ESPECIFICAS SIN DEPENDENCIA -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+// Consulta para obtener datos de medidor de tabla medidores
+$sql_busqueda_medidor_tabla = $conexion->query("SELECT DISTINCT medidor FROM medidores ");
+
+
+
+// Consulta para obtener datos de rpe auxiliar en tabla rpe_auxiliar
+$sql_busqueda_rpeauxiliar_tabla = $conexion->query("SELECT DISTINCT rpe_auxiliar FROM rpe_auxiliar  ");
+
+
+// Consulta para obtener datos de cuenta en la tabla cuentas
+$sql_busqueda_cuenta_tabla = $conexion->query("SELECT DISTINCT cuenta FROM cuentas");
+
+
+// Consulta para obtener datos de tipo de medidor de tabla tipo_medidores
+$sql_busqueda_tipo_medidor_tabla = $conexion->query("SELECT DISTINCT tipo_medidor FROM tipo_medidores ");
+
+
+// Consulta para obtener datos de tarifa en tabla tarifas
+$sql_busqueda_tarifa_tabla = $conexion->query("SELECT DISTINCT tarifa FROM tarifas ");
+
+
 
 
 
@@ -56,6 +81,12 @@ $responseTipo_medidor = array();
 $responseTarifa = array();
 $responseMotivoCorreccion = array();
 $responseRespaldos = array();
+// Inicialización de arrays con tablas propias
+$responseMedidorTabla = array();
+$responseRPEAuxiliarTabla = array();
+$responseCuentaTabla = array();
+$responseTipoMedidorTabla = array();
+$responseTarifaTabla = array();
 
 
 while ($row = $sql_busqueda_justificacion->fetch_assoc()) {
@@ -116,6 +147,34 @@ while ($row = $sql_busqueda_respaldos->fetch_assoc()) {
 }
 
 
+// Procesamiento de nuevas consultas
+while ($row = $sql_busqueda_medidor_tabla->fetch_assoc()) {
+    $temporal = $row;
+    array_push($responseMedidorTabla, $temporal['medidor']);
+}
+
+while ($row = $sql_busqueda_rpeauxiliar_tabla->fetch_assoc()) {
+    $temporal = $row;
+    array_push($responseRPEAuxiliarTabla, $temporal['rpe_auxiliar']);
+}
+
+while ($row = $sql_busqueda_cuenta_tabla->fetch_assoc()) {
+    $temporal = $row;
+    array_push($responseCuentaTabla, $temporal['cuenta']);
+}
+
+while ($row = $sql_busqueda_tipo_medidor_tabla->fetch_assoc()) {
+    $temporal = $row;
+    array_push($responseTipoMedidorTabla, $temporal['tipo_medidor']);
+}
+
+while ($row = $sql_busqueda_tarifa_tabla->fetch_assoc()) {
+    $temporal = $row;
+    array_push($responseTarifaTabla, $temporal['tarifa']);
+}
+
+
+
 
 
 
@@ -123,10 +182,21 @@ while ($row = $sql_busqueda_respaldos->fetch_assoc()) {
 
 // Codificación de los resultados a JSON y salida
 echo json_encode(array(
-    "justificacion" => $responseJustificacion, "cuenta" => $responseCuenta, "medidor" => $responseMedidor,
-    "aamm" => $responseAAMM, "responsablenegativa" => $responseResponsableNegativa,
-    "responsablenegativa2" => $responseResponsableNegativa2, "tipo_medidor" => $responseTipo_medidor,
-    "tarifa" => $responseTarifa, "motivoCorreccion" => $responseMotivoCorreccion, "respaldo_negativas" => $responseRespaldos
+    "justificacion" => $responseJustificacion,
+    "cuenta" => $responseCuenta,
+    "medidor" => $responseMedidor,
+    "aamm" => $responseAAMM,
+    "responsablenegativa" => $responseResponsableNegativa,
+    "responsablenegativa2" => $responseResponsableNegativa2,
+    "tipo_medidor" => $responseTipo_medidor,
+    "tarifa" => $responseTarifa,
+    "motivoCorreccion" => $responseMotivoCorreccion,
+    "respaldo_negativas" => $responseRespaldos,
+    "medidor_tabla" => $responseMedidorTabla,
+    "rpe_auxiliar_tabla" => $responseRPEAuxiliarTabla,
+    "cuenta_tabla" => $responseCuentaTabla,
+    "tipo_medidor_tabla" => $responseTipoMedidorTabla,
+    "tarifa_tabla" => $responseTarifaTabla
 ));
 
 // Cierre de las consultas y conexión
@@ -140,4 +210,9 @@ $sql_busqueda_tipo_medidor->close();
 $sql_busqueda_tarifa->close();
 $sql_busqueda_motivo_correccion->close();
 $sql_busqueda_respaldos->close();
+$sql_busqueda_medidor_tabla->close();
+$sql_busqueda_rpeauxiliar_tabla->close();
+$sql_busqueda_cuenta_tabla->close();
+$sql_busqueda_tipo_medidor_tabla->close();
+$sql_busqueda_tarifa_tabla->close();
 $conexion->close();

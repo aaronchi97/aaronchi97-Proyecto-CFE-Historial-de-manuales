@@ -47,6 +47,9 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
     // include "../controlador/control-configuracion/controlador_agregar_respaldo.php";
     include "../controlador/control-configuracion/controlador_agregar_rpe.php";
 
+    include "../controlador/control-configuracion/controlador_agregar_tipoMedidor.php";
+    include "../controlador/control-configuracion/controlador_agregar_tarifa.php";
+
     ?>
 
 
@@ -60,11 +63,15 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
     <!-- <a data-toggle="modal" data-target="#añadirRespaldo" class="btn-reportes-configuracion ">AÑADIR RESPALDO <i class="fa-solid fa-file-signature"></i></a> -->
 
-    <!-- <a data-toggle="modal" data-target="#añadirCuenta<?= $_SESSION["id"] ?>" class="btn-reportes-configuracion ">AÑADIR CUENTA <i class="fa-solid fa-address-book"></i></a> -->
+    <a data-toggle="modal" data-target="#añadirCuentaNegativa" class="btn-reportes-configuracion ">AÑADIR CUENTA <i class="fa-solid fa-address-book"></i></a>
 
     <a data-toggle="modal" data-target="#añadirMedidor" class="btn-reportes-configuracion ">AÑADIR MEDIDOR <i class="fa-solid fa-gauge"></i></a>
 
-    <a data-toggle="modal" data-target="#añadirRPE" class="btn-reportes-configuracion ">AÑADIR RPE <i class="fa-solid fa-person-circle-plus"></i></a>
+    <a data-toggle="modal" data-target="#añadirTipoMedidor" class="btn-reportes-configuracion ">AÑADIR TIPO MEDIDOR <i class="fa-solid fa-weight-scale"></i></a>
+
+    <a data-toggle="modal" data-target="#añadirRPE" class="btn-reportes-configuracion ">AÑADIR RPE AUXILIAR <i class="fa-solid fa-person-circle-plus"></i></a>
+
+    <a data-toggle="modal" data-target="#añadirTarifa" class="btn-reportes-configuracion ">AÑADIR TARIFA <i class="fa-solid fa-plug-circle-bolt"></i></a>
 
 
 
@@ -77,8 +84,12 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
     include "modales/modal_configuracion/modal_agregar_respaldo.php";
     include "modales/modal_configuracion/modal_agregar_cuenta.php";
+    include "modales/modal_configuracion/modal_agregar_cuentaNegativa.php";
     include "modales/modal_configuracion/modal_agregar_rpe.php";
     include "modales/modal_configuracion//modal_agregar_medidor.php";
+
+    include "modales/modal_configuracion//modal_agregar_tipoMedidor.php";
+    include "modales/modal_configuracion//modal_agregar_tarifa.php";
     ?>
 
 
@@ -141,6 +152,26 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
                 $(this).find('.okMessage').text("");
                 $(this).find('.campo_motivo').text(""); // Limpia el mensaje de exito dentro del modal actual
             });
+        });
+    </script>
+
+
+
+
+
+    <!-- CONVERTIR EN MAYUSCULAS TODOS LOS INPUTS CON LA CLASE 'mayuscula'  EN DONDE PUEDA ESCRIBIR -->
+
+    <script>
+        // Función para convertir el texto a mayúsculas
+        function convertirAMayusculas(event) {
+            var input = event.target;
+            input.value = input.value.toUpperCase();
+        }
+
+        // Obtener todos los elementos con la clase 'input' y asignar el evento a cada uno
+        var inputs = document.querySelectorAll('.mayuscula');
+        inputs.forEach(function(input) {
+            input.addEventListener('input', convertirAMayusculas);
         });
     </script>
 

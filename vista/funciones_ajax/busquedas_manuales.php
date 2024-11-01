@@ -14,7 +14,7 @@ $sql_busqueda_cuenta = $conexion->query("SELECT DISTINCT cuenta FROM control_man
 $sql_busqueda_respaldo = $conexion->query("SELECT DISTINCT respaldo_man FROM control_manuales WHERE respaldo_man IS NOT NULL AND respaldo_man != '' ");
 
 
-// Consulta para obtener datos de rpe auxiliar
+// Consulta para obtener datos de rpe auxiliar en tabla control manuales
 $sql_busqueda_rpeauxiliar = $conexion->query("SELECT DISTINCT rpe_auxiliar FROM control_manuales WHERE rpe_auxiliar IS NOT NULL AND rpe_auxiliar != '' ");
 
 
@@ -36,6 +36,27 @@ $sql_busqueda_tarifa = $conexion->query("SELECT DISTINCT tarifa FROM control_man
 
 
 
+//CONSULTAS DIRECTAS DE TABLAS ESPECIFICAS SIN DEPENDENCIA -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Consulta para obtener datos del motivo de manual en la tabla motivo_manual
+$sql_busqueda_motivo_tabla = $conexion->query("SELECT DISTINCT motivo_manual FROM motivo_manuales");
+
+// Consulta para obtener datos de cuenta en la tabla cuentas
+$sql_busqueda_cuenta_tabla = $conexion->query("SELECT DISTINCT cuenta FROM cuentas");
+
+
+// Consulta para obtener datos de respaldo de tabla respaldo_manual
+// $sql_busqueda_respaldo = $conexion->query("SELECT DISTINCT respaldo_man FROM respaldo man WHERE respaldo_man IS NOT NULL AND respaldo_man != '' ");
+$sql_busqueda_respaldo_tabla = $conexion->query("SELECT DISTINCT respaldo_man FROM respaldo_manuales");
+
+
+// Consulta para obtener datos de rpe auxiliar en tabla rpe_auxiliar
+$sql_busqueda_rpeauxiliar_tabla = $conexion->query("SELECT DISTINCT rpe_auxiliar FROM rpe_auxiliar  ");
+
+
+
+
+
 
 
 
@@ -49,6 +70,11 @@ $responseResponsableManual = array();
 $responseResponsableManual2 = array();
 $responseAgencia = array();
 $responseTarifa = array();
+//consultas nuevas de tablas especificas
+$responseMotivoTabla = array();
+$responseCuentaTabla = array();
+$responseRespaldoTabla = array();
+$responseRpeauxiliarTabla = array();
 
 
 
@@ -100,6 +126,24 @@ while ($row = $sql_busqueda_tarifa->fetch_assoc()) {
     array_push($responseTarifa, $temporal['tarifa']);
 }
 
+// Procesar los resultados de las nuevas consultas
+while ($row = $sql_busqueda_motivo_tabla->fetch_assoc()) {
+    array_push($responseMotivoTabla, $row['motivo_manual']);
+}
+
+while ($row = $sql_busqueda_cuenta_tabla->fetch_assoc()) {
+    array_push($responseCuentaTabla, $row['cuenta']);
+}
+
+while ($row = $sql_busqueda_respaldo_tabla->fetch_assoc()) {
+    array_push($responseRespaldoTabla, $row['respaldo_man']);
+}
+
+while ($row = $sql_busqueda_rpeauxiliar_tabla->fetch_assoc()) {
+    array_push($responseRpeauxiliarTabla, $row['rpe_auxiliar']);
+}
+
+
 
 
 
@@ -108,10 +152,18 @@ while ($row = $sql_busqueda_tarifa->fetch_assoc()) {
 
 // Codificación de los resultados a JSON y salida
 echo json_encode(array(
-    "motivo" => $responseMotivo, "cuenta" => $responseCuenta, "respaldo" => $responseRespaldo,
-    "rpeauxiliar" => $responseRpeauxiliar, "responsablemanual" => $responseResponsableManual,
-    "responsablemanual2" => $responseResponsableManual2, "agencia" => $responseAgencia,
-    "tarifa" => $responseTarifa
+    "motivo" => $responseMotivo,
+    "cuenta" => $responseCuenta,
+    "respaldo" => $responseRespaldo,
+    "rpeauxiliar" => $responseRpeauxiliar,
+    "responsablemanual" => $responseResponsableManual,
+    "responsablemanual2" => $responseResponsableManual2,
+    "agencia" => $responseAgencia,
+    "tarifa" => $responseTarifa,
+    "motivo_tabla" => $responseMotivoTabla,
+    "cuenta_tabla" => $responseCuentaTabla,
+    "respaldo_tabla" => $responseRespaldoTabla,
+    "rpeauxiliar_tabla" => $responseRpeauxiliarTabla
 ));
 
 // Cierre de las consultas y conexión
@@ -122,4 +174,8 @@ $sql_busqueda_rpeauxiliar->close();
 $sql_busqueda_responsablemanual->close();
 $sql_busqueda_responsablemanual2->close();
 $sql_busqueda_agencia->close();
+$sql_busqueda_motivo_tabla->close();
+$sql_busqueda_cuenta_tabla->close();
+$sql_busqueda_respaldo_tabla->close();
+$sql_busqueda_rpeauxiliar_tabla->close();
 $conexion->close();
