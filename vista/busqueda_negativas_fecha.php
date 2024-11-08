@@ -73,7 +73,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT * FROM control_negativas WHERE DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
+        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT control_negativas.*, motivo_historial.* FROM control_negativas LEFT JOIN motivo_historial  ON control_negativas.id_motivohistorial = motivo_historial.id_motivohistorial WHERE DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
         $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_negativas WHERE DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
@@ -106,7 +106,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT * FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
+        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT control_negativas.*, motivo_historial.* FROM control_negativas LEFT JOIN motivo_historial  ON control_negativas.id_motivohistorial = motivo_historial.id_motivohistorial WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
         $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
@@ -141,7 +141,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT * FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
+        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT control_negativas.*, motivo_historial.* FROM control_negativas LEFT JOIN motivo_historial  ON control_negativas.id_motivohistorial = motivo_historial.id_motivohistorial WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
         $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m')BETWEEN '$FECHAINICIO' AND '$FECHAFIN'");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
@@ -175,7 +175,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT * FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO' ORDER BY fecha_captura DESC");
+        $sql_buscar_NEGATIVAS_por_fecha = $conexion->query("SELECT control_negativas.*, motivo_historial.* FROM control_negativas LEFT JOIN motivo_historial  ON control_negativas.id_motivohistorial = motivo_historial.id_motivohistorial WHERE DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO' ORDER BY fecha_captura DESC");
 
         //contador de registros para busqueda por mes
         $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_negativas WHERE DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'");

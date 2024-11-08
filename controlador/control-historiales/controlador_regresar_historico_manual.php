@@ -1,10 +1,9 @@
 <?php
-if (!empty($_POST["btn_traer_vuelta_manual"])) { ?>
+if (!empty($_POST["txtpassword"])) { ?>
 
 
 
     <?php
-
 
 
 
@@ -41,12 +40,33 @@ if (!empty($_POST["btn_traer_vuelta_manual"])) { ?>
     //MOTIVO PARA ESPECIFICAR QUE LA NEGATIVA SE ESTA RESTAURANDO DESDE EL HISTORIAL
     $motivo_correccion = $_POST["txtmotivo"];
 
-    echo  $motivo_manual;
-    echo  $lectura_manual;
-    echo  $no_ordenservicio;
-    echo  $id_manual;
-    echo   $ciclo;
-    echo  $agencia;
+    // echo  $motivo_manual;
+    // echo  $lectura_manual;
+    // echo  $no_ordenservicio;
+    // echo  $id_manual;
+    // echo   $ciclo;
+    // echo  $agencia;
+    // echo " $cuenta , $tarifa , $rpe_auxiliar , $respaldo_manual , $kwh_recuperar , $observaciones ,";
+    // echo " $agencia , $motivo_correccion , $responsable_historico_regresar_manual , $responsable_manual ";
+
+
+
+    $cuenta = mysqli_real_escape_string($conexion, $cuenta);
+    $tarifa = mysqli_real_escape_string($conexion, $tarifa);
+    $motivo_manual = mysqli_real_escape_string($conexion, $motivo_manual);
+    $respaldo_manual = mysqli_real_escape_string($conexion, $respaldo_manual);
+    $rpe_auxiliar = mysqli_real_escape_string($conexion, $rpe_auxiliar);
+    $sin_uso = mysqli_real_escape_string($conexion, $sin_uso);
+    $observaciones = mysqli_real_escape_string($conexion, $observaciones);
+    $agencia = mysqli_real_escape_string($conexion, $agencia);
+    $responsable_manual = mysqli_real_escape_string($conexion, $responsable_manual);
+    $no_ordenservicio = mysqli_real_escape_string($conexion, $no_ordenservicio);
+    $responsable_historico_regresar_manual = mysqli_real_escape_string($conexion, $responsable_historico_regresar_manual);
+
+    // Preparar los valores que pueden ser NULL o vacíos (valores int)
+    $ciclo = !empty($ciclo) ? $ciclo : 'NULL';
+    $kwh_recuperar = !empty($kwh_recuperar) ? $kwh_recuperar : 'NULL';
+    $motivo_correccion = !empty($motivo_correccion) ? $motivo_correccion : 'NULL';
 
     // $sql_cantidad_historico = $conexion->query(" select count(*) as 'Total' from historial_negativas where rpu=$rpu and id_historial_negativas =   $id_negativa_antigua");
 
@@ -54,14 +74,14 @@ if (!empty($_POST["btn_traer_vuelta_manual"])) { ?>
     $sql_cantidad_historico = $conexion->query("SELECT count(*) as Total FROM historial_manuales WHERE rpu=$rpu AND id_historial_manuales = $id_manual_antigua");
     $total_historico = $sql_cantidad_historico->fetch_object()->Total;
 
-
+    echo $total_historico;
     if ($total_historico < 1) { ?>
         <script>
             $(function notificacion() {
                 new PNotify({
                     title: "ERROR",
                     type: "error",
-                    text: "El RPU <?= $rpu ?> esta duplicado",
+                    text: "La manual con RPU <?= $rpu ?> no se encuentra en el histórico",
                     styling: "bootstrap3"
                 })
             })
@@ -69,12 +89,7 @@ if (!empty($_POST["btn_traer_vuelta_manual"])) { ?>
         <!--SI HAY UN UNICO REGISTRO EN EL HISTORIAL QUE SEA IGUAL AL RPU DEL MODAL Y AL ID DE SU HISTORICO ENTONCES -->
         <?php } else if ($total_historico == 1) {
 
-        echo  $motivo_manual;
-        echo  $lectura_manual;
-        echo  $no_ordenservicio;
-        echo  $id_manual;
-        echo   $ciclo;
-        echo  $agencia;
+
 
         $modificar = $conexion->query(" update control_manuales set  cuenta = '$cuenta',
             ciclo = $ciclo,
@@ -93,6 +108,7 @@ if (!empty($_POST["btn_traer_vuelta_manual"])) { ?>
             id_motivohistorial = $motivo_correccion,
             responsable_modificacion = '$responsable_historico_regresar_manual'
             WHERE id_control_manuales = $id_manual");
+
 
 
 
@@ -157,8 +173,20 @@ if (!empty($_POST["btn_traer_vuelta_manual"])) { ?>
                 })
             </script>
 
-    <?php }
-    } ?>
+        <?php }
+    } else {  ?>
+        <script>
+            $(function notificacion() {
+                new PNotify({
+                    title: "INCORRECTO",
+                    type: "error",
+                    text: "ERROR EN TU CODIGO PINCHE PROGRAMADOR",
+                    styling: "bootstrap3"
+                })
+            })
+        </script>
+
+    <?php } ?>
 
 
 

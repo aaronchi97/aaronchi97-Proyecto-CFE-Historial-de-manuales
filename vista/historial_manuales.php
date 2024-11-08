@@ -47,8 +47,8 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
   $sql = $conexion->query(" SELECT historial_manuales.*, motivo_historial.*, estatus.*
 FROM historial_manuales
-JOIN motivo_historial ON historial_manuales.id_motivohistorial = motivo_historial.id_motivohistorial
-JOIN estatus ON historial_manuales.id_estatus = estatus.id_estatus
+LEFT JOIN motivo_historial ON historial_manuales.id_motivohistorial = motivo_historial.id_motivohistorial
+LEFT JOIN estatus ON historial_manuales.id_estatus = estatus.id_estatus
 WHERE historial_manuales.id_control_manuales = $id_manual_obtenido
 ORDER BY historial_manuales.fecha_historial DESC;");
 
@@ -66,7 +66,10 @@ ORDER BY historial_manuales.fecha_historial DESC;");
 
 
 
-  <a href="manuales.php" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-solid fa-caret-left"></i>
+  <!-- <a href="manuales.php" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-solid fa-caret-left"></i>
+    ATRAS</a> -->
+
+  <a href="javascript:void(0);" onclick="window.history.back();" class="btn btn-danger btn-rounded mb-3 otro"><i class="fa-solid fa-caret-left"></i>
     ATRAS</a>
 
 

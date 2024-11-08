@@ -42,6 +42,37 @@ if (!empty($_POST["txtverificar_contraseña"])) { ?>
         //MOTIVO PARA ESPECIFICAR QUE LA NEGATIVA SE ESTA RESTAURANDO DESDE EL HISTORIAL
         $motivo_correccion = $_POST["txtmotivo"];
 
+        // echo " $id_negativa ,  $id_negativa_antigua ,  $rpu ,";
+        // echo "  $cuenta ,   $ciclo  ,    $tarifa  ,";
+        // echo "  $medidor ,    $aa_mm ,    $tipo_medidor ,";
+        // echo "  $cve ,    $dice ,    $debe_decir , ";
+        // echo "  $kwh_recuperar ,    $justificacion_negativa ,    $obervacion ,";
+        // echo "  $responsable_negativa ,    $rpe_auxiliar ,    $agencia , $motivo_negativa ";
+
+
+
+
+
+        //ESCAPAR VALORES PARA EVITAR ERRORES DE SINTAXIS EN LA CONSULTA
+        $cuenta = mysqli_real_escape_string($conexion, $cuenta);
+        $tarifa = mysqli_real_escape_string($conexion, $tarifa);
+        $medidor = mysqli_real_escape_string($conexion, $medidor);
+        $aa_mm = !empty($aa_mm) ? $aa_mm : 'NULL';
+        $tipo_medidor = mysqli_real_escape_string($conexion, $tipo_medidor);
+        $cve = mysqli_real_escape_string($conexion, $cve);
+        $dice = mysqli_real_escape_string($conexion, $dice);
+        $debe_decir = mysqli_real_escape_string($conexion, $debe_decir);
+        $kwh_recuperar = !empty($kwh_recuperar) ? $kwh_recuperar : 'NULL';
+        $justificacion_negativa = mysqli_real_escape_string($conexion, $justificacion_negativa);
+        $observaciones = mysqli_real_escape_string($conexion, $observaciones);
+        $responsable_negativa = mysqli_real_escape_string($conexion, $responsable_negativa);
+        $rpe_auxiliar = mysqli_real_escape_string($conexion, $rpe_auxiliar);
+        $agencia = mysqli_real_escape_string($conexion, $agencia);
+        $motivo_negativa = mysqli_real_escape_string($conexion, $motivo_negativa);
+        $motivo_correccion = !empty($motivo_correccion) ? $motivo_correccion : 'NULL';
+        $responsable_historico_regresar_negativa = mysqli_real_escape_string($conexion, $responsable_historico_regresar_negativa);
+
+
 
 
         // $sql_cantidad_historico = $conexion->query(" select count(*) as 'Total' from historial_negativas where rpu=$rpu and id_historial_negativas =   $id_negativa_antigua");
@@ -56,7 +87,7 @@ if (!empty($_POST["txtverificar_contraseña"])) { ?>
                     new PNotify({
                         title: "ERROR",
                         type: "error",
-                        text: "El RPU <?= $rpu ?> esta duplicado",
+                        text: "La negativa con <?= $rpu ?> no se encuentra en el historico",
                         styling: "bootstrap3"
                     })
                 })
@@ -86,37 +117,6 @@ if (!empty($_POST["txtverificar_contraseña"])) { ?>
 
 
 
-            //EL CODIGO COMENTADO DE ABAJO ASIGNA UN ID DEL MOTIVO DE LA MODIFICACION DE LA MANUAL PERO LO ASIGNA AL REGISTRO ANTERIOR
-            //ES DECIR SI UN USUARIO MODIFICA UNA MANUAL, EL MOTIVO DE ESA MODIFICACION SE IMPREGNARA JUNTO CON LOS VALORES DE ESA MANUAL
-            //ANTES DE SER MODIFICADA, SI SE QUIERE SEGUIR CON ESE PROCESO DESCOMENTAR EL CODIGO:
-
-
-            // //    [ AGREGAR EL MOTIVO DEL HISTORIAL EN LA TABLA DE HISTORIAL_MANUALES]
-
-            // // Verificar si la consulta principal fue exitosa
-            // if ($modificar) {
-            //     // Obtener el ID de la fila más reciente en la tabla historial_manuales relacionada
-            //     $consultaIDHistorial = $conexion->query("SELECT MAX(id_historial_negativas) AS id_historial_negativas FROM historial_negativas WHERE rpu = '$rpu' AND accion_historial = 'MODIFICADO'");
-
-            //     if ($consultaIDHistorial) {
-            //         $filaIDHistorial = $consultaIDHistorial->fetch_assoc();
-            //         $id_historial = $filaIDHistorial['id_historial_negativas'];
-
-            //         // Ahora, realizar la actualización en la tabla de historiales
-            //         $actualizarHistorial = $conexion->query("UPDATE historial_negativas SET id_motivohistorial = '$motivo_correccion'
-            // WHERE id_historial_negativas = $id_historial");
-
-            //         // Verificar si la actualización del historial fue exitosa
-            //         if ($actualizarHistorial) {
-            //         } else {
-            //             echo $conexion->error;
-            //         }
-            //     } else {
-            //         echo  $conexion->error;
-            //     }
-            // } else {
-            //     echo  $conexion->error;
-            // }
 
 
 

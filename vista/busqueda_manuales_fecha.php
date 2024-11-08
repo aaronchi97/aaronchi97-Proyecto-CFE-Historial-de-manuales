@@ -73,7 +73,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT * FROM control_manuales WHERE DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
+        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control_manuales.*, motivo_historial.* FROM control_manuales LEFT JOIN motivo_historial  ON control_manuales.id_motivohistorial = motivo_historial.id_motivohistorial WHERE DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
         $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_manuales WHERE DATE(fecha_captura) BETWEEN ' $FECHAINICIO ' AND '$FECHAFIN'");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
@@ -106,7 +106,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT * FROM control_manuales WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
+        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control_manuales.*, motivo_historial.* FROM control_manuales LEFT JOIN motivo_historial  ON control_manuales.id_motivohistorial = motivo_historial.id_motivohistorial WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
         $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_manuales WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN'");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
@@ -141,7 +141,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT * FROM control_manuales WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
+        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control_manuales.*, motivo_historial.* FROM control_manuales LEFT JOIN motivo_historial  ON control_manuales.id_motivohistorial = motivo_historial.id_motivohistorial WHERE DATE_FORMAT(fecha_captura, '%Y-%m') BETWEEN '$FECHAINICIO' AND '$FECHAFIN' ORDER BY fecha_captura DESC");
         $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_manuales WHERE DATE_FORMAT(fecha_captura, '%Y-%m')BETWEEN '$FECHAINICIO' AND '$FECHAFIN'");
         $total_registros = $sql_total_registros->fetch_assoc()['total_registros'];
 
@@ -175,7 +175,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT * FROM control_manuales WHERE DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO' ORDER BY fecha_captura DESC");
+        $sql_buscar_manuales_por_fecha = $conexion->query("SELECT control_manuales.*, motivo_historial.* FROM control_manuales LEFT JOIN motivo_historial  ON control_manuales.id_motivohistorial = motivo_historial.id_motivohistorial WHERE DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO' ORDER BY fecha_captura DESC");
 
         //contador de registros para busqueda por mes
         $sql_total_registros = $conexion->query("SELECT COUNT(*) AS total_registros FROM control_manuales WHERE DATE_FORMAT(fecha_captura, '%Y-%m') = '$FECHAINICIO'");

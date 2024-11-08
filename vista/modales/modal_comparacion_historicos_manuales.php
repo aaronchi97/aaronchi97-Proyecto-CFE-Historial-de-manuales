@@ -327,7 +327,7 @@
                         <?php
                         if ($_SESSION['rol'] == 1) { ?>
 
-                            <button style="margin-top: 5%;" class=" submitButton btn btn-info btn-rounded" name="btn_traer_vuelta_manual" type="submit" disabled onclick="return confirm('¿Estás seguro de que deseas traer la manual, ubicada en el historial, de regreso?')">Traer de vuelta</button>
+                            <button style="margin-top: 5%;" class=" submitButton btn btn-info btn-rounded" type="submit" disabled onclick="return confirm('¿Estás seguro de que deseas traer la manual, ubicada en el historial, de regreso?')">Traer de vuelta</button>
 
                             <!-- <a data-toggle="modal" data-target="#modal_confirmar_contraseña_manual<?= $datos->id_historial_manuales ?>" style="margin-top: 5%;" class="btn btn-info btn-rounded" data-dismiss="modal" aria-label="Close">Traer de vuelta</a> -->
 
@@ -420,73 +420,3 @@
         });
     });
 </script>
-
-
-
-
-
-<!-- //COMPARAR CADA INPUT ACTUAL CON EL ANTIGUO Y CAMBIAR EL BACKGROUND 
-<script>
-    function resaltarCambios() {
-        // Lista de pares de IDs de los inputs actual y antiguo
-        const campos = [{
-                actual: 'txtcuenta<?= $datos_actual->id_control_manuales ?>',
-                antigua: 'txtcuenta<?= $datos->id_control_manuales ?>'
-            },
-            {
-                actual: 'txtciclo<?= $datos_actual->id_control_manuales ?>',
-                antigua: 'txtciclo<?= $datos->id_control_manuales ?>'
-            },
-            {
-                actual: 'txtagencia<?= $datos_actual->id_control_manuales ?>',
-                antigua: 'txtagencia<?= $datos->id_control_manuales ?>'
-            },
-            {
-                actual: 'txtidmotivomanual_<?= $datos_actual->id_control_manuales ?>',
-                antigua: 'txtidmotivomanual_<?= $datos->id_control_manuales ?>'
-            },
-            {
-                actual: 'txtlectura_manual<?= $datos_actual->id_control_manuales ?>',
-                antigua: 'txtlectura_manual<?= $datos->id_control_manuales ?>'
-            },
-            {
-                actual: 'txtkwh_recuperar<?= $datos_actual->id_control_manuales ?>',
-                antigua: 'txtkwh_recuperar<?= $datos->id_control_manuales ?>'
-            },
-            {
-                actual: 'txtrespaldo_manual<?= $datos_actual->id_control_manuales ?>',
-                antigua: 'txtrespaldo_manual<?= $datos->id_control_manuales ?>'
-            },
-            {
-                actual: 'txtno_ordenservicio',
-                antigua: 'txtno_ordenservicio'
-            },
-            {
-                actual: 'txtrpe_auxiliar<?= $datos_actual->id_control_manuales ?>',
-                antigua: 'txtrpe_auxiliar<?= $datos->id_control_manuales ?>'
-            },
-            {
-                actual: 'txtobservaciones<?= $datos_actual->id_control_manuales ?>',
-                antigua: 'txtobservaciones<?= $datos->id_control_manuales ?>'
-            },
-            {
-                actual: 'txtresponsable_manual<?= $datos_actual->id_control_manuales ?>',
-                antigua: 'txtresponsable_manual<?= $datos->id_control_manuales ?>'
-            }
-        ];
-
-        // Comparar cada par de campos
-        campos.forEach(campo => {
-            const actual = document.getElementById(campo.actual);
-            const antigua = document.getElementById(campo.antigua);
-
-            // Si los valores son diferentes, cambia el fondo de la entrada antigua
-            if (actual && antigua && actual.value !== antigua.value) {
-                antigua.style.backgroundColor = '#FFCCCB'; // Color naranja rojizo claro
-            }
-        });
-    }
-
-    // Llamar a la función cuando la página cargue
-    window.onload = resaltarCambios;
-</script> -->

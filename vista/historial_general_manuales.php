@@ -43,8 +43,8 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
     $sql = $conexion->query(" SELECT historial_manuales.*, motivo_historial.*, estatus.*
     FROM historial_manuales
-    JOIN motivo_historial ON historial_manuales.id_motivohistorial = motivo_historial.id_motivohistorial
-    JOIN estatus ON historial_manuales.id_estatus = estatus.id_estatus
+    LEFT JOIN motivo_historial ON historial_manuales.id_motivohistorial = motivo_historial.id_motivohistorial
+    LEFT JOIN estatus ON historial_manuales.id_estatus = estatus.id_estatus
 
     WHERE historial_manuales.rpu = $rpu_historial_manual_buscar
 
