@@ -47,7 +47,7 @@
             <input type="text" placeholder="DNI del maestro" name="txtdni">
         </form> -->
 
-        <a class="boton-sinasu-manuales" href="vista/login/login_sinasu.php">
+        <a class="boton-sinasu-manuales" href="http://10.17.16.196/Proyecto-CFE/vista/login/login_sinasu.php">
 
 
             <div class="parte-sinasu-manuales">
@@ -102,8 +102,6 @@
 
 
     <script>
-
-
         setInterval(() => {
 
             let fecha = new Date();
