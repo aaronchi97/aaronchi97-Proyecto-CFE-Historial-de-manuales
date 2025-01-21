@@ -44,7 +44,14 @@ $id = $_SESSION["id"];
   include "../modelo/conexion.php";
   include "../controlador/controlador_modificar_perfil.php";
 
-  $sql = $conexion->query(" select * from usuario where id_usuario=$id ");
+  // $sql = $conexion->query(" select * from usuario where id_usuario=$id ");
+  $sql = $conexion->query("
+    SELECT usuario.*, roles.rol 
+    FROM usuario
+    LEFT JOIN roles ON usuario.id_rol = roles.id_rol
+    WHERE usuario.id_usuario = $id
+");
+
   ?>
 
   <section class="row">
@@ -104,19 +111,49 @@ $id = $_SESSION["id"];
         <input style="background-color: whitesmoke;" type="text" placeholder="Usuario" class="input input__text " name="txtusuario" value="<?= $datos->usuario ?>">
         </div>
 
-        <div class="fl-flex-label mb-4 px-2 col-12 col-md-6  campo">
 
-          <select name="txtid_rol" class="input input__select inputmodal">
-            <option value=""> Selecciona rol</option>
-            <?php
-            $sql_mostrar_rol = $conexion->query(" SELECT * FROM roles");
-            while ($datos3 = $sql_mostrar_rol->fetch_object()) { ?>
-              <option value="<?= $datos3->id_rol ?>"><?= $datos3->rol ?></option>
-            <?php }
-            ?>
-          </select>
+        <?php
 
-        </div>
+        if ($_SESSION['rol'] == 1) {
+        ?>
+          <div class="fl-flex-label mb-4 px-2 col-12 col-md-6  campo">
+
+            <select name="txtid_rol" class="input input__select inputmodal">
+              <option value=""> ROL: <?= $datos->rol ?> </option>
+              <?php
+              $sql_mostrar_rol = $conexion->query(" SELECT * FROM roles");
+              while ($datos3 = $sql_mostrar_rol->fetch_object()) { ?>
+                <option value="<?= $datos3->id_rol ?>"><?= $datos3->rol ?></option>
+              <?php }
+              ?>
+            </select>
+
+          </div>
+
+        <?php } else { ?>
+
+          <div class="fl-flex-label mb-4 px-2 col-12 col-md-6  campo">
+
+            <!-- <option value="" disabled selected>Seleccione un rol</option> -->
+
+            <!-- <select disabled name="txtid_rol" class="input input__select inputmodal">
+              <option value=""> ROL: <?= $datos->rol ?> </option>
+              <?php
+              $sql_mostrar_rol = $conexion->query(" SELECT * FROM roles");
+              while ($datos3 = $sql_mostrar_rol->fetch_object()) { ?>
+                <option value="<?= $datos3->id_rol ?>"><?= $datos3->rol ?></option>
+              <?php }
+              ?>
+            </select> -->
+
+            <input disabled name="txtid_rol" type="text" placeholder="ROL" class="input input__select inputmodal" value="<?= $datos->rol ?>">
+
+          </div>
+
+        <?php }
+        ?>
+
+
 
 
 
