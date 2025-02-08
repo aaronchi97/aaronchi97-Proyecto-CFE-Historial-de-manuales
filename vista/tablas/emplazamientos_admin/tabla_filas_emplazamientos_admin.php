@@ -59,5 +59,9 @@
 <td>
     <a href="" data-toggle="modal_modificacion_emplazamiento" data-target="#exampleModal<?= $datos->id_emplazamiento ?> " class="btn btn-success ">CORREGIR EMPLAZAMIENTO <i class="fa-brands fa-stack-overflow"></i></a>
     <a class="btn btn-warning" href="historial_emplazamientos.php?id_emplazamiento=<?= $datos->id_emplazamiento ?>">HISTÓRICO <i class="fa-solid fa-file-shield"></i></a>
+    <a class="btn btn-danger" href="emplazamientos.php?id_emplazamiento_pdf=<?= $datos->id_emplazamiento ?>">REPORTE <i class="fa-solid fa-download"></i></i></a>
     <a class="btn btn-danger" href="emplazamientos.php?id_emplazamiento_eliminar=<?= $datos->id_emplazamiento ?>" onclick=" advertencia(event)"><i class="fa-solid fa-trash-can"></i></a>
+</td>
+<td>
+    <a class="btn btn-info" href="emplazamientos.php?id_emplazamiento_pdf=<?= $datos->id_emplazamiento ?>" onclick="return confirm('¿Estás seguro que el emplazamiento ha sido validado con éxito?')">EMPLAZMIENTO REALIZADO <i class="fa-solid fa-check"></i></a>
 </td>

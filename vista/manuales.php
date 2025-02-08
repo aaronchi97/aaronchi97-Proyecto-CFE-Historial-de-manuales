@@ -134,10 +134,10 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
     <!-- AQUI AGREGAMOS EL FOMR PARA BUSCAR RPU INDIVIDUAL, PERO LA PRIMERA VISTA SERA LA QUE ESTA EN EL ELSE, QUE MUESTRA 
 LOS RPU QUE SE HAN REGISTRADO EN EL MES ACTUAL  -->
 
-    <form style="margin-bottom: 4%;" action="" method="post" id="searchForm">
+    <form class="formulario_btnsmanuales" style="margin-bottom: 4%;" action="" method="post" id="searchForm">
 
       <div style="margin-bottom: 3%;" class="fl-flex-label mb-4 px-2 col-12 col-md-10 campo">
-        <input type="text" class="input input__text" placeholder="Inserte RPU" id="searchInput" name="txtbuscarrpu">
+        <input type="text" class="input input_campobuscar input__text" placeholder="Inserte RPU" id="searchInput" name="txtbuscarrpu">
       </div>
       <button type="submit" class="btn btn-primary btn-rounded mb-10 otro" type="button" onclick="buscar()"><i class="fa-solid fa-search"></i> &nbsp;Buscar</button>
     </form>
@@ -192,10 +192,10 @@ ORDER BY cm.fecha_captura DESC;");
     if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2) {
     ?>
 
-      <form style="margin-bottom: 5%;" action="" method="post" id="searchForm">
+      <form class="formulario_btnsmanuales" style="margin-bottom: 5%;" action="" method="post" id="searchForm">
 
         <div style="margin-bottom: 3%;" class="fl-flex-label mb-4 px-2 col-12 col-md-10 campo">
-          <input type="text" class="input input__text" placeholder="Inserte RPU" id="searchInput" name="txtbuscarrpu">
+          <input type="text" class="input input_campobuscar input__text" placeholder="Inserte RPU" id="searchInput" name="txtbuscarrpu">
         </div>
         <button type="submit" class="btn btn-primary btn-rounded mb-10 otro" type="button" onclick="buscar()"><i class="fa-solid fa-search"></i> &nbsp;Buscar</button>
       </form>

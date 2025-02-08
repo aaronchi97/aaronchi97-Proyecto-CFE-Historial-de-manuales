@@ -15,7 +15,7 @@ if (!empty($_POST["btnregistrar"])) {
             and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"]) and !empty($_POST["txtkwh_recuperar"])
             and !empty($_POST["txtrespaldo_manual"]) and !empty($_POST["txtobservaciones"])
             and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"])
-            and !empty($_POST["txtestatus"]))
+            and !empty($_POST["txtestatus"])) and $_POST["txtidmotivomanual"] == 'ESTIMACION EN CERO CON ANOMALIA'
 
 
     ) {
@@ -39,7 +39,7 @@ if (!empty($_POST["btnregistrar"])) {
         date_default_timezone_set('America/Mexico_City');
         $fecha_captura = date("Y-m-d H:i:s");
 
-
+        echo $respaldo_manual;
 
 
         $sql_registro_manual = $conexion->query(" select count(*) as 'Total' from control_manuales where rpu=$rpu ");
@@ -125,7 +125,7 @@ if (!empty($_POST["btnregistrar"])) {
         and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"])
         and !empty($_POST["txtrespaldo_manual"]) and !empty($_POST["txtrpe_auxiliar"]) and !empty($_POST["txtobservaciones"])
         and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"])
-        and !empty($_POST["txtestatus"])
+        and !empty($_POST["txtestatus"])  and $_POST["txtidmotivomanual"] == 'ERROR EN TOMA DE LECTURA'
     ) {
 
 
@@ -238,7 +238,7 @@ if (!empty($_POST["btnregistrar"])) {
         and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"]) and !empty($_POST["txtkwh_recuperar"])
         and !empty($_POST["txtobservaciones"])
         and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"])
-        and !empty($_POST["txtestatus"])
+        and !empty($_POST["txtestatus"]) and $_POST["txtidmotivomanual"] == 'LECTURA DE RETIRO'
     ) {
 
 
@@ -353,7 +353,8 @@ if (!empty($_POST["btnregistrar"])) {
         and !empty($_POST["txtsin_uso"]) and !empty($_POST["txtlectura_manual"])
         and !empty($_POST["txtobservaciones"])
         and !empty($_POST["txtagencia"]) and !empty($_POST["txtresponsable_manual"])
-        and !empty($_POST["txtestatus"])
+        and !empty($_POST["txtestatus"]) and empty($_POST["txtrespaldo_manual"])
+        and $_POST["txtidmotivomanual"] == 'MEDIDOR SIN RETROALIMENTAR'
     ) {
 
 
@@ -498,6 +499,7 @@ if (!empty($_POST["btnregistrar"])) {
         date_default_timezone_set('America/Mexico_City');
         $fecha_captura = date("Y-m-d H:i:s");
 
+        var_dump($_POST);
 
 
 

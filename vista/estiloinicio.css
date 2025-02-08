@@ -119,6 +119,46 @@ th[scope="row"] {
   gap: 15px;
 }
 
+@media screen and (max-width: 830px) {
+  /* Estilos para pantalla móvil */
+  .botones-manual {
+    gap: 10px;
+    /* border-left: 1px #b0ea00 solid;
+    border-right: 1px #b0ea00 solid; */
+  }
+
+  .btn-generar-manual {
+    width: 100%;
+    /* border-bottom: 1.5px rgb(182, 182, 182) solid;
+    border-right: none; */
+    background-color: #e1e3da;
+    border: none;
+  }
+  .btn-generar-manual:hover {
+    border: none;
+  }
+  .btn-manual-validas {
+    width: 100%;
+    background-color: #e1e3da;
+    /* border-bottom: 1.5px rgb(182, 182, 182) solid; */
+    border: none;
+  }
+  .btn-manual-validas:hover {
+    border: none;
+  }
+
+  .btn-manual-pendiente {
+    width: 100%;
+    background-color: #e1e3da;
+    /* border-bottom: 1.5px rgb(182, 182, 182) solid;
+    border-left: none; */
+    border: none;
+  }
+  .btn-manual-pendiente:hover {
+    border: none;
+  }
+}
+
 .btn-generar-manual {
   /* background-color: rgb(95, 202, 24, 0.8); */
   /* background-color: rgba(79, 135, 41, 0.8); */
@@ -303,6 +343,9 @@ th[scope="row"] {
 .portfolio-experiment {
   /* background: #2d2d2d; */
   background: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 
   a {
     color: white;
@@ -427,6 +470,34 @@ th[scope="row"] {
     }
   }
 }
+
+/* VISTA PARA CELULAR-------  */
+
+@media screen and (max-width: 480px) {
+  /* Estilos para pantalla móvil */
+
+  .portfolio-experiment {
+    gap: 25px;
+    a {
+      text-align: center;
+      width: 100%;
+    }
+  }
+}
+
+/* VISTA PARA TABLETS-------  */
+
+/* @media screen and (max-width: 930px) {
+
+
+  .portfolio-experiment {
+    gap: 25px;
+    a {
+      text-align: center;
+      width: 45%;
+    }
+  }
+} */
 
 /* FOMULARIO PARA GENERAR MANUALES------------------------ */
 

@@ -10,8 +10,8 @@
         <title>Plantilla-php</title>
 
 
-        
-        <link href="https://tresplazas.com/web/img/big_punto_de_venta.png" rel="shortcut icon">
+
+        <!-- <link href="https://tresplazas.com/web/img/big_punto_de_venta.png" rel="shortcut icon"> -->
         <link href="../public/app/publico/css/lib/font-awesome/font-awesome.min.css" rel="stylesheet">
         <link href="../public/bootstrap5/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
@@ -47,8 +47,8 @@
         <!-- google fonts -->
         <link href="https://fonts.gstatic.com" rel="preconnect">
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-        
-        
+
+
         <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 
@@ -66,8 +66,8 @@
         <!-- chart js -->
         <script src="../public/chart/chart.js"></script>
 
-      
-        
+
+
 
         <style>
             .marca {
@@ -134,51 +134,51 @@
                     <div class="site-header-content-in">
                         <div class="site-header-shown">
 
-                                       <!-- VISTA DE QUIEN INICIA SESION (ROLES) -->
+                            <!-- VISTA DE QUIEN INICIA SESION (ROLES) -->
 
-                        <?php
+                            <?php
 
-if ($_SESSION['rol'] == 1 ) { 
-    ?>
-         <div class="dropdown dropdown-notification">
-                                <h6 class="text-light mt-2">
-                                   Administrador
-                                </h6>
-                            </div>
-    <?php
-
-    // $mostrarBoton = false;
-  
-      } else if ($_SESSION['rol'] == 2) {
-    ?>
-         <div class="dropdown dropdown-notification">
-                                <h6 class="text-light mt-2">
-                                  Supervisor
-                                </h6>
-                            </div>
-        
-    <?php
- 
-      }else if ($_SESSION['rol'] == 3)  {
-        ?>
-             <div class="dropdown dropdown-notification">
+                            if ($_SESSION['rol'] == 1) {
+                            ?>
+                                <div class="dropdown dropdown-notification">
                                     <h6 class="text-light mt-2">
-                                      Profesionista
+                                        Administrador
                                     </h6>
                                 </div>
-            
-        <?php
-     
-          }else { ?>
+                            <?php
 
-                            <div class="dropdown dropdown-notification">
+                                // $mostrarBoton = false;
+
+                            } else if ($_SESSION['rol'] == 2) {
+                            ?>
+                                <div class="dropdown dropdown-notification">
                                     <h6 class="text-light mt-2">
-                                      Consultor
+                                        Supervisor
                                     </h6>
                                 </div>
 
-        <?php }
-        ?>
+                            <?php
+
+                            } else if ($_SESSION['rol'] == 3) {
+                            ?>
+                                <div class="dropdown dropdown-notification">
+                                    <h6 class="text-light mt-2">
+                                        Profesionista
+                                    </h6>
+                                </div>
+
+                            <?php
+
+                            } else { ?>
+
+                                <div class="dropdown dropdown-notification">
+                                    <h6 class="text-light mt-2">
+                                        Consultor
+                                    </h6>
+                                </div>
+
+                            <?php }
+                            ?>
 
                             <div class="dropdown user-menu">
                                 <button class="dropdown-toggle" id="dd-user-menu" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -186,7 +186,7 @@ if ($_SESSION['rol'] == 1 ) {
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right pt-0" aria-labelledby="dd-user-menu">
 
-                                    <h5 class="p-2 text-center bg-primary"><?= $_SESSION["nombre"]. " ". $_SESSION["apellido"]  ?></h5>
+                                    <h5 class="p-2 text-center bg-primary"><?= $_SESSION["nombre"] . " " . $_SESSION["apellido"]  ?></h5>
                                     <a class="dropdown-item" href="datos_perfil.php"><span class="font-icon glyphicon glyphicon-user"></span>Perfil</a>
                                     <a class="dropdown-item" href="cambiar_clave.php"><span class="font-icon glyphicon glyphicon-lock"></span>Cambiar contraseña</a>
 

@@ -109,6 +109,9 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
         <a data-toggle="modal" data-target="#fechaModal" class="btn-manual-pendiente">POR CANCELAR <i class="fa-solid fa-skull-crossbones"></i></a>
 
+        <a data-toggle="modal" data-target="#emplazamientosValidadosModal" class="btn-manual-pendiente">VALIDADAS <i class="fa-solid fa-check"></i></a>
+
+
     </section>
 
 
@@ -159,10 +162,11 @@ LOS RPU QUE SE HAN REGISTRADO EN EL MES ACTUAL  -->
         date_default_timezone_set('America/Mexico_City');
         $mes_actual = date('m');
 
-        // Realizar la consulta SQL
-        $sql_mes = $conexion->query("SELECT * FROM emplazamientos WHERE MONTH(fecha_emplazamiento) = $mes_actual ORDER BY fecha_emplazamiento DESC");
+        // // Realizar la consulta SQL
+        // $sql_mes = $conexion->query("SELECT * FROM emplazamientos WHERE MONTH(fecha_emplazamiento) = $mes_actual ORDER BY fecha_emplazamiento DESC");
 
-
+        // CONEXION SIN RANGO DE MES
+        $sql_mes = $conexion->query("SELECT * FROM emplazamientos ORDER BY fecha_emplazamiento DESC");
 
 
 

@@ -148,7 +148,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
                 <select name="txtestatus" class="input input__select inputmodal">
 
-                    <option value=""> SELECCIONA EL MOTIVO </option>
+                    <option value=""> SELECCIONA EL ESTATUS </option>
                     <?php
                     $sql_mostrar_motivo_status = $conexion->query(" SELECT *
                                 FROM estatus ");

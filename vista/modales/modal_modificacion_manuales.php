@@ -532,9 +532,11 @@ SCRIPT PARA ACTIVAR INPUTS SEGUN SEA EL CASO POR MOTIVO DE MANUALES.------------
 
             // // Limpiar los campos específicos dependiendo del motivo
             // limpiarCamposSegunMotivo(motivo);
+            console.log('Motivo recibido:', motivo);
 
 
 
+            console.log(motivo);
             // Mostrar contenedores según el motivo seleccionado
             switch (motivo) {
                 case 'ERROR EN TOMA DE LECTURA':
@@ -655,6 +657,15 @@ SCRIPT PARA ACTIVAR INPUTS SEGUN SEA EL CASO POR MOTIVO DE MANUALES.------------
                     //  //eliminar inputs
                     //  $('input[name="txtkwh_recuperar"]').val(null);
                     //  $('input[name="txtrpe_auxiliar"]').val(null);
+                    break;
+                case 'default':
+                    $('[id^="contenedor_lectura_manual"]').show();
+                    $('[id^="contenedor_txtrpe_auxiliar"]').show();
+                    $('[id^="contenedor_respaldo_manual"]').show();
+                    $('[id^="contenedor_observaciones"]').show();
+                    $('[id^="contenedor_responsable_manual"]').show();
+                    $('[id^="contenedor_txtmotivo"]').show();
+                    $('[id^="contenedor_respaldo_manual"]').show();
                     break;
 
             }

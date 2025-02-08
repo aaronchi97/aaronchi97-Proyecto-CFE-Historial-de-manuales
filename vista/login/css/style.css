@@ -332,6 +332,16 @@ a:hover {
   color: white;
 }
 
+/* @media screen and (max-width: 500px) {
+ 
+  .formulario_btnsmanuales {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border: 2px red solid;
+  }
+} */
+
 .btn-sinasu {
   display: block;
   width: 100%;

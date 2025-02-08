@@ -51,7 +51,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
     $id_negativa_obtenido = $_GET['id_negativas'];
 
-    echo $id_negativa_obtenido;
+    // echo $id_negativa_obtenido;
 
     // $sql = $conexion->query(" SELECT * from historial_manuales where id_control_manuales = $id_manual_obtenido order by fecha_historial desc;");
 

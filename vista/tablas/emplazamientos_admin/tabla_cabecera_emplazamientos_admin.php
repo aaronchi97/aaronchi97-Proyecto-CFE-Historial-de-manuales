@@ -26,3 +26,4 @@
 <!-- <th scope="col">MODIFICÓ</th> -->
 
 <th scope="col">ACCION</th>
+<th scope="col">CHECK-</th>

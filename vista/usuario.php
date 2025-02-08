@@ -58,7 +58,7 @@ if (empty($_SESSION['nombre']) and empty($_SESSION['apellido'])) {
 
 
 
-  <a href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-user-plus "></i> &nbsp;
+  <a style="margin-bottom: 3%;" href="registro_usuario.php" class="btn btn-primary btn-rounded mb-3 otro"><i class="fa-solid fa-user-plus "></i> &nbsp;
     REGISTRAR</a>
 
 

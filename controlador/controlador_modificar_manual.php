@@ -11,26 +11,53 @@ if (!empty($_POST["btnmodificar"])) {
     ) {
 
         //Si existe el input "txtrespaldo_manual" entonces se debe incluir el input "txtno_ordenservicio"
-        $id_manual = $_POST["txtid"];
-        $rpu = $_POST["txtrpu"];
-        $cuenta = $_POST["txtcuenta"];
-        $ciclo = $_POST["txtciclo"];
-        $tarifa = $_POST["txttarifa"];
-        $motivo_manual = $_POST["txtidmotivomanual"];
-        $sin_uso = $_POST["txtsin_uso"];
-        $lectura_manual = $_POST["txtlectura_manual"];
-        $kwh_recuperar = $_POST["txtkwh_recuperar"];
-        $respaldo_manual = $_POST["txtrespaldo_manual"];
-        // $rpe_auxiliar = $_POST["txtrpe_auxiliar"];
-        $observaciones = $_POST["txtobservaciones"];
-        // $correccion = $_POST["txtcorreccion"];
-        $agencia = $_POST["txtagencia"];
-        $responsable_manual = $_POST["txtresponsable_manual"];
-        $no_ordenservicio = $_POST["txtno_ordenservicio"];
-        $motivo_correccion = $_POST["txtmotivo"];
+        // $id_manual = $_POST["txtid"];
+        // $rpu = $_POST["txtrpu"];
+        // $cuenta = $_POST["txtcuenta"];
+        // $ciclo = $_POST["txtciclo"];
+        // $tarifa = $_POST["txttarifa"];
+        // $motivo_manual = $_POST["txtidmotivomanual"];
+        // $sin_uso = $_POST["txtsin_uso"];
+        // $lectura_manual = $_POST["txtlectura_manual"];
+        // $kwh_recuperar = $_POST["txtkwh_recuperar"];
+        // $respaldo_manual = $_POST["txtrespaldo_manual"];
+        // // $rpe_auxiliar = $_POST["txtrpe_auxiliar"];
+        // $observaciones = $_POST["txtobservaciones"];
+        // // $correccion = $_POST["txtcorreccion"];
+        // $agencia = $_POST["txtagencia"];
+        // $responsable_manual = $_POST["txtresponsable_manual"];
+        // $no_ordenservicio = $_POST["txtno_ordenservicio"];
+        // $motivo_correccion = $_POST["txtmotivo"];
 
-        //Responsable de modificar manual
-        $responsable_modificacion = $_POST["txtresponsable_modificacion"];
+        // //Responsable de modificar manual
+        // $responsable_modificacion = $_POST["txtresponsable_modificacion"];
+        $id_manual = isset($_POST["txtid"]) ? trim($_POST["txtid"]) : '';
+        $rpu = isset($_POST["txtrpu"]) ? trim($_POST["txtrpu"]) : '';
+        $cuenta = isset($_POST["txtcuenta"]) ? trim($_POST["txtcuenta"]) : '';
+        $ciclo = isset($_POST["txtciclo"]) ? trim($_POST["txtciclo"]) : '';
+        $tarifa = isset($_POST["txttarifa"]) ? trim($_POST["txttarifa"]) : '';
+        $motivo_manual = isset($_POST["txtidmotivomanual"]) ? trim($_POST["txtidmotivomanual"]) : '';
+        $sin_uso = isset($_POST["txtsin_uso"]) ? trim($_POST["txtsin_uso"]) : '';
+        $lectura_manual = isset($_POST["txtlectura_manual"]) ? trim($_POST["txtlectura_manual"]) : '';
+        $kwh_recuperar = isset($_POST["txtkwh_recuperar"]) ? trim($_POST["txtkwh_recuperar"]) : '';
+        $respaldo_manual = isset($_POST["txtrespaldo_manual"]) ? trim($_POST["txtrespaldo_manual"]) : '';
+        // $rpe_auxiliar = isset($_POST["txtrpe_auxiliar"]) ? trim($_POST["txtrpe_auxiliar"]) : '';
+        $observaciones = isset($_POST["txtobservaciones"]) ? trim($_POST["txtobservaciones"]) : '';
+        // $correccion = isset($_POST["txtcorreccion"]) ? trim($_POST["txtcorreccion"]) : '';
+        $agencia = isset($_POST["txtagencia"]) ? trim($_POST["txtagencia"]) : '';
+        $responsable_manual = isset($_POST["txtresponsable_manual"]) ? trim($_POST["txtresponsable_manual"]) : '';
+        $no_ordenservicio = isset($_POST["txtno_ordenservicio"]) ? trim($_POST["txtno_ordenservicio"]) : '';
+        $motivo_correccion = isset($_POST["txtmotivo"]) ? trim($_POST["txtmotivo"]) : '';
+
+        // Responsable de modificar manual
+        $responsable_modificacion = isset($_POST["txtresponsable_modificacion"]) ? trim($_POST["txtresponsable_modificacion"]) : '';
+
+
+        //VALORES QUE NO PARTICIPAN EN LA CONSULTA
+
+        $rpe_auxiliar = isset($_POST["txtrpe_auxiliar"]) ? trim($_POST["txtrpe_auxiliar"]) : '';
+        $correccion = isset($_POST["txtcorreccion"]) ? trim($_POST["txtcorreccion"]) : '';
+
 
 
         $sql = $conexion->query(" select count(*) as 'Total' from control_manuales where rpu=$rpu and id_control_manuales!=$id_manual");
@@ -152,27 +179,30 @@ if (!empty($_POST["btnmodificar"])) {
         and $_POST["txtidmotivomanual"] == 'ERROR EN TOMA DE LECTURA'
     ) {
 
-        $id_manual = $_POST["txtid"];
-        $rpu = $_POST["txtrpu"];
-        $cuenta = $_POST["txtcuenta"];
-        $ciclo = $_POST["txtciclo"];
-        $tarifa = $_POST["txttarifa"];
-        $motivo_manual = $_POST["txtidmotivomanual"];
-        $sin_uso = $_POST["txtsin_uso"];
-        $lectura_manual = $_POST["txtlectura_manual"];
-        // $kwh_recuperar = $_POST["txtkwh_recuperar"];
-        $respaldo_manual = $_POST["txtrespaldo_manual"];
-        $rpe_auxiliar = $_POST["txtrpe_auxiliar"];
-        $observaciones = $_POST["txtobservaciones"];
-        // $correccion = $_POST["txtcorreccion"];
-        $agencia = $_POST["txtagencia"];
-        $responsable_manual = $_POST["txtresponsable_manual"];
-        $no_ordenservicio = $_POST["txtno_ordenservicio"];
-        $motivo_correccion = $_POST["txtmotivo"];
+        $id_manual = isset($_POST["txtid"]) ? trim($_POST["txtid"]) : '';
+        $rpu = isset($_POST["txtrpu"]) ? trim($_POST["txtrpu"]) : '';
+        $cuenta = isset($_POST["txtcuenta"]) ? trim($_POST["txtcuenta"]) : '';
+        $ciclo = isset($_POST["txtciclo"]) ? trim($_POST["txtciclo"]) : '';
+        $tarifa = isset($_POST["txttarifa"]) ? trim($_POST["txttarifa"]) : '';
+        $motivo_manual = isset($_POST["txtidmotivomanual"]) ? trim($_POST["txtidmotivomanual"]) : '';
+        $sin_uso = isset($_POST["txtsin_uso"]) ? trim($_POST["txtsin_uso"]) : '';
+        $lectura_manual = isset($_POST["txtlectura_manual"]) ? trim($_POST["txtlectura_manual"]) : '';
+        // $kwh_recuperar = isset($_POST["txtkwh_recuperar"]) ? trim($_POST["txtkwh_recuperar"]) : '';
+        $respaldo_manual = isset($_POST["txtrespaldo_manual"]) ? trim($_POST["txtrespaldo_manual"]) : '';
+        $rpe_auxiliar = isset($_POST["txtrpe_auxiliar"]) ? trim($_POST["txtrpe_auxiliar"]) : '';
+        $observaciones = isset($_POST["txtobservaciones"]) ? trim($_POST["txtobservaciones"]) : '';
+        // $correccion = isset($_POST["txtcorreccion"]) ? trim($_POST["txtcorreccion"]) : '';
+        $agencia = isset($_POST["txtagencia"]) ? trim($_POST["txtagencia"]) : '';
+        $responsable_manual = isset($_POST["txtresponsable_manual"]) ? trim($_POST["txtresponsable_manual"]) : '';
+        $no_ordenservicio = isset($_POST["txtno_ordenservicio"]) ? trim($_POST["txtno_ordenservicio"]) : '';
+        $motivo_correccion = isset($_POST["txtmotivo"]) ? trim($_POST["txtmotivo"]) : '';
 
-        //Responsable de modificar manual
-        $responsable_modificacion = $_POST["txtresponsable_modificacion"];
+        // Responsable de modificar manual
+        $responsable_modificacion = isset($_POST["txtresponsable_modificacion"]) ? trim($_POST["txtresponsable_modificacion"]) : '';
 
+        //MOTIVOS QUE NO PARTICIPOAN EN LA CONSULTA
+        $kwh_recuperar = isset($_POST["txtkwh_recuperar"]) ? trim($_POST["txtkwh_recuperar"]) : '';
+        $correccion = isset($_POST["txtcorreccion"]) ? trim($_POST["txtcorreccion"]) : '';
 
 
         $sql = $conexion->query(" select count(*) as 'Total' from control_manuales where rpu=$rpu and id_control_manuales!=$id_manual");
@@ -290,26 +320,50 @@ if (!empty($_POST["btnmodificar"])) {
     ) {
 
 
-        $id_manual = $_POST["txtid"];
-        $rpu = $_POST["txtrpu"];
-        $cuenta = $_POST["txtcuenta"];
-        $ciclo = $_POST["txtciclo"];
-        $tarifa = $_POST["txttarifa"];
-        $motivo_manual = $_POST["txtidmotivomanual"];
-        $sin_uso = $_POST["txtsin_uso"];
-        $lectura_manual = $_POST["txtlectura_manual"];
-        $kwh_recuperar = $_POST["txtkwh_recuperar"];
-        // $respaldo_manual = $_POST["txtrespaldo_manual"];
-        // $rpe_auxiliar = $_POST["txtrpe_auxiliar"];
-        $observaciones = $_POST["txtobservaciones"];
-        // $correccion = $_POST["txtcorreccion"];
-        $agencia = $_POST["txtagencia"];
-        $responsable_manual = $_POST["txtresponsable_manual"];
-        $motivo_correccion = $_POST["txtmotivo"];
+        // $id_manual = $_POST["txtid"];
+        // $rpu = $_POST["txtrpu"];
+        // $cuenta = $_POST["txtcuenta"];
+        // $ciclo = $_POST["txtciclo"];
+        // $tarifa = $_POST["txttarifa"];
+        // $motivo_manual = $_POST["txtidmotivomanual"];
+        // $sin_uso = $_POST["txtsin_uso"];
+        // $lectura_manual = $_POST["txtlectura_manual"];
+        // $kwh_recuperar = $_POST["txtkwh_recuperar"];
+        // // $respaldo_manual = $_POST["txtrespaldo_manual"];
+        // // $rpe_auxiliar = $_POST["txtrpe_auxiliar"];
+        // $observaciones = $_POST["txtobservaciones"];
+        // // $correccion = $_POST["txtcorreccion"];
+        // $agencia = $_POST["txtagencia"];
+        // $responsable_manual = $_POST["txtresponsable_manual"];
+        // $motivo_correccion = $_POST["txtmotivo"];
 
-        //Responsable de modificar manual
-        $responsable_modificacion = $_POST["txtresponsable_modificacion"];
+        // //Responsable de modificar manual
+        // $responsable_modificacion = $_POST["txtresponsable_modificacion"];
 
+        $id_manual = isset($_POST["txtid"]) ? trim($_POST["txtid"]) : '';
+        $rpu = isset($_POST["txtrpu"]) ? trim($_POST["txtrpu"]) : '';
+        $cuenta = isset($_POST["txtcuenta"]) ? trim($_POST["txtcuenta"]) : '';
+        $ciclo = isset($_POST["txtciclo"]) ? trim($_POST["txtciclo"]) : '';
+        $tarifa = isset($_POST["txttarifa"]) ? trim($_POST["txttarifa"]) : '';
+        $motivo_manual = isset($_POST["txtidmotivomanual"]) ? trim($_POST["txtidmotivomanual"]) : '';
+        $sin_uso = isset($_POST["txtsin_uso"]) ? trim($_POST["txtsin_uso"]) : '';
+        $lectura_manual = isset($_POST["txtlectura_manual"]) ? trim($_POST["txtlectura_manual"]) : '';
+        $kwh_recuperar = isset($_POST["txtkwh_recuperar"]) ? trim($_POST["txtkwh_recuperar"]) : '';
+        // $respaldo_manual = isset($_POST["txtrespaldo_manual"]) ? trim($_POST["txtrespaldo_manual"]) : '';
+        // $rpe_auxiliar = isset($_POST["txtrpe_auxiliar"]) ? trim($_POST["txtrpe_auxiliar"]) : '';
+        $observaciones = isset($_POST["txtobservaciones"]) ? trim($_POST["txtobservaciones"]) : '';
+        // $correccion = isset($_POST["txtcorreccion"]) ? trim($_POST["txtcorreccion"]) : '';
+        $agencia = isset($_POST["txtagencia"]) ? trim($_POST["txtagencia"]) : '';
+        $responsable_manual = isset($_POST["txtresponsable_manual"]) ? trim($_POST["txtresponsable_manual"]) : '';
+        $motivo_correccion = isset($_POST["txtmotivo"]) ? trim($_POST["txtmotivo"]) : '';
+
+        // Responsable de modificar manual
+        $responsable_modificacion = isset($_POST["txtresponsable_modificacion"]) ? trim($_POST["txtresponsable_modificacion"]) : '';
+
+        //MOTIVOS QUE NO PARTICIPAN EN LA CONSULTA:
+        $respaldo_manual = isset($_POST["txtrespaldo_manual"]) ? trim($_POST["txtrespaldo_manual"]) : '';
+        $rpe_auxiliar = isset($_POST["txtrpe_auxiliar"]) ? trim($_POST["txtrpe_auxiliar"]) : '';
+        $correccion = isset($_POST["txtcorreccion"]) ? trim($_POST["txtcorreccion"]) : '';
 
 
         $sql = $conexion->query(" select count(*) as 'Total' from control_manuales where rpu=$rpu and id_control_manuales!=$id_manual");
@@ -430,27 +484,52 @@ if (!empty($_POST["btnmodificar"])) {
     ) {
 
 
-        $id_manual = $_POST["txtid"];
-        $rpu = $_POST["txtrpu"];
-        $cuenta = $_POST["txtcuenta"];
-        $ciclo = $_POST["txtciclo"];
-        $tarifa = $_POST["txttarifa"];
-        $motivo_manual = $_POST["txtidmotivomanual"];
-        $sin_uso = $_POST["txtsin_uso"];
-        $lectura_manual = $_POST["txtlectura_manual"];
-        // $kwh_recuperar = $_POST["txtkwh_recuperar"];
-        // $respaldo_manual = $_POST["txtrespaldo_manual"];
-        // $rpe_auxiliar = $_POST["txtrpe_auxiliar"];
-        $observaciones = $_POST["txtobservaciones"];
-        // $correccion = $_POST["txtcorreccion"];
-        $agencia = $_POST["txtagencia"];
-        $responsable_manual = $_POST["txtresponsable_manual"];
-        $motivo_correccion = $_POST["txtmotivo"];
+        // $id_manual = $_POST["txtid"];
+        // $rpu = $_POST["txtrpu"];
+        // $cuenta = $_POST["txtcuenta"];
+        // $ciclo = $_POST["txtciclo"];
+        // $tarifa = $_POST["txttarifa"];
+        // $motivo_manual = $_POST["txtidmotivomanual"];
+        // $sin_uso = $_POST["txtsin_uso"];
+        // $lectura_manual = $_POST["txtlectura_manual"];
+        // // $kwh_recuperar = $_POST["txtkwh_recuperar"];
+        // // $respaldo_manual = $_POST["txtrespaldo_manual"];
+        // // $rpe_auxiliar = $_POST["txtrpe_auxiliar"];
+        // $observaciones = $_POST["txtobservaciones"];
+        // // $correccion = $_POST["txtcorreccion"];
+        // $agencia = $_POST["txtagencia"];
+        // $responsable_manual = $_POST["txtresponsable_manual"];
+        // $motivo_correccion = $_POST["txtmotivo"];
 
-        //Responsable de modificar manual
-        $responsable_modificacion = $_POST["txtresponsable_modificacion"];
+        // //Responsable de modificar manual
+        // $responsable_modificacion = $_POST["txtresponsable_modificacion"];
 
+        $id_manual = isset($_POST["txtid"]) ? trim($_POST["txtid"]) : '';
+        $rpu = isset($_POST["txtrpu"]) ? trim($_POST["txtrpu"]) : '';
+        $cuenta = isset($_POST["txtcuenta"]) ? trim($_POST["txtcuenta"]) : '';
+        $ciclo = isset($_POST["txtciclo"]) ? trim($_POST["txtciclo"]) : '';
+        $tarifa = isset($_POST["txttarifa"]) ? trim($_POST["txttarifa"]) : '';
+        $motivo_manual = isset($_POST["txtidmotivomanual"]) ? trim($_POST["txtidmotivomanual"]) : '';
+        $sin_uso = isset($_POST["txtsin_uso"]) ? trim($_POST["txtsin_uso"]) : '';
+        $lectura_manual = isset($_POST["txtlectura_manual"]) ? trim($_POST["txtlectura_manual"]) : '';
+        // $kwh_recuperar = isset($_POST["txtkwh_recuperar"]) ? trim($_POST["txtkwh_recuperar"]) : '';
+        // $respaldo_manual = isset($_POST["txtrespaldo_manual"]) ? trim($_POST["txtrespaldo_manual"]) : '';
+        // $rpe_auxiliar = isset($_POST["txtrpe_auxiliar"]) ? trim($_POST["txtrpe_auxiliar"]) : '';
+        $observaciones = isset($_POST["txtobservaciones"]) ? trim($_POST["txtobservaciones"]) : '';
+        // $correccion = isset($_POST["txtcorreccion"]) ? trim($_POST["txtcorreccion"]) : '';
+        $agencia = isset($_POST["txtagencia"]) ? trim($_POST["txtagencia"]) : '';
+        $responsable_manual = isset($_POST["txtresponsable_manual"]) ? trim($_POST["txtresponsable_manual"]) : '';
+        $motivo_correccion = isset($_POST["txtmotivo"]) ? trim($_POST["txtmotivo"]) : '';
 
+        // Responsable de modificar manual
+        $responsable_modificacion = isset($_POST["txtresponsable_modificacion"]) ? trim($_POST["txtresponsable_modificacion"]) : '';
+
+        //MOTIVOS QUE NO PARTICIPAN EN LA CONSULTA
+
+        $kwh_recuperar = isset($_POST["txtkwh_recuperar"]) ? trim($_POST["txtkwh_recuperar"]) : '';
+        $respaldo_manual = isset($_POST["txtrespaldo_manual"]) ? trim($_POST["txtrespaldo_manual"]) : '';
+        $rpe_auxiliar = isset($_POST["txtrpe_auxiliar"]) ? trim($_POST["txtrpe_auxiliar"]) : '';
+        $correccion = isset($_POST["txtcorreccion"]) ? trim($_POST["txtcorreccion"]) : '';
 
 
 
@@ -576,26 +655,52 @@ if (!empty($_POST["btnmodificar"])) {
     ) {
 
 
-        $id_manual = $_POST["txtid"];
-        $rpu = $_POST["txtrpu"];
-        $cuenta = $_POST["txtcuenta"];
-        $ciclo = $_POST["txtciclo"];
-        $tarifa = $_POST["txttarifa"];
-        $motivo_manual = $_POST["txtidmotivomanual"];
-        $sin_uso = $_POST["txtsin_uso"];
-        $lectura_manual = $_POST["txtlectura_manual"];
-        // $kwh_recuperar = $_POST["txtkwh_recuperar"];
-        $respaldo_manual = $_POST["txtrespaldo_manual"];
-        // $rpe_auxiliar = $_POST["txtrpe_auxiliar"];
-        $observaciones = $_POST["txtobservaciones"];
-        // $correccion = $_POST["txtcorreccion"];
-        $agencia = $_POST["txtagencia"];
-        $responsable_manual = $_POST["txtresponsable_manual"];
-        $no_ordenservicio = $_POST["txtno_ordenservicio"];
-        $motivo_correccion = $_POST["txtmotivo"];
+        // $id_manual = $_POST["txtid"];
+        // $rpu = $_POST["txtrpu"];
+        // $cuenta = $_POST["txtcuenta"];
+        // $ciclo = $_POST["txtciclo"];
+        // $tarifa = $_POST["txttarifa"];
+        // $motivo_manual = $_POST["txtidmotivomanual"];
+        // $sin_uso = $_POST["txtsin_uso"];
+        // $lectura_manual = $_POST["txtlectura_manual"];
+        // // $kwh_recuperar = $_POST["txtkwh_recuperar"];
+        // $respaldo_manual = $_POST["txtrespaldo_manual"];
+        // // $rpe_auxiliar = $_POST["txtrpe_auxiliar"];
+        // $observaciones = $_POST["txtobservaciones"];
+        // // $correccion = $_POST["txtcorreccion"];
+        // $agencia = $_POST["txtagencia"];
+        // $responsable_manual = $_POST["txtresponsable_manual"];
+        // $no_ordenservicio = $_POST["txtno_ordenservicio"];
+        // $motivo_correccion = $_POST["txtmotivo"];
 
-        //Responsable de modificar manual
-        $responsable_modificacion = $_POST["txtresponsable_modificacion"];
+        // //Responsable de modificar manual
+        // $responsable_modificacion = $_POST["txtresponsable_modificacion"];
+
+        $id_manual = trim(strval($_POST["txtid"] ?? ''));
+        $rpu = trim(strval($_POST["txtrpu"] ?? ''));
+        $cuenta = trim(strval($_POST["txtcuenta"] ?? ''));
+        $ciclo = trim(strval($_POST["txtciclo"] ?? ''));
+        $tarifa = trim(strval($_POST["txttarifa"] ?? ''));
+        $motivo_manual = trim(strval($_POST["txtidmotivomanual"] ?? ''));
+        $sin_uso = trim(strval($_POST["txtsin_uso"] ?? ''));
+        $lectura_manual = trim(strval($_POST["txtlectura_manual"] ?? ''));
+        // $kwh_recuperar = trim(strval($_POST["txtkwh_recuperar"] ?? ''));
+        $respaldo_manual = trim(strval($_POST["txtrespaldo_manual"] ?? ''));
+        // $rpe_auxiliar = trim(strval($_POST["txtrpe_auxiliar"] ?? ''));
+        $observaciones = trim(strval($_POST["txtobservaciones"] ?? ''));
+        // $correccion = trim(strval($_POST["txtcorreccion"] ?? ''));
+        $agencia = trim(strval($_POST["txtagencia"] ?? ''));
+        $responsable_manual = trim(strval($_POST["txtresponsable_manual"] ?? ''));
+        $no_ordenservicio = trim(strval($_POST["txtno_ordenservicio"] ?? ''));
+        $motivo_correccion = trim(strval($_POST["txtmotivo"] ?? ''));
+
+        // Responsable de modificar manual
+        $responsable_modificacion = trim(strval($_POST["txtresponsable_modificacion"] ?? ''));
+
+        //MOTIVOS QUE NO PARTICIPAN EN LA CONSIULTA
+        $kwh_recuperar = trim(strval($_POST["txtkwh_recuperar"] ?? ''));
+        $rpe_auxiliar = trim(strval($_POST["txtrpe_auxiliar"] ?? ''));
+        $correccion = trim(strval($_POST["txtcorreccion"] ?? ''));
 
 
 
